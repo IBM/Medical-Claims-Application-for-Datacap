@@ -1,0 +1,12 @@
+<ruleset id="28" name="Imagefix" ver="3" modder="admin.2" dt="02/01/11.718  15:38:13.718 " src_ver="2">
+	<rule name="Rule1" id="1">
+		<func name="Function1">
+			<a name="LoadSettings" ns="com:Datacap.Libraries.ImageFix.Actions=Datacap.Libraries.ImageFix.Actions" qi="">
+				<p name="BackupFileExtension" type="string" qi="Path to the ImageFix Settings file (.ini)" v="@APPPATH(imagefixblack)"/>
+			</a>
+			<a name="ImageEnhance" ns="com:Datacap.Libraries.ImageFix.Actions=Datacap.Libraries.ImageFix.Actions" qi="">
+				<p name="BackupFileExtension" type="string" qi="The file extension that the action is to assign to the backup of the original Image file." v="tio"/>
+			</a>
+		</func>
+	</rule>
+</ruleset>

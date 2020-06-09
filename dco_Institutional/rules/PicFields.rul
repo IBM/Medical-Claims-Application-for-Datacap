@@ -1,0 +1,14 @@
+<ruleset name="PicFields" id="9" v="1">
+	<rule name="Check picture string and lengths" id="1">
+		<func name="Function1">
+      <a name="PIC_FormatFields" ns="picture">
+        <p type="bInter" name="bInter"/>
+        <p type="bDebug" name="bDebug"/>
+      </a>
+      <a name="FormatFieldLengths" ns="MC_Validation">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+		</func>
+	</rule>
+</ruleset>

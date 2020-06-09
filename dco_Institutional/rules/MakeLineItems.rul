@@ -1,0 +1,44 @@
+<ruleset name="MakeLineItems" id="14" ver="1">
+	<rule name="Rule1" id="1">
+		<func name="Function1">
+			<a name="rr_Get" ns="rrunner">
+				<p type="bInter"/>
+				<p type="bDebug"/>
+				<p type="strParam" v="@P.Fixup"/>
+			</a>
+			<a name="PIC_FormatFields" ns="picture">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="TransformLI" ns="MC_Validation">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="rrSet" ns="rrunner">
+				<p name="varSource" v="Yes"/>
+				<p name="varTarget" v="@P.LI"/>
+			</a>
+		</func>
+		<func name="Function2">
+			<a name="rr_Get" ns="rrunner">
+				<p type="bInter"/>
+				<p type="bDebug"/>
+				<p type="strParam" v="@P.LI"/>
+			</a>
+		</func>
+		<func name="Function3">
+			<a name="PIC_FormatFields" ns="picture">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="TransformLI" ns="MC_Validation">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="rrSet" ns="rrunner">
+				<p name="varSource" v="Yes"/>
+				<p name="varTarget" v="@P.LI"/>
+			</a>
+		</func>
+	</rule>
+</ruleset>

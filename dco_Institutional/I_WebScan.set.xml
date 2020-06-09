@@ -1,0 +1,51 @@
+<?xml-stylesheet type="text/xsl" href="..\..\ProgramSet\set.xsl"?>
+<S>
+  <P tip="General Batch Processing Settings" title="Batch Processing" n="BatchProcessing">
+    <V n="Page1" label="Web Program" tip="Specifies ASPX module that handles the task in Datacap Web Server" type="text" disabled="true">vscancl.aspx</V>
+    <V n="CreateDoc" label="Create Document Node" tip="Specifies to create doc node for the scan task" type="checkbox">0</V>
+    <V n="CreateDir" label="Create Batch Directory" tip="Specifies to assume batch creation mode and create batch directory" type="checkbox">1</V>
+    <V n="TaskDCOFile" label="Output DCO File" tip="Specifies name for the output dco file for the task" type="text">taskname.xml</V>
+    <V n="Hold" label="Allow Hold" tip="Allows placing batches on hold to continue later" type="checkbox">1</V>
+    <P tip="Settings that determine batch navigation" title="Navigation" n="Navigation">
+      <V n="DOF" label="Validation Statuses" tip="Comma-separated list of Done,Override,Fail statuses assigned after validation, according to results." type="text">0,2,1</V>
+    </P>
+  </P>
+  <P tip="Settings that enable RRS rules execution" title="Rulerunner Service" n="Rulerunner">
+    <V n="StartPanel" label="Show the Start Batch Panel" tip="Select this check box to display the Start Batch Panel when a new batch is started." type="checkbox">1</V>
+    <V n="TProfile" label="Main Task Profile(s)" tip="Main task profile to run on Submit" type="text">
+    </V>
+    <V n="AltTProfile" label="Alternative Task Profile(s)" tip="Alternative task profile setting creates extra buttons for special data handling cases" type="text">
+    </V>
+    <V n="PreTProfile" label="Preparation Task Profile" tip="Task profile to prepare date before display" type="text">
+    </V>
+    <P tip="RRS log settings for the task" title="RRS Log Settings" n="RRSLog">
+      <V n="ServiceLog" label="Service Log" tip="Enable RRS service logging" type="text">3</V>
+      <V n="BatchLog" label="Batch Log" tip="Produce RRS log in batch folder" type="text">
+      </V>
+      <V n="ActionLogLevel" label="Action Log Level" tip="Severity level for RRS logging from action execution" type="text">
+      </V>
+      <V n="LogReflush" label="Flush Buffer" tip="Flushes file buffer after each write operation - degrades performance" type="checkbox">0</V>
+    </P>
+    <V n="RRSType" label="RRS Type" tip="Switch between LocalRRS and HttpWRRS execution" type="text">LocalRRS</V>
+    <V n="HttpWRRS" label="WRRS URL" tip="Specify HTTP URL path for WRRS execution" type="text">http://127.0.0.1/RRS/</V>
+  </P>
+  <P tip="Settings for static task panels" title="Custom Web Panels" n="StaticWebSet">
+    <V n="Static" label="Enable Custom Panels" tip="Setting to use pre-made custom data entry panels" type="checkbox">0</V>
+    <G n="Web-Panels" title="Bind Panel to DCO Type" tip="Key-Value pairs to associate DCO Type to Panel class">
+      <V n="webPage_TYPE" label="" tip="Association of DCO Type to Panel class name" type="text">Panel.ascx</V>
+    </G>
+  </P>
+  <P tip="Setting for vscan process" title="VScan" n="VScan">
+    <V n="ScanDir" label="Local Scan Directory" tip="Temporary scan directory to place images into + \batchid\" type="text">c:\datacap\scan</V>
+    <V n="LocalProc" label="Local Processing" tip="Enables uploadless process, to place IMAGEFILEs into ScanDir=RootBatchDir" type="checkbox">0</V>
+    <V n="Upload" label="Upload Immediately" tip="Combines Scan+Upload tasks in one, - when enabled initiates upload when Done is pressed" type="checkbox">0</V>
+    <V n="PageID" label="Enable Page ID" tip="Allows to ID images based on Setup DCO types" type="checkbox">0</V>
+    <P tip="Settings for upload process" title="Upload" n="UpSet">
+      <V n="Delay" label="Upload Pause" tip="Delay between uploading images or groups of images for UI refresh purpose" type="text">100</V>
+      <V n="MaxUploadSizeKb" label="Max Upload Size" tip="Combine images into groups of max size for upload speed-up" type="text">0</V>
+    </P>
+    <V n="FileExt" label="File Extension" tip="Specify file extension - which files to filter and grab from source folder during vscan process" type="text">tif</V>
+    <V n="FileType" label="File Compression" tip="Specify file compression (Snowbound Lib. constant) how to write image file after rotate/change operation on the image" type="text">10</V>
+    <V n="HoldEnabled" label="Enable Hold Button" tip="When unchecked - disallow batches to be put on Hold during scanning" type="checkbox">1</V>
+  </P>
+</S>

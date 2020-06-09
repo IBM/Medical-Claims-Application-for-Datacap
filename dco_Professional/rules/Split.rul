@@ -1,0 +1,11 @@
+<ruleset name="Split" id="2" ver="1">
+	<rule name="Split Batch Rule" id="1">
+		<func name="Function1">
+			<a name="SplitBatch" ns="split">
+				<p type="bInter"/>
+				<p type="bDebug"/>
+				<p type="strParam" v="@D.Split"/>
+			</a>
+		</func>
+	</rule>
+</ruleset>

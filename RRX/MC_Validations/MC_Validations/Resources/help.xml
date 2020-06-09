@@ -1,0 +1,586 @@
+﻿<help>
+  <g>
+    <![CDATA[
+'******************************************************************************************
+' MC_Validation help.xml  
+'-----------------------------------------------------------------------
+
+'------------------------------------------------------------------------
+
+]]>
+  </g>
+  
+  <ref id="UpdateCredentialList">
+    <p name="sCredential"/>
+    <p name="AddRemove"/>
+    <ap>
+      A two parameter specification of a list of credential abbreviations and a Add or Remove from list indicator.<br/>
+
+      The List of credentials is a comma separated list of credential abbreviations - smartparameter enabled.<br/>
+      The Indicator is a Add or Remove Condition from the list command. Defaults to Add, keywords for setting the remove
+      from list mode are: "OFF","REMOVE","0","FALSE","-1","NO" and "DELETE".
+    </ap>
+    <h>
+      An action that updates the default list of abbreviations that the following name parsing actions use to extract credentail strings from names:
+      ParseLastFirstIniNames(), Parse58ainsnm(), Parse58binsnm(), Parse58cinsnm(), Parse82name(), Parse83aname(), Parse83bname(), Parse31aPhSig()
+      <e>
+        <b>UpdateCredentialList(MD,Add)</b>
+      </e>
+    </h>
+    <lvl>All.</lvl>
+    <ret>
+      <b>False</b> if the action generates an error. Otherwise, <b>True.</b>
+    </ret>
+
+    
+  </ref>
+
+  <ref id="InheritSnippets">
+    <ap>
+      Names of the fields that will inherit the same snippet information as the current Field object.<br/><br/>
+
+      For example: 2paLname, 2PaFname, 2PaMInit.
+    </ap>
+    <h>
+      Assigns the snippet position information of the current Field object to the
+      Field objects specified in the parameter.
+      <e>
+        <b>InheritSnippets(2paLname, 2PaFname,2PaMInit)</b>
+      </e>
+    </h>
+    <lvl>Field level.</lvl>
+    <ret>
+      <b>False</b> if the action is not applied at the Field level,
+      or if a parameter is incorrect.  Otherwise, <b>True.</b>
+    </ret>
+  </ref>
+
+  <ref id="ValProcedureCode">
+    <ap>None.</ap>
+    <h>
+      Validates the Procedure Code fields of a HCFA-1500 form.
+      <e>
+        <scr>ValProcedureCode()</scr>
+      </e>
+    </h>
+    <lvl>Field level.</lvl>
+    <ret>
+      <b>False</b> if not applied at the Field level, or if the procedure code is invalid.  Otherwise, <b>True.</b>
+    </ret>
+  </ref>
+
+  <ref id="ValRequiredGroup">
+    <ap>Names of the fields in the group.</ap>
+    <h>
+      Checks that all fields in a designated group are filled with data.<br/><br/>
+
+      This action is used for HCFA-1500 forms only.
+      <e>
+        <b>ValRequiredGroup(24aDtFr1,24aDtTo1, 24adCPT_1,24fChg1,24gdays1)</b>
+      </e>
+    </h>
+    <lvl>Field level.</lvl>
+    <ret>
+      <b>False</b> if the parameters are invalid, or if any of the parameter fields does not contain data.  Otherwise, <b>True.</b>
+    </ret>
+  </ref>
+
+  <ref id="CommonValAddress">
+    <ap>
+      Comma-delimited <i>String</i>with a list of field names with address values to be validated.
+    </ap>
+    <h>
+      Validates address values: <br/><br/>
+
+      <b>1.</b> First Name: value can start with "Ms","Mr","Miss", "Dr" (Salutations). The remaining values have to be alphanumeric with no special characters. Punctuation is allowed only after the salutation.<br/>
+      <b>2.</b> Last name: same requirements as for first name <br/>
+      <b>3.</b> Street:  alphanumeric, upper or lower case.  Can include punctuation and the # character. <br/>
+      <b>4.</b> City:  characters from A to Z, upper or lower case, comma, period, space, and ampersand character.<br/>
+      <b>5.</b> State:  must be two alphanumeric characters.<br/>
+      <b>6.</b> Zip Code: must be between five and nine numeric characters.  This value is checked against the State value (above).<br/>
+      <b>7.</b> Phone Number: The Area Code is checked against State and Zip Code values (above).<br/>
+      <e>
+        <b>CommonValAddress(Insured,4InsFNam,4InsLNam, 7IAddStr,,7IAddCty,7IAddSta,7IAddZip)</b><br/>
+        or<br/>
+        <b>CommonValAddress(Description,12plname,12pfname, 13paddr1,13paddr2,13padcit,13padsta,13padzip)</b>
+      </e>
+    </h>
+    <lvl>Page level.</lvl>
+    <ret>
+      <b>False</b> if not placed at the Page level. Otherwise, <b>True.</b>
+    </ret>
+  </ref>
+
+  <ref id="CommonParseAddress">
+    <ap>
+      For Professional Claim, String value of:<br/>
+      <b>1.</b> HCField32Object: for parsing Facility Address field (field 32).<br/>
+      <b>2.</b> HCField33Object: for parsing Physician Address field (field 33).<br/><br/>
+
+      For Institutional Claim, String value of:<br/>
+      <b>1.</b> UBField1Object: for parsing Provider Address field (field 1).<br/>
+      <b>2.</b> UBField2Object: for parsing Pay-To Address field (field 2).<br/>
+      <b>3.</b> UBField38Object: for parsing responsible party Name and Address field (field 38).
+    </ap>
+    <h>
+      Parses addresses in the following fields into appropriate subfields:<br/>
+      Professional Claims - Facility Address (Field 32), or Physician Address (Field 33)<br/>
+      Institutional Claims - Provider Address (Field 1), Pay-To Address (Field 2), or Responsible Party Name and Address (Field 38).
+      <e>
+        <b>CommonParseAddress(HCField32Object)</b>
+      </e>
+    </h>
+    <lvl>Page level.</lvl>
+    <ret>
+      <b>False</b> if the parameter is invalid, or if the action is not at the Page level.  Otherwise, <b>True.</b>
+    </ret>
+  </ref>
+
+  <ref id="ConvertHyphen">
+    <ap>None.</ap>
+    <h>
+      Removes spaces, commas, hyphens and invalid characters.<br/><br/>
+
+      "1,2,3,4" becomes "1234"; "1-2-3" becomes "123".
+
+      Valid characters for this field are {1,2,3,4}.
+      Characters other than 1,2,3,4, space, commas, decimal or hyphens will lower the field confidence.
+      <e>
+        <scr>ConvertHyphen()</scr>
+      </e>
+    </h>
+    <lvl>Field level.</lvl>
+    <ret>
+      <b>False</b> if not called at the Field level. Otherwise, <b>True.</b>
+    </ret>
+  </ref>
+
+  <ref id="ParseLastFirstIniNames">
+    <ap>
+      Three comma separated parameters:<br/>
+      <b>1.</b> The name of the Last Name Field object.<br/>
+      <b>2.</b> The name of the First Name Field object.<br/>
+      <b>3.</b> The name of the Middle Name or Middle Initial Field object.<br/>
+      <b>4.</b> The name of the Credential Field object.<br/>
+      <b>5.</b> The name of the Suffix Field object<br/>
+    </ap>
+    <h>
+      Parses the name information in the first line of an address superfield. <br/><br/>
+
+      The action will parse the full name's value into the Last, First, and Middle Name/Initial fields specified by the parameter.
+      In the absence of any explicit pattern, such as punctuation or a middle initial, parsing is defaults to First Middle Last.
+      A Parameter value of '-1' in the argument changes this default in the absence of any explicit pattern to Last First.
+
+      <e>
+        For form fields where the instructions specify First Middle Last:
+        <b>ParseLastFirstIniNames(8plname,8pfname,8pminit)</b>
+        or
+        For form fields where the instruction specify Last First Middle:
+        <b>ParseLastFirstIniNames(17ReLNam,17ReFNam,17ReMIni,17ReCred,17ReSufx,-1)</b>
+      </e>
+    </h>
+    <lvl>Field level.</lvl>
+    <ret>
+      <b>False</b> if the parameter values are invalid; Otherwise, <b>True.</b>
+    </ret>
+  </ref>
+
+  <ref id="AddCenturyTo2DigitYear">
+    <ap>None.</ap>
+    <h>
+      Converts two-digit Year values to four-digit Year values.<br/><br/>
+
+      All dates are assumed to be before today's date, with a format of mmddyy.
+      If today is 150507, and this action is applied to a field with a value of 221095, the date is assumed to be 22101995.
+      <e>
+        <b>AddCenturyTo2DigitYear()</b>
+      </e>
+    </h>
+    <lvl>Field level.</lvl>
+    <ret>
+      <b>False</b> if value is not a valid date in the mmddyy format, or if the action is not applied at the Field level.  Otherwise, <b>True.</b>
+    </ret>
+  </ref>  
+
+  <ref id="Parse58ainsnm">
+    <ap>None.</ap>
+    <h>
+      This action parses field 58ainsnm of the UB04 application.
+      <e>
+        <b>Parse58ainsnm()</b>
+      </e>
+    </h>
+    <lvl>Field level.</lvl>
+    <ret>
+      Always <b>True.</b>
+    </ret>
+  </ref>
+
+  <ref id="Parse58binsnm">
+    <ap>None.</ap>
+    <h>
+      This action parses field 58binsnm of the UB04 application.
+      <e>
+        <b>Parse58binsnm()</b>
+      </e>
+    </h>
+    <lvl>Field level.</lvl>
+    <ret>
+      Always <b>True.</b>
+    </ret>
+  </ref>
+
+  <ref id="Parse58cinsnm">
+    <ap>None.</ap>
+    <h>
+      This action parses field 58cinsnm of the UB04 application.
+      <e>
+        <b>Parse58cinsnm()</b>
+      </e>
+    </h>
+    <lvl>Field level.</lvl>
+    <ret>
+      Always <b>True.</b>
+    </ret>
+  </ref>
+
+  
+
+  <ref id="Parse31aPhSig">
+    <ap>None.</ap>
+    <h>
+      Parses field 31aPhSig of the HCFA application.
+      <e>
+        <b>Parse31aPhSig()</b>
+      </e>
+    </h>
+    <lvl>Field level.</lvl>
+    <ret>
+      Always <b>True.</b>
+    </ret>
+  </ref>
+
+  <ref id="PopulateFromField">
+    <ap>The name of the field whose value is to be assigned to the current field.</ap>
+    <h>
+      Copies the value from the field specified by the parameter into the current field.
+      <e>
+        <b>PopulateFromField(24aDtFr1)</b>
+      </e>
+    </h>
+    <lvl>Field level only.</lvl>
+    <ret>
+      <b>False</b> if the parameter is invalid, or if the action is not applied at the Field level.  Otherwise, <b>True.</b>
+    </ret>
+  </ref>
+
+  <ref id="MC_ReadZones">
+    <ap>None.</ap>
+    <h>
+      Adjusts autofield based OMR field zone positions on the calling page.<br/><br/>
+
+      <b>Alert!</b> This action handles Autofield-based OMR zone detection for a Medical Claims application.
+      The action is not compatible with standard rules-based OMR zone detection procedures.
+      <e>
+        <scr>MC_ReadZones()</scr>
+      </e>
+    </h>
+    <lvl>Page level.</lvl>
+    <ret>
+      <b>False</b> if not applied at the Page level. Otherwise, <b>True.</b>
+    </ret>
+  </ref>
+
+  <ref id="StripTrailingAlpha">
+    <ap>None.</ap>
+    <h>
+      Removes all alpha characters from the captured value, except any in the first character position.
+      <e>
+        <b>StripTrailingAlpha()</b>
+      </e>
+    </h>
+    <lvl>Field level.</lvl>
+    <ret>
+      Always <b>True.</b>
+    </ret>
+  </ref>
+
+  <ref id="ValidateNPI" >
+    <ap>None.</ap>
+    <h>
+      Validates the NPI value by evaluating the 10 digits in the value
+      uses a modified LUHN checkdigit algorithm.
+      <e></e>
+    </h>
+    <lvl>Field level.</lvl>
+    <ret>
+      <b>True</b> if the field contains a valid NPI value.  Otherwise, <b>False.</b>
+    </ret>
+  </ref>
+
+  <ref id="TransformLI" >
+    <ap>None.</ap>
+    <h>
+      Each line in the table is remapped into a repeating set of fields. These fields have
+      a parent field with a unique ID. All data in a source field is retained in the new target field,
+      with the exception of the new fields type and ID. The linear field structure is replaced with
+      a structure based on a parent field within the claim page called DETAILS.<br/><br/>
+
+      Each set of fields in the row of table data is then placed within a LINEITEM type field, the ID
+      of the field is patterned on the index of its insertion in the DETAILS field. The first Line Item
+      field will be called LINEITEM1, the second LINEITEM2, etc. Each Line Item field contains an
+      identical set of Field Type and ID as outlined in the values list below.<br/><br/>
+
+      As an example, the HCFA Line Item Table has twelve 24nDtfr fields. During processing, the
+      <b>TransformLI</b> action assigns recognized values for these fields to a DateFrom <b>Field</b> object
+      that is a child of the Line Item Tables Details new parent <b>Field</b> object.
+      Ultimately, 12 recognized values can be assigned to the DateFrom <b>Field</b> object.<br/><br/>
+
+      Values associated with rows of the HCFA-1500 table will be assigned to these Field types: (<b>n</b> is a value from 1 to 12)<br/><br/>
+
+      24aDtf<b>n</b> = DateFrom<br/>
+      24aDtTo<b>n</b> = DateThru<br/>
+      24bPlac<b>n</b> = PlaceOfService<br/>
+      24cType<b>n</b> = TypeOfService<br/>
+      24cEMG_<b>n</b> = EMG_C<br/>
+      24dCPT_<b>n</b> = CPT_Code<br/>
+      24dModi<b>n</b> = Modifiers<br/>
+      24eDiag<b>n</b> = DiagPointer<br/>
+      24fChgs<b>n</b> = Charges<br/>
+      24gDays<b>n</b> = Days_Units<br/>
+      24hEPSD<b>n</b> = EPSD<br/>
+      24iQual<b>n</b> = Qualifier<br/>
+      24jRefID<b>n</b> =  ReferenceId<br/>
+      24iEMG_<b>n</b> = EMG_I<br/>
+      24jCOB<b>n</b> = COB<br/>
+      24kLoc<b>n</b> = LocalUse<br/>
+      24Info<b>n</b> = Info<br/><br/>
+
+      Values associated with rows of the UB92/UB04 table will be assigned to these child <b>Field</b> objects: (n is a value from a to z):<br/><br/>
+      42<b>n</b>revcd = RevCode<br/>
+      43<b>n</b>dscrt = Description<br/>
+      44<b>n</b>hcpcs = HCPCS<br/>
+      44<b>n</b>Mod = Modifiers<br/>
+      45<b>n</b>srvdt = ServiceDate<br/>
+      46<b>n</b>srvun = Units<br/>
+      47<b>n</b>ttchg = Charges<br/>
+      48<b>n</b>ncchg = NonCovered<br/>
+      49<b>n</b> = LocalUse<br/><br/>
+
+      <b>Note:</b> This action will convert all pages in a document if called from a <b>Document</b> object.
+      The expected page types are <b>HCFA 1500, UB92,</b> and <b>UB04_Page.</b>
+    </h>
+    <lvl>Document or Page level.</lvl>
+    <ret>
+      <b>True</b> if the assignment of values for all fields in all lines of the Line Item Table was successful.<br/>
+      <b>False</b> if the transfer of values for one or more fields fails.
+    </ret>
+  </ref>
+
+  <ref id="CheckDocID" >
+    <ap>None.</ap>
+    <h>
+      Checks document ids and updates them to the proper format.
+      <e>
+        <b>CheckDocID()</b>
+      </e>
+    </h>
+    <lvl>Document level.</lvl>
+    <ret>
+      <b>True</b> if docid is formatted without an error.<br/>
+      <b>False</b> if docid is formatted with an error.
+    </ret>
+  </ref>
+
+  <ref id="CalculateUBLineCharges" >
+    <ap>None.</ap>
+    <h>
+      Calculates charges for UB service lines.
+      <e>
+        <b>CalculateUBLineCharges()</b>
+      </e>
+    </h>
+    <lvl>Field level.</lvl>
+    <ret>
+      <b>True</b> if line charges equal total charges field.  Otherwise, <b>False.</b>
+    </ret>
+  </ref>
+
+  <ref id="CalculateHCFALineCharges" >
+    <ap>None.</ap>
+    <h>
+      Calculates charges for HCFA service lines.
+      <e>
+        <b>CalculateHCFALineCharges()</b>
+      </e>
+    </h>
+    <lvl>Field level.</lvl>
+    <ret>
+      <b>True</b> if line charges equal total charges field.  Otherwise, <b>False.</b>
+    </ret>
+  </ref>
+
+
+  <ref id="SetOriginalTIF">
+    <ap>The extension of the original image file.</ap>
+    <h>
+      Replaces current working tif file with the original image file.  It is assumed that the original file name
+      has been copied to a file name that uses a different extention for safe keeping.
+      <e>
+        <b>SetOriginalTIF(TI1)</b><br/>
+        This example replaces the current TIF file with the original TIF image that was previously renamed with a TI1 extension.
+      </e>
+    </h>
+    <lvl>Page level.</lvl>
+    <ret>
+      <b>False</b> if the original image file does not exist.  Otherwise <b>True.</b>
+    </ret>
+  </ref>
+
+  <ref id="FormatFieldLengths">
+    <ap>None.</ap>
+    <h>
+      Truncates length and sets the last character to low confidence of the field.
+      <e>
+        <b>FormatFieldLengths()</b>
+      </e>
+    </h>
+    <lvl>Page level.</lvl>
+    <ret>
+      Always <b>True.</b>
+    </ret>
+  </ref>
+
+  <ref id="SetConf" >
+    <ap>The value of the new confidence for each character in the field, 0 to 9.</ap>
+    <h>
+      Sets cofidence string for a field.
+      <e>
+        <b>SetConf(9)</b><br/>
+        This example sets the confidence for each character in the field to 9, the highest confidence.
+      </e>
+    </h>
+    <lvl>Field level.</lvl>
+    <ret>
+      Always <b>True.</b>
+    </ret>
+  </ref>
+  
+  <ref id="FilterPID">
+    <ap>The name of the field to filter.</ap>
+    <h>
+      Filters qualifier from attending physician field for UB04 claims.
+      <e>
+        <b>FilterPID(76apqual)</b>
+      </e>
+    </h>
+    <lvl>Field level.</lvl>
+    <ret>
+      <b>False</b> if not called at the field level.  Otherwise, <b>True.</b>
+    </ret>
+  </ref>
+
+  <ref id="ClearErrorMsg" >
+    <ap>None.</ap>
+    <h>
+      Clears the value of the page variable 'ErrorMessage'.
+      <e>
+        ClearErrorMsg()
+      </e>
+    </h>
+    <lvl>Page level.</lvl>
+    <ret>
+      Always <b>True.</b>
+    </ret>
+  </ref>
+
+  <ref id="AddToErrorMsg">
+    <ap>
+      1) A smart parameter or regular string to add to the error message variable.<br/>
+      2) Optional comma separated second parameter with argument string 'TRUE' to trigger action to return true.
+    </ap>
+    <lvl>Field level.</lvl>
+    <h>
+      Adds the value to the existing value for the Page Variable 'ErrorMessage' and returns false.
+      <e>
+        <b>AddToErrorMsg("Invoice Number must be 60 percent numeric with a minimum length of 2.")</b>
+        <br/>
+        <br/>
+        Adds the value to the existing value for the Page Variable 'ErrorMessage' and returns True.
+        <b>AddToErrorMsg("Invoice Number must be 60 percent numeric with a minimum length of 2.","TRUE")</b>
+      </e>
+    </h>
+    <ret>
+      <b>True</b> if optional second comma separated parameter is used. Otherwise always <b>False</b> 
+    </ret>
+  </ref>
+
+  <ref id="AddToDetailErrorMsg">
+    <ap>
+      1) A smart parameter or regular string to add to the error message variable.<br/>
+      2) Optional comma separated second parameter to trigger action to return true.
+    </ap>
+    <h>
+      Adds the value to the existing value for the Page Variable ErrorMessage.
+      <e>
+        AddToDetailErrorMsg("Description cannot be blank")
+      </e>
+    </h>
+    <lvl>Field level.</lvl>
+    <ret>
+      <b>True</b> if optional second comma separated parameter is used. Otherwise always <b>False</b>
+    </ret>
+  </ref>
+  
+  <ref id="ParseNDC" >
+    <ap>
+      Three Smart Parameters representing the target path from the calling object to the field's parsed data is to be saved.<br/>
+      1) Field for the parsed NDC value.<br/>
+      2) Field for the parsed Type value.<br/>
+      3) Field for the parsed Quantity value.<br/>
+    </ap>
+    <h>
+      An action that detects and parses NDC data elemets from the calling field value.
+      NDC value parsing looks for "N4" followed by 11 numeric digits.
+      NDC Type and Quantity Parsing looks for "F2","GR","ML" or "UN" followed by 1 to 9 numeric digits.
+      <e>
+        <b>ParseNDC("..\NDC","..\NDCType","..\NDCQty")</b>
+      </e>
+    </h>
+    <lvl>Field containing NDC data to detect and parse.</lvl>
+    <ret>
+      <b>False</b> if the action generates an error. Otherwise, <b>True.</b>
+    </ret>
+  </ref>
+  <ref id="ParseConditionCodes">
+    <h>
+      An action that detects and parses Condition Code data elemets from the calling field value.
+      Valid codes are AA, AB, AC, AD, AE, AF, AG, AH, AI, W2, W3, W4 or W5.
+      <e>
+        <b>ParseConditionCodes()</b>
+      </e>
+    </h>
+    <lvl>Field containing Condition Code data to detect and parse to fields CCode1 through CCode4.</lvl>
+    <ret>
+      <b>False</b> if the action generates an error or an invalid code is detected. Otherwise, <b>True.</b>
+    </ret>
+  </ref>
+
+  <ref id="ParseEPSDT">
+    <ap>
+      A Smart Parameter enabled value representing the target field where parsed data is to be saved.<br/>
+    </ap>
+    <h>
+      An action that detects and parses a EPSDT Reason Code from the calling field value.
+      Parsing looks for "AV","S2","ST" or "NU" as a single word at the end of the field value.
+      <e>
+        <b>ParseEPSDT("..\EPSDTCode")</b>
+      </e>
+    </h>
+    <lvl>Field containing Reason Code data.</lvl>
+    <ret>
+      <b>False</b> if the action generates an error. Otherwise, <b>True.</b>
+    </ret>
+  </ref>
+  
+ </help>

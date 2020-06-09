@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<rsapp name="Professional">
+	<rsc>
+		<ruleset name="VScan" id="1"/>
+		<ruleset name="ReadBarCode" id="25"/>
+		<ruleset name="ID_Page" id="11"/>
+		<ruleset name="ID_PageBlack" id="10"/>
+		<ruleset name="CreateDocs" id="5"/>
+		<ruleset name="CheckIntegrity" id="16"/>
+		<ruleset name="ID_PageFix" id="23"/>
+		<ruleset name="SetBatchStatus" id="22"/>
+		<ruleset name="RecogRed_OCR_S" id="13"/>
+		<ruleset name="RecogRed_ICR_C" id="14"/>
+		<ruleset name="RecogOMR" id="9" depends=""/>
+		<ruleset name="MakeLineItems" id="15"/>
+		<ruleset name="PrepData" id="18"/>
+		<ruleset name="PrepDataBlack" id="6"/>
+		<ruleset name="PicFields" id="8"/>
+		<ruleset name="ValProfessional" id="19"/>
+		<ruleset name="HideFields" id="4"/>
+		<ruleset name="ChkFldConf" id="21"/>
+		<ruleset name="Split" id="2"/>
+		<ruleset name="PreExport" id="3"/>
+		<ruleset name="IOverlay" id="24"/>
+		<ruleset name="Annotate" id="27"/>
+		<ruleset name="RecogBlack" id="12"/>
+		<ruleset name="CheckCounts" id="17" depends=""/>
+		<ruleset name="Export" id="7"/>
+		<ruleset name="CopyFiles" id="26" depends=""/>
+		<ruleset id="20" name="Export 837"/>
+		<ruleset id="28" name="Imagefix"/>
+	</rsc>
+	<tps>
+		<tprofile name="VScan">
+			<ruleset id="1"/>
+		</tprofile>
+		<tprofile name="DocIntegrity">
+			<ruleset id="25"/>
+			<ruleset id="11"/>
+			<ruleset id="5"/>
+			<ruleset id="16"/>
+		</tprofile>
+		<tprofile name="DocIntegrityBL">
+			<ruleset id="25"/>
+			<ruleset id="10"/>
+			<ruleset id="5"/>
+			<ruleset id="16"/>
+		</tprofile>
+		<tprofile name="IdentifyFixUp">
+			<ruleset id="23"/>
+			<ruleset id="22"/>
+		</tprofile>
+		<tprofile name="Recog OCR_S">
+			<ruleset id="13"/>
+			<ruleset id="9"/>
+			<ruleset id="15"/>
+		</tprofile>
+		<tprofile name="Recog ICR_C">
+			<ruleset id="14"/>
+			<ruleset id="9"/>
+			<ruleset id="15"/>
+		</tprofile>
+		<tprofile name="Pre_Validate">
+			<ruleset id="18"/>
+			<ruleset id="6"/>
+			<ruleset id="8"/>
+			<ruleset id="4"/>
+			<ruleset id="19"/>
+			<ruleset id="21"/>
+		</tprofile>
+		<tprofile name="Verify">
+			<ruleset id="19"/>
+		</tprofile>
+		<tprofile name="Split">
+			<ruleset id="2"/>
+		</tprofile>
+		<tprofile name="PreExport">
+			<ruleset id="3"/>
+			<ruleset id="24"/>
+			<ruleset id="27"/>
+			<ruleset id="7"/>
+		</tprofile>
+		<tprofile name="Export">
+			<ruleset id="7"/>
+		</tprofile>
+		<tprofile name="Export 837">
+			<ruleset id="20"/>
+		</tprofile>
+		<tprofile name="BatchManagement">
+			<ruleset id="7"/>
+			<ruleset id="26"/>
+		</tprofile>
+		<tprofile name="Overlay">
+			<ruleset id="24"/>
+		</tprofile>
+		<tprofile name="ImageFix">
+			<ruleset id="28"/>
+		</tprofile>
+	</tps>
+</rsapp>

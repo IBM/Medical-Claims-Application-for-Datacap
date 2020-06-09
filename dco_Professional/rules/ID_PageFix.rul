@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ruleset name="ID_PageFix" id="23" ver="1">
+	<rule name="Rule1" id="1">
+		<func name="Function1">
+			<a name="LoadSettings" ns="ImageFix">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="@APPPATH(imagefix)" name="sFilePath"/>
+			</a>
+		</func>
+	</rule>
+	<rule name="Rule2" id="2">
+		<func name="Function1">
+			<a name="ChkDCOStatus" ns="DCO">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="128,141,143,145" name="StrParam"/>
+			</a>
+			<a name="SkipChildren" ns="rrunner">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+		</func>
+	</rule>
+	<rule name="Rule Enhance Images and Find Fields" id="3" qi="">
+		<func name="Function Update Claim Color if not an expected value" qi="">
+			<a ns="rrunner" name="rrCompareNot">
+				<p name="object1" v="@P.Color"/>
+				<p name="object2" v="Red"/>
+			</a>
+			<a ns="rrunner" name="rrCompareNot">
+				<p name="object1" v="@P.Color"/>
+				<p name="object2" v="Black"/>
+			</a>
+			<a ns="rrunner" name="rrCompareNot" qi="">
+				<p name="object1" v="@P.Color"/>
+				<p name="object2" v=""/>
+			</a>
+			<a name="rrSet" ns="rrunner">
+				<p name="varSource" v="@B.Color"/>
+				<p name="varTarget" v="@P.Color"/>
+			</a>
+			<a name="GoToNextFunction" ns="rrunner" qi=""/>
+		</func>
+		<func name="Function Update Claim Color if Blank" qi="">
+			<a name="SkipChildren" ns="rrunner" qi="">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="rrCompare" ns="rrunner">
+				<p name="object1" v="@P.Color"/>
+				<p name="object2" v=""/>
+			</a>
+			<a name="rrSet" ns="rrunner">
+				<p name="varSource" v="@B.Color"/>
+				<p name="varTarget" v="@P.Color"/>
+			</a>
+			<a name="GoToNextFunction" ns="rrunner" qi=""/>
+		</func>
+		<func name="Function RED 0212 Claim - Find Fields">
+			<a name="ChkDCOStatus" ns="DCO">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="55" name="StrParam"/>
+			</a>
+			<a ns="rrunner" name="rrCompare" qi="">
+				<p name="object1" v="02/12"/>
+				<p name="object2" v="@P.FormVersion"/>
+			</a>
+			<a name="rrCompare" ns="rrunner">
+				<p name="object1" v="@P.Color"/>
+				<p name="object2" v="Red"/>
+			</a>
+			<a name="ImageEnhance" ns="ImageFix" qi="">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="ti1" name="StrParam"/>
+			</a>
+			<a name="AnalyzeImage" ns="Recog_Shared">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a ns="MC_Identify" name="SetFormType">
+				<p type="bInter"/>
+				<p type="bDebug"/>
+				<p type="strParam" v="3"/>
+			</a>
+			<a ns="MC_Identify" name="ReadPageSetup">
+				<p name="DCOSetupPath" v="@APPPATH(setupdco)"/>
+				<p name="FPPosition" v="Pos1059"/>
+				<p name="PageType" v="PClaim"/>
+			</a>
+			<a name="FindFields" ns="MC_Identify">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+		</func>
+		<func name="Function RED 0805 Claim - Find Fields">
+			<a name="ChkDCOStatus" ns="DCO">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="55" name="StrParam"/>
+			</a>
+			<a ns="rrunner" name="rrCompare">
+				<p name="object1" v="08/05"/>
+				<p name="object2" v="@P.FormVersion"/>
+			</a>
+			<a name="rrCompare" ns="rrunner">
+				<p name="object1" v="@P.Color"/>
+				<p name="object2" v="Red"/>
+			</a>
+			<a name="ImageEnhance" ns="ImageFix" qi="">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="ti1" name="StrParam"/>
+			</a>
+			<a name="AnalyzeImage" ns="Recog_Shared">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="SetFormType" ns="MC_Identify">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="0" name="StrParam"/>
+			</a>
+			<a name="ReadPageSetup" ns="MC_Identify" qi="">
+				<p name="DCOSetupPath" v="@APPPATH(setupdco)"/>
+				<p name="FPPosition" v="Pos1052"/>
+				<p name="PageType" v="PClaim"/>
+			</a>
+			<a name="FindFields" ns="MC_Identify">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+		</func>
+		<func name="Function BLACK 0212 Claim - Find Fields">
+			<a name="ChkDCOStatus" ns="DCO">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="55" name="StrParam"/>
+			</a>
+			<a ns="rrunner" name="rrCompare" qi="">
+				<p name="object1" v="02/12"/>
+				<p name="object2" v="@P.FormVersion"/>
+			</a>
+			<a name="rrCompare" ns="rrunner">
+				<p name="object1" v="@P.Color"/>
+				<p name="object2" v="Black"/>
+			</a>
+			<a name="LoadSettings" ns="ImageFix" qi="">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="@APPPATH(imagefixblack)" name="sFilePath"/>
+			</a>
+			<a name="ImageEnhance" ns="ImageFix" qi="">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="ti1" name="StrParam"/>
+			</a>
+			<a name="AnalyzeImage" ns="Recog_Shared">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a ns="MC_Identify" name="SetFormType">
+				<p type="bInter"/>
+				<p type="bDebug"/>
+				<p type="strParam" v="3"/>
+			</a>
+			<a ns="MC_Identify" name="ReadPageSetup">
+				<p name="DCOSetupPath" v="@APPPATH(setupdco)"/>
+				<p name="FPPosition" v="Pos1059"/>
+				<p name="PageType" v="PClaim"/>
+			</a>
+			<a name="FindFields" ns="MC_Identify">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+		</func>
+		<func name="Function BLACK 0805 Claim - Find Fields">
+			<a name="ChkDCOStatus" ns="DCO">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="55" name="StrParam"/>
+			</a>
+			<a ns="rrunner" name="rrCompare">
+				<p name="object1" v="08/05"/>
+				<p name="object2" v="@P.FormVersion"/>
+			</a>
+			<a name="rrCompare" ns="rrunner">
+				<p name="object1" v="@P.Color"/>
+				<p name="object2" v="Black"/>
+			</a>
+			<a name="LoadSettings" ns="ImageFix" qi="">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="@APPPATH(imagefixblack)" name="sFilePath"/>
+			</a>
+			<a name="ImageEnhance" ns="ImageFix" qi="">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="ti1" name="StrParam"/>
+			</a>
+			<a name="AnalyzeImage" ns="Recog_Shared">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="SetFormType" ns="MC_Identify">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="0" name="StrParam"/>
+			</a>
+			<a name="ReadPageSetup" ns="MC_Identify" qi="">
+				<p name="DCOSetupPath" v="@APPPATH(setupdco)"/>
+				<p name="FPPosition" v="Pos1052"/>
+				<p name="PageType" v="PClaim"/>
+			</a>
+			<a name="FindFields" ns="MC_Identify">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+		</func>
+		<func name="Copy ofFunction LoadZones 0212 Claim" qi="">
+			<a name="ChkDCOStatus" ns="DCO" qi="">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="55" name="StrParam"/>
+			</a>
+			<a ns="rrunner" name="rrCompare">
+				<p name="object1" v="02/12"/>
+				<p name="object2" v="@P.FormVersion"/>
+			</a>
+			<a ns="rrunner" name="rrSet">
+				<p name="varSource" v="1059"/>
+				<p name="varTarget" v="@P.TemplateID"/>
+			</a>
+			<a ns="PatternMatch" name="PatternMatch_Fingerprint">
+				<p type="bInter"/>
+				<p type="bDebug"/>
+				<p type="strParam" v="1059"/>
+			</a>
+			<a name="CreateFields" ns="DCO" qi="">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a ns="Zones" name="LoadZones">
+				<p type="bInter"/>
+				<p type="bDebug"/>
+				<p type="strParam" v="1059"/>
+			</a>
+		</func>
+		<func name="Function LoadZones 0805 Claim" qi="">
+			<a name="ChkDCOStatus" ns="DCO" qi="">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="55" name="StrParam"/>
+			</a>
+			<a ns="rrunner" name="rrCompare" qi="">
+				<p name="object1" v="08/05"/>
+				<p name="object2" v="@P.FormVersion"/>
+			</a>
+			<a name="rrSet" ns="rrunner">
+				<p name="varSource" v="1052"/>
+				<p name="varTarget" v="@P.TemplateID"/>
+			</a>
+			<a name="PatternMatch_Fingerprint" ns="PatternMatch">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="1052" name="StrParam"/>
+			</a>
+			<a name="CreateFields" ns="DCO" qi="">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="LoadZones" ns="Zones">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="1052" name="StrParam"/>
+			</a>
+		</func>
+	</rule>
+</ruleset>

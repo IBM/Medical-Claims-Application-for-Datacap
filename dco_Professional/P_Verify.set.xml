@@ -1,0 +1,159 @@
+<?xml-stylesheet type="text/xsl" href="..\..\ProgramSet\set.xsl"?>
+<S lang="en-US">
+  <P n="BatchProcessing" tip="General Batch Processing Settings" title="Batch Processing">
+    <V n="Page1" label="Web page" tip="Enter the file name and extension of the Active Server Page Extended File (ASPX) &#xD;&#xA;that Datacap Web presents to the user during this task." type="text">imgEnter.aspx</V>
+    <V n="CreateDoc" label="Create document node" tip="Select this check box when the application's Document Hierarchy does not contain &#xD;&#xA;a document level object and you want Datacap to automatically create &#xD;&#xA;the document node for the scan task." type="checkbox">0</V>
+    <V n="CreateDir" label="Create batch directory" tip="Select this check box when this task is a batch creation task and &#xD;&#xA;you want Datacap to automatically create a batch folder for each new batch." type="checkbox">0</V>
+    <V n="TaskDCOFile" label="Page file" tip="Enter the name of the page file that will be created during this task. &#xD;&#xA;Use taskname.xml to automatically assign the name of the task to the page file." type="text">taskname.xml</V>
+    <V n="Hold" label="Allow hold" tip="Select this check box to display the Hold button on the web page. &#xD;&#xA;When the Hold button is visible, users can place a batch on hold before processing is complete." type="checkbox">1</V>
+    <P n="Navigation" tip="" title="Navigation">
+      <V n="DPS" label="Done Page Status(es)" tip="Enter the different status values that the application can assign to a page after it has been &#xD;&#xA;successfully validated in a comma-separated list. If all pages have one of the Done statuses, &#xD;&#xA;the batch can be released. &#xD;&#xA;By convention:&#xD;&#xA;- The first value is assigned to pages needing review.&#xD;&#xA;- The second value is assigned to pages that should be rescanned.&#xD;&#xA;- The third valus is assigned for pages that are valid.&#xD;&#xA;Additional valies are possible." type="text">0,73</V>
+      <V n="IPS" label="Ignored Page Statuses" tip="Enter the statuses of pages that the application can ignore (such as attachment pages that are not &#xD;&#xA;processed), in a comma-separated list. " type="text">128,75,74,72</V>
+      <V n="DOF" label="Validation statuses" tip="Enter the three different status values that the application assigns to the current page after validation in a comma-separated list:&#xD;&#xA;- The first value is assigned when validation passes (Done). &#xD;&#xA;- The second value is assigned when the operator overrides a validation error (Override). &#xD;&#xA;- The third value is assigned when validation fails and override is not used (Fail).&#xD;&#xA;For example, 0,2,1 specifies Done status = 0; Override status = 2; Fail status = 1." type="text">0,73,1</V>
+    </P>
+    <P n="DocumentStartup" tip="" title="Document startup">
+      <V n="LoadDoc" label="Load all data files" tip="Select this when an application can perform validations across multiple pages and all data files &#xD;&#xA;must be loaded and available during document creation. " type="checkbox">0</V>
+      <V n="LoadImages" label="Load all image files" tip="Clear this when documents typically have many attachment pages and you want to speed up document startup. " type="checkbox">1</V>
+    </P>
+  </P>
+  <P n="PageProcessing" tip="" title="Page Processing">
+    <V n="ShowFields" label="Display field zones" tip="Select this check box to always display the outline of field zones on the document image." type="checkbox">0</V>
+    <P n="PageNavDisplay" tip="Settings that determine page navigation, field display" title="Navigation/Display">
+      <V n="DFS" label="Done Field Statuses" tip="Enter the different status values that the application can assign to a field to indicate &#xD;&#xA;the field has been successfully processed (Done) in a comma-separated list. &#xD;&#xA;These statuses are used to determine which field gets focus next when using Alt+L &#xD;&#xA;to advance to the next problem field, or when the Problems only check box is selected &#xD;&#xA;and only problem fields are displayed. " type="text">0</V>
+      <V n="IFS" label="Ignored field statuses" tip="Enter the statuses of fields that should be ignored (such as statuses that indicate anchors) and that should not be displayed during indexing or verification, in a comma-separated list. " type="text">-1,-2</V>
+    </P>
+    <P n="BackColors" tip="Specify the background colors to use for fields as web literal colors (blue, magenta, etc.)." title="Background field colors">
+      <V n="LC" label="Low Confidence Fields" tip="Specify the background color used to display fields containing low confidence values. " type="text">yellow</V>
+      <V n="PC" label="Invalid fields" tip="Define the background color for fields that failed validation." type="text">lightpink</V>
+      <V n="DC" label="Normal fields" tip="Specify the background color for normal fields." type="text">white</V>
+    </P>
+  </P>
+  <P n="AltTexts" tip="Specify the alternative field texts or double-blind data entry features." title="Alternative or blind texts">
+    <V n="AltText" label="DCO field alt text index" tip="Specify the DCO field alternate text index." type="text">0</V>
+    <V n="AltCompare" label="Blind confirm index" tip="Enables automatic double-blind checking that requires matching another alternate value (specified index) or retyping the same value twice." type="text">-1</V>
+    <V n="AllowAll" label="Show other alt texts" tip="Show other alternatives side by side as hyperlinks." type="text">0</V>
+  </P>
+  <P tip="Datacap Desktop-specific settings" title="Datacap Desktop" n="DcDesktop">
+    <G n="Desktop-Panels" title="Bind DCO Type to Panel" tip="Key-Value pairs to associate DCO Type to Panel class">
+      <V n="PClaim" label="" tip="Assocciation of DCO Type to Dll.Panel (.cs) class name" type="text">MedicalClaimsPanels.PClaim_8</V>
+    </G>
+    <P tip="" title="Scan or Disk Scan (VScan)" n="ScanVScan">
+      <V n="StartPanel" label="Show the Start Batch Panel" tip="Select this check box to display the Start Batch Panel when a new batch is started." type="checkbox">0</V>
+      <V n="HoldEnabled" label="Allow hold during scanning" tip="Select this check box to display the Hold button on the web page during scanning. &#xD;&#xA;When the Hold button is visible, users can place a batch on hold before scanning is complete." type="checkbox">1</V>
+      <G n="Fixup-Document-Statuses" title="Document statuses for Fixup" tip="Specify Key-Value pairs to associate numeric document statuses with meaningful status names.">
+        <V n="OK" label="Status for" tip="Assigned status for OK objects" hotkey="D" type="text">0</V>
+        <V n="Problem" label="Status for" tip="Assigned status for Problem object" hotkey="E" type="text">1</V>
+      </G>
+      <G n="Fixup-Page-Statuses" title="Page statuses for Fixup" tip="Specify Key-Value pairs to associate numeric page statuses with meaningful status names.">
+        <V n="OK" label="Status for" tip="Assigned status for OK objects" hotkey="" type="text">0</V>
+        <V n="Problem" label="Status for" tip="Assigned status for Problem object" hotkey="" type="text">1</V>
+      </G>
+      <G n="Fixup-Page-FileSuffixes" title="Suffixes of filetypes to manage" tip="Specify the filetypes to be deleted or moved together with the image file. ">
+        <V n="XML" label="Suffix for " tip="Suffix for XML type" type="text">XML</V>
+        <V n="TIO" label="Suffix for" tip="Suffix for TIO type" type="text">TIO</V>
+      </G>
+      <V n="TreePageLabel" label="What to display in the tree node labels for pages" tip="PageType or Sequence" type="text">PageType</V>
+      <V n="CheckStructure" label="Enforce batch structure" tip="Specify whether the batch must have the correct structure before advancing." type="checkbox">0</V>
+      <V n="CanDelete" label="Delete image files" tip="When selected, the Delete button removes the image file completely.  &#xD;&#xA;When cleared, the Delete button marks the image file as deleted." type="checkbox">1</V>
+      <V n="ExpandAllDocs" label="Expand all documents in tree" tip="Specify whether the full batch tree is always expanded whenever it is displayed." type="checkbox">1</V>
+      <V n="MoveAcrossDocs" label="Allow pages to move between documents" tip="Select this if you want to allow the operator to move pages out of one document and into another." type="checkbox">1</V>
+	  <V n="MakeTreeViewReadonly" label="Keep batch view read only" tip="Setting to allow modification to batch structure" type="checkbox">0</V>
+      <V n="ShowFingerprintClass" label="Display fingerprint class" tip="Select to display the Fingerprint Class dropdown control." type="checkbox">0</V>
+      <V n="BCSepValue" label="Barcode value " tip="&gt;Barcode value that marks a new document" type="text">
+      </V>
+      <V n="ScannerSettingsFile" label="Scanner settings file for this task" tip="File path containing scanner settings to load when task starts, if any" type="text">
+      </V>
+    </P>
+    <P tip="" title="Page Processing" n="PageProcessing">
+      <P tip="DotEdit data log properties" title="Data Log" n="DataLog">
+        <V n="Header" label="Header format" tip="Define the format of the log header." type="text">
+        </V>
+        <V n="Line" label="Line format" tip="Define the line format for logging the data changes that are made by the operator." type="text">
+        </V>
+      </P>
+      <P tip="DotEdit image overlay properties" title="Image Overlay" n="Overlay">
+        <V n="Types" label="Overlay Types" tip="Comma-separated list of page types for which to apply overlay on full image view" type="text">PClaim</V>
+        <V n="Names" label="Background images" tip="Enter the filenames of image files that contain form background that was dropped &#xD;&#xA;in a comma-separated list. These images are used as overlays to present a complete image &#xD;&#xA;of the scanned form to an operator. " type="text">
+        </V>
+      </P>
+    </P>
+  </P>
+  <P n="Rulerunner" tip="" title="Rulerunner settings">
+    <V n="TProfile" label="Main task profile" tip="Enter the name of the task profile to run when users click the Submit button." type="text">Verify                      </V>
+    <V n="AltTProfile" label="Additional task profile or profiles" tip="Enter the names of the additional task profiles that can be run from the verify interface &#xD;&#xA;in a comma-separated list. Instead of the default Verify button, &#xD;&#xA;the interface displays a button for each task profile that is listed." type="text">
+    </V>
+    <V n="PreTProfile" label="Data preparation task profile" tip="Enter the name of the task profile that the application runs to modify, convert, prepare, &#xD;&#xA;copy, or move data before the data and page are displayed by the main task." type="text">
+    </V>
+    <P n="RRSLog" tip="" title="Rulerunner service log settings">
+      <V n="ServiceLog" label="Rulerunner service log" tip="Enter the setting that defines whether to create a Rulerunner service (RRS) log file and &#xD;&#xA;how much detail the task should write to the log file. The log file name includes the task profile &#xD;&#xA;name (taskname_rrs.log). Enter one of the following values: &#xD;&#xA;0  or 1 - No log file is created.&#xD;&#xA;2 - Log file with action logging is created, but no action parameters are logged.&#xD;&#xA;3 or 4 - Log file with action logging is created, and action parameters are logged.&#xD;&#xA;5 or higher - Log file with action logging is created and complete DCO navigation is logged.&#xD;&#xA;In most situations, a setting of 3 provides enough information to help you debug rule-related problems." type="text">5</V>
+      <V n="BatchLog" label="Batch log" tip="Leave this field blank." type="text">
+      </V>
+      <V n="ActionLogLevel" label="Action log level" tip="Leave this field blank." type="text">
+      </V>
+      <V n="LogReflush" label="Flush buffer" tip="Specify when processing messages are written to the Rulerunner log file.&#xD;&#xA;Leave this check box cleared if you want all messages saved to the buffer and written &#xD;&#xA;to the log at the same time, which has less impact on performance.&#xD;&#xA;Select this check box if you want to write each message to the log, and to clear the buffer &#xD;&#xA;after each write operation. This method ensures that all existing messages are captured but reduces performance. Select this option only if you are troubleshooting." type="checkbox">1</V>
+    </P>
+    <V n="RRSType" label="RRS Type" tip="Switch between LocalRRS and HttpWRRS execution" type="text">LocalRRS</V>
+    <V n="HttpWRRS" label="WRRS URL" tip="Specify HTTP URL path for WRRS execution" type="text">http://127.0.0.1/RRS/</V>
+  </P>
+  <P n="UpSet" tip="" title="Upload">
+    <V n="Delay" label="Upload pause" tip="Enter how long you want to pause in milliseconds between the completed upload &#xD;&#xA;of a single image or the group of images and the beginning of the next upload." type="text">100</V>
+    <V n="MaxUploadSizeKb" label="Maximum upload size" tip="Enter the maximum size in kilobytes (KB) of an upload. &#xD;&#xA;When this size is larger than the size of a single image, multiple images are automatically combined and uploaded as a group, which can increase the speed of the upload." type="text">0</V>
+  </P>
+  <P n="PickSet" tip="Settings for pickup task" title="Pickup">
+    <V n="Scale" label="Thumbnail scale" tip="Specify the size of the thumbnails displayed in the main task window." type="text">15</V>
+    <V n="Graphics" label="Icon map" tip="Mapping of non-viewable file types to substitute with displayed icons or images." type="text">.doc:images/doc.jpg;.pdf:images/pdf.jpg;.msg:images/email-icon.png</V>
+    <V n="Files" label="Files per batch" tip="Specify the average number of images per batch.  " type="text">3</V>
+  </P>
+  <P n="IndexSet" tip="Settings for aIndex task" title="Index">
+    <V n="RFS" label="Read-only field status" tip="Makes field read-only when it has specified status" type="text">-2</V>
+    <V n="LocalProc" label="Local processing" tip="Select this check box to indicate that there is no firewall between Datacap Server and Datacap Web and&#xD;&#xA;there is no Upload task because the web client is scanning images directly into the main \Batches folder of the application." type="checkbox">0</V>
+    <V n="HideDoc" label="Hide document types" tip="Specify whether the document types drop-down is hidden.  This saves space when the operator is prohibited from changing the document type." type="checkbox">0</V>
+    <V n="TemplateFolder" label="Template Folder" tip="For anchor setting in fixup mode" type="file">c:\Datacap\App\fingerprint\</V>
+  </P>
+  <P n="ProtoSet" tip="" title="Page ID">
+    <V n="HiTypes" label="Highlighted types" tip="Enter the page types to highlight for better visual separation (like Start Doc) in a comma-separated list." type="text">Other</V>
+    <V n="SuperVars" label="Special Variable values" tip="Use this field to list possible values for a Super variable. By hot key, the variable cycles or clears the possible values. To assign extra special meaning, use these mnemonics: VarValue|RequireType,VarValue|~ExcludeType" type="text">Deleted</V>
+    <V n="Scale" label="Thumbnail scale" tip="Specify the size of the thumbnails displayed in the main task window." type="text">15</V>
+    <V n="DocIntegrity" label="Document Integrity" tip="Specify whether a document integrity check using rules is run when the document is identified as Done." type="checkbox">1</V>
+    <V n="InsertType" label="Insert type" tip="Specify the page type to use when inserting a new page." type="text">
+    </V>
+  </P>
+  <P n="ImgEnterSet" tip="Settings for imgEnter task" title="Image enter">
+    <V n="imgScale" label="Image Scale" tip="Size image down for performance or improved image readability." type="text">1</V>
+    <V n="thumbScale" label="Thumbnail Scale" tip="Setting to size down thumbnails for display of document images" type="text">12</V>
+  </P>
+  <P n="StaticWebSet" tip="" title="Custom web panels">
+    <V n="Static" label="Use custom web panels" tip="Select this check box when you want a custom data entry panel to be displayed for this task." type="checkbox">0</V>
+    <G n="Web-Panels" title="Bind TYPE to ascx Panel" tip="Key-Value pairs to associate DCO/Page TYPE to ascx Panel file">
+      <V n="webPage_TYPE" label="Panel for" tip="Association of DCO Type to Panel file name" type="text">Panel.ascx</V>
+    </G>
+  </P>
+  <P n="TreeWebSet" tip="Settings for BatchView in web tasks" title="DCO Tree View">
+    <V n="TreeReadOnly" label="Read Only View" tip="Check to disable modification to batch structure." type="checkbox">1</V>
+    <G n="TreeVars" title="Display Variables" tip="Key-Value pairs to determine what to show in DCO View">
+      <V n="TYPE" label="Props for var" tip="Comma-separated AllowEdit,VarDropDown" type="text">0,setup</V>
+      <V n="STATUS" label="Props for var" tip="Comma-separated AllowEdit,VarDropDown" type="text">0</V>
+    </G>
+  </P>
+  <P n="VeriFine" tip="Defines the placement in the browser window during run-time of the Image View, DataEntry Panel and DCO Batch Tree View." title="Verifine Layout">
+    <V n="Scheme" label="|_____1_____|" tip="Layout zone target names" type="textbox" disabled="true">Top row single view</V>
+    <V n="Scheme" label="|__2__|__3__|" tip="Layout zone target names" type="textbox" disabled="true">One row double views</V>
+    <V n="Scheme" label="|_____4_____|" tip="Layout zone target names" type="textbox" disabled="true">Bottom row single view</V>
+    <V n="Scheme" label="|_5_|_6_|_7_|" tip="Layout zone target names" type="textbox" disabled="true">Side by side views</V>
+    <P n="IVSet" tip="Define the layout properties used by Image view.  &#xD;&#xA;When Height/Width is set to 0, image is resized to fit. &#xD;&#xA;When Target is set to 0, the object is hidden." title="Image view">
+      <V n="ImageTarget" label="Image target" tip="Specify the layout zone for full image view display." type="text">1</V>
+      <V n="ImageHeight" label="Image height" tip="Specify the zone height for full image view display." type="text">0</V>
+      <V n="ImageWidth" label="Image width" tip="Specify the zone width for full image view display." type="text">0</V>
+    </P>
+    <P n="PVSet" tip="Panel View Layout Properties. Height/Width set to 0 means resize to fit. Target set to 0 means do not show this object (hide)" title="Data Entry Panel">
+      <V n="PanelTarget" label="Panel Target" tip="Define layout zone for data entry panel" type="text">2</V>
+      <V n="PanelHeight" label="Panel Height" tip="Define zone height for data entry panel" type="text">350</V>
+      <V n="PanelWidth" label="Panel Width" tip="Define zone width for data entry panel" type="text">0</V>
+    </P>
+    <P n="TVSet" tip="DCO Tree View Layout Properties. Height/Width set to 0 means resize to fit. Target set to 0 means do not show this object (hide)" title="Batch View">
+      <V n="TreeTarget" label="Batch Tree Target" tip="Define the layout zone for the dco batch tree view." type="text">3</V>
+      <V n="TreeHeight" label="Batch Tree Height" tip="Define the zone height for the dco batch tree view." type="text">350</V>
+      <V n="TreeWidth" label="Batch Tree Width" tip="Define zone width for dco batch tree view" type="text">350</V>
+    </P>
+  </P>
+</S>

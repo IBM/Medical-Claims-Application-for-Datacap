@@ -1,0 +1,3039 @@
+﻿<?xml version='1.0' ?>
+<rrx namespace="5010Common" v="9.1.5.36">
+  <i ref="rrunner"/>
+  <![CDATA[
+'
+'***********************************************************************
+
+'
+Version = "8.0.01"
+'   Updated 03/25/2010 -PHofle
+'   - Initial Creation
+'
+Version = "8.0.02"
+'   Updated 04/1/2010 -PHofle
+'   - Edifects debug
+'
+Version = "8.0.03"
+'   Updated 04/06/2010 -PHofle
+'   - Started 5010 Merge Actions
+'
+Version = "8.0.04"
+'   Updated 04/27/2010 -PHofle
+'   - N4 Zip code appends 4 trailing zeros to 5 digit zip codes
+'
+Version = "8.0.05"
+'   Updated 06/30/2010 -PHofle
+'   - Added Enhancement for to allow setting Payer ID value based on JobID. SPR 28477
+'     Added function ValueByJobID(Key) to retrieve values based on JobID
+'     Example of use: Function looks in the Header section for the number of JobID's to check
+'		  [Header]
+'		  CheckJobID=True/False
+'		  numJobID=2
+'		  numJobID[1]=JobName1
+'		  numJobID[2]=JobName2
+'		
+'		  'Then uses values for parameter 'Key' (PayerIDNumber in example) as follows
+'		  [JobName1]
+'		  PayerIDNumber=1111111
+'		  [JobName2]
+'		  PayerIDNumber=2222222
+'
+Version = "8.0.06"
+'   Updated 07/19/2010 -PHofle
+'   - Added Action Merge5010. Called on Document/Page level to merge Each claim into a single file.
+'     Currently only appends Each Claim as a separate GS/GE struture into the file with the Batch ID as 
+'     the file name. No method yet to specify file name or ability to append claims by ST/SE wrapper or as 
+'     single claims into an ST/SE loop.
+' 
+Version = "8.0.07"
+'   Updated 08/04/2010 -PHofle
+'   - Added support for Merged file name as passed smart parameter for action Merge5010().
+'     If no value is passed action uses file name settings from ini file.
+'
+Version = "8.0.08"
+'   Updated 08/09/2010 -PHofle
+'   - Added support for GS/GE appending of ST/SE loops
+'
+Version = "8.0.09"
+'   Updated 08/18/2010 -PHofle
+'   - Added support for appending to ST/SE loops
+'     Includes counter update of HL segments and SE segment counter
+'
+Version = "8.0.10"
+'   Updated 08/20/2010 -PHofle
+'   - Additional Changes for compliance testing merged format
+'
+Version = "8.0.11"
+'   Updated 09/22/2010 -PHofle
+'   - Fixed issue with GE & IEA counters during merge options.
+'
+Version = "8.0.12"
+'   Updated 11/16/2010 -PHofle
+'   - Moved 'global' variable declarations to the C_5010EDI class
+'   - Renamed RRX functions to be unique for this library
+'
+Version = "8.0.13"
+'   Updated 11/19/2010 -PHofle
+'   - Compliance and Log updates
+'
+Version = "8.0.14"
+'   Updated 11/23/2010 -PHofle
+'   - Added Global Variable 'StartDate' to EDI class. 
+'
+Version = "8.0.1.15"
+' Updated 01/07/2011 PHofle
+' * Removed file extension name (extn) from <i ref="namespace.extn"> tags, just uses namespace for use
+'   with TM8.01 locale RRS. Now looks like <i ref="namespace">.
+
+Version = "8.0.1.16"
+' Updated 01/27/2011 PHofle
+' * Updated standard filter to allow decimals
+'
+Version = "8.0.1.17"
+' Updated 09/6/2011 PHofle
+' * Added PreFilter option. To disable character filtering from field values, off by default.
+'   [General]
+'   PreFilter=True/False
+' * Changed CurrentObj.Variable("Merge_EDI")=sMergeFile to CurrentObj.Variable("Merge_EDI_5010")=sMergeFile
+'
+Version = "8.0.1.18"
+' Updated 11/03/2011 PHofle
+' * Fixed Action Merge5010 to SmartParameter parse the 'SmartFilePath' argument.
+'
+Version = "8.0.1.19"
+' Updated 11/18/2011 PHofle
+' * Fixed bug in ISA loop where test indicator in segment 15 was not functional.
+'   reported in SPR 33376
+
+Version = "8.0.1.20"
+' Updated 12/16/2011 PHofle
+' * Added 'On Error Resume Next' for logging indentation routines BLogIn and BLogOut
+' * Function SegmentCount updated to use segment terminator variable instead of coded '~' tilde character
+'   when performing length check for Cx
+' * Function Merge5010 updated to improve defaulting to PilotDir when setting SmartFilePath from Metaword,
+'   if metaword returns empty.
+'   
+Version = "8.0.1.21"
+' Updated 02/22/2012 PHofle
+' * Fixed issue with readable text version of merged file not having CrLf after each segment terminator character.
+'
+Version = "8.0.1.22"
+' Updated 03/01/2012 PHofle
+' * Fixed issue with double pointer indicator showing in serviceline SV107 field if claim had duplicate diagnosis code
+'   in field 21.
+'
+Version = "8.0.1.23"
+' Updated 05/18/2012 PHofle
+' * New o5010 class method FindValue which searches DCO for the passed value,
+'   First searches for a Field Name, then Page Variable finally a Doc Variable. If none are 
+'   found the original search value is the final value.
+'
+Version = "8.0.1.24"
+' Updated 08/06/2012 PHofle
+' * Fixed issue in o5010 method 'HCPCS_ICD' where regex call was to RX object instead of RegEx object, causing incorrect
+'   evaluation of the code qualifier type.
+'
+Version = "8.0.1.25"
+' Updated 09/04/2012 PHofle
+' * ISA(13) added logic to convert BatchID's having trailing Alphadecimal values to equivalant integer for compliance with
+'   valid ISA(13) content format. REQUIRES DCName.dll version 8.0.1.6.
+'   New logic for default use of the batch ID for ISA(13) attempts to detect if Batch ID includes longer value indicating
+'   use of a split batch alphadecimal value. If detected, then the new value will be the 3 digit Julian Day followed by the 
+'   three digit daily batch number and trailed by the converted to integer alphadecimal split batch value; max length of the
+'   split batch number is limted to 3 digits. 
+'   For customers where either of these scenerios will not be acceptable, the INI file entry for the ISA(13) value 
+'   (also known as the Interchange Control Number) supports Smart Parameters so that enties can generate or create their
+'   own unique values and include it in the export. SPR 35271
+'
+Version = "8.0.1.26"
+' Updated 11/07/2012 PHofle
+' * Utility function ParsePointer(DcodeIn) updated to handle 12 proposed cms-1500 diagnosis fields with alpha pointers.
+'
+Version = "8.0.1.27"
+' Updated 12/06/2012 PHofle
+' * Removed export of linefeed character from end of EDI file write. 
+'   Change File I/O from Writeline(filestream) to use Write(filestream).
+'   Resolves issue with WebSphere expecting second Interchange stream in test file.
+'
+Version = "8.0.1.28"
+' Updated 02/20/2013 PHofle
+' * Added AppendPOA function. Wk#38478
+'
+Version = "8.0.1.29"
+' Updated 02/26/2013 PHofle
+' * Added dictionary for EPSDT codes. Wk#39479
+'
+Version = "8.0.1.31"
+' Updated 05/02/2013 PHofle
+' * Fixed defect in N3 function call when sending fixed values. Value would be overwritten by value
+'   in Address2 if Address2 was also a fixed value and not a field name.
+'
+Version = "8.1.0.32"
+' Updated 05/07/2013 PHofle
+' * Added new method POBox(value) to o5010 class returns T/F if string contains a POBox, Lock Box, Lock Bin 
+'   in the passed value. 
+' * Added N3 option to enable POBox Detection for ALL N3 Segments when assembled, disabled by default.
+'
+Version = "8.1.0.33"
+' Updated 06/07/2013 PHofle
+' * Fixed new method POBox to be initialized to return FALSE.  
+'
+Version = "8.1.0.34"
+' Updated 06/17/2013 PHofle
+' * Added logging to PO Box detection for false detection.
+'
+Version = "9.1.5.35" 
+' Updated 11/07/2018 183815
+' Update help to state the actions are deprecated
+'
+Version = "9.1.5.36" 
+' Updated 11/07/2018 184004
+' Corrected the above version statement 9.1.3.35 by removing the RTC number from version line.
+'
+'********************************************************************************* 
+Call WriteLog("5010Common.rrx v." & Version)
+'*********************************************************************************
+
+On Error Resume Next
+
+'==========================================
+'REFRESHED
+'==========================================
+Dim o5010     'Global EDI Object
+
+'Comm object for converting between Int and AlphaDecimal
+Set oDCAlphaD = Createobject("Datacap.DCName.DatacapBase36")
+
+If IsObject(oDCAlphaD) then
+  Writelog("DatacapBase36 Object Created")
+Else
+  Writelog("Failed to Create DatacapBase36 Object")
+End if
+
+'==============================================================================
+'  BEGIN EDI Object Class: C_5010EDI
+'==============================================================================
+Class C_5010EDI
+
+   '========================== 
+   'Public members 
+   '==========================
+   Public Filename          'Contains full path for EDI settings file
+   Public Settings          'Settings file contents for run time access after reading
+   Public Doc               'Current DCO Document object being processed
+   Public Page              'Current DCO Page object being processed
+   Public SegmentLog        'String of Segments as they are counted.
+   Public PrimaryPayer      'Single character string of Primary payer line value {a,b,c}
+   Public PatientSubscriber 'Boolean value, True: Patient Is Subscriber, False: Patient Not Subscriber
+
+   'COM OBJECTS
+   Public dRelCodeDict
+   Public dMapDiag
+   Public RegEx
+   Public dEPSDT
+   
+   'CLAIM ELEMENTS
+   Public RenderingNPI
+   Public RenderingQual
+   Public RenderingPRV
+   Public FacilityCode
+   Public TotalCharges
+   Public TotalNonCoveredCharges
+   Public PriorPayments
+   Public PatientReason
+   Public StartDate
+
+   'EDI VALUES
+   Public InterchangeControlNumber
+   Public TranSetCntlNum
+   Public SenderCode
+   Public ReceiverCode
+   Public RecordTime 
+   Public RecordDate
+   Public HL2000B
+   Public HL2000A
+
+   'LOGIC ELEMENTS
+   Public SequenceNum
+   Public HLCount
+   Public Subscriber
+   Public SegmentCount
+   Public LineNumber
+   Public nDocs
+   Public nPages
+
+   'EDI ELEMENTS
+   Public sCES
+   Public SegSep
+   Public RepSep
+   Public SegTerm
+   
+   'OPTIONS
+   Public SingleClaimExport
+   Public SingleClaimTransaction
+   
+   '==========================
+   'Private members 
+   '==========================	
+   Private nLogOffset        'Offset spaces for logging EDI build 
+	 Private dStateCodes
+   
+   '==========================
+   ' Creation & Destruction
+   '==========================
+  
+   Private Sub Class_Initialize	' Initialize event.
+      On Error Resume Next
+
+         Filename=""
+         Settings=""
+         SegmentLog=""
+         PrimaryPayer=""
+         PatientSubscriber=False
+         RenderingNPI=""
+         FacilityCode=""
+         SequenceNum="1"
+         StartDate=""
+         
+         Set Doc = Nothing
+         Set Page = Nothing
+
+         Set dStateCodes = CreateObject("Scripting.Dictionary") 
+         Call IState() 
+         
+         Set dRelCodeDict = CreateObject("Scripting.Dictionary")
+         Call IRelDict()
+         
+         Set dMapDiag = CreateObject("Scripting.Dictionary")
+         Set RegEx = CreateObject("VBScript.RegExp")
+         
+         Set dEPSDT = CreateObject("Scripting.Dictionary")
+         
+         sLogOffset=0
+
+   End Sub
+
+   Private Sub Class_Terminate		' Terminate event.
+      On Error Resume Next
+
+         Filename=""
+         Settings=""
+         SegmentLog=""
+         Set Doc = Nothing
+         Set Page = Nothing
+
+   End Sub
+  
+  '==========================
+  ' Methods
+  '==========================
+  
+   Public Function GetProfileString(sSection, sKey, sDefault)
+
+     Dim TempOut
+
+     On Error Resume Next
+  
+     TempOut=""
+     GetProfileString = sDefault   
+
+	   sSec="[" & sSection & "]"
+	   sK=sKey & "="
+	   nPos=InStr(1, Settings, sSec, 1)
+	   If nPos=0 Or IsNull(nPos) Then 
+        Call Buildlog("INI SECTION MISSING: [" & sSection & "] Key:'" & sKey & "' Defaults to:'" & sDefault & "'.")
+        Exit Function
+     End if
+     'Call Buildlog("Section " & sSec & " found")
+     
+     'Find beginning of next section
+	   nMaxPos=InStr(nPos+Len(sSec), Settings,vbcrlf & "[")
+	   If nMaxPos=0 Or IsNull(nMaxPos) Then nMaxPos=Len(Settings)
+     
+     'Find first Key after Section
+	   nEntry=InStr(nPos, Settings, sK, 1)
+     If nEntry=0 Or IsNull(nEntry) Then 
+        Call Buildlog("INI KEY MISSING: '" & sKey & "' in Section:[" & sSection & "] Defaults to:'" & sDefault & "'.")
+        Exit Function
+     End if
+     'Call Buildlog("Key " & sK & " found")
+     
+     'Check to see if it's after the next section
+	   If nEntry>nMaxPos Then Exit Function
+     
+     'Get the position of the LINE after the Key
+	   nEnd=InStr(nEntry, Settings, Vbcrlf)
+	   If nEnd=0 Or IsNull(nEnd) Then nEnd=Len(Settings)
+		 
+     'Remove the Key value from line
+	   TempOut=Trim(Mid(Settings, nEntry+Len(sK), nEnd-(nEntry+Len(sK))))
+
+     'Remove surrounding double quote chars if applicable
+     If instr(TempOut,Chrw(34))=1 and instrrev(TempOut,Chrw(34))=len(TempOut) then
+         TempOut = Trim(Mid(TempOut,2,len(TempOut)-2))
+     End if
+
+     'Do not trim TempOut
+     If len(TempOut)>0 then GetProfileString=TempOut
+
+     If err.number<>0 then Call BuildLog("Error in GetProfileString '" & err.number & ":" & err.description)
+
+    End Function
+
+    Public Sub AddSegmentLog(value)
+       On Error Resume Next
+       SegmentLog = SegmentLog & value & vbCrLf
+    End Sub	
+
+    Public Sub ClearSegmentLog()
+       On Error Resume Next
+       SegmentLog = ""
+    End Sub	
+
+    Public Sub BuildLog(sText)
+       On Error Resume Next
+       
+       Dim sOutText
+       
+       sOutText = Space(cint(nLogOffset)) & sText
+              
+       'remove crlf from log text       
+       sOutText = replace(sOutText,vbcr,"")   
+       sOutText = replace(sOutText,vblf,"")  
+              
+       Call Writelog(sOutText)
+    End Sub
+
+    Public Sub BLogStartLoop(sText)
+      On Error Resume Next
+      Call BuildLog(sText)
+      Call BLogIn()
+    End Sub
+
+    Public Sub BLogEndLoop(sText)
+      On Error Resume Next
+      Call BLogOut()
+      Call BuildLog(sText)
+    End Sub
+
+    Public Sub BLogIn()
+      On Error Resume Next
+      nLogOffset=nLogOffset + 3
+      If nLogOffset>80 then nLogOffset=80
+    End Sub
+
+    Public Sub BLogOut()
+      On Error Resume Next
+      nLogOffset=nLogOffset - 3
+      If LogOffset<0 then nLogOffset=0
+    End Sub  
+    
+    Public Function LogError(Statement)    
+    	
+		    If Err.Number = 0 Then Exit function
+    			
+		    Call Writelog(vbCrLf & String(45,Chrw(42)))
+                    Call Writelog("!!! Error !!!")
+		    Call Writelog(Statement)
+ 		    Call Writelog ("!!! Error !!!")
+		    Call Writelog("Descriptive string: " & Err.Description)	
+		    Call Writelog("Numeric ID: " & CStr(Err.Number))
+		    Call Writelog("Source: " & Err.Source)
+		    Call Writelog(vbCrLf & String(45,Chrw(42)))
+    				
+		    Err.Clear
+     
+    End Function
+
+    Public Function InPatient()
+        Dim TOB
+        Dim Facility
+        Dim FClass
+        
+        InPatient=False    
+      
+        'Returns first two digits of Bill Type
+        
+        TOB = BillType_Decode()
+        Facility=Left(TOB,1)
+        FClass=Right(TOB,1)
+        
+        Call BuildLog(" TOB=" & TOB)
+        
+        Select Case Facility
+          Case "1","2","3","4","5","6"
+              If FClass = "1" or FClass="2" or FClass="8" or FClass="0" then InPatient=True
+          Case "7"
+              'Clinic - type facility
+       End Select
+
+       Call BuildLog("BillType INPATIENT=" & Inpatient)	
+
+    End Function
+
+
+    Public Function OutPatient()
+        Dim TOB
+        
+        TOB = right(BillType_Decode(),1)
+        
+        If TOB="3" then      	
+            OutPatient=True
+        End if
+        
+        Call BuildLog("BillType OUTPATIENT" & OutPatient)
+
+    End Function
+
+
+    Private Function BillType_Decode()
+        Dim sValue
+        
+        sValue = GetValue("4typbill")
+        Call BuildLog(" 4typbill: " & sValue)
+        
+        'Remove leading Zeros
+        while left(sValue,1)="0" 
+           sValue = Right(sValue,len(sValue)-1)
+        wend 
+
+        Call BuildLog(" Bill Type/Facility Code: " & sValue)
+
+        'Return first two non zero digits
+        BillType_Decode=left(sValue & "00",2) 
+
+        Call BuildLog(" BillType_Decode: " & BillType_Decode)
+     	
+    End Function 
+    
+    
+    Public Function EDI_Writefile(filename,filestream)  
+        
+          Dim oFile
+          Dim sFullDataFile
+
+          On Error Resume Next
+
+	        edi_Writefile=False
+
+          sFullDataFile = Pilot.BatchDir & "\" & filename 
+
+	        'Delete Existing file of same name
+	        If FileMgr.FileExists(sFullDataFile) Then
+		        FileMgr.DeleteFile (sFullDataFile)
+		        If Err.Number <> 0 Then
+			        Call Err ("Error Deleting Existing Datafile:" & sFullDataFile)
+			        Exit function
+		        End If			
+	        End If
+        			
+	        Set oFile = FileMgr.OpenTextFile(sFullDataFile,2,True)
+	        If Err.Number <> 0 Then
+ 		        Call Err("Error Creating Datafile:" & sFullDataFile)
+ 		        oFile.Close
+		        Exit function
+	        End If	
+
+	        oFile.Write(filestream)			
+
+	        If Err.Number <> 0 Then
+ 		        Call Err("oFile.Writeline")
+ 		        oFile.Close
+		        Exit function
+	        End If	
+        			
+              Writelog("Created File:" & sFullDataFile)
+              Call oFile.Close()		
+	        Set oFile = Nothing	
+
+	        EDI_Writefile=True
+      
+    End Function 
+
+    
+    Private Sub IRelDict()
+    
+      On Error Resume Next
+    
+      Call Writelog("IRelDict()")	
+    		
+	    If dRelCodeDict.Count>0 then Exit Sub	
+    
+      dRelCodeDict.Add "01","Spouse"
+      'dRelCodeDict.Add "18","Self" 
+      dRelCodeDict.Add "19","Child"
+      dRelCodeDict.Add "20","Employee"
+      dRelCodeDict.Add "21","Unknown"
+      dRelCodeDict.Add "39","Organ Donor"
+      dRelCodeDict.Add "40","Cadaver Donor"
+      dRelCodeDict.Add "53","Life Partner"
+      dRelCodeDict.Add "G8","Other Relationship"
+      
+      '     DEPRECATED 5010 CODES 
+      'dRelCodeDict.Add "04","Grandfather or Grandmother"
+      'dRelCodeDict.Add "05","Grandson or Granddaughter"
+      'dRelCodeDict.Add "07","Nephew or Niece"
+      'dRelCodeDict.Add "10","Foster Child"
+      'dRelCodeDict.Add "15","Ward of the court"
+      'dRelCodeDict.Add "17","Stepson or Stepdaughter"
+      'dRelCodeDict.Add "18","Self"
+      'dRelCodeDict.Add "41","Injured Plaintiff"
+      'dRelCodeDict.Add "43","Child where insured has no financial responsibility"
+      'dRelCodeDict.Add "22","Handicapped Dependent"
+      'dRelCodeDict.Add "23","Sponsored Dependent"
+      'dRelCodeDict.Add "24","Dependent or a Minor Dependent"
+      'dRelCodeDict.Add "29","Significant Other"
+      'dRelCodeDict.Add "32","Mother"
+      'dRelCodeDict.Add "33","Father"
+      'dRelCodeDict.Add "36","Emancipated Minor"
+    
+    End Sub
+
+
+    Public sub IState()
+    		
+      On Error Resume Next  
+        
+	    Call Writelog("IState()")	
+    		
+	    If dStateCodes.Count>0 then Exit Sub	
+    		
+	    'Initialize Place Of Service Code Conversion Dictionary
+	    Call dStateCodes.Add("AL","ALABAMA")	
+	    Call dStateCodes.Add("AK","ALASKA")	
+	    Call dStateCodes.Add("AS","AMERICAN SAMOA")	
+	    Call dStateCodes.Add("AZ","ARIZONA")
+	    Call dStateCodes.Add("AR","ARKANSAS")
+	    Call dStateCodes.Add("CA","CALIFORNIA")
+	    Call dStateCodes.Add("CO","COLORADO")
+	    Call dStateCodes.Add("CT","CONNECTICUT")
+	    Call dStateCodes.Add("DE","DELAWARE")
+	    Call dStateCodes.Add("DC","DISTRICT OF COLUMBIA")
+	    Call dStateCodes.Add("FM","FEDERATED STATES OF MICRONESIA")
+	    Call dStateCodes.Add("FL","FLORIDA")
+	    Call dStateCodes.Add("GA","GEORGIA")
+	    Call dStateCodes.Add("GU","GUAM")
+	    Call dStateCodes.Add("HI","HAWAII")
+	    Call dStateCodes.Add("ID","IDAHO")
+	    Call dStateCodes.Add("IL","ILLINOIS")
+	    Call dStateCodes.Add("IN","INDIANA")
+	    Call dStateCodes.Add("IA","IOWA")
+	    Call dStateCodes.Add("KS","KANSAS")
+	    Call dStateCodes.Add("KY","KENTUCKY")
+	    Call dStateCodes.Add("LA","LOUSIANA")
+	    Call dStateCodes.Add("ME","MAINE")
+	    Call dStateCodes.Add("MH","MARSHALL ISLANDS")
+	    Call dStateCodes.Add("MD","MARYLAND")
+	    Call dStateCodes.Add("MA","MASSACHUSETTS")
+	    Call dStateCodes.Add("MI","MICHICAN")
+	    Call dStateCodes.Add("MN","MINNESOTA")
+	    Call dStateCodes.Add("MS","MISSISSIPPI")
+	    Call dStateCodes.Add("MO","MISSOURI")
+	    Call dStateCodes.Add("MT","MONTANA")
+	    Call dStateCodes.Add("NE","NEBRASKA")
+	    Call dStateCodes.Add("NV","NEVADA")
+	    Call dStateCodes.Add("NH","NEW HAMPSHIRE")
+	    Call dStateCodes.Add("NJ","NEW JERSEY")
+	    Call dStateCodes.Add("NM","NEW MEXICO")
+	    Call dStateCodes.Add("NY","NEW YORK")
+	    Call dStateCodes.Add("NC","NORTH CAROLINA")
+	    Call dStateCodes.Add("ND","NORTH DAKOTA")	
+	    Call dStateCodes.Add("MP","NORTHERN MARIANA ISLANDS")
+	    Call dStateCodes.Add("OH","OHIO")	
+	    Call dStateCodes.Add("OK","OKLAHOMA")
+	    Call dStateCodes.Add("OR","OREGON")	
+	    Call dStateCodes.Add("PW","PALAU")
+	    Call dStateCodes.Add("PA","PENNSYLVANIA")	
+	    Call dStateCodes.Add("PR","PUERTO RICO")
+	    Call dStateCodes.Add("RI","RHODE ISLAND")	
+	    Call dStateCodes.Add("SC","SOUTH CAROLINA")
+	    Call dStateCodes.Add("SD","SOUTH DAKOTA")	
+	    Call dStateCodes.Add("TN","TENNESSEE")
+	    Call dStateCodes.Add("TX","TEXAS")	
+	    Call dStateCodes.Add("UT","UTAH")
+	    Call dStateCodes.Add("VT","VERMONT")	
+	    Call dStateCodes.Add("VI","VIRGIN ISLANDS")
+	    Call dStateCodes.Add("VA","VIRGINIA")	
+	    Call dStateCodes.Add("WA","WASHINGTON")
+	    Call dStateCodes.Add("WV","WEST VIRGINIA")
+	    Call dStateCodes.Add("WI","WISCONSIN")	
+	    Call dStateCodes.Add("WY","WYOMING")
+	    Call dStateCodes.Add("AE","ARMED FORCES AFRICA, EUROPE, MIDDLE EAST, CANADA")	
+	    Call dStateCodes.Add("AA","ARMED FORCES AMERICAS")
+	    Call dStateCodes.Add("AP","ARMED FORCES PACIFIC")	
+      
+    End Sub
+
+
+    Public Function Build_N3(Address1,Address2)    
+
+      Dim a_N3(2)
+      Dim sLog
+      Dim bLog
+      Dim POBoxPattern
+      Dim bPOBoxPattern      
+            
+	      'To use hard coded Values preceed argument text with a '@' character
+
+	      On Error Resume Next
+    	
+        bLog = cbool(GetProfileString("N3","BuildLog","False"))
+        bPOBoxPattern = cbool(GetProfileString("N3","POBoxDetect","False"))
+        
+	      'Segment ID
+	      a_N3(0)="N3"
+
+        If bLog=True then
+          Call BuildLog("Build_N3 Argument 1:'" & Address1 & "', Address2:'" & Address2 & "'.")
+        End if
+
+	      If InStr(Address1,"@")=1 Then
+		      a_N3(1) = Right(Address1,Len(Address1)-1)
+	      Else
+		      a_N3(1) = TruncateValue(Address1,55)
+	      End If
+
+	      If InStr(Address2,"@")=1 Then
+		      a_N3(2) = Right(Address2,Len(Address2)-1)
+	      Else
+		      a_N3(2) = TruncateValue(Address2,55)
+	      End If		
+
+        'RegEx.IgnoreCase = True
+        'RegEx.Global = True
+        
+        'Regular Expression Test for PO BOX
+        'POBoxPattern = "\s?P[\.\s]?[0o][\.\s]?[B8][Oo]X\s?"
+        'RegEx.Pattern = POBoxPattern
+
+        'If RegEx.Test(a_N3(1))=True Then
+        If bPOBoxPattern=True Then
+          If POBox(a_N3(1))= True Then
+            Call BuildLog("PO BOX found in value. Creating Substitute.")
+            a_N3(2)=a_N3(1)
+            a_N3(1)="UNIDENTIFIED STREET ADDRESS"
+          End if
+        End if
+
+	      If bLog = True Then 
+	               sLog = Space(5) & "****** Building N3 Segment: ******" & vbCrLf
+		      sLog = sLog & Space(5) & "* Address1: '" & Address1 & "' Value: '" & a_N3(1) & "' " & vbCrLf
+		      sLog = sLog & Space(5) & "* Address2: '" & Address2 & "' Value: '" & a_N3(2) & "' " & vbCrLf
+		      sLog = sLog & Space(5) & "**********************************" 
+		      Call BuildLog(slog)
+	      End If
+    		
+	      If Len(a_N3(1)) = 0 Then 
+		      a_N3(1) = a_N3(2)
+		      a_N3(2) = ""
+	      End If
+    		
+	      If Len(a_N3(1)) = 0 Then a_N3(1) = GetProfileString("Defaults","N301" ,"")
+    		
+	      Build_N3 = CountSegment(Assemble(a_N3))
+    		
+	      Call LogError("Function Build_N3")
+      
+    End Function 
+
+
+    Public Function Build_N4(City,State,ZipCode)  
+
+	    Dim a_N4(4)
+	    Dim slog
+	    Dim blog
+       
+		    'To use hard coded values preceed argument text with a '@' character
+    	
+		    On Error Resume Next
+    	
+        blog = cbool(GetProfileString("N4","BuildLog","False")) 
+      
+		    'Segment ID
+		    a_N4(0)="N4"
+    	
+		    If InStr(City,"@")=1 Then
+			    a_N4(1) = Right(City,Len(City)-1)
+		    Else
+			    a_N4(1) = TruncateValue(City,30)
+		    End If
+    		
+		    If InStr(State,"@")=1 Then
+			    a_N4(2) = Right(State,Len(State)-1)
+		    Else
+			    a_N4(2) = Ucase(TruncateValue(State,2))
+		    End If
+    		
+		    If InStr(ZipCode,"@")=1 Then
+			    a_N4(3) = Right(ZipCode,Len(ZipCode)-1)
+		    Else
+			    a_N4(3) = TruncateValue(ZipCode,15)
+		    End If	
+    	
+		    If blog = True Then
+			    Call BuildLog(Space(5) & "****** Building N4 Segment: ******")
+			    Call BuildLog(Space(5) & "*    City: '" & City & "'  Value: '" & a_N4(1) & "'")
+			    Call BuildLog(Space(5) & "*   State: '" & State & "'  Value: '" & a_N4(2) & "'")
+			    Call BuildLog(Space(5) & "* ZipCode: '" & ZipCode & "'  Value: '" & a_N4(3) & "'")
+			    Call BuildLog(Space(5) & "**********************************")
+		    End If
+    	
+		    'City
+		    a_N4(1) = Replace(a_N4(1),";"," ")
+		    If Len(Trim(a_N4(1))) < 2 Then a_N4(1) = GetProfileString("Defaults","N401" ,"")	
+    		
+		    'State
+		    If Not dStateCodes.Exists(a_N4(2)) Then 
+			    If blog = True Then Call BuildLog("State code not valid. Setting value to default of '" & GetProfileString("Defaults","N402" ,"") & "'")
+			    a_N4(2) = GetProfileString("Defaults","N402" ,"")
+		    Else
+			    If blog = True Then Call BuildLog(a_N4(2) & " is a valid State Code for " & dStateCodes.Item(a_N4(2)) & "." )	
+		    End If
+    		
+		    'ZIP
+		    a_N4(3) = Replace(a_N4(3)," ","")
+		    a_N4(3) = Replace(a_N4(3),"-","")	
+		    a_N4(3) = Replace(a_N4(3),".","")
+        
+		    'valid length is 9 digits
+		    If Len(a_N4(3)) > 5 And Len(a_N4(3))<> 9 Then a_N4(3) = Left(a_N4(3),5) & "0000"
+		    If Len(a_N4(3)) < 5 Or Not(IsNumeric(a_N4(3))) Then a_N4(3) = GetProfileString("Defaults","N403" ,"")
+        If Len(a_N4(3)) = 5 Then a_N4(3) = a_N4(3) & "0000"
+        
+		    Build_N4 = CountSegment(Assemble(a_N4))
+    	
+		    Call LogError("function Build_N4")
+    	  
+    End Function
+
+
+    Public Function Build_REF(Qualifier,Identifier,StringValue)
+
+	    Dim a_REF(2)
+      Dim sREF
+	    Dim sLog
+
+		    On Error Resume Next
+    		
+		    Build_REF=""
+    	
+		    'Segment ID
+		    a_REF(0)="REF"
+    	
+		    a_REF(1) = UCASE(Trim(Qualifier))
+		    a_REF(2) = TruncateValue(Identifier,30)
+    				
+		    If GetProfileString("REF","BuildLog","False") = True then
+			    Call BuildLog(Space(5) & "****** Building REF Segment: ******")
+			    Call BuildLog(Space(5) & "*   Qualifier: '" & a_REF(1) & "' ")
+			    Call BuildLog(Space(5) & "*  Identifier: '" & Identifier & "' Value: '" & a_REF(2) & "' ")
+			    Call BuildLog(Space(5) & "* StringValue: '" & StringValue & "' ")
+			    Call BuildLog(Space(5) & "***********************************")
+		    End If
+    					
+		    If len(a_REF(1))>2 then a_REF(1)=Left(a_REF(1),2)	
+		    a_REF(1) = Trim(a_REF(1))	
+    		
+		    If Len(Trim(a_REF(2))) = 0 and len(StringValue)>0 Then 
+			    a_REF(2) = Trim(Left(StringValue & Space(30),30))
+		    End If	
+    					
+        sREF=Assemble(a_REF)      
+              
+		    If a_REF(1)="" or a_REF(2)="" Then sRef=""
+		    Build_REF = CountSegment(sREF)
+    		
+		    Call LogError("Function Build_REF")
+    		  
+    End Function 
+
+
+    Private Function ReadField(byVal sField, sValue)   
+
+	      Dim oField
+    		
+		    On Error Resume Next
+    		
+		    Set oField = SearchDCO(Page, sField)  
+    		
+		    If oField Is Nothing Then 
+			    sValue = ""
+			    Call BuildLog("Could Not Find DCO obj '" & sField & "' ")
+			    Exit function
+		    End if
+    				
+		    sValue = oField.Text
+    		
+        'NOTE: Filtering is based on protected chars, ie structural or edi reserved.
+		    sValue = Replace(sValue,SegSep," ")
+		    sValue = Replace(sValue,sCES," ")
+		    sValue = Replace(sValue,SegTerm," ")
+    			
+		    Set oField = Nothing
+    		  
+    End Function 
+
+
+    Private Function SearchDCO(oDCO,ByVal ObjID)  
+
+	    Dim i
+	    Dim oDCOChild
+
+	    On Error Resume Next
+
+	    Set SearchDCO = Nothing
+
+	    If oDCO Is Nothing Then Exit Function
+
+	    Set oDCOChild = oDCO.FindChild(ObjID)
+
+	    If Not(oDCOChild Is Nothing) Then
+		    Set SearchDCO = oDCOChild
+		    Exit Function 
+	    End If 
+
+	    For i = 0 To ((oDCO.NumOfchildren)-1-Len(oDCO.Text))
+		    Set oDCOChild = oDCO.GetChild(i)
+    			
+		    If Not(oDCOChild Is Nothing) Then
+			    If oDCOChild.ID = ObjID Then
+				    Set SearchDCO = oDCOChild
+				    Exit Function			
+			    End If
+    				
+			    If Len(oDCOChild.Text) <> oDCOChild.NumOfChildren Then 
+				    Set SearchDCO = SearchDCO(oDCOChild, ObjID)								
+			    End If
+
+			    If Not IsObject(SearchDCO) Then Exit Function
+			    Set oDCOChild = Nothing
+    			
+		    End If
+	    Next 'i
+
+	    Call LogError("End SearchDCO")
+      
+    End Function 
+
+
+    Public Function GetTimeRecord()
+      Dim tmpTime
+
+ 	       tmpTime = Time
+ 	       GetTimeRecord = Right("0000" & (Hour(tmpTime) * 100 + Minute(tmpTime)),4)
+      
+    End Function 
+
+
+    Public Function GetValue(FieldName)
+	    Dim sValue
+
+		    On Error Resume Next
+
+		    Call ReadField (FieldName, sValue)
+		    GetValue = FilterValue(sValue)
+     
+    End Function 
+
+    Public Function GetChildValue(oParent,sChildName)  
+
+	    Dim oChild
+        Dim sValue
+        
+		    On Error Resume Next
+
+        sValue=""
+
+        Set oChild = oParent.FindChild(Trim(sChildName))
+		    If Not (oChild is Nothing) then
+		        sValue = oChild.Text
+		        Set oChild = Nothing
+		    End if
+
+		    GetChildValue = FilterValue(sValue)
+      
+    End Function 
+
+
+    Private Function FilterValue(byval sValue)
+	    Dim sResult 
+	    Dim char
+	    Dim n
+	    Dim sFiltered
+
+		    On Error Resume Next
+    		
+		    If Isnull(sValue) then sValue=""
+    		
+        sResult=""
+        FilterValue = trim(sValue)
+        'Only allow Space, period, comma, A-Z, 0-9; remove all other characters from the value
+        
+        If CBool(GetProfileString("General", "PreFilter","True"))= True then
+    		
+        
+
+        RegEx.IgnoreCase = True
+        RegEx.Global = True
+        
+        'Regular Expression. Match all characters NOT in this set.
+        sPattern = "[^ \.,A-Za-z0-9]"  
+        RegEx.Pattern = sPattern
+
+        sResult = RegEx.Replace(sValue,"")
+
+		    FilterValue = Trim(sResult)
+        End if
+
+		    Call LogError("End FilterValue")
+     
+    End Function 
+
+
+    Public Function TruncateValue(FieldName,MaxLength)
+	    Dim sValue
+    	
+		    On Error Resume Next
+    	
+		    Call ReadField (FieldName, sValue)
+		    TruncateValue = FilterTruncate(sValue, MaxLength)
+      
+    End Function 
+
+
+    Public Function TruncateChildValue(oParent,sChildName,MaxLength)   
+
+	    Dim oChild
+      Dim sValue
+        
+	      On Error Resume Next
+
+            sValue=""
+
+        Set oChild = oParent.FindChild(Trim(sChildName))
+	      If Not (oChild is Nothing) then
+	         sValue = oChild.Text
+	         Set oChild = Nothing
+	      End if
+
+        TruncateChildValue = FilterTruncate(sValue, MaxLength)
+      
+    End Function 
+
+
+    Private Function FilterTruncate(sValue,MaxLength)
+	    Dim sResult 
+	    Dim char
+	    Dim n
+    	
+		    On Error Resume Next
+    	
+		    sValue = Trim(sValue)
+    	
+        FilterTruncate = sValue
+      
+        If CBool(GetProfileString("General", "PreFilter","True"))= True then
+
+        RegEx.IgnoreCase = True
+        RegEx.Global = True
+        
+        'Regular Expression. Match all characters NOT in this set.
+        sPattern = "[^ \.,A-Za-z0-9]"  
+        RegEx.Pattern = sPattern
+
+        sResult = RegEx.Replace(sValue,"")
+
+		    If (Len(sResult) > MaxLength) Then 
+			    sResult = Left(sResult, MaxLength)
+		    End If	
+
+		    FilterTruncate = Trim(sResult)
+        End if
+        
+		    If (Len(FilterTruncate) > MaxLength) Then 
+			    FilterTruncate = Left(FilterTruncate, MaxLength)
+		    End If	
+
+		    FilterTruncate = Trim(FilterTruncate)
+
+		    Call LogError("End FilterTruncate")
+      
+    End Function 
+
+
+    Public Function RemoveSpaces(strValue)
+        RemoveSpaces = Replace(strValue," ","")
+    End Function 
+
+
+    Public Function NumericOnly(FieldValue)
+	    Dim x
+	    Dim NumFieldValue
+    	
+		    For x = 1 To Len(FieldValue)
+			    If IsNumeric(Mid(FieldValue,x,1)) Then
+				    NumFieldValue = NumFieldValue & Mid(FieldValue,x,1)
+			    End If
+		    Next				
+
+		    NumericOnly = NumFieldValue
+    		
+		    Call LogError("function NumericOnly")
+    		 
+    End Function
+
+
+    Public Function ParsePointer(DcodeIn) 
+
+	    Dim iChars, Dx, DcodeOut
+	    Dim sChar
+    	Dim i
+      
+	    On Error Resume Next
+    	
+      ' {DcodeIn} is the diagnosis pointer value from the service line in box 24E.
+      ' 08/05 form this is 1,2,3 or 4.
+      ' 02/12 form this is A,B,C,D,E,F,G,H,I,J,K or L.
+      
+      sIndexString = "ABCDEFGHIJKL"
+      
+	    iChars = Len(DcodeIn)
+    		
+	    For Dx = 1 To iChars
+		    sChar = UCase(Mid(DcodeIn,Dx,1))
+        'Convert Alpha value to Numeric field extension
+        If Not IsNumeric(sChar) And Instr(sIndexString,sChar)>0 then sChar=Instr(sIndexString,sChar)
+		    If IsNumeric(sChar) And InStr(DcodeOut,sChar)=0 Then
+			    If dMapDiag.exists(GetValue("21_Diag" & sChar)) then sChar = dMapDiag.Item(GetValue("21_Diag" & sChar)) 
+			    If Len(DcodeOut)>0 Then
+            If instr(DcodeOut,sChar)>=1 then
+              sChar=""
+            Else
+              DcodeOut = DcodeOut & sCES 
+            End if
+          End if
+			    DcodeOut = DcodeOut & sChar 
+        End If
+	    Next 'Dx	
+
+      'If no value found set to first filled diag field 
+	    If Len(DcodeOut)=0 Then 
+        For i = 1 to 12
+		      If Len(GetValue("21_Diag" & cstr(i)))> 0 Then	
+			      DcodeOut = cstr(i)
+            Exit for
+          End if
+		    Next 'i
+	    End If
+
+	    ParsePointer = DcodeOut
+    		
+	    Call LogError("End ParsePointer")		
+    		  
+    End Function
+
+
+    Public Function CheckTime(sParam)
+
+	    Dim HR
+	    Dim MM
+    	
+	    CheckTime = False
+    	
+	    Call BuildLog("Checking Time Value Format'" & sParam & "' ")
+
+	    If Not IsNumeric(sParam) Then Exit Function	
+	    If Len(sParam) <> 4 Then Exit Function
+    	
+	    HR = CInt(Left(sParam,2))
+	    MM = CInt(Left(sParam,2))
+    	
+	    If HR > 24 Or HR < 0 Then Exit Function
+	    If MM > 59 Or MM < 0 Then Exit Function
+    	
+	    CheckTime = True		
+    	  
+    End Function 
+
+
+    Public Function CountSegment(Segment)
+       Dim Cx
+       
+       On Error Resume Next
+       
+       If CBool(GetProfileString("X12N", "AllUpperCase","False"))= True Then Segment = Ucase(Segment)
+       
+      If Segment <> "" Then
+
+   	    Cx = Left(Segment,InStr(Segment,SegTerm)-1)
+       		
+        If Instr(Cx,"N3")=1 And GetProfileString("N3","KeepTrailingSeparators","False")=True  then
+   		    'Do not remove trailing Element Sep characters.
+   	    ElseIf Instr(Cx,"N4")=1 and GetProfileString("N4","KeepTrailingSeparators","False")=True then
+		      'Do not remove trailing Element Sep characters
+        Else
+          While (Right(Cx,1) = SegSep) 
+   	        Cx = Left(Cx,Len(Cx)-1)
+          Wend	
+        End if
+       		
+   	    CountSegment = Cx & SegTerm
+   	    SegmentCount = SegmentCount + 1
+       		
+	      'Logs each segment as it is counted
+        If cbool(GetProfileString("Log","SegmentLog","False"))=True then
+   	      Call BuildLog("Seg# " & Right("0000" & SegmentCount,4) & "  " & CountSegment)
+        End if
+    	
+        'Saves a log of each segment as it is counted and outputs it after the edi is created
+        If cbool(GetProfileString("Log","SegmentReport","False"))=True then
+          Call AddSegmentLog("Seg# " & Right("0000" & SegmentCount,4) & "  " & CountSegment)
+        End if
+    				   		
+      End If
+       
+      Call LogError("CountSegment Error : '" & Segment & "' ")
+         
+    End Function
+
+
+    Public Function Assemble(aSegment)   
+
+        Dim nElements
+    	
+	        On Error Resume Next
+          	
+	        Assemble = ""
+          	
+	        'Check for Array
+	        If Not IsArray(aSegment) then
+		        Call BuildLog("ERROR: ASSEMBLE is Expecting an Array.")
+		        Exit Function
+	        End if
+          	
+	        'Emptied Array Check
+	        If IsEmpty(aSegment) or IsNull(aSegment) then Exit Function
+          	
+	        nElements = Ubound(aSegment)
+
+	        'First element is segment ID
+	        Assemble = Trim(UCase(aSegment(0)))
+
+	          'No ID 
+	        If Assemble = "" then 
+                Call BuildLog("** ERROR **: ASSEMBLE Array missing Element Identifier.")
+                Call BuildLog(Space(12) & "Array:'" & Join(aSegment, SegSep) & "'")
+                Exit Function
+            End if
+
+	        For i = 1 to nElements
+		        Assemble = Assemble & SegSep & aSegment(i)
+	        Next 'i
+
+	        Assemble = Assemble & SegTerm
+          	
+          Call BuildLog("Assemble:'" & Assemble & "'")  
+	        Call LogError("Assemble")
+        
+    End Function 
+
+
+    Public Function GetDateRecord
+	    Dim tmpdate
+	    Dim curMonth
+	    Dim curDay
+
+    	    tmpdate = Date
+    	    curMonth = Month(tmpdate)
+    	    If (curMonth < 10) Then curMonth = "0" & curMonth
+    	    curDay = Day(tmpdate)
+    	    If (curDay < 10) Then curDay = "0" & curDay
+    	    GetDateRecord = Right(Year(tmpdate), 2) & curMonth & curDay
+      
+    End Function
+
+
+    Public Function GetDateCCYYMMDD
+	    Dim tmpdate
+	    Dim curMonth
+	    Dim curDay	
+
+  	      tmpdate = Date
+  	      curMonth = Month(tmpdate)
+  	      If (curMonth < 10) Then curMonth = "0" & curMonth
+  	      curDay = Day(tmpdate)
+  	      If (curDay < 10) Then curDay = "0" & curDay
+  	      GetDateCCYYMMDD = Right(Year(tmpdate), 4) & curMonth & curDay
+      
+    End Function 
+
+
+    Public Function ImplyDecimal(AmtIn)
+      Dim bLog
+
+	    On Error Resume Next
+    	
+	    'Filter
+	    AmtIn = Replace(AmtIn,",","")
+    	
+	    ImplyDecimal = AmtIn
+    	
+	    If CBool(GetProfileString("General","ImpliedDecimalON","True")) = False Then Exit Function
+	    bLog = CBool(GetProfileString("ImpliedDecimalON","BuildLog","False")) 
+      
+	    Call LogError("Function ImplyDecimal Post ImpliedDecimalON")
+    	
+	    If bLog=True then Call BuildLog("1.ImplyDecimal: Value in is : " & AmtIn)
+    	
+	    AmtIn = "000" & AmtIn
+	    AmtIn = Replace(AmtIn,".","")
+	    AmtIn = Replace(AmtIn," ","")
+	    AmtIn = Replace(AmtIn,",","")
+    	
+	    If bLog=True then Call BuildLog("2.ImplyDecimal: Value in is : " & AmtIn)
+    	
+	    If IsNumeric(AmtIn) Then 
+		    AmtIn = Left(AmtIn,Len(AmtIn)-2) & "." & Right(AmtIn,2)
+		    ImplyDecimal = CStr(FormatNumber(AmtIn,2,-1))	
+		    ImplyDecimal = Replace(ImplyDecimal,",","")
+	    Else
+		    If bLog=True then Call BuildLog("NOTE: ImplyDecimal Function call contains a non numeric value of '" & AmtIn & "'")
+	    End If
+    		
+	    ImplyDecimal = Replace(ImplyDecimal,".00","")	
+	    'Remove leading zero's
+	    If bLog=True then Call BuildLog("3.ImplyDecimal: Value in is : " & ImplyDecimal)
+    	
+	    If Len(ImplyDecimal) = 0 Then Exit Function
+    	
+	    'Remove leading Zero's
+	    While Left(ImplyDecimal,1) = "0" 
+		    ImplyDecimal = Right(ImplyDecimal,Len(ImplyDecimal)-1)
+		    If Len(ImplyDecimal) = 0 Then ImplyDecimal = "0" : Exit Function
+	    Wend 
+    		
+	    If bLog=True then Call BuildLog("4.ImplyDecimal: Value in is : " & ImplyDecimal)
+	    'Remove Trailing Zero's
+	    While Right(ImplyDecimal,1) = "0" And InStr(ImplyDecimal,".")<>0
+		    ImplyDecimal = Left(ImplyDecimal,Len(ImplyDecimal)-1)
+		    If Len(ImplyDecimal) = 0 Then ImplyDecimal = "0" : Exit Function
+	    Wend 	
+    		
+	    If bLog=True then Call BuildLog("5.ImplyDecimal: Value in is : " & ImplyDecimal)
+    	
+	    Call LogError("Function ImplyDecimal")	
+      
+    End Function 
+
+
+    Public Function GetDateD8(FieldName)   
+
+	      'Returns date in CCYYMMDD Format from Expected MMDDCCYY in field value
+		    Dim sResult
+    	
+		    On Error Resume Next
+    	
+		    GetDateD8 = ""
+    	
+		    Call ReadField (FieldName, sResult)
+		    GetDateD8 = FormatDateD8(sResult)
+    		  
+    End Function 
+
+
+    Public Function FormatDateD8(sValue) 
+
+    	    'Returns date in CCYYMMDD Format from sValue.
+    	    'Format Expected is MMDDCCYY in svalue
+        	
+		    Dim MM
+		    Dim DD
+		    Dim CCYY
+    	
+		    On Error Resume Next
+    	
+		    FormatDateD8 = ""
+    	
+		    sResult = Trim (RemoveSpaces(sValue))
+
+		    If Len(sValue) < 8 Then Exit Function
+    		
+		    MM = CInt(Left(sValue,2))	
+		    DD = CInt(Mid(sValue,3,2))
+	      CCYY = CInt(Right(sValue,4))
+    	  
+	      If MM > 12 Or MM < 0 Then  Call BuildLog("INVALID MONTH VALUE: '" & MM & "'.") : Exit Function 	  
+	      If DD > 31 Or DD < 0 Then  Call BuildLog("INVALID DAY VALUE: '" & DD & "'.") : Exit Function
+    	  
+	      If Not IsDate(MM & "/" & DD & "/" & CCYY) Then 
+			    Call BuildLog(Space(5) & "GetDate Field:'" & sValue & " is not a valid date field. Function 'FormatDateD8' will return an Empty value.") 
+			    Exit Function
+	      End If
+    	  
+	      FormatDateD8 = CStr(CCYY & Right("00" & MM,2) & Right("00" & DD,2))
+
+        Call LogError("End FormatDateD8")	
+      
+    End Function 
+
+
+    Public Function RepeatSegment(NameArray,Code,Seg)   
+
+	    Dim iCtr
+	    Dim FieldVal
+
+		    On Error Resume Next
+    	
+		    Seg = ""
+		    For iCtr = 1 To UBound(NameArray)
+			    FieldVal = GetValue(NameArray(iCtr))
+			    If FieldVal <> "" And CStr(FieldVal) <> "0" Then
+				    Seg = Seg & Code & FieldVal
+			    End If
+		    Next	
+    		
+		    If Seg <> "" Then
+			    RepeatSegment = NameArray(0) & Seg  & SegTerm
+		    End If
+
+		    Call LogError("End RepeatSegment")	
+      
+    End Function 
+
+
+    Public Function RepeatAmountSegment(NameArray,Code,AmtArray,Seg)  
+	    Dim iCtr
+	    Dim FieldVal
+	    Dim AmtVal
+    	
+		    On Error Resume next
+    	
+		    Seg = ""
+		    For iCtr = 1 To UBound(NameArray)
+			    FieldVal = GetValue(NameArray(iCtr))
+			    AmtVal = NumericOnly(GetValue(AmtArray(iCtr-1)))
+			    If FieldVal <> "" And CStr(FieldVal) <> "0" And Trim(AmtVal) <> "" Then
+				    Seg = Seg & Code & FieldVal & sCES & sCES & sCES & ImplyDecimal(AmtVal)
+			    End If
+		    Next	
+    		
+		    If Seg <> "" Then
+			    RepeatAmountSegment = NameArray(0) & Seg  & SegTerm
+		    End If
+
+		    Call LogError("End RepeatAmountSegment")	
+      
+    End Function 
+
+
+    Public Function RepeatDateSegment(NameArray,Code,DateArray,Seg,strDefault)  
+      Dim iCtr
+	    Dim FieldVal
+	    Dim DateVal
+    	
+		    On Error Resume Next
+    	
+		    Seg = ""
+		    For iCtr = 1 To UBound(NameArray)
+			    FieldVal = GetValue(NameArray(iCtr))
+			    DateVal = GetDateD8(DateArray(iCtr-1))
+			    If FieldVal <> "" And CStr(FieldVal) <> "0" And Len(Trim(DateVal)) = 8 Then
+				    If Not IsDate(Mid(DateVal,5,2) & "/" & Right(DateVal,2) & "/" & Left(DateVal,4)) Then 
+					    Call BuildLog(Space(5) & "OUTPUT DEFAULT-->  Field:'" & DateArray(iCtr-1) & "'  Value:'" & DateVal & "' ") 
+					    DateVal = strDefault
+				    End If
+				    Seg = Seg & Code & FieldVal & sCES & "D8" & sCES & DateVal
+			    End If
+		    Next	
+    		
+		    If Seg <> "" Then
+			    RepeatDateSegment = NameArray(0) & Seg  & SegTerm
+		    End If
+
+		    Call LogError("End RepeatDateSegment")	
+      
+    End Function 
+
+    Public Function HCPCS_ICD(byVal CodeValue)    
+        Dim Matches    
+        Dim HCPCSPattern
+        Dim ICDPattern
+        
+        Const ICD = "9"
+        Const HCPCS = "5"
+        
+        On Error Resume Next
+
+        CodeValue = Space(1) & ucase(Trim(CodeValue)) & space(1)
+
+        RegEx.IgnoreCase = True
+        RegEx.Global = True
+        
+        'Regular Expression Test for HCPCS
+        HCPCSPattern = "\b[A-Z0][0-9]{4}\b|\b[A-Z0][0-9]{4}[A-Z0-9]{2}\b|\b[A-Z0][0-9]{4}[A-Z0-9]{4}\b"
+        RegEx.Pattern = HCPCSPattern
+        
+        Set Matches = RegEx.Execute(CodeValue)
+        If Matches.Count = 1  then 
+            HCPCS_ICD=HCPCS
+            Exit Function
+        End If
+        
+        'Regular Expression Test for ICD
+        ICDPattern = "\b[A-Z][0-9]{2}\b|\b[A-Z][0-9]{2}\.[0-9]+\b|\b[A-Z][0-9]{4}/[0-9]\b"
+        RegEx.Pattern = ICDPattern
+        
+        Set Matches = RegEx.Execute(CodeValue)
+        If Matches.Count = 1  then        
+            HCPCS_ICD=ICD
+            Exit Function
+        End If
+        
+        'Content Tests for ICD
+        If Instr(CodeValue,",")>0 or Instr(CodeValue,".")>0 or Instr(CodeValue,"/")>0 then 
+            HCPCS_ICD=ICD
+            Exit function
+        End If
+        
+        'Content Tests for HCPCS
+        Select Case len(CodeValue)
+            Case 5,7,9 
+                HCPCS_ICD=HCPCS
+            Case Else
+                HCPCS_ICD=ICD
+        End Select
+          
+    End Function 
+
+
+    Public Function ValueByJobID(Key)    
+        Dim i
+        Dim k
+        Dim sIDStr
+         
+        GetJobIDValue=""
+         
+        'Get the number of JobID's to Check
+        i = Trim(GetProfilestring(Section,"numJobID","0"))
+        
+        For k = 1 to i
+            'Get the Job ID String
+            sIDStr = Trim(GetProfilestring("Header","numJobID[" & cstr(i) & "]",""))
+    			
+            'Get values if the JobID string matches
+            If Instr(UCase(pilot.JobID),sIDStr) > 0 and Len(sIDStr)>0 Then
+                GetJobIDValue = Trim(GetProfileString(sIDStr,Key,""))
+            End if
+        Next 'k
+        
+        'Example of use: This section looks in the Header section for the number of JobID's to check
+        [Header]
+        CheckJobID=True/False
+        numJobID=2
+        numJobID[1]=JobName1
+        numJobID[2]=JobName2
+    		
+        'Then uses values for PayerIDNumber (Key) as follows
+        [JobName1]
+        PayerIDNumber=1111111
+        [JobName2]
+        PayerIDNumber=2222222
+       
+    End Function 
+      
+    Public Function FindValue(sValue) 
+      On Error Resume Next
+      
+      BuildLog("FIND Field or Variable:" & sValue) 
+    
+      'check for field 
+       If Page.FindChildIndex(sValue)>=0 Then
+          BuildLog("FOUND FIELD")
+          sValue=Trim(GetValue(sValue))
+          BuildLog("VALUE:" & sValue)
+
+        'check for page variable 
+        ElseIf Page.FindVariable(sValue)>=0 then
+          BuildLog("FOUND Page Variable")
+          sValue=Trim(Page.Variable(sValue))
+       
+       'check for doc variable
+       ElseIf Doc.FindVariable(sValue)>=0 then
+          BuildLog("FOUND Doc Variable")
+          sValue=Trim(Doc.Variable(sValue))
+
+       End if
+    
+    End Function
+    
+    Public Function AppendPOA(sCode,sPOAField)
+      Dim sPOAValue
+      
+      On Error Resume Next
+            
+      AppendPOA = sCode
+    
+      BuildLog("AppendPOA:'" & sCode & ":" & sPOAField)
+    
+      'Check for code value
+      If Trim(sCode)="" then Exit Function
+      
+      sPOAValue = GetValue(sPOAField)
+      
+      'Check for POA value
+      If Trim(sPOAValue)="" then Exit Function
+      If len(sPOAValue)>1 Then 
+        BuildLog("POA field '" & sPOAField & "' has an invalid value of '" & sPOAValue & "'.")
+        Exit Function
+      End if
+      
+      AppendPOA = Left(sCode & Space(7),7) & Trim(sPOAValue)
+      
+    End Function
+    
+    
+    Public Function POBox(sValue)
+      
+      Dim POBoxPattern
+      
+      On Error Resume Next
+      
+      POBox=FALSE
+      
+      RegEx.IgnoreCase = True
+      RegEx.Global = True
+        
+      'Regular Expression Test for PO BOX, PO BIN, Lock Box, Lock bin, Post Office Box
+      'POBoxPattern = "\s?P[\.\s]?[0o][\.\s]?[B8][Oo]X\s?"
+      'POBoxPattern = "\s?P[\.\s]?[0o][\.\s]?[B8][Oo]X\s?|\s?P[\.\s]?[0o][\.\s]?[B8][I1]N\s?|\s?L[0o]ck\s?[B8][Oo]X\s?|\s?L[0o]ck\s?[B8][i1]N\s?"
+      
+      POBoxPattern = "\s?P[\.\s]?[0o][\.\s]?[B8][Oo]X\s?|\s?P[\.\s]?[0o][\.\s]?[B8][I1]N\s?|\s?L[0o]ck\s?[B8][Oo]X\s?|\s?L[0o]ck\s?[B8][i1]N\s?|\s?P[o0]st\s?[0o]ffice[\.\s]?[B8][Oo]X\s?"
+
+      RegEx.Pattern = POBoxPattern
+
+      If RegEx.Test(sValue)=True Then
+        Call BuildLog("PO BOX found in value '" & sValue & "'.")
+        POBox=True
+      End if
+    
+    End Function 
+    
+  End Class 
+'==============================================================================
+'  END EDI Object Class: C_EDI
+'==============================================================================
+
+]]>
+  <f name="Initialize_5010EDI" access="private">
+  <g>
+    <![CDATA[
+     Err.Clear
+  
+     On Error Resume Next
+	
+     Initialize_EDI = True
+
+     If IsAlive(o5010) then Exit Function
+
+     Set o5010 = new C_5010EDI
+  
+     If Err.number <> 0 Then 
+        'Set Task to Abort				
+        Set o5010 = Nothing
+        nTaskStatus=retAbort
+        Initialize_EDI = False
+        WriteLog("Couldn't create a C_5010EDI object.")
+        WriteLog(Err.Description)
+     End If
+     
+     Err.Clear
+	
+]]>
+  </g>
+</f>
+  <![CDATA[Call Initialize_5010EDI()]]>
+  <f name="Load5010Settings" access="public" qi="Loads settings from file path passed as a parameter. Smart parameter enabled"><p name="SmartFilePath"/>
+  <h>
+     <b>*** This Action Is Deprecated ***</b><br/>
+     This action has been deprecated and is scheduled to be removed in a future release.
+     It is recommended that you no longer use this action.
+     There is no replacement for this action.
+     <br/><br/>
+  </h>
+  <g>
+    
+    <![CDATA[    
+
+    On Error Resume Next
+
+    Dim tempFilename
+    Dim oFilestream
+    
+    Load5010Settings=False
+
+    'Resolve the smart parameter
+    tempFilename=MetaWord(SmartFilePath)
+    
+    'If the smart parameter result is empty, default to the original value
+    If len(tempFilename)=0 then tempFilename = SmartFilePath
+    
+    If Not FileMgr.FileExists(tempFilename) then 
+       Call Writelog("Settings file not found:" & tempFilename)
+       Exit function
+    End if
+   
+   'If the filename matches and is already loaded, don't reload the settings file.
+   If (Trim(Ucase(tempFilename))=Trim(Ucase(o5010.Filename))) and len(o5010.Filename)>0 and len(o5010.Settings)>0 then 
+     Call Writelog("Settings File:" & o5010.Filename & " is already loaded.")
+     Load5010Settings=True
+     Exit Function
+   End if
+   
+   'Read Settings File 
+   Set oFilestream = FileMgr.OpenTextFile(tempFilename, 1)
+   o5010.Settings = oFilestream.ReadAll()
+   oFilestream.Close()
+   Set oFilestream = Nothing
+   
+   If Err.Number=0 then
+    Load5010Settings=True
+    o5010.Filename=tempFilename
+    Call Writelog("Settings File found:" & o5010.Filename)
+    Call Writelog("Settings File contents:" & o5010.Settings)
+    Call Writelog("")
+   End if
+   
+   Call o5010.LogError("LoadSettings")
+  
+]]></g>
+</f>
+  <f name="Create5010837" access="private">
+    <p name="DCOObj"/>
+    <g>
+      <![CDATA[
+  
+      On Error Resume Next
+  
+      o5010.RecordDate = o5010.GetDateRecord()
+      o5010.RecordTime = o5010.GetTimeRecord()
+	
+	    'Initialize Main return value
+	    Create5010837 = False
+
+	    'Initialize Stats Counter
+	    o5010.nDocs = 0
+	    o5010.nPages = 0
+
+      Select Case DCOObj.ObjectType
+  
+         Case "1"
+            'DCO Document
+            o5010.SingleClaimExport = False
+            Set o5010.Doc = DCOObj
+   
+            For nPage = 0 To (o5010.Doc.NumOfChildren - 1)		'<-- Note! May not be a Claim Page (should be)
+               Set o5010.Page = o5010.Doc.GetChild(nPage)
+            Next 'nPage
+      
+            Create5010837 = Build5010ClaimEDI()
+    
+         Case "2"
+            'DCO Page
+             o5010.SingleClaimExport = True
+             Set o5010.Doc = DCOObj.Parent()        '<-- Note! May not be a Document Object (should be) 
+             Set o5010.Page = DCOObj
+
+             Create5010837 = Build5010ClaimEDI()
+      
+         Case Else
+            Writelog("Action must be called on a document or page object.")
+            Exit Function
+   
+      End Select
+		
+      Call o5010.LogError("Create5010837")
+    
+      If cbool(o5010.GetProfileString("Log","SegmentReport","False"))=True then
+	      Call Writelog(vbCrLf & "------- SEGMENT COUNTER LOG --------")
+	      Call Writelog(o5010.SegmentLog)
+      End if
+    
+]]>
+    </g>
+  </f>
+  <f name="Build5010ClaimEDI" access="private">
+    <g>
+      <![CDATA[
+
+    Dim sEDIStream
+	  Dim sDataFilename 
+    Dim sISA
+    Dim sGS
+    Dim sSTSE
+    Dim sGE
+    Dim sIEA
+
+    On Error Resume Next
+
+    Build5010ClaimEDI = False
+  
+    Call o5010.ClearSegmentLog()
+    Call o5010.BuildLog("=============== Start Claim EDI ===============")
+
+    'Create ISA Sement
+    sISA = Create5010_ISA
+	
+    'Create GS Segment
+    sGS = Create5010_GS
+		
+    'Create ST/SE Loop
+    sSTSE = Create5010_STSE()
+	
+    'Create GE Segment
+    sGE = Create5010_GE("1","1")
+
+    'Create IEA Segment
+    sIEA = Create5010_IEA("1",o5010.InterchangeControlNumber)
+
+    'Construct the EDI Stream
+    sEDIStream = Trim(sISA & sGS & sSTSE & sGE & sIEA) '& vbcrlf  'Note: Trailing crlf is required for importing EDI files
+
+    ' Make the root edi name based on Doc or Page ID. If multipage Claim EDI then Doc ID is used.
+    If o5010.SingleClaimExport=True then
+        'Per Claim Page EDI
+        sDataFilename = o5010.Page.ID
+    Else
+        'Multipage Claim 
+        sDataFilename = o5010.Doc.ID
+    End if
+  
+    Call Writelog("Processing Page:" & o5010.Page.ID)
+  
+    'Filter some undesired characters from filename
+    sDataFileName=replace(sDataFilename," ","_")
+    sDataFileName=replace(sDataFilename,".","")
+
+    'Format Check
+    sFileHeader = o5010.GetProfileString("FileNameFormat","FileHeader","")
+    sFileTrailer = o5010.GetProfileString("FileNameFormat","FileTrailer","")
+    
+    sDataFileName= sFileHeader & sDataFileName & sFileTrailer
+
+    sFileExtn = "837"
+
+    CurrentObj.Variable("EDI")=sDataFilename & "." & sFileExtn
+  
+    'CREATE PER CLAIM DATAFILE
+    If o5010.EDI_Writefile(sDataFilename & "." & sFileExtn, sEDIStream)=False then Exit Function
+
+    'CREATE PER CLAIM TEXT DATAFILE
+    If o5010.EDI_Writefile(sDataFilename & ".txt", Replace(sEDIStream, o5010.SegTerm, o5010.SegTerm & vbCrLf))=False then Exit Function
+					
+    Build5010ClaimEDI=True
+
+    Call o5010.LogError("Build5010ClaimEDI")
+
+    Call o5010.BuildLog("=============== End Claim EDI ===============")
+
+]]>
+    </g>
+  </f><f name="Create5010_ISA" access="private">
+    <g>
+      <![CDATA[
+
+ 	Dim ISA(16)
+	Dim tmpAuthInfo
+	Dim tmpSecInfo
+	Dim MetaWordValue
+  
+	On Error Resume Next
+
+    Call o5010.BLogStartLoop("< Start ISA Segment >")
+
+    'Segment Separator
+    o5010.SegSep = Trim(o5010.GetProfileString("X12N","SegmentSeparator","*"))
+    o5010.SegSep = Left(o5010.SegSep & Space(1),1)
+    If Len(Trim(o5010.SegSep)) = 0 Then o5010.SegSep = "*" 
+
+    'Segment ID
+    ISA(0)="ISA"
+    
+    'Authorization Infomation Qualifier
+    'Fixed Length = 2 ,Positions 1 & 2
+    ' 00 : No Authorization Information Present
+    ' 03 : Additional Data Identification
+    ISA(1) = "00"
+    tmpAuthInfo = Trim(o5010.GetProfileString("ISA_Header","AuthorizationInformation",""))
+    If Len(tmpAuthInfo) > 0 Then ISA(1) = "03"
+	
+    'Authorization Information
+    'Fixed Length = 10 , Positions 3-12
+    ISA(2) = Left(tmpAuthInfo & Space(10),10)
+		
+    'Security Information Qualifier
+    'Fixed Length = 2 , Positions 13 & 14
+    ISA(3) = "00"
+    tmpSecInfo = Trim(o5010.GetProfileString("ISA_Header","SecurityInformation",""))
+    If Len(tmpSecInfo) > 0 Then ISA(3) = "01"
+	
+		'Security Information
+		'Fixed Length = 10 , Positions 15-24
+		ISA(4) = Left(tmpSecInfo & Space(10), 10)
+    
+    		'Interchange ID Qualifier
+		'Fixed Length = 2 , Positions 25 & 26
+		ISA(5) = o5010.GetProfileString("ISA_Header","InterchangeSenderQualifier","ZZ")
+		ISA(5) = Right(Space(2) & ISA(5),2)
+		If Not InStr("01,14,20,27,28,29,30,33,ZZ",ISA(5))>0 Then ISA(5) = "ZZ"
+
+		' Transmission Submitter Identification Number
+		' Fixed Length = 15 , Positions 27-41
+		ISA(6) = o5010.GetProfileString("ISA_Header","InterchangeSenderID","00000")
+		ISA(6) = Left(ISA(6) & Space(15),15)
+
+		' Interchange ID Qualifier
+		'Fixed Length = 2 , Positions 42 & 43		
+		ISA(7) = Trim(o5010.GetProfileString("ISA_Header","InterchangeReceiverQualifier","ZZ"))
+		ISA(7) = Right(Space(2) & ISA(7),2)
+		If Not InStr("01,14,20,27,28,29,30,33,ZZ",ISA(7))>0 Then ISA(7) = "ZZ"
+
+		' Intermediary Identification Number (Len: 15)
+		'Fixed Length = 15 , Positions 44-58
+		ISA(8) = Trim(o5010.GetProfileString("ISA_Header","InterchangeReceiverID","00000"))
+		ISA(8) = Left(ISA(8) & Space(15),15) 
+
+		' File Creation Date
+		'Fixed Length = 6 , Positions 59-64
+		ISA(9) = o5010.RecordDate
+
+		' File Creation Time
+		'Fixed Length = 4 , Positions 65-68
+		ISA(10) = o5010.RecordTime
+
+		' Repetition Separator
+		' Type is not applicable; the repetition separator is a delimiter and not a data element; 
+    ' this field provides the delimiter used to separate repeated occurrences of a simple data 
+    ' element or a composite data structure; this value must be different than the data element
+    ' separator, component element separator, and the segment terminator.
+    o5010.RepSep = Trim(o5010.GetProfileString("X12N","RepetitionSeparator","^"))
+		ISA(11) = o5010.RepSep
+
+		' ANSI Version Code
+		' Positions 70-74
+		ISA(12) = "00501"
+
+		' Interchange Control Number
+		' Fixed Length = 9 Positions 75-83
+		o5010.InterchangeControlNumber = Trim(o5010.GetProfileString("ISA_Header","InterchangeControlNum",""))
+		    
+		If Ucase(Trim(o5010.InterchangeControlNumber)) = "BATCH" Then 
+      'Check for Split Batch (extra length) in ID
+      If Len(Pilot.BatchID)>12 and InStrRev(Pilot.BatchID,".")=13 and IsObject(oDCAlphaD) Then
+                                                          'Julian Day              'Batch number             'Split Batch Number
+        o5010.InterchangeControlNumber = right(Space(9) & Mid(Pilot.BatchID,6,3) & Mid(Pilot.BatchID,10,3) & Right("000" & cstr(oDCAlphaD.AlphaDecimalToLong(Right(Pilot.BatchID,2))),3),9)
+      Else
+  			o5010.InterchangeControlNumber = right(Space(9) & Left(Pilot.BatchID,8) & Right(Pilot.BatchID,1), 9)
+      End if
+    Else
+      MetaWordValue = MetaWord(o5010.InterchangeControlNumber)
+      If len(MetaWordValue)>0 then o5010.InterchangeControlNumber = MetaWordValue
+    End if
+    
+		If Not IsNumeric(o5010.InterchangeControlNumber) Then
+			o5010.InterchangeControlNumber = "123456789"
+			Call o5010.BuildLog("The Interchange control Number was not Numeric! Defaulting to '" & o5010.InterchangeControlNumber & "'") 
+		End If
+    
+    'Enforce Max length of 9
+    o5010.InterchangeControlNumber = Left(o5010.InterchangeControlNumber & Space(9),9)
+		ISA(13) = o5010.InterchangeControlNumber
+	
+		'Acknowledgment Requested
+		'0 - No Acknowledgement     1 - Interchange Acknowledgemnt Requested
+		'Fixed Length = 1 , Position 84
+		ISA(14) = Trim(o5010.GetProfileString("ISA_Header","AcknowedgmentRequested","0"))
+		ISA(14) = Left(ISA(14) & Space(1),1)
+		If Not InStr("0,1",ISA(14))>0 Then ISA(14) = "0"
+
+		'Test Indicator
+		'P - Production Data     T - Test Data	
+		'Fixed Length = 1 , Position 85
+		ISA(15) = Trim(o5010.GetProfileString("ISA_Header","TestIndicator",""))
+		ISA(15) = Left(ISA(15) & Space(1),1)
+		If Not InStr("P,T",ISA(15))> 0 Then ISA(15) = "P"
+
+		' Component Element Separator
+		'ISA(16), Fixed Length = 1, Position 86  Note A ":" is recommended by the X.12 specification
+		'NOTE: This entry has been left out of the INI file until this script can enforce data element integrity
+		o5010.sCES = o5010.GetProfileString("ISA_Header","ComponentElementSeparator","")
+		o5010.sCES = Left(o5010.sCES & Space(1),1)
+		If Not InStr(":",o5010.sCES)>0 Then o5010.sCES = "<"
+		ISA(16) = o5010.sCES
+
+		'Segment Terminator, Fixed Length = 1 Position 87
+		o5010.SegTerm = Trim(o5010.GetProfileString("X12N","SegmentTerminator",""))
+		o5010.SegTerm = Left(o5010.SegTerm & Space(1),1)
+		If Len(Trim(o5010.SegTerm)) = 0 Then o5010.SegTerm = "~" 
+
+                If CBool(o5010.GetProfileString("X12N", "TerminatorPlusLineFeed","False")) = True then 
+                   o5010.SegTerm = o5010.SegTerm & vbcrlf
+                End if
+						
+		Create5010_ISA = o5010.Assemble(ISA) 
+
+                Call o5010.BLogEndLoop("< End ISA > ")
+		Call o5010.LogError("End Create5010_ISA")
+
+]]>
+    </g>
+  </f>
+  <f name="Create5010_IEA" access="private"><p name="NumFunctGrps"/><p name="IntControlNum"/>
+    <g>
+      <![CDATA[
+
+    Dim IEA(2)
+
+    On Error Resume Next
+
+    Call o5010.BLogStartLoop("< Start IEA >")           
+
+    IEA(0) = "IEA"
+
+    'Number of Included Functional Groups
+    IEA(1) = cStr(NumFunctGrps) 
+
+    'Interchange Control Number
+	  IEA(2) = cStr(IntControlNum) 
+
+    'Table 4 Position 020
+    Create5010_IEA = o5010.Assemble(IEA)
+	
+    Call o5010.BLogEndLoop("< End IEA > ")
+    Call o5010.LogError("End Create5010_IEA")
+		
+]]>
+    </g>
+  </f>
+  <f name ="Create5010_GS" access="private">
+    <g>
+      <![CDATA[
+
+	Dim GS(8)
+	Dim GS01, GS02, GS03, GS04, GS05, GS06, GS07, GS08
+
+	On Error Resume Next
+
+    Call o5010.BLogStartLoop("< Start GS >")
+		
+        'Functional Group Segement ID
+        GS(0) = "GS"
+		
+        ' Functional Identifier Code
+        '    HC - Health Care Claim (837)
+        GS(1) = "HC"
+
+        ' Transmission Submitter Identification
+        ' Length 2-15
+        o5010.SenderCode = Trim(o5010.GetProfileString("GS_Header","SenderCode",""))
+        If Len(o5010.SenderCode) < 2 Then o5010.SenderCode = "DATACAP EXPORT"
+        GS(2) = o5010.SenderCode
+
+		' Application Receiver's Code
+		' Length 2-15
+        o5010.ReceiverCode = Trim(o5010.GetProfileString("GS_Header","ReceiverCode",""))
+        If Len(o5010.ReceiverCode) < 2 Then o5010.ReceiverCode = "00000"
+        GS(3) = o5010.ReceiverCode
+
+        ' Group Creation Date
+        GS(4) = o5010.GetDateCCYYMMDD()
+
+        ' Group Creation Time
+        GS(5) = o5010.RecordTime
+
+        ' Group Control Number
+        ' Length 1-9
+        GS(6) = "1"
+
+        ' Responsible Agency Code
+        ' X - Accrediated Standards Committee X12
+        GS(7) = "X"
+
+        ' ANSI Version Code
+        GS(8) = Trim(o5010.GetProfileString("GS_Header","EDIstandard",""))
+	
+        ' Table 0 Position 020 - Functional Group Header
+        Create5010_GS = o5010.Assemble(GS)
+	
+        o5010.TranSetCntlNum="0"
+
+        Call o5010.BLogEndLoop("< End GS > ")
+        Call o5010.LogError("End Create5010_GS")
+
+]]>
+    </g>
+  </f>
+  <f name="Create5010_GE" access="private"><p name="NumTransactionSets"/><p name="GrpControlNum"/>
+    <g>
+      <![CDATA[
+
+    Dim GE(2)
+	
+        On Error Resume Next
+
+        Call o5010.BLogStartLoop("< Start GE >")
+	
+        GE(0)="GE"
+	
+        ' Number of Transaction Sets Included
+        GE(1) = NumTransactionSets '"1"
+
+        ' Group Control Number
+        GE(2) = GrpControlNum '"1"
+
+        ' Table 4 Position 010
+        Create5010_GE = o5010.Assemble(GE) 
+		
+        Call o5010.BLogEndLoop("< End GE >")
+        Call o5010.LogError("End Create5010_GE")		
+		
+]]>
+    </g>
+  </f>
+  <f name="Create5010_STSE" access="private">
+    <g>
+      <![CDATA[
+
+	  Dim sCreateSE	
+	
+		On Error Resume Next
+	
+		Create5010_STSE = ""
+
+		Create5010_STSE = Get5010Table1Records()
+				
+		o5010.HLCount = 0		
+				
+		'Stats Doc Counter - Multi Claim Export												
+		o5010.nDocs = o5010.nDocs + 1
+				
+		If o5010.Doc.NumOfChildren > 0 Then 
+			Set o5010.Page = o5010.Doc.GetChild(0)
+				
+			o5010.LineNumber = 0	
+		  	Create5010_STSE = Create5010_STSE & X12_5010_2000A()
+		  	'For additional Pages see Function 'X12_5010_2300'
+				   						
+			'Stats Page Counter - Single Claim Export
+			o5010.nPages = o5010.nPages + 1
+		
+		End If 
+							   	
+		sCreateSE = Create5010_SE(o5010.SegmentCount,o5010.TranSetCntlNum)
+		Create5010_STSE = Create5010_STSE & sCreateSE
+		 			 		
+ 		Call o5010.LogError("END Create5010_STSE")
+ 		 		
+ 		
+]]>
+    </g>
+  </f>
+  <f name="Get5010Table1Records" access="private">
+    <g>
+      <![CDATA[
+
+	Dim sLoop1000Header
+	Dim sLoop1000Records
+	Dim ST(3)
+	Dim BHT(7)
+	Dim REF_87
+	Dim sTSCNSource
+	Dim oFirstPg
+	Dim oField
+  
+    On Error Resume Next
+	
+        Call o5010.BLogStartLoop("< Start Table 1 (ST) >")
+
+        'Initialize Segment counter
+        o5010.SegmentCount = 0
+
+        'Segment ID
+        ST(0)="ST"
+
+        ' Transaction Set Identifier Code
+        '   837 - X12.86 Health Care Claim
+        ST(1) = "837"
+
+        ' Transaction Set Control Number, must be identical with SE02
+        ST(2) = ""
+        Set oField = Nothing
+        Set oFirstPg = Nothing
+        
+        sTSCNSource = Trim(o5010.GetProfileString("Header","TransactionSetControlSource",""))
+
+        If o5010.SingleClaimTransaction = False Then 
+
+            'Check if Batch Variable
+            If DCO.FindVariable(sTSCNSource)>-1 Then
+                Call o5010.BuildLog("Transaction Set Control Number : Batch Variable")		
+                ST(2) = DCO.Variable(sTSCNSource)
+            End If
+	
+            If Len(ST(2))=0 Then	
+                Call o5010.BuildLog("Transaction Set Control Number : Doc ID")	
+                ST(2) = o5010.Doc.ID
+            End If
+
+        Else
+			
+            'Check if Doc variable
+            If o5010.Doc.FindVariable(sTSCNSource)>-1 Then
+                Call o5010.BuildLog("Transaction Set Control Number : Doc Variable")	 
+                ST(2) = o5010.Doc.Variable(sTSCNSource)
+            End If
+
+            'Check Page
+            Set oFirstPg=nothing
+            If o5010.Doc.NumOfChildren > 0 Then 
+                Set oFirstPg = o5010.Doc.GetChild(0)
+            End If
+
+            If Not(oFirstPg is nothing) Then
+                'Check if Page variable
+                If oFirstPg.FindVariable(sTSCNSource)>-1 Then 
+                    Call o5010.BuildLog("Transaction Set Control Number : Page Variable")	
+                    ST(2) = oFirstPg.Variable(sTSCNSource)
+                End If
+                'Check if Field On Page
+                If oFirstPg.FindChildIndex(sTSCNSource)>-1 Then
+                    Call o5010.BuildLog("Transaction Set Control Number : Field")	
+                    Set oField = oFirstPg.FindChild(sTSCNSource)
+                    If Not(ofield is nothing) Then
+                        ST(2) = Trim(oField.Text)
+                        Set oField = Nothing
+                    End If
+                End If
+
+                Set oFirstPg = Nothing
+            End If
+
+            If Len(ST(2))=0 And o5010.Doc.FindVariable("DD")>-1 Then
+                Call o5010.BuildLog("Transaction Set Control Number : Doc Data")
+                ST(2) = Trim(o5010.Doc.Variable("DD"))
+            End If
+
+            If Len(ST(2))=0 Then
+                ST(2) = o5010.Doc.ID
+            End If
+	
+        End If	
+
+        If sTSCNSource="COUNTER" and IsNumeric(o5010.TranSetCntlNum)=true Then
+            o5010.TranSetCntlNum = clng(o5010.TranSetCntlNum) + 1
+        End if
+
+        'Normalize the Data (add leading zeros, max length of 9)
+        ST(2) = Replace(ST(2),".","")
+        ST(2) = Replace(ST(2)," ","")
+        ST(2) = Right(String(9,"0") & ST(2),9)
+
+        'Set Global variable for use in the SE02
+        o5010.TranSetCntlNum = ST(2)
+
+        'Implementation Convention Reference
+        ' ANSI Version Code
+        ST(3) = Trim(o5010.GetProfileString("GS_Header","EDIstandard",""))
+
+        BHT(0) = "BHT"
+
+        ' Hierarchical Structure Code
+        BHT(1) = "0019"
+
+		' Transaction Set Purpose Code
+        ' 00 - Orignal    18 - Reissue
+        BHT(2) = "00"
+
+        ' Reference Identification
+        BHT(3) = Trim(o5010.GetProfileString("Header","SequenceSerialNumber",""))
+        ' Length 1-50
+        If Len(BHT(3))=0 Then
+            BHT(3)=ST(2)
+            o5010.BuildLog("BHT03 Defaulting to ST02 value '" & ST(2) & "'") 
+        End If	 
+	
+        ' Transaction Set Creation Date
+        BHT(4) = o5010.GetDateCCYYMMDD()
+       
+        tmpdate = DCO.Variable("ScanDate")
+        curMonth = Month(tmpdate)
+  	    If (curMonth < 10) Then curMonth = "0" & curMonth
+  	    curDay = Day(tmpdate)
+  	    If (curDay < 10) Then curDay = "0" & curDay
+  	    tempBHT04 = Right(Year(tmpdate), 4) & curMonth & curDay
+  	  
+        If len(tempBHT04)=8 and isnumeric(tempBHT04) then BHT(4)=tempBHT04
+
+        'Returns date in CCYYMMDD Format from sValue.
+        'Format Expected is MMDDCCYY in svalue
+        
+        ' Transaction Set Creation Time
+        BHT(5) = o5010.RecordTime
+        '      tmpTime = DCO.Variable("ScanTime")
+        '      tempBHT05 = Right("0000" & (Hour(tmpTime) * 100 + Minute(tmpTime)),4)
+        '      If len(tempBHT05)=4 and isnumeric(tempBHT05) then BHT05=tempBHT05
+
+        ' Transaction Type Code
+        '   CH - Chargeable   RP - Reporting    31 - Subrogation Demand
+        BHT(6) = "CH"
+							
+        sLoop1000Records = X12_5010_1000A()
+        sLoop1000Records = sLoop1000Records & X12_5010_1000B()
+
+        Get5010Table1Records = o5010.CountSegment(o5010.Assemble(ST)) & o5010.CountSegment(o5010.Assemble(BHT)) & sLoop1000Records
+
+        Call o5010.BLogEndLoop("< End Table 1 >")
+        Call o5010.LogError("End of Function Get5010Table1Records")
+						
+]]>
+    </g>
+  </f>
+  <f name="Create5010_SE" access="private"><p name="Segments" /><p name="TransSetCtrlNum" />
+    <g>
+      <![CDATA[
+
+        Dim SE(2)
+	
+        On Error Resume Next
+	
+        Call o5010.BLogStartLoop("< Start SE >")
+
+        SE(0) = "SE"
+
+        ' Number of Included Segments
+        SE(1) = Segments + 1  'Note: Plus 1 is this SE segment which is counted. 
+        SE(2) = TransSetCtrlNum 
+		 			
+        ' Table 2 Position 560 - Transaction Set Trailer
+        Create5010_SE = o5010.Assemble(SE) 
+
+        If cbool(o5010.GetProfileString("Log","SegmentLog","False"))=True Then Call o5010.BuildLog("Seg# SE->  " & Create5010_SE)
+        If cbool(o5010.GetProfileString("Log","SegmentReport","False"))=True then o5010.AddSegmentLog("Seg# SE->  " & Create5010_SE)
+
+        Call o5010.BLogEndLoop("< End SE >")
+        Call o5010.LogError("End of function Create5010_SE")
+				
+]]>
+    </g>
+  </f>
+  <f name="X12_5010_1000A" access="private">
+    <g>
+      <![CDATA[
+	Dim NM1(9), sNM1
+	Dim PER(9)
+
+	On Error Resume Next
+
+    Call o5010.BLogStartLoop("< Loop 1000A >")
+
+		'Segement ID
+		NM1(0)="NM1"
+
+		' Entity Identifier Code
+		'    41 - Submitter
+		NM1(1) = "41"
+
+		' Entity Type Qualifier
+		'    1 - Person    2 - Non-Person Entity
+		NM1(2) = "2"
+
+		' Submitter Name
+		NM1(3) = Trim(o5010.GetProfileString("Header","SubmitterName"   ,""))
+		If Len(Trim(NM103)) = 0 Then NM103 = o5010.GetProfileString("Defaults","NM103","")
+
+		' Name First
+		NM1(4) = ""
+
+		' Name Middle
+		NM1(5) = ""
+
+		' Name Prefix
+		NM1(6) = ""
+
+		' Name Suffix
+		NM1(7) = ""
+
+		' Identification Code Qualifier
+		'    46 - Electronic Transmitter Identification Number (ETIN)
+		NM1(8) = "46"
+
+		' Identification Code (Submitter Identifier)
+		NM1(9) = Trim(o5010.GetProfileString("Header", "SubmitterID", o5010.SenderCode))
+		If Len(Trim(NM1(9)))<2 Then NM1(9) = o5010.GetProfileString("Defaults","NM109","")
+		
+		' Table 1 Position 020
+		sNM1=o5010.Assemble(NM1)
+    If NM1(3) = "" Then 
+       sNM1 = ""
+		   Writelog("Missing Submitter Name, NM1 Segment not created.")
+    End if
+    
+		'Segment ID
+		PER(0)="PER"
+			
+		' Contact Function Code
+		'     IC - Information Contract
+		PER(1) = "IC"
+
+		' Submitter Contact
+		PER(2) = "" 'Not used if same as Name in NM1 of this Loop
+    
+    ' Comuunications Number Qualifier
+		'     TE - Telephone   FX - Facsimile    EM - Electronic Mail   ED - EDI Access Number
+		PER(3) = "TE"
+
+		' Submitter Contact Number based on PER03
+		PER(4) = Trim(o5010.GetProfileString("Header","SubmitterPhone"  ,""))
+		If Len(Trim(PER(4))) = 0 Then PER(4) = o5010.GetProfileString("Defaults","PER04","")
+
+		' Communications Number Qualifier (additional numbers)
+		'   TE - Telephone   EX - Telephone extension   FX - Facsimile    EM - Electronic Mail   ED - EDI Access Number
+		PER(5) = ""
+
+		' Submitter Contact Number based on PER05
+		PER(6) = ""
+
+		' Communications Number Qualifier (additional numbers)
+		'   TE - Telephone   EX - Telephone extension   FX - Facsimile    EM - Electronic Mail   ED - EDI Access Number
+		PER(7) = ""
+
+		' Submitter Contact Number based on PER07
+		PER(8) = ""
+
+		' Contact Inquiry Reference
+		PER(9) = ""
+		
+		X12_5010_1000A = o5010.CountSegment(sNM1) & o5010.CountSegment(o5010.Assemble(PER))
+		
+    Call o5010.BLogEndLoop("< End 1000A > ")
+		Call o5010.LogError("End X12_5010_1000A")
+		
+]]>
+    </g>
+  </f>
+  <f name="X12_5010_1000B" access="private">
+    <g>
+      <![CDATA[
+	Dim NM1(9), sNM1
+	
+   	On Error Resume Next
+	
+    Call o5010.BLogStartLoop("< Loop 1000B >")
+  
+		'Segment ID
+		NM1(0) = "NM1"
+	
+		' Entity Identifier Code
+		'    40 - Receiver
+		NM1(1) = "40"
+
+		' Entity Type Qualifier
+		'    1 - Person    2 - Non-Person Entity
+		NM1(2) = "2"
+
+		' Receiver Name
+		NM1(3) = Trim(o5010.GetProfileString("Header","ReceiverName"    ,""))
+		If Len(Trim(NM1(3))) = 0 Then NM1(3) = o5010.GetProfileString("Defaults","NM103","")
+
+		' Name First
+		'   Required if NM1(2)=1 (Person)
+		NM1(4) = ""
+
+		' Name Middle
+		'   Required if NM1(2)=1 and name is known.
+		NM1(5) = ""
+
+		' Name Prefix
+		NM1(6) = ""
+
+		' Name Suffix
+		NM1(7) = ""
+
+		' Identification Code Qualifier
+		'    46 - Electronic Transmitter Identification Number (ETIN)
+		NM1(8) = "46"
+
+		' Identification Code (Receiver Identifier)
+		NM1(9) = o5010.ReceiverCode
+		If Len(Trim(NM1(9)))<2 Then NM1(9) = o5010.GetProfileString("Defaults","NM109","")
+
+		' Table 1 Position 020
+    sNM1=o5010.Assemble(NM1)
+		If NM1(3)="" Then sNM1=""
+		
+		X12_5010_1000B = o5010.CountSegment(sNM1)
+    
+		Call o5010.BLogEndLoop("< End 1000B >")
+		Call o5010.LogError("End X12_5010_1000B")		
+		
+]]>
+    </g>
+  </f>
+
+<f name="Merge5010" access="public">
+    <p name="SmartFilePath"/>
+    <p name="SmartFileName"/>
+    <p name="SmartFileExtn"/>
+    <h>
+     <b>*** This Action Is Deprecated ***</b><br/>
+     This action has been deprecated and is scheduled to be removed in a future release.
+     It is recommended that you no longer use this action.
+     There is no replacement for this action.
+     <br/><br/>
+    </h>
+    <g>
+      <![CDATA[
+    Dim sMergeFilePath
+    Dim sMergeFileTemp
+    Dim sMergeFilename
+    Dim sAppendSegments
+    Dim bAppend2GSGE
+    Dim bAppend2STSE
+    Dim newSE
+    Dim newGE
+    Dim newIEA
+    Dim nGE01
+    Dim nIEA01
+    
+    On Error Resume Next
+
+    o5010.BuildLog("*********** START EDI ***********")
+
+    Merge5010=False
+
+    'Default Values
+    sMergeFilePath = Pilot.BatchDir
+    sMergeFilename = Pilot.BatchID 
+    sFileExtn = ".837"
+    
+    If len(trim(SmartFilePath))>0 Then
+      sMergeFileTemp = MetaWord(SmartFilePath)
+      If len(sMergeFileTemp)>0 then sMergeFilePath=sMergeFileTemp     
+    End if
+    
+    If len(trim(SmartFileName))>0 Then
+      sMergeFilename=MetaWord(SmartFileName)         
+    Else
+      'Only use if no parameter is passed
+      sMergeFileHeader = o5010.GetProfileString("FileNameFormat","MergeFileHeader","5010_")
+      sMergeFileTrailer = o5010.GetProfileString("FileNameFormat","MergeFileTrailer","")
+    End if
+    
+    'Filter some undesired characters from filename
+    sMergeFilename =replace(sMergeFilename," ","_")
+    sMergeFilename =replace(sMergeFilename,".","")
+    
+    If len(trim(SmartFileExtn))>0 Then
+      sFileExtn=MetaWord(SmartFileExtn)
+      If left(sFileExtn+Space(1),1)<>"." then sFileExtn="."+sFileExtn
+    End if
+         
+    sMergeFile= sMergeFileHeader & sMergeFileName & sMergeFileTrailer & sFileExtn
+
+    'Add the Merge to EDI file name to the current object as a variable
+    CurrentObj.Variable("Merge_EDI_5010")=sMergeFile
+      
+    sCurrentEDIFilename = Pilot.BatchDir & "\" & CurrentObj.Variable("EDI")
+
+    'Check that file exists
+    If Not FileMgr.FileExists (sCurrentEDIFilename) then
+        o5010.BuildLog("Current EDI file:'" & sCurrentEDIFilename & "' Not found. Exiting.")
+        Exit Function	
+    End if
+
+    'Open file for reading
+    o5010.BuildLog("Reading Current EDI file:'" & sCurrentEDIFilename & "'")
+    Set oCurrentEDIFile = FileMgr.OpenTextFile(sCurrentEDIFilename, 1, False)
+
+    'Read & Close the file 
+    sCurrentEDI = oCurrentEDIFile.ReadAll
+    oCurrentEDIFile.Close
+      
+    'Read the current EDI Segment settings
+    'Segment Terminator Position 106
+    c_SegTerm = Mid(sCurrentEDI, 106, 1)
+    nFirstGS = Instr(106,sCurrentEDI,"GS")
+    If nFirstGS<>107 then
+    
+        o5010.BuildLog("Position 106 Trailing Characters Detected.")
+        
+        For p = 107 to (nFirstGS-1)
+            'Segment Terminator Position check
+            c_trail = Mid(sCurrentEDI, p, 1)
+            o5010.BuildLog("Current EDI position " & cstr(p) & "'" & ASCW(c_trail) & "'")
+            c_SegTerm = c_SegTerm & c_trail
+        Next 'p
+    
+    End if
+    o5010.BuildLog("Current EDI Segment Terminator:'" & c_SegTerm & "'")
+    
+    'Component Element Separator Position 105
+    c_ComponentSep = Mid(sCurrentEDI,105,1)
+    o5010.BuildLog("Current EDI Component Element Separator:'" & c_ComponentSep & "'") 
+
+    'Repetition Separator Position
+    c_RepetitionSep = Mid(sCurrentEDI,83,1)
+    o5010.BuildLog("Current EDI Repetition Separator:'" & c_RepetitionSep & "'")
+     
+    'Element Separator Position 4
+    c_ElementSep = Mid(sCurrentEDI,4,1)
+    o5010.BuildLog("Current EDI Element Separator:'" & c_ElementSep & "'")
+
+    'See if the Target File Exists
+    o5010.BuildLog("Looking for file:'" & sMergeFilePath & "\" & sMergeFileName & "'") 
+
+    'If it does not Exist, use current as new EDI
+    If Not FileMgr.FileExists(sMergeFilePath & "\" & sMergeFile) then
+  
+      'Create new file in batch folder - then out to export folder path
+      o5010.BuildLog("*********** START New EDI ***********")
+      o5010.BuildLog("Writing New EDI file:'" & Pilot.BatchDir & "\" & sMergeFile & "'")  
+	    Set oNewEDIFile = FileMgr.OpenTextFile(Pilot.BatchDir & "\" & sMergeFile, 2, True)
+	    oNewEDIFile.Write(sCurrentEDI)
+	    oNewEDIFile.Close
+	
+    	'Copy to export path here
+    	if sMergeFilePath<>Pilot.BatchDir then
+	        FileMgr.CopyFile Pilot.BatchDir & "\" & sMergeFile, sMergeFilePath & "\" & sMergeFile 	    
+	    
+	        If Err.Number <> 0 Then
+               Call o5010.LogError ("FileMgr.CopyFile " &  sMergeFile & " , " &  sMergeFilePath & "\" & sMergeFile)
+               Exit Function
+            End if
+	    End if
+	    	
+	    o5010.BuildLog("*********** END New EDI ***********")
+	    Merge5010=True
+	    Exit Function
+    Else
+	    'Backup Existing file (copy it) in preparation of it being overwritten 
+	    FileMgr.CopyFile Pilot.BatchDir & "\" & sMergeFile, Pilot.BatchDir & "\" & sMergeFileHeader & sMergeFileName & sMergeFileTrailer & ".bak"	    
+	    
+	    If Err.Number <> 0 Then
+            Call o5010.LogError ("FileMgr.CopyFile " &  sMergeFile & " , " &  Pilot.BatchDir & "\" & sMergeFileHeader & sMergeFileName & sMergeFileTrailer & ".bak")
+        Exit Function
+      End If
+        
+    End if
+
+    o5010.BuildLog("Reading file " & sMergeFilePath & "\" & sMergeFile)
+
+    'Read Existing EDI and prepare for Appending Current EDI to it
+    Set oTargetEDIfile = FileMgr.OpenTextFile(sMergeFilePath & "\" & sMergeFile, 1, False)
+      
+    If Not IsAlive(oTargetEDIfile) then
+       o5010.BuildLog("Could not open file. " & err.number & ":" & err.description)
+       Exit Function
+    End if  
+      
+    sTargetEDI = oTargetEDIfile.ReadAll
+    oTargetEDIFile.Close
+      
+    '---------------------------------------------------------------------------  
+    'Read the Existing Target EDI File Separators
+    '---------------------------------------------------------------------------
+    'Segment Terminator Position 106
+    t_SegTerm = Mid(sTargetEDI, 106, 1)
+    nFirstGS = Instr(106,sTargetEDI,"GS")
+    If nFirstGS<>107 then
+    
+        o5010.BuildLog("Position 106 Trailing Characters Detected.")
+        
+        For p = 107 to (nFirstGS-1)
+            'Segment Terminator Position check
+            t_trail = Mid(sTargetEDI, p, 1)
+            o5010.BuildLog("Target EDI position " & cstr(p) & "'" & ASCW(t_trail) & "'")
+            t_SegTerm = t_SegTerm & t_trail
+        Next 'p
+    
+    End if            
+    o5010.BuildLog("Target EDI Segment Terminator:'" & t_SegTerm & "'")
+  
+	'Component Element Separator Position 105
+    t_ComponentSep = Mid(sTargetEDI,105,1)
+    o5010.BuildLog("Target EDI Component Element Separator:'" & t_ComponentSep & "'") 
+
+    'Repetition Separator Position
+    t_RepetitionSep = Mid(sTargetEDI,83,1)
+    o5010.BuildLog("Target EDI Repetition Separator:'" & t_RepetitionSep & "'")
+     
+    'Element Separator Position 4
+    t_ElementSep = Mid(sTargetEDI,4,1)
+    o5010.BuildLog("Target EDI Element Separator:'" & t_ElementSep & "'")
+    
+    'Set Characters for o5010.Assemble()
+    o5010.SegSep=t_ElementSep
+    o5010.SegTerm=t_SegTerm
+      
+    '---------------------------------------------------------------------------
+    'Read HL, ST/SE, GS/GE, Control Number and IEA Counters from Target EDI
+    '---------------------------------------------------------------------------
+    'Extract last ST, GE and IEA Segment Counter positions from TARGET file
+    nHL =  InStrRev(sTargetEDI,"HL" & t_ElementSep)
+    nSE =  InStrRev(sTargetEDI,"SE" & t_ElementSep)
+    nGE =  InStrRev(sTargetEDI,"GE" & t_ElementSep)
+    nIEA = InStrRev(sTargetEDI,"IEA" & t_ElementSep)
+			
+    'Log the value of the last HL segment
+    lenHL = InStr(nHL,sTargetEDI,t_SegTerm)
+    sHL = Mid(sTargetEDI,nHL,lenHL-nHL+len(t_SegTerm))
+    Call o5010.Buildlog("Trailing HL:'" & sHL & "'")			
+			
+    'Log the value of the last SE segment		
+    sSE = Mid(sTargetEDI, nSE, nGE-nSE)
+    Call o5010.Buildlog("Trailing SE:'" & sSE & "'")		
+			
+    'Log the value of the last GE segment		
+    sGE = Mid(sTargetEDI, nGE, nIEA-nGE)
+    Call o5010.Buildlog("Trailing GE:'" & sGE & "'")
+		
+    'Log the value of the IEA segment	
+    sIEA = Mid(sTargetEDI,nIEA,Len(sTargetEDI)-nIEA)  
+    Call o5010.Buildlog("Trailing IEA:'" & sIEA & "'")
+	
+    aHL = Split(Replace(sHL,left(t_SegTerm & space(1),1),""),t_ElementSep)
+    aSE = Split(Replace(sSE,left(t_SegTerm & space(1),1),""),t_ElementSep)
+    aGE = Split(Replace(sGE,left(t_SegTerm & space(1),1),""),t_ElementSep)
+    aIEA = Split(Replace(sIEA,left(t_SegTerm & space(1),1),""),t_ElementSep)
+			
+    'Read IEA data for number of GS/GE loops & initialize a counter for IEA01 and new Identifier for GS Segments.
+    nHL01 = clng(aHL(1))
+    nSE01 = clng(aSE(1))
+    
+    sTransControlNum = aSE(2)
+    sTransControlNum = replace(sTransControlNum,left(t_SegTerm & space(1),1),"")
+    sTransControlNum = replace(sTransControlNum,Vblf,"")
+    sTransControlNum = replace(sTransControlNum,VbCr,"")
+    sTransControlNum = trim(sTransControlNum)
+    
+    nGE01 = clng(aGE(1))
+    sGroupControlNum = clng(Trim(aGE(2)))
+    sGroupControlNum = replace(sGroupControlNum,left(t_SegTerm & space(1),1),"")
+    sGroupControlNum = replace(sGroupControlNum,Vblf,"")
+    sGroupControlNum = replace(sGroupControlNum,VbCr,"")
+    sGroupControlNum = trim(sGroupControlNum)
+	
+    nIEA01 = clng(aIEA(1))
+    o5010.InterchangeControlNumber = Trim(aIEA(2))
+    o5010.InterchangeControlNumber = replace(o5010.InterchangeControlNumber,left(t_SegTerm & space(1),1),"")
+    o5010.InterchangeControlNumber = replace(o5010.InterchangeControlNumber,Vblf,"")
+    o5010.InterchangeControlNumber = replace(o5010.InterchangeControlNumber,VbCr,"")
+    o5010.InterchangeControlNumber = trim(o5010.InterchangeControlNumber)
+         
+    '---------------------------------------------------------------------------
+    'Log the Start value for the Counters when appending new file to Target EDI
+    '--------------------------------------------------------------------------- 
+    o5010.BuildLog("Last HL counter is :" & nHL01)  
+    o5010.BuildLog("Last SE counter is :" & nSE01)  
+    
+    'Subtract counter by '1' to adjust for SE count included in read value
+    nSE01=nSE01-1
+        
+    o5010.BuildLog("Last GE counter is :" & nGE01)
+    o5010.BuildLog("Last Group Control Number is :'" & sGroupControlNum & "'")
+    
+    o5010.BuildLog("Last IEA counter is :" & nIEA01)
+    o5010.BuildLog("Interchange Control Number is :'" & o5010.InterchangeControlNumber & "'")
+        
+    '---------------------------------------------------------------------------
+    'Read the INI settings for the APPEND to Options
+    '---------------------------------------------------------------------------
+    
+    bAppend2GSGE=False
+    bAppend2STSE=False
+       
+    bAppend2GSGE = cbool(o5010.GetProfileString("X12N","AppendToLastGSGE","False"))
+    
+    o5010.BuildLog("bAppend2GSGE=" & bAppend2GSGE)
+        
+    If bAppend2GSGE = True Then    
+        bAppend2STSE = cbool(o5010.GetProfileString("X12N","AppendToLastSTSE","False")) 'This means append to last GS/GE
+    Else
+        Writelog("Append to Last GSGE is FALSE. Option to append to last ST/SE loop is disabled.")
+    End if
+        
+    o5010.BuildLog("bAppend2STSE=" & bAppend2STSE)     
+        
+    'notes: 
+    'If NOT appending GS/GE then bAppend2GSSE is FALSE and bAppend2STSE is FALSE
+    'If appending to GS/GE with new ST/SE then bAppend2GSGE is TRUE and bAppend2STSE is FALSE    
+    'If appending to GS/GE AND ST/SE then bAppend2GSGE is TRUE and bAppend2STSE is TRUE
+         
+    '---------------------------------------------------------------------------
+    'Trim loaded Target file string in Preparation for Appending
+    '---------------------------------------------------------------------------
+    'If adding GS/GE and ST/SE to existing ISA/IEA
+    If bAppend2GSGE=FALSE and bAppend2STSE=FALSE then
+        o5010.BuildLog("Adding GS/GE and ST/SE to existing ISA/IEA") 
+        sTargetSegments = Left(sTargetEDI,nIEA-1)
+    End if
+    
+    'If adding ST/SE to existing GS/GE (appending to GS/GE)
+    If bAppend2GSGE=TRUE and bAppend2STSE=FALSE then 
+        o5010.BuildLog("Adding ST/SE to existing GS/GE (appending to GS/GE)")   
+        sTargetSegments = Left(sTargetEDI,nGE-1)    
+    End if
+    
+     'If appending ST/SE to existing GS/GE (appending ST/SE & GS/GE)
+    If bAppend2GSGE = TRUE and bAppend2STSE=TRUE then 
+        o5010.BuildLog("Appending ST/SE to existing GS/GE (appending ST/SE & GS/GE)")
+        sTargetSegments = Left(sTargetEDI,nSE-1)    
+    End if
+        
+    '--------------------------------------------------------------------------- 
+    'Split Source EDI in Preparation for Appending
+    '---------------------------------------------------------------------------
+    
+    'String containing segments to append to target file
+    sAppendSegments=""
+    
+    bAppendSegment=True
+    
+    'Split by Segment Terminators - removes Terminators
+    aSourceSegments = Split(sCurrentEDI,c_SegTerm)
+    
+    'Loop Through each Segment
+    For iSegment = 1 to ubound(aSourceSegments)
+        
+        'Log the Segment
+        'o5010.BuildLog(aSourceSegments(iSegment-1))
+        
+        'Split by Element Separators - removes Separators
+        aSourceElements = Split(aSourceSegments(iSegment-1),c_ElementSep)
+        
+        'Re-Init the Segment flag
+        bAppendSegment=True
+        
+        'Loop through each Element
+        For iElement = 0 to ubound(aSourceElements)
+            
+            'Get the Element Value
+            sElement = aSourceElements(iElement)
+            
+            'Log the ID
+            If iElement=0 then
+                sSegmentID=sElement
+                'o5010.BuildLog("ID:" & sElement)
+            End if
+                
+            'Look for Sub Element (component) separators 
+            If InStr(sElement,c_ComponentSep)>0 Then
+                 'replace
+                 sSourceElements(iElement)=replace(sSourceElements(iElement),c_ComponentSep,t_ComponentSep)
+            End if
+                        
+            'Look for repeating separators
+            If InStr(sElement,c_RepetitionSep)>0 Then
+                'replace
+                sSourceElements(iElement)=replace(sSourceElements(iElement),c_RepetitionSep,t_RepetitionSep)
+            End if
+            
+            '----------------------------------------
+            'Do something with the segment ID:
+            '----------------------------------------
+            'If appending as new GS/GE loop (GE/GE Wrapper) then:
+            '  bAppend2GSSE = FALSE and bAppend2STSE=FALSE
+            '  Ignore ISA/IEA in current 837
+            '  Count number of GS/GE segments added
+            '  Update the counter in the ISA/IEA segment
+            
+            'If appending Claim to an existing GS/GE (use existing ST/SE wrapper) then:
+            '  bAppend2GSSE = TRUE and bAppend2STSE=FALSE
+            '  Ignore all ISA/IEA, GS/GE loop segments in current 837
+            '  Count all the segments for each new ST/SE loop
+            '  Update the counter for current GS/GE with each ST/SE added
+            '  Counter for ISA/IEA (number of included GS/GE segments) is static
+                        
+            'If appending Claim to an existing ST/SE then:
+            '  bAppend2GSSE = TRUE and bAppend2STSE=TRUE  
+            '  Ignore all ISA/IEA, GS/GE, ST/SE loop segments in current 837
+            '  Change the counters for all appended HL Segments
+            '  Get the Transaction Control Number for use with new SE02
+            '  Count all new segments except: ISA/IEA GS/GE ST/SE
+            '  Counter for ISA/IEA(num of included GS/GE), GS/GE (num of included ST/SE) is static  
+                      
+            Select Case UCase(sSegmentID)
+                Case "ISA","IEA"
+                    'Do not append these segments - only 1 ISA/IEA & BHT per file EVER!
+                    bAppendSegment=False
+                                        
+                Case "GS"
+                    If bAppend2GSGE = FALSE and bAppend2STSE=FALSE then
+                      'When adding as new GS/GE
+                      If iElement=6 then 
+                          sGroupControlNum=sGroupControlNum+1
+                          aSourceElements(iElement)=sGroupControlNum
+                      End if                    
+                    End if
+                    
+                    If bAppend2GSGE = TRUE Then
+                      'When appending ST/SE to GS/GE and ST/SE to ST/SE               
+                       bAppendSegment=False               
+                    End if               
+                                   
+                Case "GE"
+                    If bAppend2GSGE = FALSE and bAppend2STSE=FALSE then
+                      'When adding as new GS/GE: Update counter for number of GS/GE in IEA loop:
+                      If iElement=0 then
+                         nIEA01=nIEA01+1
+                         'o5010.BuildLog("IEA counter now:'" & nIEA01 & "'")
+                      End if
+                      If iElement=2 then aSourceElements(iElement)=sGroupControlNum                       
+                    End if
+                    
+                    If bAppend2GSGE = TRUE Then
+                        'When appending ST/SE to GS/GE and ST/SE to ST/SE 
+                        bAppendSegment=False 
+                    End if
+                    
+                Case "ST"
+                    If bAppend2GSGE = TRUE and bAppend2STSE=FALSE Then
+                      'Future: Check for duplicate TransControlNumber
+                      'Now: Assume TransControlNumber is Unique
+                    End if
+                    
+                    If  bAppend2GSGE = TRUE and bAppend2STSE=TRUE  Then
+                        'When appending to exising ST/SE do not add this segment
+                        bAppendSegment=False
+                    End if
+                    
+                Case "SE"
+                    If bAppend2GSGE = TRUE and bAppend2STSE=FALSE Then
+                        'When adding to GS/GE: Update counter for number of ST/SE in GS/GE loop:
+                        If iElement=0 then nGE01=nGE01+1
+                        
+                        'Future: Precheck for duplicate TransControlNumber and assign here
+                    End if
+                    
+                    If  bAppend2GSGE = TRUE and bAppend2STSE=TRUE  Then
+                        'When appending to exising ST/SE do not add this segment
+                        bAppendSegment=False
+                    End if
+                    
+                Case "BHT"
+                    If  bAppend2GSGE = TRUE and bAppend2STSE=TRUE  Then
+                        'When appending to exising ST/SE do not add this segment
+                        bAppendSegment=False
+                    End if                      
+                    
+                Case "HL" 
+                    'USE ONLY When appending into existing ST/SE. COUNTER var: nHL01
+                    If  bAppend2GSGE = TRUE and bAppend2STSE=TRUE  Then
+                        If iElement=0 then
+                                                    
+                            nHL01=nHL01+1
+                            aSourceElements(1)=cstr(nHL01) 'update the HL ID
+                            
+                            Select Case cstr(aSourceElements(3))  
+                                Case "22","23"    
+                                    aSourceElements(2)=cstr(nHLParent)
+                                    if aSourceElements(4)="1" then nHLParent=nHL01                                
+                                Case "20"
+                                    nHLParent=nHL01
+                            End Select                                                                                                  
+                            
+                            'Segment Counter
+                            nSE01=nSE01+1
+                        End if
+                    End if
+                    
+                Case Else
+                    'Counter for all other Segments  
+                    If  bAppend2GSGE = TRUE and bAppend2STSE=TRUE  Then
+                        If iElement=0 then nSE01=nSE01+1
+                    End if
+            End Select    
+                        
+        Next 'iElement
+        
+        'Reconstruct adjusted segment with target file separator & terminator
+        If bAppendSegment=True then
+            sAddString = Join(aSourceElements,t_ElementSep) & t_SegTerm
+            o5010.BuildLog("Adding:'" & sAddString & "'")
+            sAppendSegments = sAppendSegments & sAddString
+        End if
+        
+    Next 'iSegment
+      
+    '----------------------------------------------------------------  
+    'Create New Trailing SE/GE/IEA segments as required
+    '----------------------------------------------------------------
+    
+    newSE=""
+    'If  bAppend2GSGE = TRUE and bAppend2STSE=TRUE  Then
+    If  bAppend2STSE=TRUE  Then
+        'When appending to an existing ST/SE: Create new trailing GE
+        newSE = Create5010_SE(nSE01,sTransControlNum)
+        o5010.BuildLog("New SE:'" & newSE & "'")
+    End if
+    
+    newGE=""
+    'If bAppend2GSGE = TRUE and bAppend2STSE=FALSE Then
+    If bAppend2GSGE=TRUE Then
+        'When appending ST/SE to GS/GE: Create new trailing GE
+        newGE = Create5010_GE(nGE01,sGroupControlNum) 
+        o5010.BuildLog("New GE:'" & newGE & "'")   
+    End if
+    
+    'New IEA:
+    newIEA=""
+    newIEA = Create5010_IEA(nIEA01,o5010.InterchangeControlNumber)
+     
+    o5010.BuildLog("New IEA:'" & newIEA & "'") 
+     
+    '----------------------------------------------------------
+    ' ADD Elements and Trailing Segments to Target File
+    '---------------------------------------------------------- 
+     
+    sNewEDIFile = sTargetSegments & sAppendSegments & newSE & newGE & newIEA
+              
+    o5010.BuildLog("New EDI:'" & sNewEDIFile & "'")           
+                     
+    'Overwrite file in batch folder
+    o5010.BuildLog("*********** APPEND EDI ***********")
+    o5010.BuildLog("Writing Append EDI file:'" & Pilot.BatchDir & "\" & sMergeFile & "'")  
+    Set oNewEDIFile = FileMgr.OpenTextFile(Pilot.BatchDir & "\" & sMergeFile, 2, True)
+    oNewEDIFile.Write(sNewEDIFile)
+    oNewEDIFile.Close
+		
+	  'Copy to export path here
+    if sMergeFilePath<>Pilot.BatchDir then
+	    FileMgr.CopyFile Pilot.BatchDir & "\" & sMergeFile, sMergeFilePath & "\" & sMergeFile 	    
+	    
+	    If Err.Number <> 0 Then
+            Call o5010.LogError ("FileMgr.CopyFile " &  sMergeFile & " , " &  sMergeFilePath & "\" & sMergeFile)
+            Exit Function
+        End if
+	  End if			
+		
+    sNewEDIReadFile = replace(sTargetSegments & sAppendSegments & newSE & newGE & newIEA, t_SegTerm, cstr(t_SegTerm & VbCrlf))
+	
+  	'Overwrite file in batch folder
+    o5010.BuildLog("*********** APPEND EDI - READABLE TEXT ***********")
+    o5010.BuildLog("Writing Readable Append EDI file:'" & Pilot.BatchDir & "\" & sMergeFileHeader & sMergeFileName & sMergeFileTrailer & ".txt" & "'")  
+    Set oNewEDIFile = FileMgr.OpenTextFile(Pilot.BatchDir & "\" & sMergeFileHeader & sMergeFileName & sMergeFileTrailer & ".txt", 2, True)
+    oNewEDIFile.Write(sNewEDIReadFile)
+    oNewEDIFile.Close
+			
+    Merge5010=True
+          
+    o5010.BuildLog("*********** END MERGE EDI ***********")
+
+       ]]>
+    </g>
+  </f>
+ <![CDATA[
+'======================================================================================================
+'IRA_ENTRIES>
+]]>
+</rrx>

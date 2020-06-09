@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ruleset id="Profile Statistics" name="Profile Statistics" ver="8" modder="admin.1" dt="10/08/15 00:51:43.502 " qi="">
+	<rule name="Save Recognized Data for Dashboard" id="1" qi="Save all objects status, field lengths and count of Low Confidence chars, before verify" dcomap.open="B">
+		<func name="Save OCR data" qi="">
+			<a ns="rrunner" name="rrCompareCase">
+				<p name="object1" v="@APPVAR(SaveReportStatistics)"/>
+				<p name="object2" v="True"/>
+				<p name="caseSensitive" v="False"/>
+			</a>
+			<a name="SaveFieldsText" ns="Statistics.rrx">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" name="strParam"/>
+			</a>
+		</func>
+	</rule>
+</ruleset>

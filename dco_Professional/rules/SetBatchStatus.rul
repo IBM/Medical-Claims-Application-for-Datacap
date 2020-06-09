@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ruleset name="SetBatchStatus" id="22" ver="1">
+	<rule name="Rule1" id="1">
+		<func name="Function1">
+			<a name="SetDCOStatus" ns="DCO">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="141" name="StrParam"/>
+			</a>
+			<a name="rrSet" ns="rrunner">
+				<p name="varSource" v="@EMPTY"/>
+				<p name="varTarget" v="@B.Fixup"/>
+			</a>
+			<a name="SkipChildren" ns="rrunner" qi="">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+		</func>
+	</rule>
+</ruleset>

@@ -1,0 +1,5142 @@
+<?xml-stylesheet type="text/xsl" href="..\..\dco.xsl"?>
+<S>
+	<B type="Professional">
+		<V n="TYPE">Batch</V>
+		<V n="ID">0</V>
+		<V n="ED">0</V>
+		<V n="AD">0</V>
+		<V n="EP">0</V>
+		<V n="AP">0</V>
+		<V n="PRIORITY">5</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="STATUS">0</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;1&quot; rs=&quot;1&quot; /&gt;&lt;r id=&quot;1&quot; rs=&quot;25&quot; /&gt;&lt;r id=&quot;1&quot; rs=&quot;11&quot; /&gt;&lt;r id=&quot;2&quot; rs=&quot;10&quot; /&gt;&lt;r id=&quot;1&quot; rs=&quot;5&quot; /&gt;&lt;r id=&quot;1&quot; rs=&quot;16&quot; /&gt;&lt;r id=&quot;1&quot; rs=&quot;19&quot; /&gt;&lt;r id=&quot;4&quot; rs=&quot;7&quot; /&gt;&lt;r id=&quot;1&quot; rs=&quot;23&quot; /&gt;&lt;r id=&quot;1&quot; rs=&quot;22&quot; /&gt;&lt;r id=&quot;1&quot; rs=&quot;2&quot; /&gt;&lt;/in&gt;&lt;out&gt;&lt;r id=&quot;1&quot; rs=&quot;7&quot; /&gt;&lt;r id=&quot;3&quot; rs=&quot;16&quot; /&gt;&lt;/out&gt;</V>
+		<P type="Other" pos="0" min="0" max="0"/>
+		<D type="Prof Multi" pos="0" min="0" max="0"/>
+		<D type="Prof Single" pos="0" min="0" max="0"/>
+		<F type="Expected_Documents" pos="0" min="0" max="0"/>
+		<F type="Expected_Pages" pos="0" min="0" max="0"/>
+	</B>
+	<D type="Prof Single">
+		<V n="ID">0</V>
+		<V n="TYPE">Document</V>
+		<V n="STATUS">0</V>
+		<V n="DOC DATA">0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;2&quot; rs=&quot;5&quot; /&gt;&lt;r id=&quot;1&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;2&quot; rs=&quot;13&quot; /&gt;&lt;r id=&quot;1&quot; rs=&quot;14&quot; /&gt;&lt;r id=&quot;1&quot; rs=&quot;18&quot; /&gt;&lt;r id=&quot;2&quot; rs=&quot;19&quot; /&gt;&lt;r id=&quot;1&quot; rs=&quot;21&quot; /&gt;&lt;r id=&quot;3&quot; rs=&quot;7&quot; /&gt;&lt;r id=&quot;2&quot; rs=&quot;23&quot; /&gt;&lt;r id=&quot;1&quot; rs=&quot;3&quot; /&gt;&lt;r id=&quot;1&quot; rs=&quot;27&quot; /&gt;&lt;r id=&quot;1&quot; rs=&quot;20&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+		<P type="PClaim" pos="1" min="1" max="1"/>
+		<P type="Attachment" pos="2" min="0" max="0"/>
+	</D>
+	<D type="Prof Multi">
+		<V n="ID">0</V>
+		<V n="TYPE">Document</V>
+		<V n="STATUS">0</V>
+		<V n="DOC DATA">0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;2&quot; rs=&quot;5&quot; /&gt;&lt;r id=&quot;1&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;2&quot; rs=&quot;19&quot; /&gt;&lt;r id=&quot;2&quot; rs=&quot;13&quot; /&gt;&lt;r id=&quot;1&quot; rs=&quot;14&quot; /&gt;&lt;r id=&quot;1&quot; rs=&quot;21&quot; /&gt;&lt;r id=&quot;1&quot; rs=&quot;18&quot; /&gt;&lt;r id=&quot;3&quot; rs=&quot;7&quot; /&gt;&lt;r id=&quot;2&quot; rs=&quot;23&quot; /&gt;&lt;r id=&quot;1&quot; rs=&quot;3&quot; /&gt;&lt;r id=&quot;1&quot; rs=&quot;27&quot; /&gt;&lt;r id=&quot;1&quot; rs=&quot;20&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+		<P type="PClaim" pos="1" min="1" max="0"/>
+		<P type="EndClaim" pos="2" min="0" max="1"/>
+		<P type="Attachment" pos="3" min="0" max="0"/>
+		<P type="EndDoc" pos="4" min="1" max="1"/>
+	</D>
+	<P type="PClaim">
+		<V n="ID">0</V>
+		<V n="TYPE">Page</V>
+		<V n="STATUS">0</V>
+		<V n="PAGE DATA"></V>
+		<V n="IMAGEFILE"></V>
+		<V n="MIN_TYPES">1</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="c_tm">SORT_ALTERNATIVES</V>
+		<V n="c_sm">0</V>
+		<V n="c_vs">LOW</V>
+		<V n="s_fg">1</V>
+		<V n="METRIC">100,100</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="k_cs"></V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;2&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;1&quot; rs=&quot;13&quot; /&gt;&lt;r id=&quot;2&quot; rs=&quot;14&quot; /&gt;&lt;r id=&quot;2&quot; rs=&quot;18&quot; /&gt;&lt;r id=&quot;1&quot; rs=&quot;15&quot; /&gt;&lt;r id=&quot;3&quot; rs=&quot;19&quot; /&gt;&lt;r id=&quot;2&quot; rs=&quot;21&quot; /&gt;&lt;r id=&quot;1&quot; rs=&quot;24&quot; /&gt;&lt;r id=&quot;3&quot; rs=&quot;23&quot; /&gt;&lt;r id=&quot;2&quot; rs=&quot;3&quot; /&gt;&lt;r id=&quot;1&quot; rs=&quot;8&quot; /&gt;&lt;r id=&quot;2&quot; rs=&quot;27&quot; /&gt;&lt;r id=&quot;2&quot; rs=&quot;7&quot; /&gt;&lt;r id=&quot;2&quot; rs=&quot;16&quot; /&gt;&lt;r id=&quot;1&quot; rs=&quot;9&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+		<F type="Anchor1" pos="0" min="0" max="0"/>
+		<F type="Anchor2" pos="0" min="0" max="0"/>
+		<F type="0_PICA_L" pos="0" min="0" max="0"/>
+		<F type="0_PICA_R" pos="0" min="0" max="0"/>
+		<F type="1InsType" pos="0" min="0" max="0"/>
+		<F type="1aInsrID" pos="0" min="0" max="0"/>
+		<F type="2PatSFLD" pos="0" min="0" max="0"/>
+		<F type="2PatName" pos="0" min="0" max="0"/>
+		<F type="2PaLName" pos="0" min="0" max="0"/>
+		<F type="2PaFName" pos="0" min="0" max="0"/>
+		<F type="2PaMInit" pos="0" min="0" max="0"/>
+		<F type="2PaSufx" pos="0" min="0" max="0"/>
+		<F type="2PaCred" pos="0" min="0" max="0"/>
+		<F type="5PAddStr" pos="0" min="0" max="0"/>
+		<F type="5PAddCty" pos="0" min="0" max="0"/>
+		<F type="5PAddSta" pos="0" min="0" max="0"/>
+		<F type="5PAddZip" pos="0" min="0" max="0"/>
+		<F type="5PAddTel" pos="0" min="0" max="0"/>
+		<F type="3Pat_DOB" pos="0" min="0" max="0"/>
+		<F type="3aPatSex" pos="0" min="0" max="0"/>
+		<F type="6PatRela" pos="0" min="0" max="0"/>
+		<F type="8aPStatM" pos="0" min="0" max="0"/>
+		<F type="8bPStatE" pos="0" min="0" max="0"/>
+		<F type="4InsSFLD" pos="0" min="0" max="0"/>
+		<F type="4InsName" pos="0" min="0" max="0"/>
+		<F type="4InsLNam" pos="0" min="0" max="0"/>
+		<F type="4InsFNam" pos="0" min="0" max="0"/>
+		<F type="4InsMIni" pos="0" min="0" max="0"/>
+		<F type="4InsSufx" pos="0" min="0" max="0"/>
+		<F type="4InsCred" pos="0" min="0" max="0"/>
+		<F type="7IAddStr" pos="0" min="0" max="0"/>
+		<F type="7IAddCty" pos="0" min="0" max="0"/>
+		<F type="7IAddSta" pos="0" min="0" max="0"/>
+		<F type="7IAddZip" pos="0" min="0" max="0"/>
+		<F type="7IAddTel" pos="0" min="0" max="0"/>
+		<F type="9OthInNm" pos="0" min="0" max="0"/>
+		<F type="9OtInsLNam" pos="0" min="0" max="0"/>
+		<F type="9OtInsFNam" pos="0" min="0" max="0"/>
+		<F type="9OtInsMInit" pos="0" min="0" max="0"/>
+		<F type="9aOtInNo" pos="0" min="0" max="0"/>
+		<F type="9bOInDOB" pos="0" min="0" max="0"/>
+		<F type="9bOInSex" pos="0" min="0" max="0"/>
+		<F type="9cOIEmNm" pos="0" min="0" max="0"/>
+		<F type="9dOIPlNm" pos="0" min="0" max="0"/>
+		<F type="10aPCREm" pos="0" min="0" max="0"/>
+		<F type="10bPCRAA" pos="0" min="0" max="0"/>
+		<F type="10bautop" pos="0" min="0" max="0"/>
+		<F type="10cPCROA" pos="0" min="0" max="0"/>
+		<F type="10dLocUs" pos="0" min="0" max="0"/>
+		<F type="CCode1" pos="0" min="0" max="0"/>
+		<F type="CCode2" pos="0" min="0" max="0"/>
+		<F type="CCode3" pos="0" min="0" max="0"/>
+		<F type="CCode4" pos="0" min="0" max="0"/>
+		<F type="11IPolNo" pos="0" min="0" max="0"/>
+		<F type="11aInSex" pos="0" min="0" max="0"/>
+		<F type="11aInDOB" pos="0" min="0" max="0"/>
+		<F type="11bqual" pos="0" min="0" max="0"/>
+		<F type="11bIEmNm" pos="0" min="0" max="0"/>
+		<F type="11cIPlan" pos="0" min="0" max="0"/>
+		<F type="11dPlOth" pos="0" min="0" max="0"/>
+		<F type="12Sigtxt" pos="0" min="0" max="0"/>
+		<F type="12aPSign" pos="0" min="0" max="0"/>
+		<F type="12bDtSgn" pos="0" min="0" max="0"/>
+		<F type="13Sigtxt" pos="0" min="0" max="0"/>
+		<F type="13InsSig" pos="0" min="0" max="0"/>
+		<F type="14SymDat" pos="0" min="0" max="0"/>
+		<F type="14aSym" pos="0" min="0" max="0"/>
+		<F type="15HisDat" pos="0" min="0" max="0"/>
+		<F type="15qual" pos="0" min="0" max="0"/>
+		<F type="16aDsDtF" pos="0" min="0" max="0"/>
+		<F type="16bDsDtT" pos="0" min="0" max="0"/>
+		<F type="17RefDoc" pos="0" min="0" max="0"/>
+		<F type="17qual" pos="0" min="0" max="0"/>
+		<F type="17ReLNam" pos="0" min="0" max="0"/>
+		<F type="17ReFNam" pos="0" min="0" max="0"/>
+		<F type="17ReMIni" pos="0" min="0" max="0"/>
+		<F type="17ReCred" pos="0" min="0" max="0"/>
+		<F type="17ReSufx" pos="0" min="0" max="0"/>
+		<F type="17aRfDID" pos="0" min="0" max="0"/>
+		<F type="17aRfCd" pos="0" min="0" max="0"/>
+		<F type="17bRfNPI" pos="0" min="0" max="0"/>
+		<F type="18aHpDtF" pos="0" min="0" max="0"/>
+		<F type="18bHpDtT" pos="0" min="0" max="0"/>
+		<F type="19LocUse" pos="0" min="0" max="0"/>
+		<F type="20aOutLb" pos="0" min="0" max="0"/>
+		<F type="20bLChgs" pos="0" min="0" max="0"/>
+		<F type="21DiSFLD" pos="0" min="0" max="0"/>
+		<F type="21_ICDInd" pos="0" min="0" max="0"/>
+		<F type="21_Diag1" pos="0" min="0" max="0"/>
+		<F type="21_Diag2" pos="0" min="0" max="0"/>
+		<F type="21_Diag3" pos="0" min="0" max="0"/>
+		<F type="21_Diag4" pos="0" min="0" max="0"/>
+		<F type="21_Diag5" pos="0" min="0" max="0"/>
+		<F type="21_Diag6" pos="0" min="0" max="0"/>
+		<F type="21_Diag7" pos="0" min="0" max="0"/>
+		<F type="21_Diag8" pos="0" min="0" max="0"/>
+		<F type="21_Diag9" pos="0" min="0" max="0"/>
+		<F type="21_Diag10" pos="0" min="0" max="0"/>
+		<F type="21_Diag11" pos="0" min="0" max="0"/>
+		<F type="21_Diag12" pos="0" min="0" max="0"/>
+		<F type="22aResub" pos="0" min="0" max="0"/>
+		<F type="22bOrigR" pos="0" min="0" max="0"/>
+		<F type="23PriAth" pos="0" min="0" max="0"/>
+		<F type="25aFedTx" pos="0" min="0" max="0"/>
+		<F type="25bSSEIN" pos="0" min="0" max="0"/>
+		<F type="26PActNo" pos="0" min="0" max="0"/>
+		<F type="27AccAss" pos="0" min="0" max="0"/>
+		<F type="31aPhSig" pos="0" min="0" max="0"/>
+		<F type="31aPhLNm" pos="0" min="0" max="0"/>
+		<F type="31aPhFNm" pos="0" min="0" max="0"/>
+		<F type="31aPhIni" pos="0" min="0" max="0"/>
+		<F type="31crdntl" pos="0" min="0" max="0"/>
+		<F type="31sigind" pos="0" min="0" max="0"/>
+		<F type="31aPhSfx" pos="0" min="0" max="0"/>
+		<F type="31bPSDat" pos="0" min="0" max="0"/>
+		<F type="32FacAdd" pos="0" min="0" max="0"/>
+		<F type="32FacNam" pos="0" min="0" max="0"/>
+		<F type="32F1Addr" pos="0" min="0" max="0"/>
+		<F type="32F2Addr" pos="0" min="0" max="0"/>
+		<F type="32FacCit" pos="0" min="0" max="0"/>
+		<F type="32FacSta" pos="0" min="0" max="0"/>
+		<F type="32FacZip" pos="0" min="0" max="0"/>
+		<F type="32FacPhn" pos="0" min="0" max="0"/>
+		<F type="32FacNPI" pos="0" min="0" max="0"/>
+		<F type="32FacID" pos="0" min="0" max="0"/>
+		<F type="33DocAdd" pos="0" min="0" max="0"/>
+		<F type="33PhBNam" pos="0" min="0" max="0"/>
+		<F type="33Ph1Add" pos="0" min="0" max="0"/>
+		<F type="33Ph2Add" pos="0" min="0" max="0"/>
+		<F type="33PhCity" pos="0" min="0" max="0"/>
+		<F type="33PhStat" pos="0" min="0" max="0"/>
+		<F type="33PhyZip" pos="0" min="0" max="0"/>
+		<F type="33PhyPhn" pos="0" min="0" max="0"/>
+		<F type="33PhyPIN" pos="0" min="0" max="0"/>
+		<F type="33PhyGRP" pos="0" min="0" max="0"/>
+		<F type="33PhyNPI" pos="0" min="0" max="0"/>
+		<F type="33PhyID" pos="0" min="0" max="0"/>
+		<F type="24aDtFr1" pos="0" min="0" max="0"/>
+		<F type="24aDtTo1" pos="0" min="0" max="0"/>
+		<F type="24bPlac1" pos="0" min="0" max="0"/>
+		<F type="24cEMG_1" pos="0" min="0" max="0"/>
+		<F type="24dCPT_1" pos="0" min="0" max="0"/>
+		<F type="24dModi1" pos="0" min="0" max="0"/>
+		<F type="24eDiag1" pos="0" min="0" max="0"/>
+		<F type="24fChgs1" pos="0" min="0" max="0"/>
+		<F type="24gDays1" pos="0" min="0" max="0"/>
+		<F type="24hEPSD1" pos="0" min="0" max="0"/>
+		<F type="24hCode1" pos="0" min="0" max="0"/>
+		<F type="24iQual1" pos="0" min="0" max="0"/>
+		<F type="24jRefId1" pos="0" min="0" max="0"/>
+		<F type="24jNPI_1" pos="0" min="0" max="0"/>
+		<F type="24Info_1" pos="0" min="0" max="0"/>
+		<F type="24NDC_1" pos="0" min="0" max="0"/>
+		<F type="24NDCType_1" pos="0" min="0" max="0"/>
+		<F type="24NDCQty_1" pos="0" min="0" max="0"/>
+		<F type="24aDtFr2" pos="0" min="0" max="0"/>
+		<F type="24aDtTo2" pos="0" min="0" max="0"/>
+		<F type="24bPlac2" pos="0" min="0" max="0"/>
+		<F type="24cEMG_2" pos="0" min="0" max="0"/>
+		<F type="24dCPT_2" pos="0" min="0" max="0"/>
+		<F type="24dModi2" pos="0" min="0" max="0"/>
+		<F type="24eDiag2" pos="0" min="0" max="0"/>
+		<F type="24fChgs2" pos="0" min="0" max="0"/>
+		<F type="24gDays2" pos="0" min="0" max="0"/>
+		<F type="24hEPSD2" pos="0" min="0" max="0"/>
+		<F type="24hCode2" pos="0" min="0" max="0"/>
+		<F type="24iQual2" pos="0" min="0" max="0"/>
+		<F type="24jRefId2" pos="0" min="0" max="0"/>
+		<F type="24jNPI_2" pos="0" min="0" max="0"/>
+		<F type="24Info_2" pos="0" min="0" max="0"/>
+		<F type="24NDC_2" pos="0" min="0" max="0"/>
+		<F type="24NDCType_2" pos="0" min="0" max="0"/>
+		<F type="24NDCQty_2" pos="0" min="0" max="0"/>
+		<F type="24aDtFr3" pos="0" min="0" max="0"/>
+		<F type="24aDtTo3" pos="0" min="0" max="0"/>
+		<F type="24bPlac3" pos="0" min="0" max="0"/>
+		<F type="24cEMG_3" pos="0" min="0" max="0"/>
+		<F type="24dCPT_3" pos="0" min="0" max="0"/>
+		<F type="24dModi3" pos="0" min="0" max="0"/>
+		<F type="24eDiag3" pos="0" min="0" max="0"/>
+		<F type="24fChgs3" pos="0" min="0" max="0"/>
+		<F type="24gDays3" pos="0" min="0" max="0"/>
+		<F type="24hEPSD3" pos="0" min="0" max="0"/>
+		<F type="24hCode3" pos="0" min="0" max="0"/>
+		<F type="24iQual3" pos="0" min="0" max="0"/>
+		<F type="24jRefId3" pos="0" min="0" max="0"/>
+		<F type="24jNPI_3" pos="0" min="0" max="0"/>
+		<F type="24Info_3" pos="0" min="0" max="0"/>
+		<F type="24NDC_3" pos="0" min="0" max="0"/>
+		<F type="24NDCType_3" pos="0" min="0" max="0"/>
+		<F type="24NDCQty_3" pos="0" min="0" max="0"/>
+		<F type="24aDtFr4" pos="0" min="0" max="0"/>
+		<F type="24aDtTo4" pos="0" min="0" max="0"/>
+		<F type="24bPlac4" pos="0" min="0" max="0"/>
+		<F type="24cEMG_4" pos="0" min="0" max="0"/>
+		<F type="24dCPT_4" pos="0" min="0" max="0"/>
+		<F type="24dModi4" pos="0" min="0" max="0"/>
+		<F type="24eDiag4" pos="0" min="0" max="0"/>
+		<F type="24fChgs4" pos="0" min="0" max="0"/>
+		<F type="24gDays4" pos="0" min="0" max="0"/>
+		<F type="24hEPSD4" pos="0" min="0" max="0"/>
+		<F type="24hCode4" pos="0" min="0" max="0"/>
+		<F type="24iQual4" pos="0" min="0" max="0"/>
+		<F type="24jRefId4" pos="0" min="0" max="0"/>
+		<F type="24jNPI_4" pos="0" min="0" max="0"/>
+		<F type="24Info_4" pos="0" min="0" max="0"/>
+		<F type="24NDC_4" pos="0" min="0" max="0"/>
+		<F type="24NDCType_4" pos="0" min="0" max="0"/>
+		<F type="24NDCQty_4" pos="0" min="0" max="0"/>
+		<F type="24aDtFr5" pos="0" min="0" max="0"/>
+		<F type="24aDtTo5" pos="0" min="0" max="0"/>
+		<F type="24bPlac5" pos="0" min="0" max="0"/>
+		<F type="24cEMG_5" pos="0" min="0" max="0"/>
+		<F type="24dCPT_5" pos="0" min="0" max="0"/>
+		<F type="24dModi5" pos="0" min="0" max="0"/>
+		<F type="24eDiag5" pos="0" min="0" max="0"/>
+		<F type="24fChgs5" pos="0" min="0" max="0"/>
+		<F type="24gDays5" pos="0" min="0" max="0"/>
+		<F type="24hEPSD5" pos="0" min="0" max="0"/>
+		<F type="24hCode5" pos="0" min="0" max="0"/>
+		<F type="24iQual5" pos="0" min="0" max="0"/>
+		<F type="24jRefId5" pos="0" min="0" max="0"/>
+		<F type="24jNPI_5" pos="0" min="0" max="0"/>
+		<F type="24Info_5" pos="0" min="0" max="0"/>
+		<F type="24NDC_5" pos="0" min="0" max="0"/>
+		<F type="24NDCType_5" pos="0" min="0" max="0"/>
+		<F type="24NDCQty_5" pos="0" min="0" max="0"/>
+		<F type="24aDtFr6" pos="0" min="0" max="0"/>
+		<F type="24aDtTo6" pos="0" min="0" max="0"/>
+		<F type="24bPlac6" pos="0" min="0" max="0"/>
+		<F type="24cEMG_6" pos="0" min="0" max="0"/>
+		<F type="24dCPT_6" pos="0" min="0" max="0"/>
+		<F type="24dModi6" pos="0" min="0" max="0"/>
+		<F type="24eDiag6" pos="0" min="0" max="0"/>
+		<F type="24fChgs6" pos="0" min="0" max="0"/>
+		<F type="24gDays6" pos="0" min="0" max="0"/>
+		<F type="24hEPSD6" pos="0" min="0" max="0"/>
+		<F type="24hCode6" pos="0" min="0" max="0"/>
+		<F type="24iQual6" pos="0" min="0" max="0"/>
+		<F type="24jRefId6" pos="0" min="0" max="0"/>
+		<F type="24jNPI_6" pos="0" min="0" max="0"/>
+		<F type="24Info_6" pos="0" min="0" max="0"/>
+		<F type="24NDC_6" pos="0" min="0" max="0"/>
+		<F type="24NDCType_6" pos="0" min="0" max="0"/>
+		<F type="24NDCQty_6" pos="0" min="0" max="0"/>
+		<F type="28TotChg" pos="0" min="0" max="0"/>
+		<F type="29Amt_Pd" pos="0" min="0" max="0"/>
+		<F type="30BalDue" pos="0" min="0" max="0"/>
+		<F type="Comment" pos="0" min="0" max="0"/>
+		<F type="FormType" pos="0" min="0" max="0"/>
+		<F type="IMAGEOVERLAYOFFSET" pos="0" min="0" max="0"/>
+		<F type="Image_Offset" pos="0" min="0" max="0"/>
+		<F type="DETAILS" pos="0" min="0" max="0"/>
+	</P>
+	<P type="Attachment">
+		<V n="ID">0</V>
+		<V n="TYPE">Page</V>
+		<V n="STATUS">52</V>
+		<V n="IMAGEFILE"></V>
+		<V n="DATAFILE"></V>
+		<V n="TEMPLATE IMAGE"></V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;27&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</P>
+	<P type="Other">
+		<V n="ID">0</V>
+		<V n="TYPE">Page</V>
+		<V n="STATUS">49</V>
+		<V n="IMAGEFILE"></V>
+		<V n="DATAFILE"></V>
+		<V n="TEMPLATE IMAGE"></V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="METRIC">100,100</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;2&quot; rs=&quot;25&quot; /&gt;&lt;r id=&quot;2&quot; rs=&quot;11&quot; /&gt;&lt;r id=&quot;1&quot; rs=&quot;10&quot; /&gt;&lt;r id=&quot;1&quot; rs=&quot;28&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+		<F type="CMS1500_ID" pos="0" min="0" max="0"/>
+	</P>
+	<P type="EndDoc">
+		<V n="ID">0</V>
+		<V n="TYPE">Page</V>
+		<V n="STATUS">74</V>
+		<V n="IMAGEFILE"></V>
+		<V n="DATAFILE"></V>
+		<V n="TEMPLATE IMAGE"></V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="rules">&lt;in /&gt;&lt;out /&gt;</V>
+	</P>
+	<P type="EndClaim">
+		<V n="ID">0</V>
+		<V n="TYPE">Page</V>
+		<V n="STATUS">74</V>
+		<V n="IMAGEFILE"></V>
+		<V n="DATAFILE"></V>
+		<V n="TEMPLATE IMAGE"></V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="rules">&lt;in /&gt;&lt;out /&gt;</V>
+	</P>
+	<F type="0_PICA_L">
+		<V n="Length">3</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">X</V>
+		<V n="ReqConf">8</V>
+		<V n="PatternMatch">0</V>
+		<V n="c_sr">1</V>
+		<V n="s_sr">1</V>
+		<V n="STATUS">-1</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="Pos1052">103,231,199,258</V>
+		<V n="Pos1059">50,234,111,263</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;1&quot; rs=&quot;4&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="0_PICA_R">
+		<V n="Length">3</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">X</V>
+		<V n="ReqConf">8</V>
+		<V n="c_sr">1</V>
+		<V n="s_sr">1</V>
+		<V n="STATUS">-1</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="Pos1052">1583,231,1680,259</V>
+		<V n="Pos1059">1569,233,1632,263</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;1&quot; rs=&quot;4&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="1InsType">
+		<V n="Length">7</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">x</V>
+		<V n="ReqConf">8</V>
+		<V n="DICT">InsType</V>
+		<V n="Pos1052">100,274,1052,330</V>
+		<V n="Pos1059">49,274,1001,330</V>
+		<V n="Pos1054">116,273,1075,348</V>
+		<V n="Pos1060">49,274,1001,330</V>
+		<V n="c_sr">1</V>
+		<V n="s_fg">4</V>
+		<V n="s_ml">5</V>
+		<V n="s_sr">1</V>
+		<V n="STATUS">0</V>
+		<V n="s_fm">2</V>
+		<V n="k_cs"></V>
+		<V n="RecogType">4</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;4&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;2&quot; rs=&quot;9&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+		<F type="1InsType_OMR1" pos="0" min="0" max="0"/>
+		<F type="1InsType_OMR2" pos="0" min="0" max="0"/>
+		<F type="1InsType_OMR3" pos="0" min="0" max="0"/>
+		<F type="1InsType_OMR4" pos="0" min="0" max="0"/>
+		<F type="1InsType_OMR5" pos="0" min="0" max="0"/>
+		<F type="1InsType_OMR6" pos="0" min="0" max="0"/>
+		<F type="1InsType_OMR7" pos="0" min="0" max="0"/>
+	</F>
+	<F type="2PatName">
+		<V n="Length">50</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">x</V>
+		<V n="ReqConf">8</V>
+		<V n="s_fr">6</V>
+		<V n="c_cs">A-Z</V>
+		<V n="STATUS">-1</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="Pos1052">103,358,667,386</V>
+		<V n="Pos1059">56,364,620,393</V>
+		<V n="k_cs"></V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;3&quot; rs=&quot;18&quot; /&gt;&lt;r id=&quot;1&quot; rs=&quot;4&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="5PAddStr">
+		<V n="Length">50</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">x</V>
+		<V n="ReqConf">8</V>
+		<V n="STATUS">0</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="c_lc">1</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="Pos1052">103,414,667,453</V>
+		<V n="Pos1059">55,424,619,463</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;4&quot; rs=&quot;18&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="5PAddCty">
+		<V n="Length">40</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">x</V>
+		<V n="ReqConf">8</V>
+		<V n="s_fr">6</V>
+		<V n="STATUS">0</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="c_lc">1</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="Pos1052">103,484,593,518</V>
+		<V n="Pos1059">56,493,546,526</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;5&quot; rs=&quot;18&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="5PAddSta">
+		<V n="Length">2</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">U</V>
+		<V n="ReqConf">8</V>
+		<V n="FieldDescription">Patient Address</V>
+		<V n="s_fr">6</V>
+		<V n="STATUS">0</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="c_lc">1</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="Pos1052">602,484,668,530</V>
+		<V n="Pos1059">553,483,619,529</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;6&quot; rs=&quot;18&quot; /&gt;&lt;r id=&quot;5&quot; rs=&quot;19&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="5PAddZip">
+		<V n="Length">10</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">#</V>
+		<V n="ReqConf">8</V>
+		<V n="FieldDescription">Patient Address</V>
+		<V n="c_sx">NUMERICAL</V>
+		<V n="s_fr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="c_lc">1</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="Pos1052">103,554,351,591</V>
+		<V n="Pos1059">56,561,304,598</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;7&quot; rs=&quot;18&quot; /&gt;&lt;r id=&quot;6&quot; rs=&quot;19&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="5PAddTel">
+		<V n="Length">16</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">#</V>
+		<V n="ReqConf">8</V>
+		<V n="c_sx">NUMERICAL</V>
+		<V n="s_fr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="c_lc">1</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="Pos1052">365,554,664,589</V>
+		<V n="Pos1059">318,562,617,598</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;9&quot; rs=&quot;18&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="9OthInNm">
+		<V n="Length">30</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">x</V>
+		<V n="ReqConf">8</V>
+		<V n="s_fr">6</V>
+		<V n="c_sr">1</V>
+		<V n="s_sr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="Pos1052">103,621,664,651</V>
+		<V n="Pos1059">56,628,617,659</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;8&quot; rs=&quot;18&quot; /&gt;&lt;r id=&quot;1&quot; rs=&quot;4&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="9aOtInNo">
+		<V n="Length">25</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">x</V>
+		<V n="ReqConf">8</V>
+		<V n="c_sr">1</V>
+		<V n="s_sr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="Pos1052">103,682,664,727</V>
+		<V n="Pos1059">56,684,617,729</V>
+		<V n="rules">&lt;in /&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="9bOInDOB">
+		<V n="Length">8</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">D</V>
+		<V n="ReqConf">8</V>
+		<V n="c_sx">NUMERICAL</V>
+		<V n="s_fr">1</V>
+		<V n="c_sr">1</V>
+		<V n="s_sr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="Pos1052">103,760,363,789</V>
+		<V n="Pos1059">63,760,617,797</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;27&quot; rs=&quot;18&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="9bOInSex">
+		<V n="Length">2</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString"></V>
+		<V n="ReqConf">8</V>
+		<V n="Pos1052">412,736,608,796</V>
+		<V n="Pos1059">0,0,0,0</V>
+		<V n="Pos1054">299,752,505,815</V>
+		<V n="Pos1060">0,0,0,0</V>
+		<V n="DICT">Sex</V>
+		<V n="c_sr">1</V>
+		<V n="s_fg">4</V>
+		<V n="s_ml">5</V>
+		<V n="s_sr">1</V>
+		<V n="STATUS">0</V>
+		<V n="s_fm">2</V>
+		<V n="RecogType">4</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="k_cs"></V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;4&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;2&quot; rs=&quot;9&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+		<F type="9bOInSex_OMR1" pos="0" min="0" max="0"/>
+		<F type="9bOInSex_OMR2" pos="0" min="0" max="0"/>
+	</F>
+	<F type="9cOIEmNm">
+		<V n="Length">50</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">x</V>
+		<V n="ReqConf">8</V>
+		<V n="c_sr">1</V>
+		<V n="s_sr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="Pos1052">103,814,664,863</V>
+		<V n="Pos1059">58,822,618,860</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;9&quot; rs=&quot;18&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="9dOIPlNm">
+		<V n="Length">30</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">x</V>
+		<V n="ReqConf">8</V>
+		<V n="c_sr">1</V>
+		<V n="s_sr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="Pos1052">103,884,664,921</V>
+		<V n="Pos1059">56,889,616,926</V>
+		<V n="rules">&lt;in /&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="3Pat_DOB">
+		<V n="Length">8</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">D</V>
+		<V n="ReqConf">8</V>
+		<V n="c_sx">NUMERICAL</V>
+		<V n="s_fr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="c_lc">1</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="Pos1052">670,358,890,397</V>
+		<V n="Pos1059">627,358,846,398</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;7&quot; rs=&quot;19&quot; /&gt;&lt;r id=&quot;27&quot; rs=&quot;18&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="3aPatSex">
+		<V n="Length">2</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString"></V>
+		<V n="ReqConf">8</V>
+		<V n="DICT">Sex</V>
+		<V n="s_fg">4</V>
+		<V n="s_ml">5</V>
+		<V n="STATUS">0</V>
+		<V n="s_fm">2</V>
+		<V n="RecogType">4</V>
+		<V n="c_sr">1</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="k_cs"></V>
+		<V n="Pos1052">901,348,1056,402</V>
+		<V n="Pos1059">854,340,1009,395</V>
+		<V n="Pos1054">832,333,1070,406</V>
+		<V n="Pos1060">854,340,1009,395</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;4&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;8&quot; rs=&quot;19&quot; /&gt;&lt;r id=&quot;2&quot; rs=&quot;9&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+		<F type="3aPatSex_OMR1" pos="0" min="0" max="0"/>
+		<F type="3aPatSex_OMR2" pos="0" min="0" max="0"/>
+	</F>
+	<F type="6PatRela">
+		<V n="Length">4</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString"></V>
+		<V n="ReqConf">8</V>
+		<V n="DICT">PatientRelationship</V>
+		<V n="c_sr">1</V>
+		<V n="s_fg">4</V>
+		<V n="s_ml">5</V>
+		<V n="s_sr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="s_fm">2</V>
+		<V n="Pos1054">651,404,985,476</V>
+		<V n="RecogType">4</V>
+		<V n="Pos1052">695,413,1056,465</V>
+		<V n="Pos1059">631,405,1020,464</V>
+		<V n="Pos1060">631,405,1020,464</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;4&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;2&quot; rs=&quot;9&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+		<F type="6PatRela_OMR1" pos="0" min="0" max="0"/>
+		<F type="6PatRela_OMR2" pos="0" min="0" max="0"/>
+		<F type="6PatRela_OMR3" pos="0" min="0" max="0"/>
+		<F type="6PatRela_OMR4" pos="0" min="0" max="0"/>
+	</F>
+	<F type="8aPStatM">
+		<V n="Length">3</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString"></V>
+		<V n="ReqConf">8</V>
+		<V n="DICT">PatientStatus</V>
+		<V n="c_sr">1</V>
+		<V n="s_fg">4</V>
+		<V n="s_ml">5</V>
+		<V n="s_sr">1</V>
+		<V n="STATUS">0</V>
+		<V n="Pos1054">651,487,985,550</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="s_fm">2</V>
+		<V n="RecogType">4</V>
+		<V n="Pos1052">695,475,1056,530</V>
+		<V n="Pos1059">630,473,1022,596</V>
+		<V n="Pos1060">630,473,1022,596</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;4&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;2&quot; rs=&quot;9&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+		<F type="8aPStatM_OMR1" pos="0" min="0" max="0"/>
+		<F type="8aPStatM_OMR2" pos="0" min="0" max="0"/>
+		<F type="8aPStatM_OMR3" pos="0" min="0" max="0"/>
+	</F>
+	<F type="8bPStatE">
+		<V n="Length">3</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString"></V>
+		<V n="ReqConf">8</V>
+		<V n="DICT">PatientWorkStatus</V>
+		<V n="c_sr">1</V>
+		<V n="s_fg">4</V>
+		<V n="s_ml">5</V>
+		<V n="s_sr">1</V>
+		<V n="STATUS">0</V>
+		<V n="Pos1054">660,562,976,627</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="s_fm">2</V>
+		<V n="RecogType">4</V>
+		<V n="Pos1052">695,541,1056,600</V>
+		<V n="Pos1059">631,473,1023,602</V>
+		<V n="Pos1060">631,473,1023,602</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;4&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;2&quot; rs=&quot;9&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+		<F type="8bPStatE_OMR1" pos="0" min="0" max="0"/>
+		<F type="8bPStatE_OMR2" pos="0" min="0" max="0"/>
+		<F type="8bPStatE_OMR3" pos="0" min="0" max="0"/>
+	</F>
+	<F type="10aPCREm">
+		<V n="Length">2</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString"></V>
+		<V n="ReqConf">8</V>
+		<V n="DICT">YESNO</V>
+		<V n="c_sr">1</V>
+		<V n="s_sr">1</V>
+		<V n="s_fg">4</V>
+		<V n="s_ml">5</V>
+		<V n="STATUS">0</V>
+		<V n="Pos1054">762,688,964,744</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="s_fm">2</V>
+		<V n="RecogType">4</V>
+		<V n="Pos1052">681,666,999,726</V>
+		<V n="Pos1059">631,669,1015,733</V>
+		<V n="Pos1060">631,669,1015,733</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;4&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;2&quot; rs=&quot;9&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+		<F type="10aPCREm_OMR1" pos="0" min="0" max="0"/>
+		<F type="10aPCREm_OMR2" pos="0" min="0" max="0"/>
+	</F>
+	<F type="10bPCRAA">
+		<V n="Length">2</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString"></V>
+		<V n="ReqConf">8</V>
+		<V n="DICT">YESNO</V>
+		<V n="s_fg">4</V>
+		<V n="s_ml">5</V>
+		<V n="s_sr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_sr">1</V>
+		<V n="Pos1054">760,747,961,809</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="s_fm">2</V>
+		<V n="RecogType">4</V>
+		<V n="Pos1052">681,734,953,794</V>
+		<V n="Pos1059">634,734,1018,801</V>
+		<V n="Pos1060">634,734,1018,801</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;4&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;2&quot; rs=&quot;9&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+		<F type="10bPCRAA_OMR1" pos="0" min="0" max="0"/>
+		<F type="10bPCRAA_OMR2" pos="0" min="0" max="0"/>
+	</F>
+	<F type="10bautop">
+		<V n="Length">2</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">a</V>
+		<V n="ReqConf">8</V>
+		<V n="s_sr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_sr">1</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="Pos1052">964,753,1056,796</V>
+		<V n="Pos1059">919,755,1011,798</V>
+		<V n="rules">&lt;in /&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="10cPCROA">
+		<V n="Length">2</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString"></V>
+		<V n="ReqConf">8</V>
+		<V n="DICT">YESNO</V>
+		<V n="s_fg">4</V>
+		<V n="s_ml">5</V>
+		<V n="s_sr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_sr">1</V>
+		<V n="Pos1054">754,817,953,876</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="s_fm">2</V>
+		<V n="RecogType">4</V>
+		<V n="Pos1052">681,804,953,864</V>
+		<V n="Pos1059">634,804,1016,866</V>
+		<V n="Pos1060">634,804,1016,866</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;4&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;2&quot; rs=&quot;9&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+		<F type="10cPCROA_OMR1" pos="0" min="0" max="0"/>
+		<F type="10cPCROA_OMR2" pos="0" min="0" max="0"/>
+	</F>
+	<F type="10dLocUs">
+		<V n="Length">40</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">x</V>
+		<V n="ReqConf">8</V>
+		<V n="s_sr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_sr">1</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="Pos1052">688,886,1046,919</V>
+		<V n="Pos1059">635,893,1014,925</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;32&quot; rs=&quot;19&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="12Sigtxt">
+		<V n="Length">25</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString"></V>
+		<V n="ReqConf">9</V>
+		<V n="STATUS">-1</V>
+		<V n="rules">&lt;in /&gt;&lt;out /&gt;</V>
+		<V n="Pos1052">129,1003,728,1064</V>
+		<V n="Pos1059">54,996,653,1057</V>
+	</F>
+	<F type="12aPSign">
+		<V n="Length">1</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString"></V>
+		<V n="ReqConf">8</V>
+		<V n="DICT">YESNO</V>
+		<V n="s_fg">4</V>
+		<V n="s_ml">5</V>
+		<V n="s_sr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_sr">1</V>
+		<V n="Pos1054">129,1002,607,1074</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="s_fm">2</V>
+		<V n="RecogType">4</V>
+		<V n="Pos1052">128,1006,719,1051</V>
+		<V n="Pos1059">60,1008,652,1054</V>
+		<V n="Pos1060">60,1008,652,1054</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;6&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;3&quot; rs=&quot;9&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+		<F type="12aPSign_OMR1" pos="0" min="0" max="0"/>
+	</F>
+	<F type="12bDtSgn">
+		<V n="Length">10</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">D</V>
+		<V n="ReqConf">8</V>
+		<V n="c_sx">NUMERICAL</V>
+		<V n="s_fr">1</V>
+		<V n="s_sr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_sr">1</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="Pos1052">741,1011,1064,1052</V>
+		<V n="Pos1059">690,1013,1012,1055</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;27&quot; rs=&quot;18&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="1aInsrID">
+		<V n="Length">16</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">X</V>
+		<V n="ReqConf">8</V>
+		<V n="c_sx">NUMERICAL</V>
+		<V n="s_fr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="k_cs"></V>
+		<V n="Pos1052">1079,288,1673,325</V>
+		<V n="Pos1059">1032,293,1626,331</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;9&quot; rs=&quot;19&quot; /&gt;&lt;r id=&quot;10&quot; rs=&quot;18&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="4InsName">
+		<V n="Length">50</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">x</V>
+		<V n="ReqConf">8</V>
+		<V n="s_fr">6</V>
+		<V n="c_cs">A-Z</V>
+		<V n="STATUS">-1</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="c_lc">1</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="Pos1052">1079,358,1673,389</V>
+		<V n="Pos1059">1031,363,1625,394</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;12&quot; rs=&quot;18&quot; /&gt;&lt;r id=&quot;1&quot; rs=&quot;4&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="7IAddStr">
+		<V n="Length">50</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">x</V>
+		<V n="ReqConf">8</V>
+		<V n="s_fr">31</V>
+		<V n="STATUS">0</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="c_lc">1</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="Pos1052">1079,416,1673,455</V>
+		<V n="Pos1059">1035,425,1629,463</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;13&quot; rs=&quot;18&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="7IAddCty">
+		<V n="Length">30</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">x</V>
+		<V n="ReqConf">8</V>
+		<V n="s_fr">6</V>
+		<V n="STATUS">0</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="c_lc">1</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="Pos1052">1079,484,1544,522</V>
+		<V n="Pos1059">1033,492,1499,530</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;14&quot; rs=&quot;18&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="7IAddSta">
+		<V n="Length">2</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">U</V>
+		<V n="ReqConf">8</V>
+		<V n="FieldDescription">Insured Address</V>
+		<V n="s_fr">6</V>
+		<V n="STATUS">0</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="c_lc">1</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="Pos1052">1556,484,1670,521</V>
+		<V n="Pos1059">1509,494,1623,531</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;15&quot; rs=&quot;18&quot; /&gt;&lt;r id=&quot;5&quot; rs=&quot;19&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="7IAddZip">
+		<V n="Length">10</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">#</V>
+		<V n="ReqConf">8</V>
+		<V n="FieldDescription">Insured Address</V>
+		<V n="c_sx">NUMERICAL</V>
+		<V n="s_fr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="c_lc">1</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="Pos1052">1079,554,1324,587</V>
+		<V n="Pos1059">1036,561,1281,595</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;16&quot; rs=&quot;18&quot; /&gt;&lt;r id=&quot;6&quot; rs=&quot;19&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="7IAddTel">
+		<V n="Length">16</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">#</V>
+		<V n="ReqConf">8</V>
+		<V n="c_sx">NUMERICAL</V>
+		<V n="s_fr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="c_lc">1</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="Pos1052">1339,554,1672,591</V>
+		<V n="Pos1059">1292,561,1625,598</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;9&quot; rs=&quot;18&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="11IPolNo">
+		<V n="Length">20</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">x</V>
+		<V n="ReqConf">8</V>
+		<V n="STATUS">0</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="c_lc">1</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="Pos1052">1079,617,1673,658</V>
+		<V n="Pos1059">1033,623,1626,664</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;10&quot; rs=&quot;18&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="11aInSex">
+		<V n="Length">2</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString"></V>
+		<V n="ReqConf">8</V>
+		<V n="DICT">Sex</V>
+		<V n="s_fg">4</V>
+		<V n="s_ml">5</V>
+		<V n="STATUS">0</V>
+		<V n="s_fm">2</V>
+		<V n="RecogType">4</V>
+		<V n="c_sr">1</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="k_cs"></V>
+		<V n="Pos1052">1409,674,1637,726</V>
+		<V n="Pos1059">1361,675,1589,733</V>
+		<V n="Pos1060">1361,675,1589,733</V>
+		<V n="Pos1054">1367,643,1663,743</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;4&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;8&quot; rs=&quot;19&quot; /&gt;&lt;r id=&quot;2&quot; rs=&quot;9&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+		<F type="11aInSex_OMR1" pos="0" min="0" max="0"/>
+		<F type="11aInSex_OMR2" pos="0" min="0" max="0"/>
+	</F>
+	<F type="11aInDOB">
+		<V n="Length">8</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">D</V>
+		<V n="ReqConf">8</V>
+		<V n="c_sx">NUMERICAL</V>
+		<V n="s_fr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="c_lc">1</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="Pos1052">1079,698,1372,727</V>
+		<V n="Pos1059">1035,699,1328,728</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;15&quot; rs=&quot;19&quot; /&gt;&lt;r id=&quot;27&quot; rs=&quot;18&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="11bIEmNm">
+		<V n="Length">50</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">x</V>
+		<V n="ReqConf">8</V>
+		<V n="s_sr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_sr">1</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="Pos1052">1079,753,1673,787</V>
+		<V n="Pos1059">1079,758,1624,792</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;1&quot; rs=&quot;4&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="11cIPlan">
+		<V n="Length">50</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">x</V>
+		<V n="ReqConf">8</V>
+		<V n="STATUS">0</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="k_cs"></V>
+		<V n="Pos1052">1079,815,1673,853</V>
+		<V n="Pos1059">1034,823,1627,862</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="11dPlOth">
+		<V n="Length">2</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString"></V>
+		<V n="ReqConf">8</V>
+		<V n="omr_dict"></V>
+		<V n="DICT">YESNO</V>
+		<V n="s_fg">4</V>
+		<V n="s_ml">5</V>
+		<V n="STATUS">0</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="s_fm">2</V>
+		<V n="c_lc">1</V>
+		<V n="RecogType">4</V>
+		<V n="Pos1052">1091,870,1322,930</V>
+		<V n="Pos1059">1030,872,1261,932</V>
+		<V n="Pos1060">1030,872,1261,932</V>
+		<V n="Pos1054">1084,859,1327,943</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;4&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;8&quot; rs=&quot;19&quot; /&gt;&lt;r id=&quot;2&quot; rs=&quot;9&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+		<F type="11dPlOth_OMR1" pos="0" min="0" max="0"/>
+		<F type="11dPlOth_OMR2" pos="0" min="0" max="0"/>
+	</F>
+	<F type="13Sigtxt">
+		<V n="Length">25</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString"></V>
+		<V n="ReqConf">9</V>
+		<V n="STATUS">-1</V>
+		<V n="rules">&lt;in /&gt;&lt;out /&gt;</V>
+		<V n="Pos1052">1106,1000,1668,1056</V>
+		<V n="Pos1059">1040,1000,1601,1056</V>
+	</F>
+	<F type="13InsSig">
+		<V n="Length">1</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString"></V>
+		<V n="ReqConf">8</V>
+		<V n="DICT">YESNO</V>
+		<V n="s_fg">4</V>
+		<V n="s_ml">5</V>
+		<V n="STATUS">0</V>
+		<V n="c_sr">1</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="s_fm">2</V>
+		<V n="s_sr">1</V>
+		<V n="Pos1054">1102,999,1635,1077</V>
+		<V n="RecogType">4</V>
+		<V n="Pos1052">1121,989,1672,1050</V>
+		<V n="Pos1059">1040,994,1590,1055</V>
+		<V n="Pos1060">1040,994,1590,1055</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;6&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;3&quot; rs=&quot;9&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+		<F type="13InsSig_OMR1" pos="0" min="0" max="0"/>
+	</F>
+	<F type="14SymDat">
+		<V n="Length">8</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">D</V>
+		<V n="ReqConf">8</V>
+		<V n="c_sx">NUMERICAL</V>
+		<V n="s_fr">1</V>
+		<V n="s_sr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_sr">1</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="Pos1052">105,1085,324,1119</V>
+		<V n="Pos1059">57,1090,277,1124</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;27&quot; rs=&quot;18&quot; /&gt;&lt;r id=&quot;15&quot; rs=&quot;19&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="14aSym">
+		<V n="Length">3</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">x</V>
+		<V n="ReqConf">8</V>
+		<V n="s_sr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_sr">1</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;19&quot; rs=&quot;19&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+		<V n="Pos1052">527,1082,624,1117</V>
+		<V n="Pos1059">358,1091,455,1125</V>
+	</F>
+	<F type="15HisDat">
+		<V n="Length">8</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">D</V>
+		<V n="ReqConf">8</V>
+		<V n="c_sx">NUMERICAL</V>
+		<V n="s_fr">1</V>
+		<V n="s_sr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_sr">1</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="Pos1052">637,1082,1067,1120</V>
+		<V n="Pos1059">723,1084,1021,1122</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;27&quot; rs=&quot;18&quot; /&gt;&lt;r id=&quot;15&quot; rs=&quot;19&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="15qual">
+		<V n="Length">3</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">x</V>
+		<V n="ReqConf">8</V>
+		<V n="STATUS">0</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;21&quot; rs=&quot;19&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+		<V n="Pos1059">648,1088,715,1124</V>
+	</F>
+	<F type="16aDsDtF">
+		<V n="Length">8</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">D</V>
+		<V n="ReqConf">8</V>
+		<V n="c_sx">NUMERICAL</V>
+		<V n="s_fr">1</V>
+		<V n="s_sr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_sr">1</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="Pos1052">1078,1082,1376,1120</V>
+		<V n="Pos1059">1031,1082,1330,1121</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;27&quot; rs=&quot;18&quot; /&gt;&lt;r id=&quot;15&quot; rs=&quot;19&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="16bDsDtT">
+		<V n="Length">8</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">D</V>
+		<V n="ReqConf">8</V>
+		<V n="c_sx">NUMERICAL</V>
+		<V n="s_fr">1</V>
+		<V n="s_sr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_sr">1</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="Pos1052">1379,1082,1683,1120</V>
+		<V n="Pos1059">1337,1081,1630,1119</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;27&quot; rs=&quot;18&quot; /&gt;&lt;r id=&quot;15&quot; rs=&quot;19&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="17RefDoc">
+		<V n="Length">50</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">x</V>
+		<V n="ReqConf">8</V>
+		<V n="s_fr">6</V>
+		<V n="s_sr">1</V>
+		<V n="STATUS">-1</V>
+		<V n="c_sr">1</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="k_cs"></V>
+		<V n="Pos1052">105,1159,630,1186</V>
+		<V n="Pos1059">114,1159,575,1186</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;24&quot; rs=&quot;18&quot; /&gt;&lt;r id=&quot;1&quot; rs=&quot;4&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="17qual">
+		<V n="Length">2</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">x</V>
+		<V n="ReqConf">8</V>
+		<V n="STATUS">0</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;31&quot; rs=&quot;19&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+		<V n="Pos1059">54,1159,102,1189</V>
+	</F>
+	<F type="17aRfDID">
+		<V n="Length">40</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">x</V>
+		<V n="ReqConf">8</V>
+		<V n="STATUS">0</V>
+		<V n="k_cs"></V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="Pos1052">727,1125,1068,1152</V>
+		<V n="Pos1059">680,1133,1022,1159</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;32&quot; rs=&quot;18&quot; /&gt;&lt;r id=&quot;39&quot; rs=&quot;19&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="18aHpDtF">
+		<V n="Length">8</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">D</V>
+		<V n="ReqConf">8</V>
+		<V n="c_sx">NUMERICAL</V>
+		<V n="s_fr">1</V>
+		<V n="s_sr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_sr">1</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="Pos1052">1080,1155,1384,1199</V>
+		<V n="Pos1059">1033,1148,1336,1191</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;27&quot; rs=&quot;18&quot; /&gt;&lt;r id=&quot;15&quot; rs=&quot;19&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="18bHpDtT">
+		<V n="Length">8</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">D</V>
+		<V n="ReqConf">8</V>
+		<V n="c_sx">NUMERICAL</V>
+		<V n="s_fr">1</V>
+		<V n="s_sr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_sr">1</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="Pos1052">1401,1155,1683,1199</V>
+		<V n="Pos1059">1346,1148,1627,1191</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;27&quot; rs=&quot;18&quot; /&gt;&lt;r id=&quot;15&quot; rs=&quot;19&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="19LocUse">
+		<V n="Length">50</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">x</V>
+		<V n="ReqConf">8</V>
+		<V n="s_sr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_sr">1</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="Pos1052">103,1218,1068,1252</V>
+		<V n="Pos1059">56,1221,1021,1256</V>
+		<V n="rules">&lt;in /&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="20aOutLb">
+		<V n="Length">2</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString"></V>
+		<V n="ReqConf">8</V>
+		<V n="DICT">YESNO</V>
+		<V n="s_fg">4</V>
+		<V n="s_ml">5</V>
+		<V n="s_sr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_sr">1</V>
+		<V n="Pos1054">1085,1207,1307,1289</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="s_fm">2</V>
+		<V n="RecogType">4</V>
+		<V n="Pos1052">1102,1205,1260,1260</V>
+		<V n="Pos1059">1035,1203,1257,1258</V>
+		<V n="Pos1060">1035,1203,1257,1258</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;2&quot; rs=&quot;9&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+		<F type="20aOutLb_OMR1" pos="0" min="0" max="0"/>
+		<F type="20aOutLb_OMR2" pos="0" min="0" max="0"/>
+	</F>
+	<F type="20bLChgs">
+		<V n="Length">16</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">#</V>
+		<V n="ReqConf">8</V>
+		<V n="c_sx">AMOUNT</V>
+		<V n="s_fr">1</V>
+		<V n="s_sr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_sr">1</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="Pos1052">1311,1207,1683,1261</V>
+		<V n="Pos1059">1268,1219,1623,1257</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;10&quot; rs=&quot;18&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="21_ICDInd">
+		<V n="Length">1</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">N</V>
+		<V n="ReqConf">8</V>
+		<V n="STATUS">0</V>
+		<V n="Pos1059">871,1270,908,1292</V>
+		<V n="AutoFld">0</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;20&quot; rs=&quot;19&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="21_Diag1">
+		<V n="Length">5</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">X</V>
+		<V n="ReqConf">8</V>
+		<V n="c_sx">NUMERICAL</V>
+		<V n="s_fr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="Pos1052">103,1280,565,1327</V>
+		<V n="Pos1059">93,1292,242,1323</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="k_cs"></V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;18&quot; rs=&quot;18&quot; /&gt;&lt;r id=&quot;11&quot; rs=&quot;19&quot; /&gt;&lt;r id=&quot;2&quot; rs=&quot;6&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="21_Diag2">
+		<V n="Length">5</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">X</V>
+		<V n="ReqConf">8</V>
+		<V n="c_sx">NUMERICAL</V>
+		<V n="s_fr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="Pos1052">103,1337,565,1384</V>
+		<V n="Pos1059">347,1297,499,1325</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="k_cs"></V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;18&quot; rs=&quot;18&quot; /&gt;&lt;r id=&quot;11&quot; rs=&quot;19&quot; /&gt;&lt;r id=&quot;2&quot; rs=&quot;6&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="21_Diag3">
+		<V n="Length">5</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">X</V>
+		<V n="ReqConf">8</V>
+		<V n="c_sx">NUMERICAL</V>
+		<V n="s_fr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="Pos1052">645,1280,1032,1327</V>
+		<V n="Pos1059">613,1297,760,1322</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="k_cs"></V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;18&quot; rs=&quot;18&quot; /&gt;&lt;r id=&quot;11&quot; rs=&quot;19&quot; /&gt;&lt;r id=&quot;2&quot; rs=&quot;6&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="21_Diag4">
+		<V n="Length">5</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">X</V>
+		<V n="ReqConf">8</V>
+		<V n="c_sx">NUMERICAL</V>
+		<V n="s_fr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="Pos1052">645,1337,1032,1384</V>
+		<V n="Pos1059">868,1299,1022,1324</V>
+		<V n="k_cs"></V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;18&quot; rs=&quot;18&quot; /&gt;&lt;r id=&quot;11&quot; rs=&quot;19&quot; /&gt;&lt;r id=&quot;2&quot; rs=&quot;6&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="21_Diag5">
+		<V n="Length">5</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">X</V>
+		<V n="ReqConf">8</V>
+		<V n="STATUS">0</V>
+		<V n="AutoFld">0</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;18&quot; rs=&quot;18&quot; /&gt;&lt;r id=&quot;11&quot; rs=&quot;19&quot; /&gt;&lt;r id=&quot;2&quot; rs=&quot;6&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+		<V n="Pos1059">91,1329,241,1354</V>
+	</F>
+	<F type="21_Diag6">
+		<V n="Length">5</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">X</V>
+		<V n="ReqConf">8</V>
+		<V n="STATUS">0</V>
+		<V n="AutoFld">0</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;18&quot; rs=&quot;18&quot; /&gt;&lt;r id=&quot;11&quot; rs=&quot;19&quot; /&gt;&lt;r id=&quot;2&quot; rs=&quot;6&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+		<V n="Pos1059">348,1332,498,1357</V>
+	</F>
+	<F type="21_Diag7">
+		<V n="Length">5</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">X</V>
+		<V n="ReqConf">8</V>
+		<V n="STATUS">0</V>
+		<V n="AutoFld">0</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;18&quot; rs=&quot;18&quot; /&gt;&lt;r id=&quot;11&quot; rs=&quot;19&quot; /&gt;&lt;r id=&quot;2&quot; rs=&quot;6&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+		<V n="Pos1059">612,1330,760,1355</V>
+	</F>
+	<F type="21_Diag8">
+		<V n="Length">5</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">X</V>
+		<V n="ReqConf">8</V>
+		<V n="STATUS">0</V>
+		<V n="AutoFld">0</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;18&quot; rs=&quot;18&quot; /&gt;&lt;r id=&quot;11&quot; rs=&quot;19&quot; /&gt;&lt;r id=&quot;2&quot; rs=&quot;6&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+		<V n="Pos1059">870,1334,1021,1359</V>
+	</F>
+	<F type="21_Diag9">
+		<V n="Length">5</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">X</V>
+		<V n="ReqConf">8</V>
+		<V n="STATUS">0</V>
+		<V n="AutoFld">0</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;18&quot; rs=&quot;18&quot; /&gt;&lt;r id=&quot;11&quot; rs=&quot;19&quot; /&gt;&lt;r id=&quot;2&quot; rs=&quot;6&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+		<V n="Pos1059">90,1363,241,1389</V>
+	</F>
+	<F type="21_Diag10">
+		<V n="Length">5</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">X</V>
+		<V n="ReqConf">8</V>
+		<V n="STATUS">0</V>
+		<V n="AutoFld">0</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;18&quot; rs=&quot;18&quot; /&gt;&lt;r id=&quot;11&quot; rs=&quot;19&quot; /&gt;&lt;r id=&quot;2&quot; rs=&quot;6&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+		<V n="Pos1059">348,1363,498,1389</V>
+	</F>
+	<F type="21_Diag11">
+		<V n="Length">5</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">X</V>
+		<V n="ReqConf">8</V>
+		<V n="STATUS">0</V>
+		<V n="AutoFld">0</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;18&quot; rs=&quot;18&quot; /&gt;&lt;r id=&quot;11&quot; rs=&quot;19&quot; /&gt;&lt;r id=&quot;2&quot; rs=&quot;6&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+		<V n="Pos1059">610,1365,763,1387</V>
+	</F>
+	<F type="21_Diag12">
+		<V n="Length">5</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">X</V>
+		<V n="ReqConf">8</V>
+		<V n="STATUS">0</V>
+		<V n="AutoFld">0</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;18&quot; rs=&quot;18&quot; /&gt;&lt;r id=&quot;11&quot; rs=&quot;19&quot; /&gt;&lt;r id=&quot;2&quot; rs=&quot;6&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+		<V n="Pos1059">873,1367,1019,1390</V>
+	</F>
+	<F type="22aResub">
+		<V n="Length">11</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">x</V>
+		<V n="ReqConf">8</V>
+		<V n="s_sr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_sr">1</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="Pos1052">1080,1278,1308,1327</V>
+		<V n="Pos1059">1031,1293,1260,1324</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="k_cs"></V>
+		<V n="rules">&lt;in /&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="22bOrigR">
+		<V n="Length">18</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">x</V>
+		<V n="ReqConf">8</V>
+		<V n="s_sr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_sr">1</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="Pos1052">1314,1278,1683,1327</V>
+		<V n="Pos1059">1264,1297,1633,1323</V>
+		<V n="rules">&lt;in /&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="23PriAth">
+		<V n="Length">15</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">x</V>
+		<V n="ReqConf">8</V>
+		<V n="s_sr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_sr">1</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="Pos1052">1079,1346,1673,1387</V>
+		<V n="Pos1059">1034,1362,1627,1391</V>
+		<V n="k_cs"></V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="rules">&lt;in /&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="25aFedTx">
+		<V n="Length">11</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">X</V>
+		<V n="ReqConf">8</V>
+		<V n="c_sx">NUMERICAL</V>
+		<V n="s_fr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="Pos1052">89,1873,396,1922</V>
+		<V n="Pos1059">56,1864,363,1913</V>
+		<V n="k_cs"></V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;12&quot; rs=&quot;19&quot; /&gt;&lt;r id=&quot;9&quot; rs=&quot;18&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="25bSSEIN">
+		<V n="Length">2</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString"></V>
+		<V n="ReqConf">8</V>
+		<V n="DICT">FedTaxN</V>
+		<V n="s_fg">4</V>
+		<V n="s_ml">5</V>
+		<V n="s_sr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_sr">1</V>
+		<V n="s_fm">2</V>
+		<V n="Pos1054">375,1886,499,1950</V>
+		<V n="RecogType">4</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="k_cs"></V>
+		<V n="Pos1052">394,1866,500,1921</V>
+		<V n="Pos1059">369,1860,475,1915</V>
+		<V n="Pos1060">369,1860,475,1915</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;4&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;2&quot; rs=&quot;9&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+		<F type="25bSSEIN_OMR1" pos="0" min="0" max="0"/>
+		<F type="25bSSEIN_OMR2" pos="0" min="0" max="0"/>
+	</F>
+	<F type="26PActNo">
+		<V n="Length">17</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">x</V>
+		<V n="ReqConf">8</V>
+		<V n="c_sx">NUMERICAL</V>
+		<V n="s_fr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="c_lc">1</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="Pos1052">537,1876,825,1922</V>
+		<V n="Pos1059">490,1868,778,1914</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;10&quot; rs=&quot;18&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="27AccAss">
+		<V n="Length">2</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString"></V>
+		<V n="ReqConf">8</V>
+		<V n="DICT">YESNO</V>
+		<V n="s_fg">4</V>
+		<V n="s_ml">5</V>
+		<V n="STATUS">0</V>
+		<V n="s_fm">2</V>
+		<V n="RecogType">4</V>
+		<V n="c_sr">1</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="k_cs"></V>
+		<V n="Pos1052">828,1866,982,1921</V>
+		<V n="Pos1059">787,1857,1004,1912</V>
+		<V n="Pos1060">787,1857,1004,1912</V>
+		<V n="Pos1054">765,1852,1038,1936</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;4&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;8&quot; rs=&quot;19&quot; /&gt;&lt;r id=&quot;2&quot; rs=&quot;9&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+		<F type="27AccAss_OMR1" pos="0" min="0" max="0"/>
+		<F type="27AccAss_OMR2" pos="0" min="0" max="0"/>
+	</F>
+	<F type="28TotChg">
+		<V n="Length">9</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">F</V>
+		<V n="ReqConf">8</V>
+		<V n="c_sx">AMOUNT</V>
+		<V n="s_fr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="c_lc">1</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="Pos1052">1097,1876,1303,1922</V>
+		<V n="Pos1059">1039,1868,1244,1914</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;10&quot; rs=&quot;18&quot; /&gt;&lt;r id=&quot;23&quot; rs=&quot;19&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="29Amt_Pd">
+		<V n="Length">9</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">F</V>
+		<V n="ReqConf">8</V>
+		<V n="c_sx">AMOUNT</V>
+		<V n="s_fr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="c_lc">1</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="Pos1052">1322,1876,1493,1922</V>
+		<V n="Pos1059">1263,1870,1435,1917</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;10&quot; rs=&quot;18&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="30BalDue">
+		<V n="Length">9</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">F</V>
+		<V n="ReqConf">8</V>
+		<V n="c_sx">AMOUNT</V>
+		<V n="s_fr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="Pos1052">1509,1876,1697,1922</V>
+		<V n="Pos1059">0,0,0,0</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="k_cs"></V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;10&quot; rs=&quot;18&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="31aPhSig">
+		<V n="Length">50</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">x</V>
+		<V n="ReqConf">8</V>
+		<V n="STATUS">0</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="c_lc">1</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="Pos1052">103,1964,529,2077</V>
+		<V n="Pos1059">60,1964,486,2077</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;22&quot; rs=&quot;18&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="31bPSDat">
+		<V n="Length">10</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">x</V>
+		<V n="ReqConf">8</V>
+		<V n="c_sx">NUMERICAL</V>
+		<V n="s_fr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="c_lc">1</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="Pos1052">184,2055,535,2084</V>
+		<V n="Pos1059">130,2049,480,2078</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;15&quot; rs=&quot;19&quot; /&gt;&lt;r id=&quot;27&quot; rs=&quot;18&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="32FacAdd">
+		<V n="Length">200</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">Z</V>
+		<V n="ReqConf">8</V>
+		<V n="Multiline">1</V>
+		<V n="s_fr">31</V>
+		<V n="STATUS">0</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="Pos1052">533,1935,1063,2049</V>
+		<V n="Pos1059">489,1933,1019,2047</V>
+		<V n="k_cs"></V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;1&quot; rs=&quot;4&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="33DocAdd">
+		<V n="Length">200</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">Z</V>
+		<V n="ReqConf">8</V>
+		<V n="Multiline">1</V>
+		<V n="s_fr">31</V>
+		<V n="STATUS">-1</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="Pos1052">1079,1932,1673,2041</V>
+		<V n="Pos1059">1034,1933,1627,2042</V>
+		<V n="k_cs"></V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;1&quot; rs=&quot;4&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="24aDtFr1">
+		<V n="Length">8</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">D</V>
+		<V n="ReqConf">8</V>
+		<V n="c_sx">NUMERICAL</V>
+		<V n="s_fr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="Pos1052">104,1484,267,1516</V>
+		<V n="Pos1059">58,1485,220,1518</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="k_cs"></V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;27&quot; rs=&quot;18&quot; /&gt;&lt;r id=&quot;24&quot; rs=&quot;19&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="24aDtTo1">
+		<V n="Length">8</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">D</V>
+		<V n="ReqConf">8</V>
+		<V n="c_sx">NUMERICAL</V>
+		<V n="s_fr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="Pos1052">278,1484,447,1516</V>
+		<V n="Pos1059">229,1487,398,1519</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="k_cs"></V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;27&quot; rs=&quot;18&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="24bPlac1">
+		<V n="Length">2</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">#</V>
+		<V n="ReqConf">8</V>
+		<V n="c_sx">NUMERICAL</V>
+		<V n="s_fr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="c_lc">1</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="Pos1052">452,1484,509,1516</V>
+		<V n="Pos1059">407,1485,464,1518</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;28&quot; rs=&quot;18&quot; /&gt;&lt;r id=&quot;26&quot; rs=&quot;19&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="24dCPT_1">
+		<V n="Length">5</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">XNNNX</V>
+		<V n="ReqConf">8</V>
+		<V n="c_sx">NUMERICAL</V>
+		<V n="s_fr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="Pos1052">577,1484,714,1516</V>
+		<V n="Pos1059">532,1488,668,1520</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="k_cs"></V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;29&quot; rs=&quot;18&quot; /&gt;&lt;r id=&quot;27&quot; rs=&quot;19&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="24dModi1">
+		<V n="Length">8</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">x</V>
+		<V n="ReqConf">8</V>
+		<V n="c_sx">NUMERICAL</V>
+		<V n="s_fr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="c_lc">1</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="Pos1052">724,1484,966,1516</V>
+		<V n="Pos1059">680,1488,922,1520</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;28&quot; rs=&quot;19&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="24eDiag1">
+		<V n="Length">4</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">X</V>
+		<V n="ReqConf">8</V>
+		<V n="c_sx">NUMERICAL</V>
+		<V n="s_fr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="c_lc">1</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="Pos1052">976,1484,1068,1516</V>
+		<V n="Pos1059">930,1487,1022,1519</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;30&quot; rs=&quot;18&quot; /&gt;&lt;r id=&quot;10&quot; rs=&quot;19&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="24fChgs1">
+		<V n="Length">9</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">F</V>
+		<V n="ReqConf">8</V>
+		<V n="c_sx">AMOUNT</V>
+		<V n="s_fr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="c_lc">1</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="Pos1052">1077,1484,1246,1516</V>
+		<V n="Pos1059">1033,1487,1202,1519</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="24gDays1">
+		<V n="Length">4</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">F</V>
+		<V n="ReqConf">8</V>
+		<V n="c_sx">NUMERICAL</V>
+		<V n="s_fr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="c_lc">1</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="Pos1052">1254,1484,1327,1516</V>
+		<V n="Pos1059">1207,1487,1281,1519</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;23&quot; rs=&quot;18&quot; /&gt;&lt;r id=&quot;29&quot; rs=&quot;19&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="24hEPSD1">
+		<V n="Length">5</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">x</V>
+		<V n="ReqConf">8</V>
+		<V n="STATUS">0</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="c_lc">1</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="Pos1052">1333,1484,1370,1516</V>
+		<V n="Pos1059">1289,1487,1326,1519</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;34&quot; rs=&quot;19&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="24hCode1">
+		<V n="Length">2</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">x</V>
+		<V n="ReqConf">8</V>
+		<V n="STATUS">0</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="c_lc">1</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;33&quot; rs=&quot;19&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="24cEMG_1">
+		<V n="Length">2</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">x</V>
+		<V n="ReqConf">8</V>
+		<V n="STATUS">0</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="c_lc">1</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="Pos1052">517,1484,570,1516</V>
+		<V n="Pos1059">471,1487,525,1519</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="24aDtFr2">
+		<V n="Length">8</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">D</V>
+		<V n="ReqConf">8</V>
+		<V n="c_sx">NUMERICAL</V>
+		<V n="s_fr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="c_lc">1</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="Pos1052">104,1551,267,1583</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;27&quot; rs=&quot;18&quot; /&gt;&lt;r id=&quot;24&quot; rs=&quot;19&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+		<V n="Pos1059">56,1556,219,1586</V>
+	</F>
+	<F type="24aDtTo2">
+		<V n="Length">8</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">D</V>
+		<V n="ReqConf">8</V>
+		<V n="c_sx">NUMERICAL</V>
+		<V n="s_fr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="c_lc">1</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="Pos1052">278,1551,447,1583</V>
+		<V n="Pos1059">229,1555,398,1587</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;27&quot; rs=&quot;18&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="24bPlac2">
+		<V n="Length">2</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">N</V>
+		<V n="ReqConf">8</V>
+		<V n="c_sx">NUMERICAL</V>
+		<V n="s_fr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="c_lc">1</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="Pos1052">452,1551,509,1583</V>
+		<V n="Pos1059">408,1553,465,1586</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;28&quot; rs=&quot;18&quot; /&gt;&lt;r id=&quot;26&quot; rs=&quot;19&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="24dCPT_2">
+		<V n="Length">5</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">XNNNX</V>
+		<V n="ReqConf">8</V>
+		<V n="c_sx">NUMERICAL</V>
+		<V n="s_fr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="c_lc">1</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="Pos1052">576,1551,713,1582</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;29&quot; rs=&quot;18&quot; /&gt;&lt;r id=&quot;27&quot; rs=&quot;19&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+		<V n="Pos1059">531,1553,668,1585</V>
+	</F>
+	<F type="24dModi2">
+		<V n="Length">8</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">x</V>
+		<V n="ReqConf">8</V>
+		<V n="c_sx">NUMERICAL</V>
+		<V n="s_fr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="c_lc">1</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="Pos1052">724,1551,966,1582</V>
+		<V n="Pos1059">679,1552,920,1583</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;28&quot; rs=&quot;19&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="24eDiag2">
+		<V n="Length">4</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">X</V>
+		<V n="ReqConf">8</V>
+		<V n="c_sx">NUMERICAL</V>
+		<V n="s_fr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="c_lc">1</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="Pos1052">976,1551,1068,1582</V>
+		<V n="Pos1059">930,1552,1022,1583</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;30&quot; rs=&quot;18&quot; /&gt;&lt;r id=&quot;10&quot; rs=&quot;19&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="24fChgs2">
+		<V n="Length">9</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">F</V>
+		<V n="ReqConf">8</V>
+		<V n="c_sx">AMOUNT</V>
+		<V n="s_fr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="c_lc">1</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="Pos1052">1077,1551,1246,1582</V>
+		<V n="Pos1059">1033,1551,1202,1582</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="24gDays2">
+		<V n="Length">4</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">F</V>
+		<V n="ReqConf">8</V>
+		<V n="c_sx">NUMERICAL</V>
+		<V n="s_fr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="c_lc">1</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="Pos1052">1254,1551,1327,1582</V>
+		<V n="Pos1059">1209,1553,1283,1585</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;23&quot; rs=&quot;18&quot; /&gt;&lt;r id=&quot;29&quot; rs=&quot;19&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="24hEPSD2">
+		<V n="Length">5</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">x</V>
+		<V n="ReqConf">8</V>
+		<V n="STATUS">0</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="c_lc">1</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="Pos1052">1333,1551,1370,1582</V>
+		<V n="Pos1059">1289,1555,1326,1586</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;34&quot; rs=&quot;19&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="24hCode2">
+		<V n="Length">2</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">x</V>
+		<V n="ReqConf">8</V>
+		<V n="STATUS">0</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="c_lc">1</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;33&quot; rs=&quot;19&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="24cEMG_2">
+		<V n="Length">2</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">x</V>
+		<V n="ReqConf">8</V>
+		<V n="STATUS">0</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="c_lc">1</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="Pos1052">517,1551,570,1583</V>
+		<V n="Pos1059">470,1553,524,1586</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="24aDtFr3">
+		<V n="Length">8</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">D</V>
+		<V n="ReqConf">8</V>
+		<V n="c_sx">NUMERICAL</V>
+		<V n="s_fr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="c_lc">1</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="Pos1052">104,1617,267,1648</V>
+		<V n="Pos1059">54,1620,217,1651</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;27&quot; rs=&quot;18&quot; /&gt;&lt;r id=&quot;24&quot; rs=&quot;19&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="24aDtTo3">
+		<V n="Length">8</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">D</V>
+		<V n="ReqConf">8</V>
+		<V n="c_sx">NUMERICAL</V>
+		<V n="s_fr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="c_lc">1</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="Pos1052">277,1617,446,1648</V>
+		<V n="Pos1059">229,1618,398,1649</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;27&quot; rs=&quot;18&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="24bPlac3">
+		<V n="Length">2</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">N</V>
+		<V n="ReqConf">8</V>
+		<V n="c_sx">NUMERICAL</V>
+		<V n="s_fr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="c_lc">1</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="Pos1052">452,1617,509,1648</V>
+		<V n="Pos1059">404,1620,462,1651</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;28&quot; rs=&quot;18&quot; /&gt;&lt;r id=&quot;26&quot; rs=&quot;19&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="24dCPT_3">
+		<V n="Length">5</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">XNNNX</V>
+		<V n="ReqConf">8</V>
+		<V n="c_sx">NUMERICAL</V>
+		<V n="s_fr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="c_lc">1</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="Pos1052">576,1617,713,1649</V>
+		<V n="Pos1059">532,1620,668,1653</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;29&quot; rs=&quot;18&quot; /&gt;&lt;r id=&quot;27&quot; rs=&quot;19&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="24dModi3">
+		<V n="Length">8</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">x</V>
+		<V n="ReqConf">8</V>
+		<V n="c_sx">NUMERICAL</V>
+		<V n="s_fr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="c_lc">1</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="Pos1052">724,1617,966,1649</V>
+		<V n="Pos1059">677,1619,918,1651</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;28&quot; rs=&quot;19&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="24eDiag3">
+		<V n="Length">4</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">X</V>
+		<V n="ReqConf">8</V>
+		<V n="c_sx">NUMERICAL</V>
+		<V n="s_fr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="c_lc">1</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="Pos1052">976,1617,1068,1649</V>
+		<V n="Pos1059">929,1619,1021,1651</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;30&quot; rs=&quot;18&quot; /&gt;&lt;r id=&quot;10&quot; rs=&quot;19&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="24fChgs3">
+		<V n="Length">9</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">F</V>
+		<V n="ReqConf">8</V>
+		<V n="c_sx">AMOUNT</V>
+		<V n="s_fr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="c_lc">1</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="Pos1052">1077,1617,1246,1649</V>
+		<V n="Pos1059">1033,1618,1202,1650</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="24gDays3">
+		<V n="Length">4</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">F</V>
+		<V n="ReqConf">8</V>
+		<V n="c_sx">NUMERICAL</V>
+		<V n="s_fr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="c_lc">1</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="Pos1052">1254,1617,1327,1649</V>
+		<V n="Pos1059">1211,1619,1285,1651</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;23&quot; rs=&quot;18&quot; /&gt;&lt;r id=&quot;29&quot; rs=&quot;19&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="24hEPSD3">
+		<V n="Length">5</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">x</V>
+		<V n="ReqConf">8</V>
+		<V n="STATUS">0</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="c_lc">1</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="Pos1052">1333,1617,1370,1649</V>
+		<V n="Pos1059">1289,1619,1326,1651</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;34&quot; rs=&quot;19&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="24hCode3">
+		<V n="Length">2</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">x</V>
+		<V n="ReqConf">8</V>
+		<V n="STATUS">0</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="c_lc">1</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;33&quot; rs=&quot;19&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="24cEMG_3">
+		<V n="Length">2</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">x</V>
+		<V n="ReqConf">8</V>
+		<V n="STATUS">0</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="c_lc">1</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="Pos1052">517,1617,570,1648</V>
+		<V n="Pos1059">470,1622,524,1653</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="24aDtFr4">
+		<V n="Length">8</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">D</V>
+		<V n="ReqConf">8</V>
+		<V n="c_sx">NUMERICAL</V>
+		<V n="s_fr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="c_lc">1</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="Pos1052">104,1685,267,1716</V>
+		<V n="Pos1059">56,1687,218,1718</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;27&quot; rs=&quot;18&quot; /&gt;&lt;r id=&quot;24&quot; rs=&quot;19&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="24aDtTo4">
+		<V n="Length">8</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">D</V>
+		<V n="ReqConf">8</V>
+		<V n="c_sx">NUMERICAL</V>
+		<V n="s_fr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="c_lc">1</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="Pos1052">278,1685,447,1716</V>
+		<V n="Pos1059">229,1688,398,1719</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;27&quot; rs=&quot;18&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="24bPlac4">
+		<V n="Length">2</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">N</V>
+		<V n="ReqConf">8</V>
+		<V n="c_sx">NUMERICAL</V>
+		<V n="s_fr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="c_lc">1</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="Pos1052">452,1685,509,1716</V>
+		<V n="Pos1059">403,1690,461,1721</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;28&quot; rs=&quot;18&quot; /&gt;&lt;r id=&quot;26&quot; rs=&quot;19&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="24dCPT_4">
+		<V n="Length">5</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">XNNNX</V>
+		<V n="ReqConf">8</V>
+		<V n="c_sx">NUMERICAL</V>
+		<V n="s_fr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="c_lc">1</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="Pos1052">576,1685,713,1717</V>
+		<V n="Pos1059">529,1685,665,1717</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;29&quot; rs=&quot;18&quot; /&gt;&lt;r id=&quot;27&quot; rs=&quot;19&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="24dModi4">
+		<V n="Length">8</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">x</V>
+		<V n="ReqConf">8</V>
+		<V n="c_sx">NUMERICAL</V>
+		<V n="s_fr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="c_lc">1</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="Pos1052">724,1685,966,1717</V>
+		<V n="Pos1059">676,1685,917,1717</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;28&quot; rs=&quot;19&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="24eDiag4">
+		<V n="Length">4</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">X</V>
+		<V n="ReqConf">8</V>
+		<V n="c_sx">NUMERICAL</V>
+		<V n="s_fr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="c_lc">1</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="Pos1052">976,1685,1068,1717</V>
+		<V n="Pos1059">930,1686,1022,1718</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;30&quot; rs=&quot;18&quot; /&gt;&lt;r id=&quot;10&quot; rs=&quot;19&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="24fChgs4">
+		<V n="Length">9</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">F</V>
+		<V n="ReqConf">8</V>
+		<V n="c_sx">AMOUNT</V>
+		<V n="s_fr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="c_lc">1</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="Pos1052">1077,1685,1246,1717</V>
+		<V n="Pos1059">1033,1685,1202,1717</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="24gDays4">
+		<V n="Length">4</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">F</V>
+		<V n="ReqConf">8</V>
+		<V n="c_sx">NUMERICAL</V>
+		<V n="s_fr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="c_lc">1</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="Pos1052">1254,1685,1327,1717</V>
+		<V n="Pos1059">1211,1686,1285,1718</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;23&quot; rs=&quot;18&quot; /&gt;&lt;r id=&quot;29&quot; rs=&quot;19&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="24hEPSD4">
+		<V n="Length">5</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">x</V>
+		<V n="ReqConf">8</V>
+		<V n="STATUS">0</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="c_lc">1</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="Pos1052">1333,1685,1370,1717</V>
+		<V n="Pos1059">1288,1688,1325,1721</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;34&quot; rs=&quot;19&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="24hCode4">
+		<V n="Length">2</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">x</V>
+		<V n="ReqConf">8</V>
+		<V n="STATUS">0</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="c_lc">1</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;33&quot; rs=&quot;19&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="24cEMG_4">
+		<V n="Length">2</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">x</V>
+		<V n="ReqConf">8</V>
+		<V n="STATUS">0</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="c_lc">1</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="Pos1052">517,1685,570,1716</V>
+		<V n="Pos1059">466,1688,520,1719</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="24aDtFr5">
+		<V n="Length">8</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">D</V>
+		<V n="ReqConf">8</V>
+		<V n="c_sx">NUMERICAL</V>
+		<V n="s_fr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="c_lc">1</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="Pos1052">104,1749,267,1780</V>
+		<V n="Pos1059">54,1751,217,1782</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;27&quot; rs=&quot;18&quot; /&gt;&lt;r id=&quot;24&quot; rs=&quot;19&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="24aDtTo5">
+		<V n="Length">8</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">D</V>
+		<V n="ReqConf">8</V>
+		<V n="c_sx">NUMERICAL</V>
+		<V n="s_fr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="c_lc">1</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="Pos1052">278,1749,447,1780</V>
+		<V n="Pos1059">230,1753,400,1784</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;27&quot; rs=&quot;18&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="24bPlac5">
+		<V n="Length">2</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">N</V>
+		<V n="ReqConf">8</V>
+		<V n="c_sx">NUMERICAL</V>
+		<V n="s_fr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="c_lc">1</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="Pos1052">452,1749,509,1780</V>
+		<V n="Pos1059">404,1751,462,1782</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;28&quot; rs=&quot;18&quot; /&gt;&lt;r id=&quot;26&quot; rs=&quot;19&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="24dCPT_5">
+		<V n="Length">5</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">XNNNX</V>
+		<V n="ReqConf">8</V>
+		<V n="c_sx">NUMERICAL</V>
+		<V n="s_fr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="c_lc">1</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="Pos1052">576,1749,713,1781</V>
+		<V n="Pos1059">532,1749,668,1782</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;29&quot; rs=&quot;18&quot; /&gt;&lt;r id=&quot;27&quot; rs=&quot;19&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="24dModi5">
+		<V n="Length">8</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">x</V>
+		<V n="ReqConf">8</V>
+		<V n="c_sx">NUMERICAL</V>
+		<V n="s_fr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="c_lc">1</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="Pos1052">724,1749,966,1781</V>
+		<V n="Pos1059">674,1748,916,1780</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;28&quot; rs=&quot;19&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="24eDiag5">
+		<V n="Length">4</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">X</V>
+		<V n="ReqConf">8</V>
+		<V n="c_sx">NUMERICAL</V>
+		<V n="s_fr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="c_lc">1</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="Pos1052">976,1749,1068,1781</V>
+		<V n="Pos1059">931,1748,1023,1780</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;30&quot; rs=&quot;18&quot; /&gt;&lt;r id=&quot;10&quot; rs=&quot;19&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="24fChgs5">
+		<V n="Length">9</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">F</V>
+		<V n="ReqConf">8</V>
+		<V n="c_sx">AMOUNT</V>
+		<V n="s_fr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="c_lc">1</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="Pos1052">1077,1749,1246,1781</V>
+		<V n="Pos1059">1034,1749,1203,1782</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="24gDays5">
+		<V n="Length">4</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">F</V>
+		<V n="ReqConf">8</V>
+		<V n="c_sx">NUMERICAL</V>
+		<V n="s_fr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="c_lc">1</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="Pos1052">1254,1749,1327,1781</V>
+		<V n="Pos1059">1209,1749,1283,1782</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;23&quot; rs=&quot;18&quot; /&gt;&lt;r id=&quot;29&quot; rs=&quot;19&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="24hEPSD5">
+		<V n="Length">5</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">x</V>
+		<V n="ReqConf">8</V>
+		<V n="STATUS">0</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="c_lc">1</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="Pos1052">1333,1749,1370,1781</V>
+		<V n="Pos1059">1288,1748,1325,1780</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;34&quot; rs=&quot;19&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="24hCode5">
+		<V n="Length">2</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">x</V>
+		<V n="ReqConf">8</V>
+		<V n="STATUS">0</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="c_lc">1</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;33&quot; rs=&quot;19&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="24cEMG_5">
+		<V n="Length">2</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">x</V>
+		<V n="ReqConf">8</V>
+		<V n="STATUS">0</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="c_lc">1</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="Pos1052">517,1749,570,1780</V>
+		<V n="Pos1059">466,1751,520,1782</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="24aDtFr6">
+		<V n="Length">8</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">D</V>
+		<V n="ReqConf">8</V>
+		<V n="c_sx">NUMERICAL</V>
+		<V n="s_fr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="c_lc">1</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="Pos1052">104,1814,267,1846</V>
+		<V n="Pos1059">53,1814,216,1846</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;27&quot; rs=&quot;18&quot; /&gt;&lt;r id=&quot;24&quot; rs=&quot;19&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="24aDtTo6">
+		<V n="Length">8</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">D</V>
+		<V n="ReqConf">8</V>
+		<V n="c_sx">NUMERICAL</V>
+		<V n="s_fr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="c_lc">1</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="Pos1052">277,1814,446,1846</V>
+		<V n="Pos1059">231,1814,401,1846</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;27&quot; rs=&quot;18&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="24bPlac6">
+		<V n="Length">2</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">N</V>
+		<V n="ReqConf">8</V>
+		<V n="c_sx">NUMERICAL</V>
+		<V n="s_fr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="c_lc">1</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="Pos1052">452,1814,509,1846</V>
+		<V n="Pos1059">404,1814,462,1846</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;28&quot; rs=&quot;18&quot; /&gt;&lt;r id=&quot;26&quot; rs=&quot;19&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="24dCPT_6">
+		<V n="Length">5</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">XNNNX</V>
+		<V n="ReqConf">8</V>
+		<V n="c_sx">NUMERICAL</V>
+		<V n="s_fr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="c_lc">1</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="Pos1052">576,1814,713,1846</V>
+		<V n="Pos1059">531,1815,667,1847</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;29&quot; rs=&quot;18&quot; /&gt;&lt;r id=&quot;27&quot; rs=&quot;19&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="24dModi6">
+		<V n="Length">8</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">x</V>
+		<V n="ReqConf">8</V>
+		<V n="c_sx">NUMERICAL</V>
+		<V n="s_fr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="c_lc">1</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="Pos1052">724,1814,966,1846</V>
+		<V n="Pos1059">677,1815,918,1847</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;28&quot; rs=&quot;19&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="24eDiag6">
+		<V n="Length">4</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">X</V>
+		<V n="ReqConf">8</V>
+		<V n="c_sx">NUMERICAL</V>
+		<V n="s_fr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="c_lc">1</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="Pos1052">976,1814,1068,1846</V>
+		<V n="Pos1059">931,1816,1023,1848</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;30&quot; rs=&quot;18&quot; /&gt;&lt;r id=&quot;10&quot; rs=&quot;19&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="24fChgs6">
+		<V n="Length">9</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">F</V>
+		<V n="ReqConf">8</V>
+		<V n="c_sx">AMOUNT</V>
+		<V n="s_fr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="c_lc">1</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="Pos1052">1077,1814,1246,1846</V>
+		<V n="Pos1059">1034,1814,1203,1846</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="24gDays6">
+		<V n="Length">4</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">F</V>
+		<V n="ReqConf">8</V>
+		<V n="c_sx">NUMERICAL</V>
+		<V n="s_fr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="c_lc">1</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="Pos1052">1254,1814,1327,1846</V>
+		<V n="Pos1059">1211,1815,1285,1847</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;23&quot; rs=&quot;18&quot; /&gt;&lt;r id=&quot;29&quot; rs=&quot;19&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="24hEPSD6">
+		<V n="Length">5</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">x</V>
+		<V n="ReqConf">8</V>
+		<V n="STATUS">0</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="c_lc">1</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="Pos1052">1333,1814,1370,1846</V>
+		<V n="Pos1059">1289,1816,1326,1848</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;34&quot; rs=&quot;19&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="24hCode6">
+		<V n="Length">2</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">x</V>
+		<V n="ReqConf">8</V>
+		<V n="STATUS">0</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="c_lc">1</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;33&quot; rs=&quot;19&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="24cEMG_6">
+		<V n="Length">2</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">x</V>
+		<V n="ReqConf">8</V>
+		<V n="STATUS">0</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="c_lc">1</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="Pos1052">517,1814,570,1846</V>
+		<V n="Pos1059">468,1815,521,1847</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="2PatSFLD">
+		<V n="Length">1</V>
+		<V n="Position">87,336,665,598</V>
+		<V n="PictureString">x</V>
+		<V n="ReqConf">8</V>
+		<V n="STATUS">-1</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="Pos1052">104,336,667,595</V>
+		<V n="Pos1059">55,340,617,600</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;1&quot; rs=&quot;4&quot; /&gt;&lt;r id=&quot;34&quot; rs=&quot;18&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+		<V n="RecogType">5</V>
+	</F>
+	<F type="4InsSFLD">
+		<V n="Length">1</V>
+		<V n="Position">1068,336,1679,598</V>
+		<V n="PictureString">x</V>
+		<V n="ReqConf">8</V>
+		<V n="STATUS">-1</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="Pos1052">1079,268,1674,533</V>
+		<V n="Pos1059">1031,336,1626,600</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;1&quot; rs=&quot;4&quot; /&gt;&lt;r id=&quot;35&quot; rs=&quot;18&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+		<V n="RecogType">5</V>
+	</F>
+	<F type="21DiSFLD">
+		<V n="Length">1</V>
+		<V n="Position">126,1264,1055,1392</V>
+		<V n="PictureString">x</V>
+		<V n="ReqConf">8</V>
+		<V n="STATUS">-1</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="Pos1052">101,1271,1039,1391</V>
+		<V n="Pos1059">52,1266,1024,1398</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;1&quot; rs=&quot;4&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+		<V n="RecogType">5</V>
+	</F>
+	<F type="2PaLName">
+		<V n="Length">20</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">a</V>
+		<V n="ReqConf">8</V>
+		<V n="s_sr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_sr">1</V>
+		<V n="rules">&lt;in /&gt;&lt;out /&gt;</V>
+		<V n="Pos1052">0,0,0,0</V>
+		<V n="Pos1059">0,0,0,0</V>
+		<V n="RecogType">5</V>
+	</F>
+	<F type="2PaFName">
+		<V n="Length">12</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">a</V>
+		<V n="ReqConf">8</V>
+		<V n="s_sr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_sr">1</V>
+		<V n="rules">&lt;in /&gt;&lt;out /&gt;</V>
+		<V n="Pos1052">0,0,0,0</V>
+		<V n="Pos1059">0,0,0,0</V>
+		<V n="RecogType">5</V>
+	</F>
+	<F type="2PaMInit">
+		<V n="Length">1</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">A</V>
+		<V n="ReqConf">8</V>
+		<V n="s_sr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_sr">1</V>
+		<V n="rules">&lt;in /&gt;&lt;out /&gt;</V>
+		<V n="Pos1052">0,0,0,0</V>
+		<V n="Pos1059">0,0,0,0</V>
+		<V n="RecogType">5</V>
+	</F>
+	<F type="4InsLNam">
+		<V n="Length">20</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">a</V>
+		<V n="ReqConf">8</V>
+		<V n="s_sr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_sr">1</V>
+		<V n="rules">&lt;in /&gt;&lt;out /&gt;</V>
+		<V n="Pos1052">0,0,0,0</V>
+		<V n="Pos1059">0,0,0,0</V>
+		<V n="RecogType">5</V>
+	</F>
+	<F type="4InsFNam">
+		<V n="Length">12</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">a</V>
+		<V n="ReqConf">8</V>
+		<V n="s_sr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_sr">1</V>
+		<V n="rules">&lt;in /&gt;&lt;out /&gt;</V>
+		<V n="Pos1052">0,0,0,0</V>
+		<V n="Pos1059">0,0,0,0</V>
+		<V n="RecogType">5</V>
+	</F>
+	<F type="4InsMIni">
+		<V n="Length">1</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">A</V>
+		<V n="ReqConf">8</V>
+		<V n="s_sr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_sr">1</V>
+		<V n="rules">&lt;in /&gt;&lt;out /&gt;</V>
+		<V n="Pos1052">0,0,0,0</V>
+		<V n="Pos1059">0,0,0,0</V>
+		<V n="RecogType">5</V>
+	</F>
+	<F type="17ReLNam">
+		<V n="Length">20</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">a</V>
+		<V n="ReqConf">8</V>
+		<V n="s_sr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_sr">1</V>
+		<V n="rules">&lt;in /&gt;&lt;out /&gt;</V>
+		<V n="Pos1052">0,0,0,0</V>
+		<V n="Pos1059">0,0,0,0</V>
+		<V n="RecogType">5</V>
+	</F>
+	<F type="17ReFNam">
+		<V n="Length">12</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">a</V>
+		<V n="ReqConf">8</V>
+		<V n="s_sr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_sr">1</V>
+		<V n="rules">&lt;in /&gt;&lt;out /&gt;</V>
+		<V n="Pos1052">0,0,0,0</V>
+		<V n="Pos1059">0,0,0,0</V>
+		<V n="RecogType">5</V>
+	</F>
+	<F type="17ReMIni">
+		<V n="Length">1</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">A</V>
+		<V n="ReqConf">8</V>
+		<V n="s_sr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_sr">1</V>
+		<V n="rules">&lt;in /&gt;&lt;out /&gt;</V>
+		<V n="Pos1052">0,0,0,0</V>
+		<V n="Pos1059">0,0,0,0</V>
+		<V n="RecogType">5</V>
+	</F>
+	<F type="31aPhLNm">
+		<V n="Length">20</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">a</V>
+		<V n="ReqConf">8</V>
+		<V n="s_sr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_sr">1</V>
+		<V n="rules">&lt;in /&gt;&lt;out /&gt;</V>
+		<V n="Pos1052">0,0,0,0</V>
+		<V n="Pos1059">0,0,0,0</V>
+		<V n="RecogType">5</V>
+	</F>
+	<F type="31aPhFNm">
+		<V n="Length">12</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">a</V>
+		<V n="ReqConf">8</V>
+		<V n="s_sr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_sr">1</V>
+		<V n="rules">&lt;in /&gt;&lt;out /&gt;</V>
+		<V n="Pos1052">0,0,0,0</V>
+		<V n="Pos1059">0,0,0,0</V>
+		<V n="RecogType">5</V>
+	</F>
+	<F type="31aPhIni">
+		<V n="Length">1</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">A</V>
+		<V n="ReqConf">8</V>
+		<V n="s_sr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_sr">1</V>
+		<V n="rules">&lt;in /&gt;&lt;out /&gt;</V>
+		<V n="Pos1052">0,0,0,0</V>
+		<V n="Pos1059">0,0,0,0</V>
+		<V n="RecogType">5</V>
+	</F>
+	<F type="31crdntl">
+		<V n="Length">5</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">x</V>
+		<V n="ReqConf">8</V>
+		<V n="s_sr">1</V>
+		<V n="STATUS">-1</V>
+		<V n="c_sr">1</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;1&quot; rs=&quot;4&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+		<V n="Pos1052">0,0,0,0</V>
+		<V n="Pos1059">0,0,0,0</V>
+		<V n="RecogType">5</V>
+	</F>
+	<F type="31sigind">
+		<V n="Length">1</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">X</V>
+		<V n="ReqConf">8</V>
+		<V n="s_sr">1</V>
+		<V n="STATUS">-1</V>
+		<V n="c_sr">1</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;1&quot; rs=&quot;4&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+		<V n="Pos1052">0,0,0,0</V>
+		<V n="Pos1059">0,0,0,0</V>
+		<V n="RecogType">5</V>
+	</F>
+	<F type="32FacNam">
+		<V n="Length">33</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">x</V>
+		<V n="ReqConf">8</V>
+		<V n="s_sr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_sr">1</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;17&quot; rs=&quot;19&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+		<V n="Pos1052">0,0,0,0</V>
+		<V n="Pos1059">0,0,0,0</V>
+		<V n="RecogType">5</V>
+	</F>
+	<F type="32F1Addr">
+		<V n="Length">30</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">x</V>
+		<V n="ReqConf">8</V>
+		<V n="s_sr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_sr">1</V>
+		<V n="rules">&lt;in /&gt;&lt;out /&gt;</V>
+		<V n="Pos1052">0,0,0,0</V>
+		<V n="Pos1059">0,0,0,0</V>
+		<V n="RecogType">5</V>
+	</F>
+	<F type="32F2Addr">
+		<V n="Length">30</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">x</V>
+		<V n="ReqConf">8</V>
+		<V n="s_sr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_sr">1</V>
+		<V n="rules">&lt;in /&gt;&lt;out /&gt;</V>
+		<V n="Pos1052">0,0,0,0</V>
+		<V n="Pos1059">0,0,0,0</V>
+		<V n="RecogType">5</V>
+	</F>
+	<F type="32FacCit">
+		<V n="Length">20</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">x</V>
+		<V n="ReqConf">8</V>
+		<V n="s_sr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_sr">1</V>
+		<V n="rules">&lt;in /&gt;&lt;out /&gt;</V>
+		<V n="Pos1052">0,0,0,0</V>
+		<V n="Pos1059">0,0,0,0</V>
+		<V n="RecogType">5</V>
+	</F>
+	<F type="32FacSta">
+		<V n="Length">2</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">U</V>
+		<V n="ReqConf">8</V>
+		<V n="FieldDescription">Facility Address</V>
+		<V n="s_sr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_sr">1</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;5&quot; rs=&quot;19&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+		<V n="Pos1052">0,0,0,0</V>
+		<V n="Pos1059">0,0,0,0</V>
+		<V n="RecogType">5</V>
+	</F>
+	<F type="32FacZip">
+		<V n="Length">9</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">#</V>
+		<V n="ReqConf">8</V>
+		<V n="FieldDescription">Facility Address</V>
+		<V n="s_sr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_sr">1</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;7&quot; rs=&quot;18&quot; /&gt;&lt;r id=&quot;6&quot; rs=&quot;19&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+		<V n="Pos1052">0,0,0,0</V>
+		<V n="Pos1059">0,0,0,0</V>
+		<V n="RecogType">5</V>
+	</F>
+	<F type="32FacPhn">
+		<V n="Length">10</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">z</V>
+		<V n="ReqConf">8</V>
+		<V n="s_sr">1</V>
+		<V n="STATUS">-1</V>
+		<V n="c_sr">1</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;1&quot; rs=&quot;4&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+		<V n="Pos1052">0,0,0,0</V>
+		<V n="Pos1059">0,0,0,0</V>
+		<V n="RecogType">5</V>
+	</F>
+	<F type="33PhBNam">
+		<V n="Length">33</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">x</V>
+		<V n="ReqConf">8</V>
+		<V n="s_sr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_sr">1</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;16&quot; rs=&quot;19&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+		<V n="Pos1052">0,0,0,0</V>
+		<V n="Pos1059">0,0,0,0</V>
+		<V n="RecogType">5</V>
+	</F>
+	<F type="33Ph1Add">
+		<V n="Length">30</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">x</V>
+		<V n="ReqConf">8</V>
+		<V n="s_sr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_sr">1</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;26&quot; rs=&quot;18&quot; /&gt;&lt;r id=&quot;18&quot; rs=&quot;19&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+		<V n="Pos1052">0,0,0,0</V>
+		<V n="Pos1059">0,0,0,0</V>
+		<V n="RecogType">5</V>
+	</F>
+	<F type="33Ph2Add">
+		<V n="Length">30</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">x</V>
+		<V n="ReqConf">8</V>
+		<V n="s_sr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_sr">1</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;18&quot; rs=&quot;19&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+		<V n="Pos1052">0,0,0,0</V>
+		<V n="Pos1059">0,0,0,0</V>
+		<V n="RecogType">5</V>
+	</F>
+	<F type="33PhCity">
+		<V n="Length">30</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">x</V>
+		<V n="ReqConf">8</V>
+		<V n="s_sr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_sr">1</V>
+		<V n="rules">&lt;in /&gt;&lt;out /&gt;</V>
+		<V n="Pos1052">0,0,0,0</V>
+		<V n="Pos1059">0,0,0,0</V>
+		<V n="RecogType">5</V>
+	</F>
+	<F type="33PhStat">
+		<V n="Length">2</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">A</V>
+		<V n="ReqConf">8</V>
+		<V n="FieldDescription">Physician Address</V>
+		<V n="s_sr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_sr">1</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;5&quot; rs=&quot;19&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+		<V n="Pos1052">0,0,0,0</V>
+		<V n="Pos1059">0,0,0,0</V>
+		<V n="RecogType">5</V>
+	</F>
+	<F type="33PhyZip">
+		<V n="Length">9</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">#</V>
+		<V n="ReqConf">8</V>
+		<V n="FieldDescription">Physician Address</V>
+		<V n="s_sr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_sr">1</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;7&quot; rs=&quot;18&quot; /&gt;&lt;r id=&quot;6&quot; rs=&quot;19&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+		<V n="Pos1052">0,0,0,0</V>
+		<V n="Pos1059">0,0,0,0</V>
+		<V n="RecogType">5</V>
+	</F>
+	<F type="33PhyPhn">
+		<V n="Length">15</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">z</V>
+		<V n="ReqConf">8</V>
+		<V n="s_sr">1</V>
+		<V n="STATUS">0</V>
+		<V n="c_sr">1</V>
+		<V n="rules">&lt;in /&gt;&lt;out /&gt;</V>
+		<V n="Pos1052">0,0,0,0</V>
+		<V n="Pos1059">0,0,0,0</V>
+		<V n="RecogType">5</V>
+	</F>
+	<F type="33PhyPIN">
+		<V n="Length">15</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">z</V>
+		<V n="ReqConf">8</V>
+		<V n="STATUS">0</V>
+		<V n="k_cs"></V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="Pos1052">0,0,0,0</V>
+		<V n="Pos1059">0,0,0,0</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;1&quot; rs=&quot;4&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+		<V n="RecogType">5</V>
+	</F>
+	<F type="Comment">
+		<V n="Length">30</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">Z</V>
+		<V n="ReqConf">8</V>
+		<V n="s_sr">1</V>
+		<V n="STATUS">-1</V>
+		<V n="AutoFld">-1</V>
+		<V n="c_sr">1</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;1&quot; rs=&quot;4&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+		<V n="Pos1052"></V>
+	</F>
+	<F type="IMAGEOVERLAYOFFSET">
+		<V n="Length">12</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="PictureString">Z</V>
+		<V n="ReqConf">8</V>
+		<V n="STATUS">-1</V>
+		<V n="c_sr">1</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;1&quot; rs=&quot;4&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+		<V n="Pos1052">0,0,0,0</V>
+		<V n="Pos1059">0,0,0,0</V>
+		<V n="RecogType">5</V>
+	</F>
+	<F type="Anchor1">
+		<V n="ID">0</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">-1</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="ReqConf">6</V>
+		<V n="s_sr">1</V>
+		<V n="c_sr">1</V>
+		<V n="Pos1054">81,135,170,176</V>
+		<V n="Pos1052">89,108,179,144</V>
+		<V n="PatternMatch">1</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;1&quot; rs=&quot;4&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+		<V n="Pos1059">50,40,153,142</V>
+		<V n="RecogType">10</V>
+	</F>
+	<F type="Anchor2">
+		<V n="ID">0</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">-1</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="ReqConf">6</V>
+		<V n="s_sr">1</V>
+		<V n="c_sr">1</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;1&quot; rs=&quot;4&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+		<V n="Pos1052">0,0,0,0</V>
+		<V n="Pos1059">690,2090,965,2112</V>
+		<V n="RecogType">10</V>
+		<V n="PatternMatch">1</V>
+	</F>
+	<F type="1InsType_OMR1">
+		<V n="ID">0</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">-1</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="ReqConf">8</V>
+		<V n="AutoFld">-1</V>
+		<V n="Pos1052">103,299,133,323</V>
+		<V n="Pos1059">51,299,81,327</V>
+		<V n="Pos1060">51,299,81,327</V>
+		<V n="rules">&lt;in /&gt;&lt;out /&gt;</V>
+		<V n="Pos1054">112,294,187,348</V>
+	</F>
+	<F type="1InsType_OMR2">
+		<V n="ID">0</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">-1</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="ReqConf">8</V>
+		<V n="AutoFld">-1</V>
+		<V n="Pos1052">236,299,266,323</V>
+		<V n="Pos1059">186,298,217,326</V>
+		<V n="Pos1060">186,298,217,326</V>
+		<V n="rules">&lt;in /&gt;&lt;out /&gt;</V>
+		<V n="Pos1054">259,294,334,348</V>
+	</F>
+	<F type="1InsType_OMR3">
+		<V n="ID">0</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">-1</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="ReqConf">8</V>
+		<V n="AutoFld">-1</V>
+		<V n="Pos1052">380,299,410,323</V>
+		<V n="Pos1059">327,298,358,326</V>
+		<V n="Pos1060">327,298,358,326</V>
+		<V n="rules">&lt;in /&gt;&lt;out /&gt;</V>
+		<V n="Pos1054">402,294,477,348</V>
+	</F>
+	<F type="1InsType_OMR4">
+		<V n="ID">0</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">-1</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="ReqConf">8</V>
+		<V n="AutoFld">-1</V>
+		<V n="Pos1052">559,299,589,323</V>
+		<V n="Pos1059">508,298,538,326</V>
+		<V n="Pos1060">508,298,538,326</V>
+		<V n="rules">&lt;in /&gt;&lt;out /&gt;</V>
+		<V n="Pos1054">556,294,631,348</V>
+	</F>
+	<F type="1InsType_OMR5">
+		<V n="ID">0</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">-1</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="ReqConf">8</V>
+		<V n="AutoFld">-1</V>
+		<V n="Pos1052">700,299,730,323</V>
+		<V n="Pos1059">648,298,678,326</V>
+		<V n="Pos1060">648,298,678,326</V>
+		<V n="rules">&lt;in /&gt;&lt;out /&gt;</V>
+		<V n="Pos1054">696,294,771,348</V>
+	</F>
+	<F type="1InsType_OMR6">
+		<V n="ID">0</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">-1</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="ReqConf">8</V>
+		<V n="AutoFld">-1</V>
+		<V n="Pos1052">858,299,888,323</V>
+		<V n="Pos1059">808,298,838,327</V>
+		<V n="Pos1060">808,298,838,327</V>
+		<V n="rules">&lt;in /&gt;&lt;out /&gt;</V>
+		<V n="Pos1054">829,294,904,348</V>
+	</F>
+	<F type="1InsType_OMR7">
+		<V n="ID">0</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">-1</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="ReqConf">8</V>
+		<V n="AutoFld">-1</V>
+		<V n="Pos1052">980,299,1010,323</V>
+		<V n="Pos1059">928,298,958,326</V>
+		<V n="Pos1060">928,298,958,326</V>
+		<V n="Pos1054">972,294,1047,348</V>
+		<V n="rules">&lt;in /&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="9bOInSex_OMR1">
+		<V n="ID">0</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">-1</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="ReqConf">8</V>
+		<V n="AutoFld">-1</V>
+		<V n="Pos1052">442,764,472,788</V>
+		<V n="Pos1059">0,0,0,0</V>
+		<V n="Pos1060">0,0,0,0</V>
+		<V n="rules">&lt;in /&gt;&lt;out /&gt;</V>
+		<V n="Pos1054">308,750,375,801</V>
+	</F>
+	<F type="9bOInSex_OMR2">
+		<V n="ID">0</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">-1</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="ReqConf">8</V>
+		<V n="AutoFld">-1</V>
+		<V n="Pos1052">562,761,589,785</V>
+		<V n="Pos1059">0,0,0,0</V>
+		<V n="Pos1060">0,0,0,0</V>
+		<V n="rules">&lt;in /&gt;&lt;out /&gt;</V>
+		<V n="Pos1054">391,750,470,801</V>
+	</F>
+	<F type="3aPatSex_OMR1">
+		<V n="ID">0</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">-1</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="ReqConf">8</V>
+		<V n="AutoFld">-1</V>
+		<V n="Pos1052">920,361,947,386</V>
+		<V n="Pos1059">871,368,897,393</V>
+		<V n="Pos1060">871,368,897,393</V>
+		<V n="Pos1054">888,333,968,399</V>
+		<V n="rules">&lt;in /&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="3aPatSex_OMR2">
+		<V n="ID">0</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">-1</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="ReqConf">8</V>
+		<V n="AutoFld">-1</V>
+		<V n="Pos1052">1023,361,1050,386</V>
+		<V n="Pos1059">971,368,999,393</V>
+		<V n="Pos1060">971,368,999,393</V>
+		<V n="Pos1054">978,333,1068,399</V>
+		<V n="rules">&lt;in /&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="6PatRela_OMR1">
+		<V n="ID">0</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">-1</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="ReqConf">8</V>
+		<V n="AutoFld">-1</V>
+		<V n="Pos1052">738,429,771,456</V>
+		<V n="Pos1059">688,435,720,462</V>
+		<V n="Pos1060">688,435,720,462</V>
+		<V n="rules">&lt;in /&gt;&lt;out /&gt;</V>
+		<V n="Pos1054">682,415,743,471</V>
+	</F>
+	<F type="6PatRela_OMR2">
+		<V n="ID">0</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">-1</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="ReqConf">8</V>
+		<V n="AutoFld">-1</V>
+		<V n="Pos1052">841,429,874,456</V>
+		<V n="Pos1059">789,436,822,463</V>
+		<V n="Pos1060">688,435,720,462</V>
+		<V n="rules">&lt;in /&gt;&lt;out /&gt;</V>
+		<V n="Pos1054">757,415,819,471</V>
+	</F>
+	<F type="6PatRela_OMR3">
+		<V n="ID">0</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">-1</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="ReqConf">8</V>
+		<V n="AutoFld">-1</V>
+		<V n="Pos1054">832,415,894,471</V>
+		<V n="rules">&lt;in /&gt;&lt;out /&gt;</V>
+		<V n="Pos1052">915,429,947,456</V>
+		<V n="Pos1059">869,435,900,462</V>
+		<V n="Pos1060">688,435,720,462</V>
+	</F>
+	<F type="6PatRela_OMR4">
+		<V n="ID">0</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">-1</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="ReqConf">8</V>
+		<V n="AutoFld">-1</V>
+		<V n="Pos1054">906,413,969,469</V>
+		<V n="rules">&lt;in /&gt;&lt;out /&gt;</V>
+		<V n="Pos1052">1018,429,1050,456</V>
+		<V n="Pos1059">969,436,1001,463</V>
+		<V n="Pos1060">969,436,1001,463</V>
+	</F>
+	<F type="8aPStatM_OMR1">
+		<V n="ID">0</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">-1</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="ReqConf">8</V>
+		<V n="AutoFld">-1</V>
+		<V n="Pos1052">779,494,809,522</V>
+		<V n="Pos1059">0,0,0,0</V>
+		<V n="Pos1060">0,0,0,0</V>
+		<V n="rules">&lt;in /&gt;&lt;out /&gt;</V>
+		<V n="Pos1054">744,483,795,534</V>
+	</F>
+	<F type="8aPStatM_OMR2">
+		<V n="ID">0</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">-1</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="ReqConf">8</V>
+		<V n="AutoFld">-1</V>
+		<V n="Pos1052">898,494,928,522</V>
+		<V n="Pos1059">0,0,0,0</V>
+		<V n="Pos1060">0,0,0,0</V>
+		<V n="rules">&lt;in /&gt;&lt;out /&gt;</V>
+		<V n="Pos1054">809,480,865,531</V>
+	</F>
+	<F type="8aPStatM_OMR3">
+		<V n="ID">0</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">-1</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="ReqConf">8</V>
+		<V n="AutoFld">-1</V>
+		<V n="Pos1052">1021,494,1050,522</V>
+		<V n="Pos1059">0,0,0,0</V>
+		<V n="Pos1060">0,0,0,0</V>
+		<V n="rules">&lt;in /&gt;&lt;out /&gt;</V>
+		<V n="Pos1054">881,483,939,531</V>
+	</F>
+	<F type="8bPStatE_OMR1">
+		<V n="ID">0</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">-1</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="ReqConf">8</V>
+		<V n="AutoFld">-1</V>
+		<V n="Pos1052">782,562,809,590</V>
+		<V n="Pos1059">0,0,0,0</V>
+		<V n="Pos1060">0,0,0,0</V>
+		<V n="rules">&lt;in /&gt;&lt;out /&gt;</V>
+		<V n="Pos1054">751,586,800,637</V>
+	</F>
+	<F type="8bPStatE_OMR2">
+		<V n="ID">0</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">-1</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="ReqConf">8</V>
+		<V n="AutoFld">-1</V>
+		<V n="Pos1052">901,562,928,590</V>
+		<V n="Pos1059">0,0,0,0</V>
+		<V n="Pos1060">0,0,0,0</V>
+		<V n="rules">&lt;in /&gt;&lt;out /&gt;</V>
+		<V n="Pos1054">824,584,878,635</V>
+	</F>
+	<F type="8bPStatE_OMR3">
+		<V n="ID">0</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">-1</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="ReqConf">8</V>
+		<V n="AutoFld">-1</V>
+		<V n="Pos1052">1021,562,1048,590</V>
+		<V n="Pos1059">0,0,0,0</V>
+		<V n="Pos1060">0,0,0,0</V>
+		<V n="Pos1054">899,581,953,632</V>
+		<V n="rules">&lt;in /&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="10aPCREm_OMR1">
+		<V n="ID">0</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">-1</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="ReqConf">8</V>
+		<V n="AutoFld">-1</V>
+		<V n="Pos1052">779,696,809,723</V>
+		<V n="Pos1059">729,700,759,728</V>
+		<V n="Pos1060">729,700,759,728</V>
+		<V n="rules">&lt;in /&gt;&lt;out /&gt;</V>
+		<V n="Pos1054">781,675,854,734</V>
+	</F>
+	<F type="10aPCREm_OMR2">
+		<V n="ID">0</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">-1</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="ReqConf">8</V>
+		<V n="AutoFld">-1</V>
+		<V n="Pos1052">901,696,931,723</V>
+		<V n="Pos1059">851,701,881,729</V>
+		<V n="Pos1060">729,700,759,728</V>
+		<V n="rules">&lt;in /&gt;&lt;out /&gt;</V>
+		<V n="Pos1054">864,672,937,731</V>
+	</F>
+	<F type="10bPCRAA_OMR1">
+		<V n="ID">0</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">-1</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="ReqConf">8</V>
+		<V n="AutoFld">-1</V>
+		<V n="s_sr">1</V>
+		<V n="Pos1052">779,761,806,788</V>
+		<V n="Pos1059">732,766,758,793</V>
+		<V n="Pos1060">732,766,758,793</V>
+		<V n="rules">&lt;in /&gt;&lt;out /&gt;</V>
+		<V n="Pos1054">784,758,851,809</V>
+	</F>
+	<F type="10bPCRAA_OMR2">
+		<V n="ID">0</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">-1</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="ReqConf">8</V>
+		<V n="AutoFld">-1</V>
+		<V n="Pos1052">904,761,931,788</V>
+		<V n="Pos1059">852,767,880,795</V>
+		<V n="Pos1060">852,767,880,795</V>
+		<V n="rules">&lt;in /&gt;&lt;out /&gt;</V>
+		<V n="Pos1054">875,758,945,811</V>
+	</F>
+	<F type="10cPCROA_OMR1">
+		<V n="ID">0</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">-1</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="ReqConf">8</V>
+		<V n="AutoFld">-1</V>
+		<V n="Pos1052">776,826,809,853</V>
+		<V n="Pos1059">729,833,763,860</V>
+		<V n="Pos1060">729,833,763,860</V>
+		<V n="rules">&lt;in /&gt;&lt;out /&gt;</V>
+		<V n="Pos1054">770,819,851,881</V>
+	</F>
+	<F type="10cPCROA_OMR2">
+		<V n="ID">0</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">-1</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="ReqConf">8</V>
+		<V n="AutoFld">-1</V>
+		<V n="Pos1052">901,826,934,853</V>
+		<V n="Pos1059">850,833,883,860</V>
+		<V n="Pos1060">850,833,883,860</V>
+		<V n="rules">&lt;in /&gt;&lt;out /&gt;</V>
+		<V n="Pos1054">878,819,950,881</V>
+	</F>
+	<F type="20aOutLb_OMR1">
+		<V n="ID">0</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">-1</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="ReqConf">8</V>
+		<V n="AutoFld">-1</V>
+		<V n="Pos1052">1124,1223,1148,1250</V>
+		<V n="Pos1059">1074,1227,1098,1255</V>
+		<V n="Pos1060">1074,1227,1098,1255</V>
+		<V n="rules">&lt;in /&gt;&lt;out /&gt;</V>
+		<V n="Pos1054">1123,1207,1201,1293</V>
+	</F>
+	<F type="20aOutLb_OMR2">
+		<V n="ID">0</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">-1</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="ReqConf">8</V>
+		<V n="AutoFld">-1</V>
+		<V n="Pos1052">1216,1226,1246,1250</V>
+		<V n="Pos1059">1172,1230,1202,1254</V>
+		<V n="Pos1060">1172,1230,1202,1254</V>
+		<V n="rules">&lt;in /&gt;&lt;out /&gt;</V>
+		<V n="Pos1054">1222,1214,1304,1286</V>
+	</F>
+	<F type="25bSSEIN_OMR1">
+		<V n="ID">0</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">-1</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="ReqConf">8</V>
+		<V n="AutoFld">-1</V>
+		<V n="Pos1052">423,1887,448,1911</V>
+		<V n="Pos1059">371,1886,396,1909</V>
+		<V n="Pos1060">371,1886,396,1909</V>
+		<V n="rules">&lt;in /&gt;&lt;out /&gt;</V>
+		<V n="Pos1054">392,1881,440,1940</V>
+	</F>
+	<F type="25bSSEIN_OMR2">
+		<V n="ID">0</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">-1</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="ReqConf">8</V>
+		<V n="AutoFld">-1</V>
+		<V n="Pos1052">461,1887,488,1914</V>
+		<V n="Pos1059">413,1884,440,1912</V>
+		<V n="Pos1060">413,1884,440,1912</V>
+		<V n="rules">&lt;in /&gt;&lt;out /&gt;</V>
+		<V n="Pos1054">445,1883,488,1940</V>
+	</F>
+	<F type="27AccAss_OMR1">
+		<V n="ID">0</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">-1</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="ReqConf">8</V>
+		<V n="AutoFld">-1</V>
+		<V n="Pos1052">844,1887,871,1911</V>
+		<V n="Pos1059">794,1883,821,1907</V>
+		<V n="Pos1060">794,1883,821,1907</V>
+		<V n="Pos1054">791,1859,895,1929</V>
+		<V n="rules">&lt;in /&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="27AccAss_OMR2">
+		<V n="ID">0</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">-1</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="ReqConf">8</V>
+		<V n="AutoFld">-1</V>
+		<V n="Pos1052">942,1887,969,1914</V>
+		<V n="Pos1059">893,1884,920,1912</V>
+		<V n="Pos1060">893,1884,920,1912</V>
+		<V n="Pos1054">898,1856,1018,1929</V>
+		<V n="rules">&lt;in /&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="12aPSign_OMR1">
+		<V n="ID">0</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">-1</V>
+		<V n="POSITION">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="ReqConf">8</V>
+		<V n="AutoFld">-1</V>
+		<V n="Pos1054">198,1028,577,1087</V>
+		<V n="rules">&lt;in /&gt;&lt;out /&gt;</V>
+		<V n="Pos1052">162,998,649,1038</V>
+		<V n="Pos1059">156,1008,643,1049</V>
+		<V n="Pos1060">156,1008,643,1049</V>
+	</F>
+	<F type="12aPSign_OMR2">
+		<V n="ID">0</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">-1</V>
+		<V n="POSITION">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="ReqConf">8</V>
+		<V n="AutoFld">-1</V>
+	</F>
+	<F type="11aInSex_OMR1">
+		<V n="ID">0</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">-1</V>
+		<V n="POSITION">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="ReqConf">8</V>
+		<V n="AutoFld">-1</V>
+		<V n="Pos1052">1442,696,1471,723</V>
+		<V n="Pos1059">1390,700,1418,728</V>
+		<V n="Pos1060">1390,700,1418,728</V>
+		<V n="Pos1054">1390,669,1517,733</V>
+		<V n="rules">&lt;in /&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="11aInSex_OMR2">
+		<V n="ID">0</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">-1</V>
+		<V n="POSITION">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="ReqConf">8</V>
+		<V n="AutoFld">-1</V>
+		<V n="Pos1052">1577,696,1607,723</V>
+		<V n="Pos1059">1531,700,1561,728</V>
+		<V n="Pos1060">1531,700,1561,728</V>
+		<V n="Pos1054">1524,666,1650,729</V>
+		<V n="rules">&lt;in /&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="11dPlOth_OMR1">
+		<V n="ID">0</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">-1</V>
+		<V n="POSITION">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="ReqConf">8</V>
+		<V n="AutoFld">-1</V>
+		<V n="Pos1052">1121,891,1151,921</V>
+		<V n="Pos1059">1068,897,1098,927</V>
+		<V n="Pos1060">1068,897,1098,927</V>
+		<V n="Pos1054">1064,869,1187,936</V>
+		<V n="rules">&lt;in /&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="11dPlOth_OMR2">
+		<V n="ID">0</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">-1</V>
+		<V n="POSITION">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="ReqConf">8</V>
+		<V n="AutoFld">-1</V>
+		<V n="Pos1052">1216,894,1246,921</V>
+		<V n="Pos1059">1169,900,1199,927</V>
+		<V n="Pos1060">1169,900,1199,927</V>
+		<V n="Pos1054">1194,863,1294,939</V>
+		<V n="rules">&lt;in /&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="13InsSig_OMR1">
+		<V n="ID">0</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">-1</V>
+		<V n="POSITION">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="ReqConf">8</V>
+		<V n="AutoFld">-1</V>
+		<V n="Pos1054">1149,1018,1560,1077</V>
+		<V n="rules">&lt;in /&gt;&lt;out /&gt;</V>
+		<V n="Pos1052">1167,1000,1640,1041</V>
+		<V n="Pos1059">1153,1008,1613,1049</V>
+		<V n="Pos1060">1153,1008,1613,1049</V>
+	</F>
+	<F type="Image_Offset">
+		<V n="Length">12</V>
+		<V n="ID">0</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">-1</V>
+		<V n="POSITION">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="ReqConf">8</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="c_sx">NUMERICAL</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;1&quot; rs=&quot;4&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+		<V n="RecogType">5</V>
+	</F>
+	<F type="33PhyGRP">
+		<V n="Length">10</V>
+		<V n="ID">0</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">0</V>
+		<V n="POSITION">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="ReqConf">8</V>
+		<V n="k_cs"></V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="Pos1052">0,0,0,0</V>
+		<V n="Pos1059">0,0,0,0</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;1&quot; rs=&quot;4&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+		<V n="RecogType">5</V>
+	</F>
+	<F type="2PaSufx">
+		<V n="ID">0</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">0</V>
+		<V n="POSITION">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="ReqConf">8</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;1&quot; rs=&quot;4&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+		<V n="Pos1052">0,0,0,0</V>
+		<V n="Pos1059">0,0,0,0</V>
+		<V n="RecogType">5</V>
+	</F>
+	<F type="2PaCred">
+		<V n="ID">0</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">0</V>
+		<V n="POSITION">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="ReqConf">8</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;1&quot; rs=&quot;4&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+		<V n="Pos1052">0,0,0,0</V>
+		<V n="Pos1059">0,0,0,0</V>
+		<V n="RecogType">5</V>
+	</F>
+	<F type="4InsSufx">
+		<V n="ID">0</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">0</V>
+		<V n="POSITION">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="ReqConf">8</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;1&quot; rs=&quot;4&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+		<V n="Pos1052">0,0,0,0</V>
+		<V n="Pos1059">0,0,0,0</V>
+		<V n="RecogType">5</V>
+	</F>
+	<F type="4InsCred">
+		<V n="ID">0</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">0</V>
+		<V n="POSITION">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="ReqConf">8</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;1&quot; rs=&quot;4&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+		<V n="Pos1052">0,0,0,0</V>
+		<V n="RecogType">5</V>
+	</F>
+	<F type="17ReCred">
+		<V n="ID">0</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">0</V>
+		<V n="POSITION">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="ReqConf">8</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;1&quot; rs=&quot;4&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+		<V n="Pos1052">0,0,0,0</V>
+		<V n="Pos1059">0,0,0,0</V>
+		<V n="RecogType">5</V>
+	</F>
+	<F type="17ReSufx">
+		<V n="ID">0</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">0</V>
+		<V n="POSITION">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="ReqConf">8</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;1&quot; rs=&quot;4&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+		<V n="Pos1052">0,0,0,0</V>
+		<V n="Pos1059">0,0,0,0</V>
+		<V n="RecogType">5</V>
+	</F>
+	<F type="31aPhSfx">
+		<V n="ID">0</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">0</V>
+		<V n="POSITION">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="ReqConf">8</V>
+		<V n="c_ft">MACHINETYPE</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;1&quot; rs=&quot;4&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+		<V n="Pos1052">0,0,0,0</V>
+		<V n="Pos1059">0,0,0,0</V>
+		<V n="RecogType">5</V>
+	</F>
+	<F type="Expected_Documents">
+		<V n="ID">0</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">0</V>
+		<V n="POSITION">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="ReqConf">8</V>
+		<V n="AutoFld">-1</V>
+		<V n="rules">&lt;in /&gt;&lt;out /&gt;</V>
+		<V n="RecogType">5</V>
+	</F>
+	<F type="Expected_Pages">
+		<V n="ID">0</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">0</V>
+		<V n="POSITION">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="ReqConf">8</V>
+		<V n="AutoFld">-1</V>
+		<V n="rules">&lt;in /&gt;&lt;out /&gt;</V>
+		<V n="RecogType">5</V>
+	</F>
+	<F type="10bautop_OMR1">
+		<V n="ID">0</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">-1</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="ReqConf">8</V>
+		<V n="AutoFld">-1</V>
+	</F>
+	<F type="10bautop_OMR2">
+		<V n="ID">0</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">-1</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="ReqConf">8</V>
+		<V n="AutoFld">-1</V>
+	</F>
+	<F type="13InsSig_OMR2">
+		<V n="ID">0</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">-1</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="ReqConf">8</V>
+		<V n="AutoFld">-1</V>
+	</F>
+	<F type="33PhyNPI">
+		<V n="Length">10</V>
+		<V n="PictureString">N</V>
+		<V n="ID">0</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">0</V>
+		<V n="POSITION">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="ReqConf">8</V>
+		<V n="Pos1052">1077,2050,1301,2078</V>
+		<V n="Pos1059">1036,2050,1261,2078</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;14&quot; rs=&quot;19&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="17aRfCd">
+		<V n="Length">2</V>
+		<V n="PictureString">X</V>
+		<V n="ID">0</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">0</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="ReqConf">8</V>
+		<V n="k_cs"></V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="Pos1052">681,1125,717,1151</V>
+		<V n="Pos1059">635,1133,671,1158</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;33&quot; rs=&quot;18&quot; /&gt;&lt;r id=&quot;4&quot; rs=&quot;19&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="17bRfNPI">
+		<V n="Length">10</V>
+		<V n="PictureString">N</V>
+		<V n="ID">0</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">0</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="ReqConf">8</V>
+		<V n="Pos1052">725,1156,1068,1185</V>
+		<V n="Pos1059">679,1165,1023,1194</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;14&quot; rs=&quot;19&quot; /&gt;&lt;r id=&quot;10&quot; rs=&quot;18&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="32FacNPI">
+		<V n="Length">10</V>
+		<V n="PictureString">N</V>
+		<V n="ID">0</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">0</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="ReqConf">8</V>
+		<V n="Pos1052">534,2050,762,2078</V>
+		<V n="Pos1059">494,2049,722,2077</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;14&quot; rs=&quot;19&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="32FacID">
+		<V n="Length">15</V>
+		<V n="PictureString">X</V>
+		<V n="ID">0</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">0</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="ReqConf">8</V>
+		<V n="Pos1052">760,2050,1067,2078</V>
+		<V n="Pos1059">724,2049,1031,2077</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;7&quot; rs=&quot;18&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="24iQual1">
+		<V n="Length">2</V>
+		<V n="ID">0</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">0</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="ReqConf">8</V>
+		<V n="Pos1052">1376,1453,1428,1481</V>
+		<V n="Pos1059">1330,1458,1381,1485</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="24jRefId1">
+		<V n="Length">10</V>
+		<V n="ID">0</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">0</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="ReqConf">8</V>
+		<V n="Pos1052">1436,1453,1675,1481</V>
+		<V n="Pos1059">1393,1457,1632,1484</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="24Info_1">
+		<V n="Length">100</V>
+		<V n="ID">0</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">0</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="ReqConf">8</V>
+		<V n="Pos1052">574,1453,1364,1481</V>
+		<V n="Pos1059">530,1454,1320,1482</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;11&quot; rs=&quot;18&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="24iQual2">
+		<V n="Length">2</V>
+		<V n="ID">0</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">0</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="ReqConf">8</V>
+		<V n="Pos1052">1376,1521,1428,1549</V>
+		<V n="Pos1059">1330,1525,1381,1552</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="24jRefId2">
+		<V n="Length">10</V>
+		<V n="ID">0</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">0</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="ReqConf">8</V>
+		<V n="Pos1052">1436,1521,1675,1549</V>
+		<V n="Pos1059">1392,1524,1631,1551</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="24Info_2">
+		<V n="Length">100</V>
+		<V n="ID">0</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">0</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="ReqConf">8</V>
+		<V n="Pos1052">573,1521,1363,1549</V>
+		<V n="Pos1059">531,1524,1322,1551</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;11&quot; rs=&quot;18&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="24iQual3">
+		<V n="Length">2</V>
+		<V n="ID">0</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">0</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="ReqConf">8</V>
+		<V n="Pos1052">1376,1589,1428,1613</V>
+		<V n="Pos1059">1331,1589,1383,1613</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="24jRefId3">
+		<V n="Length">10</V>
+		<V n="ID">0</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">0</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="ReqConf">8</V>
+		<V n="Pos1052">1436,1589,1675,1613</V>
+		<V n="Pos1059">1391,1591,1630,1614</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="24Info_3">
+		<V n="Length">100</V>
+		<V n="ID">0</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">0</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="ReqConf">8</V>
+		<V n="Pos1052">573,1589,1363,1613</V>
+		<V n="Pos1059">535,1592,1325,1616</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;11&quot; rs=&quot;18&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="33PhyID">
+		<V n="Length">15</V>
+		<V n="ID">0</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">0</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="ReqConf">8</V>
+		<V n="Pos1052">1306,2050,1674,2078</V>
+		<V n="Pos1059">1266,2050,1633,2078</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;7&quot; rs=&quot;18&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="24iQual4">
+		<V n="Length">2</V>
+		<V n="ID">0</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">0</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="ReqConf">8</V>
+		<V n="Pos1052">1376,1655,1428,1682</V>
+		<V n="Pos1059">1331,1654,1383,1681</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="24jRefId4">
+		<V n="Length">10</V>
+		<V n="ID">0</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">0</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="ReqConf">8</V>
+		<V n="Pos1052">1436,1655,1675,1682</V>
+		<V n="Pos1059">1390,1659,1629,1686</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="24iQual5">
+		<V n="Length">2</V>
+		<V n="ID">0</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">0</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="ReqConf">8</V>
+		<V n="Pos1052">1376,1721,1428,1748</V>
+		<V n="Pos1059">1331,1721,1383,1748</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="24jRefId5">
+		<V n="Length">10</V>
+		<V n="ID">0</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">0</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="ReqConf">8</V>
+		<V n="Pos1052">1436,1721,1675,1748</V>
+		<V n="Pos1059">1394,1721,1633,1748</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="24Info_4">
+		<V n="Length">100</V>
+		<V n="ID">0</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">0</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="ReqConf">8</V>
+		<V n="Pos1052">573,1655,1363,1682</V>
+		<V n="Pos1059">533,1656,1324,1684</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;11&quot; rs=&quot;18&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="24Info_5">
+		<V n="Length">100</V>
+		<V n="ID">0</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">-1</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="ReqConf">8</V>
+		<V n="Pos1052">573,1721,1363,1748</V>
+		<V n="Pos1059">530,1722,1320,1749</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;11&quot; rs=&quot;18&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="24Info_6">
+		<V n="Length">100</V>
+		<V n="ID">0</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">0</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="ReqConf">8</V>
+		<V n="Pos1052">573,1786,1363,1812</V>
+		<V n="Pos1059">535,1786,1325,1813</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;11&quot; rs=&quot;18&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="24iQual6">
+		<V n="Length">2</V>
+		<V n="ID">0</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">0</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="ReqConf">8</V>
+		<V n="Pos1052">1376,1786,1428,1812</V>
+		<V n="Pos1059">1329,1788,1380,1814</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="24jRefId6">
+		<V n="Length">10</V>
+		<V n="ID">0</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">0</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="ReqConf">8</V>
+		<V n="Pos1052">1436,1786,1675,1812</V>
+		<V n="Pos1059">1392,1786,1631,1813</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="FormType">
+		<V n="Length"></V>
+		<V n="ID">0</V>
+		<V n="PictureString">x</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">0</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="ReqConf">8</V>
+		<V n="AutoFld">0</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;5&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;25&quot; rs=&quot;18&quot; /&gt;&lt;r id=&quot;1&quot; rs=&quot;4&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+		<V n="Pos1052">0,0,0,0</V>
+		<V n="Pos1059">0,0,0,0</V>
+		<V n="RecogType">5</V>
+	</F>
+	<F type="CMS1500_ID">
+		<V n="ID">0</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">-1</V>
+		<V n="Position">17,17,833,207</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="Length"></V>
+		<V n="ReqConf">8</V>
+		<V n="AutoFld">-1</V>
+		<V n="c_hn"></V>
+		<V n="c_mn"></V>
+		<V n="s_fg">1</V>
+		<V n="s_fr">1</V>
+		<V n="k_cs"></V>
+		<V n="rules">&lt;in /&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="24jNPI_1">
+		<V n="ID">0</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">0</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="Length"></V>
+		<V n="ReqConf">8</V>
+		<V n="Pos1052">1436,1490,1675,1515</V>
+		<V n="Pos1059">1391,1493,1630,1518</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;30&quot; rs=&quot;19&quot; /&gt;&lt;r id=&quot;9&quot; rs=&quot;18&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="24jNPI_2">
+		<V n="ID">0</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">0</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="Length"></V>
+		<V n="ReqConf">8</V>
+		<V n="Pos1052">1436,1557,1675,1582</V>
+		<V n="Pos1059">1394,1561,1633,1586</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;30&quot; rs=&quot;19&quot; /&gt;&lt;r id=&quot;9&quot; rs=&quot;18&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="24jNPI_3">
+		<V n="ID">0</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">0</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="Length"></V>
+		<V n="ReqConf">8</V>
+		<V n="Pos1052">1436,1622,1675,1647</V>
+		<V n="Pos1059">1391,1623,1630,1648</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;30&quot; rs=&quot;19&quot; /&gt;&lt;r id=&quot;9&quot; rs=&quot;18&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="24jNPI_4">
+		<V n="ID">0</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">0</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="Length"></V>
+		<V n="ReqConf">8</V>
+		<V n="Pos1052">1436,1690,1675,1715</V>
+		<V n="Pos1059">1394,1692,1633,1717</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;30&quot; rs=&quot;19&quot; /&gt;&lt;r id=&quot;9&quot; rs=&quot;18&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="24jNPI_5">
+		<V n="ID">0</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">0</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="Length"></V>
+		<V n="ReqConf">8</V>
+		<V n="Pos1052">1436,1754,1675,1779</V>
+		<V n="Pos1059">1397,1754,1636,1779</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;30&quot; rs=&quot;19&quot; /&gt;&lt;r id=&quot;9&quot; rs=&quot;18&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="24jNPI_6">
+		<V n="ID">0</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">0</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="Length"></V>
+		<V n="ReqConf">8</V>
+		<V n="Pos1052">1436,1818,1675,1844</V>
+		<V n="Pos1059">1391,1821,1630,1846</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;3&quot; rs=&quot;12&quot; /&gt;&lt;r id=&quot;30&quot; rs=&quot;19&quot; /&gt;&lt;r id=&quot;9&quot; rs=&quot;18&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="24NDC_1">
+		<V n="ID">0</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">0</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="Length">11</V>
+		<V n="ReqConf">8</V>
+		<V n="AutoFld">0</V>
+		<V n="rules">&lt;in /&gt;&lt;out /&gt;</V>
+		<V n="RecogType">5</V>
+	</F>
+	<F type="24NDC_2">
+		<V n="ID">0</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">0</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="Length">11</V>
+		<V n="ReqConf">8</V>
+		<V n="AutoFld">0</V>
+		<V n="rules">&lt;in /&gt;&lt;out /&gt;</V>
+		<V n="RecogType">5</V>
+	</F>
+	<F type="24NDC_3">
+		<V n="ID">0</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">0</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="Length">11</V>
+		<V n="ReqConf">8</V>
+		<V n="AutoFld">0</V>
+		<V n="rules">&lt;in /&gt;&lt;out /&gt;</V>
+		<V n="RecogType">5</V>
+	</F>
+	<F type="24NDC_4">
+		<V n="ID">0</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">0</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="Length">11</V>
+		<V n="ReqConf">8</V>
+		<V n="AutoFld">0</V>
+		<V n="rules">&lt;in /&gt;&lt;out /&gt;</V>
+		<V n="RecogType">5</V>
+	</F>
+	<F type="24NDC_5">
+		<V n="ID">0</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">0</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="Length">11</V>
+		<V n="ReqConf">8</V>
+		<V n="AutoFld">0</V>
+		<V n="rules">&lt;in /&gt;&lt;out /&gt;</V>
+		<V n="RecogType">5</V>
+	</F>
+	<F type="24NDC_6">
+		<V n="ID">0</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">0</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="Length">11</V>
+		<V n="ReqConf">8</V>
+		<V n="AutoFld">0</V>
+		<V n="rules">&lt;in /&gt;&lt;out /&gt;</V>
+		<V n="RecogType">5</V>
+	</F>
+	<F type="24NDCType_1">
+		<V n="ID">0</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">0</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="Length">2</V>
+		<V n="ReqConf">8</V>
+		<V n="AutoFld">0</V>
+		<V n="rules">&lt;in /&gt;&lt;out /&gt;</V>
+		<V n="RecogType">5</V>
+	</F>
+	<F type="24NDCType_2">
+		<V n="ID">0</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">0</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="Length">2</V>
+		<V n="ReqConf">8</V>
+		<V n="AutoFld">0</V>
+		<V n="rules">&lt;in /&gt;&lt;out /&gt;</V>
+		<V n="RecogType">5</V>
+	</F>
+	<F type="24NDCType_3">
+		<V n="ID">0</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">0</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="Length">2</V>
+		<V n="ReqConf">8</V>
+		<V n="AutoFld">0</V>
+		<V n="rules">&lt;in /&gt;&lt;out /&gt;</V>
+		<V n="RecogType">5</V>
+	</F>
+	<F type="24NDCType_4">
+		<V n="ID">0</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">0</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="Length">2</V>
+		<V n="ReqConf">8</V>
+		<V n="AutoFld">0</V>
+		<V n="rules">&lt;in /&gt;&lt;out /&gt;</V>
+		<V n="RecogType">5</V>
+	</F>
+	<F type="24NDCType_5">
+		<V n="ID">0</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">0</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="Length">2</V>
+		<V n="ReqConf">8</V>
+		<V n="AutoFld">0</V>
+		<V n="rules">&lt;in /&gt;&lt;out /&gt;</V>
+		<V n="RecogType">5</V>
+	</F>
+	<F type="24NDCType_6">
+		<V n="ID">0</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">0</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="Length">2</V>
+		<V n="ReqConf">8</V>
+		<V n="AutoFld">0</V>
+		<V n="rules">&lt;in /&gt;&lt;out /&gt;</V>
+		<V n="RecogType">5</V>
+	</F>
+	<F type="24NDCQty_1">
+		<V n="ID">0</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">0</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="Length">10</V>
+		<V n="ReqConf">8</V>
+		<V n="AutoFld">0</V>
+		<V n="rules">&lt;in /&gt;&lt;out /&gt;</V>
+		<V n="RecogType">5</V>
+	</F>
+	<F type="24NDCQty_2">
+		<V n="ID">0</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">0</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="Length">10</V>
+		<V n="ReqConf">8</V>
+		<V n="AutoFld">0</V>
+		<V n="rules">&lt;in /&gt;&lt;out /&gt;</V>
+		<V n="RecogType">5</V>
+	</F>
+	<F type="24NDCQty_3">
+		<V n="ID">0</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">0</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="Length">10</V>
+		<V n="ReqConf">8</V>
+		<V n="AutoFld">0</V>
+		<V n="rules">&lt;in /&gt;&lt;out /&gt;</V>
+		<V n="RecogType">5</V>
+	</F>
+	<F type="24NDCQty_4">
+		<V n="ID">0</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">0</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="Length">10</V>
+		<V n="ReqConf">8</V>
+		<V n="AutoFld">0</V>
+		<V n="rules">&lt;in /&gt;&lt;out /&gt;</V>
+		<V n="RecogType">5</V>
+	</F>
+	<F type="24NDCQty_5">
+		<V n="ID">0</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">0</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="Length">10</V>
+		<V n="ReqConf">8</V>
+		<V n="AutoFld">0</V>
+		<V n="rules">&lt;in /&gt;&lt;out /&gt;</V>
+		<V n="RecogType">5</V>
+	</F>
+	<F type="24NDCQty_6">
+		<V n="ID">0</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">0</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="Length">10</V>
+		<V n="ReqConf">8</V>
+		<V n="AutoFld">0</V>
+		<V n="rules">&lt;in /&gt;&lt;out /&gt;</V>
+		<V n="RecogType">5</V>
+	</F>
+	<F type="9OtInsLNam">
+		<V n="ID">0</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">0</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="Length"></V>
+		<V n="ReqConf">8</V>
+		<V n="rules">&lt;in /&gt;&lt;out /&gt;</V>
+		<V n="Pos1052">0,0,0,0</V>
+		<V n="Pos1059">0,0,0,0</V>
+		<V n="RecogType">5</V>
+	</F>
+	<F type="9OtInsFNam">
+		<V n="ID">0</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">0</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="Length"></V>
+		<V n="ReqConf">8</V>
+		<V n="rules">&lt;in /&gt;&lt;out /&gt;</V>
+		<V n="Pos1052">0,0,0,0</V>
+		<V n="Pos1059">0,0,0,0</V>
+		<V n="RecogType">5</V>
+	</F>
+	<F type="9OtInsMInit">
+		<V n="ID">0</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">0</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="Length"></V>
+		<V n="ReqConf">8</V>
+		<V n="rules">&lt;in /&gt;&lt;out /&gt;</V>
+		<V n="Pos1052">0,0,0,0</V>
+		<V n="Pos1059">0,0,0,0</V>
+		<V n="RecogType">5</V>
+	</F>
+	<F type="DETAILS">
+		<V n="ID">0</V>
+		<V n="PictureString">D</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">0</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="Length"></V>
+		<V n="ReqConf">8</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;31&quot; rs=&quot;18&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+		<V n="RecogType">5</V>
+		<F type="LINEITEM" pos="0" min="0" max="0"/>
+	</F>
+	<F type="DateFrom">
+		<V n="ID">0</V>
+		<V n="PictureString">D</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">0</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="Length">8</V>
+		<V n="ReqConf">8</V>
+		<V n="AutoFld">-1</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;24&quot; rs=&quot;19&quot; /&gt;&lt;r id=&quot;27&quot; rs=&quot;18&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="DateThru">
+		<V n="ID">0</V>
+		<V n="PictureString">D</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">0</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="Length">8</V>
+		<V n="ReqConf">8</V>
+		<V n="AutoFld">-1</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;25&quot; rs=&quot;19&quot; /&gt;&lt;r id=&quot;27&quot; rs=&quot;18&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="PlaceofService">
+		<V n="ID">0</V>
+		<V n="PictureString">X</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">0</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="Length">2</V>
+		<V n="ReqConf">8</V>
+		<V n="AutoFld">-1</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;26&quot; rs=&quot;19&quot; /&gt;&lt;r id=&quot;28&quot; rs=&quot;18&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="TypeofService">
+		<V n="ID">0</V>
+		<V n="PictureString">X</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">0</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="Length">2</V>
+		<V n="ReqConf">8</V>
+		<V n="AutoFld">-1</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;19&quot; rs=&quot;18&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="EMG_C">
+		<V n="ID">0</V>
+		<V n="PictureString">X</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">0</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="Length">2</V>
+		<V n="ReqConf">8</V>
+		<V n="AutoFld">-1</V>
+		<V n="rules">&lt;in /&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="CPT_Code">
+		<V n="ID">0</V>
+		<V n="PictureString">XNNNX</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">0</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="Length">5</V>
+		<V n="ReqConf">8</V>
+		<V n="AutoFld">-1</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;29&quot; rs=&quot;18&quot; /&gt;&lt;r id=&quot;27&quot; rs=&quot;19&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="LINEITEM">
+		<V n="ID">0</V>
+		<V n="TYPE">Field</V>
+		<V n="PictureString">D</V>
+		<V n="STATUS">0</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="Length"></V>
+		<V n="ReqConf">8</V>
+		<V n="AutoFld">-1</V>
+		<V n="rules">&lt;in /&gt;&lt;out /&gt;</V>
+		<F type="DateFrom" pos="0" min="0" max="0"/>
+		<F type="DateThru" pos="0" min="0" max="0"/>
+		<F type="PlaceofService" pos="0" min="0" max="0"/>
+		<F type="TypeofService" pos="0" min="0" max="0"/>
+		<F type="EMG_C" pos="0" min="0" max="0"/>
+		<F type="CPT_Code" pos="0" min="0" max="0"/>
+		<F type="Modifiers" pos="0" min="0" max="0"/>
+		<F type="DiagPointer" pos="0" min="0" max="0"/>
+		<F type="Charges" pos="0" min="0" max="0"/>
+		<F type="Days_Units" pos="0" min="0" max="0"/>
+		<F type="EPSD" pos="0" min="0" max="0"/>
+		<F type="EPSDTcode" pos="0" min="0" max="0"/>
+		<F type="Qualifier" pos="0" min="0" max="0"/>
+		<F type="ReferenceId" pos="0" min="0" max="0"/>
+		<F type="Info" pos="0" min="0" max="0"/>
+		<F type="NPI" pos="0" min="0" max="0"/>
+		<F type="NDC" pos="0" min="0" max="0"/>
+		<F type="NDCType" pos="0" min="0" max="0"/>
+		<F type="NDCQty" pos="0" min="0" max="0"/>
+	</F>
+	<F type="Modifiers">
+		<V n="ID">0</V>
+		<V n="PictureString">X</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">0</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="Length">8</V>
+		<V n="ReqConf">8</V>
+		<V n="AutoFld">-1</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;28&quot; rs=&quot;19&quot; /&gt;&lt;r id=&quot;10&quot; rs=&quot;18&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="DiagPointer">
+		<V n="ID">0</V>
+		<V n="PictureString">X</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">0</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="Length">7</V>
+		<V n="ReqConf">8</V>
+		<V n="AutoFld">-1</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;30&quot; rs=&quot;18&quot; /&gt;&lt;r id=&quot;10&quot; rs=&quot;19&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="Charges">
+		<V n="ID">0</V>
+		<V n="PictureString">F</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">0</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="Length">9</V>
+		<V n="ReqConf">8</V>
+		<V n="AutoFld">-1</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;20&quot; rs=&quot;18&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="Days_Units">
+		<V n="ID">0</V>
+		<V n="PictureString">F</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">0</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="Length">4</V>
+		<V n="ReqConf">8</V>
+		<V n="AutoFld">-1</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;29&quot; rs=&quot;19&quot; /&gt;&lt;r id=&quot;23&quot; rs=&quot;18&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="EPSD">
+		<V n="ID">0</V>
+		<V n="PictureString">X</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">0</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="Length">5</V>
+		<V n="ReqConf">8</V>
+		<V n="AutoFld">-1</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;34&quot; rs=&quot;19&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="EPSDTcode">
+		<V n="ID">0</V>
+		<V n="PictureString">X</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">0</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="Length">2</V>
+		<V n="ReqConf">8</V>
+		<V n="AutoFld">-1</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;33&quot; rs=&quot;19&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="Qualifier">
+		<V n="ID">0</V>
+		<V n="PictureString">X</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">0</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="Length">2</V>
+		<V n="ReqConf">8</V>
+		<V n="AutoFld">-1</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;38&quot; rs=&quot;19&quot; /&gt;&lt;r id=&quot;33&quot; rs=&quot;18&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="ReferenceId">
+		<V n="ID">0</V>
+		<V n="PictureString">X</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">0</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="Length">10</V>
+		<V n="ReqConf">8</V>
+		<V n="AutoFld">-1</V>
+		<V n="rules">&lt;in /&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="EMG_I">
+		<V n="ID">0</V>
+		<V n="PictureString">X</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">0</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="Length">5</V>
+		<V n="ReqConf">8</V>
+		<V n="AutoFld">-1</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;1&quot; rs=&quot;4&quot; /&gt;&lt;/in&gt;</V>
+	</F>
+	<F type="COB">
+		<V n="ID">0</V>
+		<V n="PictureString">X</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">0</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="Length">5</V>
+		<V n="ReqConf">8</V>
+		<V n="AutoFld">-1</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;1&quot; rs=&quot;4&quot; /&gt;&lt;/in&gt;</V>
+	</F>
+	<F type="LocalUse">
+		<V n="ID">0</V>
+		<V n="PictureString">X</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">0</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="Length">16</V>
+		<V n="ReqConf">8</V>
+		<V n="AutoFld">-1</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;10&quot; rs=&quot;18&quot; /&gt;&lt;r id=&quot;1&quot; rs=&quot;4&quot; /&gt;&lt;/in&gt;</V>
+	</F>
+	<F type="Info">
+		<V n="ID">0</V>
+		<V n="PictureString">x</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">0</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="Length">100</V>
+		<V n="ReqConf">8</V>
+		<V n="AutoFld">-1</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;11&quot; rs=&quot;18&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="NPI">
+		<V n="ID">0</V>
+		<V n="PictureString">N</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">0</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="Length">10</V>
+		<V n="ReqConf">8</V>
+		<V n="AutoFld">-1</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;30&quot; rs=&quot;19&quot; /&gt;&lt;r id=&quot;9&quot; rs=&quot;18&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+		<V n="Name">NPI</V>
+	</F>
+	<F type="NDC">
+		<V n="ID">0</V>
+		<V n="PictureString">N</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">0</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="Length">11</V>
+		<V n="ReqConf">8</V>
+		<V n="AutoFld">-1</V>
+		<V n="RecogType">5</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;13&quot; rs=&quot;19&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="NDCType">
+		<V n="ID">0</V>
+		<V n="PictureString">A</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">0</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="Length">2</V>
+		<V n="ReqConf">8</V>
+		<V n="AutoFld">-1</V>
+		<V n="RecogType">5</V>
+		<V n="rules">&lt;in /&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="NDCQty">
+		<V n="ID">0</V>
+		<V n="PictureString">F</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">0</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="Length">10</V>
+		<V n="ReqConf">8</V>
+		<V n="AutoFld">-1</V>
+		<V n="RecogType">5</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;13&quot; rs=&quot;19&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="11bqual">
+		<V n="ID">0</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">0</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="length">2</V>
+		<V n="ReqConf">8</V>
+		<V n="Name">11bqual</V>
+		<V n="rules">&lt;in /&gt;&lt;out /&gt;</V>
+		<V n="Pos1059">1033,759,1072,795</V>
+	</F>
+	<F type="CCode1">
+		<V n="ID">0</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">0</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="length"></V>
+		<V n="ReqConf">8</V>
+		<V n="Name">CCode1</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;1&quot; rs=&quot;4&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="CCode2">
+		<V n="ID">0</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">0</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="length"></V>
+		<V n="ReqConf">8</V>
+		<V n="Name">CCode2</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;1&quot; rs=&quot;4&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="CCode3">
+		<V n="ID">0</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">0</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="length"></V>
+		<V n="ReqConf">8</V>
+		<V n="Name">CCode3</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;1&quot; rs=&quot;4&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<F type="CCode4">
+		<V n="ID">0</V>
+		<V n="TYPE">Field</V>
+		<V n="STATUS">0</V>
+		<V n="Position">0,0,0,0</V>
+		<V n="MIN_TYPES">0</V>
+		<V n="MAX_TYPES">0</V>
+		<V n="length"></V>
+		<V n="ReqConf">8</V>
+		<V n="Name">CCode4</V>
+		<V n="rules">&lt;in&gt;&lt;r id=&quot;1&quot; rs=&quot;4&quot; /&gt;&lt;/in&gt;&lt;out /&gt;</V>
+	</F>
+	<DICT n="Sex">
+		<W v="M">Male</W>
+		<W v="F">Female</W>
+	</DICT>
+	<DICT n="YESNO">
+		<W v="Y">Yes</W>
+		<W v="N">No</W>
+	</DICT>
+	<DICT n="InsType">
+		<W v="&gt;">Medicare</W>
+		<W v="&gt;">Medicaid</W>
+		<W v="&gt;">Champus</W>
+		<W v="&gt;">Champva</W>
+		<W v="&gt;">Group health plan</W>
+		<W v="&gt;">Feca BLKLUNG</W>
+		<W v="&gt;">Other</W>
+	</DICT>
+	<DICT n="PatientRelationship">
+		<W v="&gt;">Self</W>
+		<W v="&gt;">Spouse</W>
+		<W v="&gt;">Child</W>
+		<W v="&gt;">Other</W>
+	</DICT>
+	<DICT n="PatientStatus">
+		<W v="&gt;">Single</W>
+		<W v="&gt;">Married</W>
+		<W v="&gt;">Other</W>
+	</DICT>
+	<DICT n="PatientWorkStatus">
+		<W v="&gt;">F/T Student</W>
+		<W v="&gt;">P/T Student</W>
+		<W v="&gt;">Employed</W>
+	</DICT>
+	<DICT n="FedTaxN">
+		<W v="&gt;">SSN</W>
+		<W v="&gt;">EIN</W>
+	</DICT>
+</S>

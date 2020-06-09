@@ -1,0 +1,434 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ruleset name="ID_Page" id="11" ver="1">
+	<rule name="Rule1 Check Batch Status / Imagefix settings" id="1">
+		<func name="Check Batch Status">
+			<a name="rrSet" ns="rrunner" qi="">
+				<p name="varSource" v="Red"/>
+				<p name="varTarget" v="@B.Color"/>
+			</a>
+			<a name="ChkDCOStatus" ns="DCO">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="141" name="StrParam"/>
+			</a>
+			<a name="SkipChildren" ns="rrunner">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+		</func>
+		<func name="Load Imagefix settings">
+			<a name="PilotMessage_Clear" ns="rrunner">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="LoadSettings" ns="ImageFix">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="@APPPATH(imagefix)" name="sFilePath"/>
+			</a>
+		</func>
+	</rule>
+	<rule name="Rule2 ID Page" id="2">
+		<func name="Function1 Enable QR Code Recognition" qi="Initialize QR Code engine (Variable bp_tp).&#xA;Check status of Page, 0 or 48 indicate ID has not yet been performed.">
+			<a name="rrSet" ns="rrunner" qi="">
+				<p name="varSource" v="33554432"/>
+				<p name="varTarget" v="@P.bp_tp"/>
+			</a>
+			<a name="SkipChildren" ns="rrunner" qi="">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="ChkDCOStatus" ns="DCO">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="0,48" name="StrParam"/>
+			</a>
+		</func>
+		<func name="Function2 Check for prev EndClaim" qi="If the Last DCO page processed was an 'EndClaim' page, then the next page type should be an Attachment.">
+			<a name="PilotMessage_Clear" ns="rrunner">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="ChkLastDCOType" ns="DCO">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="EndClaim" name="StrParam"/>
+			</a>
+			<a name="SetDCOType" ns="DCO">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="Attachment" name="StrParam"/>
+			</a>
+			<a name="SetDCOStatus" ns="DCO">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="74" name="StrParam"/>
+			</a>
+		</func>
+		<func name="Function3 Check for prev Attachment" qi="If the last Page type was an Attachment in a Multipage claim document, then the next page type should also be an attachement.&#xA;">
+			<a name="PilotMessage_Clear" ns="rrunner">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="rrCompare" ns="rrunner">
+				<p name="object1" v="@B.Multi"/>
+				<p name="object2" v="Yes"/>
+			</a>
+			<a name="ChkLastDCOType" ns="DCO">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="Attachment" name="StrParam"/>
+			</a>
+			<a name="SetDCOType" ns="DCO">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="Attachment" name="StrParam"/>
+			</a>
+			<a name="SetDCOStatus" ns="DCO">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="74" name="StrParam"/>
+			</a>
+		</func>
+		<func name="Function4 Check for prev EndDoc" qi="If the prior DCO page Type is &quot;EndDoc&quot;&#xA; then the next page must be a claim.  This function sets the page type to PClaim...and then lets the logic of the remaining functions find the fields.&#xA;">
+			<a name="PilotMessage_Clear" ns="rrunner" qi="">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="ChkLastDCOType" ns="DCO">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="EndDoc" name="StrParam"/>
+			</a>
+			<a name="SetDCOType" ns="DCO">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="PClaim" name="StrParam"/>
+			</a>
+			<a name="GoToNextFunction" ns="rrunner" qi=""/>
+		</func>
+		<func name="Function5 Find QR code &amp; Autofield 02/12 Claim" qi="Identification Match logic for the Professional version 02/12 form.&#xA;">
+			<a name="MatchBarcodeBP" ns="Barcode_P">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="http://www.nucc.org/" name="StrParam"/>
+			</a>
+			<a name="ImageEnhance" ns="ImageFix">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="ti1" name="StrParam"/>
+			</a>
+			<a name="SetMaxTolerantDistance" ns="MC_Identify">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="80" name="StrParam"/>
+			</a>
+			<a name="SetFormType" ns="MC_Identify">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="3" name="StrParam"/>
+			</a>
+			<a name="ReadPageSetup" ns="MC_Identify">
+				<p name="DCOSetupPath" v="@APPPATH(setupdco)"/>
+				<p name="FPPosition" v="Pos1059"/>
+				<p name="PageType" v="PClaim"/>
+			</a>
+			<a name="AutoField" ns="MC_Identify">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="SetPageType" ns="DCO">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="PClaim" name="StrParam"/>
+			</a>
+			<a name="SetPageStatus" ns="DCO">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="49" name="StrParam"/>
+			</a>
+			<a name="rrSet" ns="rrunner">
+				<p name="varSource" v="Yes"/>
+				<p name="varTarget" v="@P.Overlay"/>
+			</a>
+			<a name="rrSet" ns="rrunner">
+				<p name="varSource" v="Red"/>
+				<p name="varTarget" v="@P.Color"/>
+			</a>
+			<a name="rrSet" ns="rrunner">
+				<p name="varSource" v="CMS 1500"/>
+				<p name="varTarget" v="@P.FormType"/>
+			</a>
+			<a name="rrSet" ns="rrunner">
+				<p name="varSource" v="1059"/>
+				<p name="varTarget" v="@P.TemplateID"/>
+			</a>
+			<a name="rrSet" ns="rrunner">
+				<p name="varSource" v="02/12"/>
+				<p name="varTarget" v="@P.FormVersion"/>
+			</a>
+			<a name="rrSet" ns="rrunner">
+				<p name="varSource" v="1500_0212t.tif"/>
+				<p name="varTarget" v="@P.OverlayFilename"/>
+			</a>
+		</func>
+		<func name="Function6 Find QR code &amp; Findfield 02/12 Claim" qi="Identification Match logic for the Professional version 02/12 form.&#xA;">
+			<a name="MatchBarcodeBP" ns="Barcode_P">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="http://www.nucc.org/" name="StrParam"/>
+			</a>
+			<a name="FindFields" ns="MC_Identify">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="SetPageType" ns="DCO" qi="">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="PClaim" name="StrParam"/>
+			</a>
+			<a name="SetPageStatus" ns="DCO">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="49" name="StrParam"/>
+			</a>
+			<a name="rrSet" ns="rrunner">
+				<p name="varSource" v="Yes"/>
+				<p name="varTarget" v="@P.Overlay"/>
+			</a>
+			<a name="rrSet" ns="rrunner">
+				<p name="varSource" v="Red"/>
+				<p name="varTarget" v="@P.Color"/>
+			</a>
+			<a name="rrSet" ns="rrunner">
+				<p name="varSource" v="CMS 1500"/>
+				<p name="varTarget" v="@P.FormType"/>
+			</a>
+			<a name="rrSet" ns="rrunner">
+				<p name="varSource" v="1059"/>
+				<p name="varTarget" v="@P.TemplateID"/>
+			</a>
+			<a name="rrSet" ns="rrunner">
+				<p name="varSource" v="02/12"/>
+				<p name="varTarget" v="@P.FormVersion"/>
+			</a>
+			<a name="rrSet" ns="rrunner">
+				<p name="varSource" v="1500_0212t.tif"/>
+				<p name="varTarget" v="@P.OverlayFilename"/>
+			</a>
+		</func>
+		<func name="Function7 PatternMatch &amp; Autofield 02/12 Claim" qi="Identification Match logic for the Professional version 02/12 form.&#xA;">
+			<a ns="PatternMatch" name="PatternMatch_Fingerprint">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="1059" name="StrParam"/>
+			</a>
+			<a name="ImageEnhance" ns="ImageFix">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="ti1" name="StrParam"/>
+			</a>
+			<a name="SetMaxTolerantDistance" ns="MC_Identify">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="80" name="StrParam"/>
+			</a>
+			<a name="SetFormType" ns="MC_Identify">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="3" name="StrParam"/>
+			</a>
+			<a name="ReadPageSetup" ns="MC_Identify">
+				<p name="DCOSetupPath" v="@APPPATH(setupdco)"/>
+				<p name="FPPosition" v="Pos1059"/>
+				<p name="PageType" v="PClaim"/>
+			</a>
+			<a name="AutoField" ns="MC_Identify">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="SetPageType" ns="DCO">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="PClaim" name="StrParam"/>
+			</a>
+			<a name="SetPageStatus" ns="DCO">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="49" name="StrParam"/>
+			</a>
+			<a name="rrSet" ns="rrunner">
+				<p name="varSource" v="Yes"/>
+				<p name="varTarget" v="@P.Overlay"/>
+			</a>
+			<a name="rrSet" ns="rrunner">
+				<p name="varSource" v="Red"/>
+				<p name="varTarget" v="@P.Color"/>
+			</a>
+			<a name="rrSet" ns="rrunner">
+				<p name="varSource" v="CMS 1500"/>
+				<p name="varTarget" v="@P.FormType"/>
+			</a>
+			<a name="rrSet" ns="rrunner">
+				<p name="varSource" v="1059"/>
+				<p name="varTarget" v="@P.TemplateID"/>
+			</a>
+			<a name="rrSet" ns="rrunner">
+				<p name="varSource" v="02/12"/>
+				<p name="varTarget" v="@P.FormVersion"/>
+			</a>
+			<a name="rrSet" ns="rrunner">
+				<p name="varSource" v="1500_0212t.tif"/>
+				<p name="varTarget" v="@P.OverlayFilename"/>
+			</a>
+		</func>
+		<func name="Function8 PatternMatch &amp; Findfield 02/12 Claim" qi="Identification Match logic for the Professional version 02/12 form.&#xA;">
+			<a ns="PatternMatch" name="PatternMatch_Fingerprint">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="1059" name="StrParam"/>
+			</a>
+			<a name="FindFields" ns="MC_Identify">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="SetPageType" ns="DCO" qi="">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="PClaim" name="StrParam"/>
+			</a>
+			<a name="SetPageStatus" ns="DCO">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="49" name="StrParam"/>
+			</a>
+			<a name="rrSet" ns="rrunner">
+				<p name="varSource" v="Yes"/>
+				<p name="varTarget" v="@P.Overlay"/>
+			</a>
+			<a name="rrSet" ns="rrunner">
+				<p name="varSource" v="Red"/>
+				<p name="varTarget" v="@P.Color"/>
+			</a>
+			<a name="rrSet" ns="rrunner">
+				<p name="varSource" v="CMS 1500"/>
+				<p name="varTarget" v="@P.FormType"/>
+			</a>
+			<a name="rrSet" ns="rrunner">
+				<p name="varSource" v="1059"/>
+				<p name="varTarget" v="@P.TemplateID"/>
+			</a>
+			<a name="rrSet" ns="rrunner">
+				<p name="varSource" v="02/12"/>
+				<p name="varTarget" v="@P.FormVersion"/>
+			</a>
+			<a name="rrSet" ns="rrunner">
+				<p name="varSource" v="1500_0212t.tif"/>
+				<p name="varTarget" v="@P.OverlayFilename"/>
+			</a>
+		</func>
+		<func name="Function9 Autofield 08/05 &amp; PatternMatch Claim " qi="Match logic for the Professional version 08/05 form.&#xA;">
+			<a name="ImageEnhance" ns="ImageFix">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="ti1" name="StrParam"/>
+			</a>
+			<a name="SetMaxTolerantDistance" ns="MC_Identify">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="80" name="StrParam"/>
+			</a>
+			<a name="SetFormType" ns="MC_Identify">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="0" name="StrParam"/>
+			</a>
+			<a name="ReadPageSetup" ns="MC_Identify" qi="">
+				<p name="DCOSetupPath" v="@APPPATH(setupdco)"/>
+				<p name="FPPosition" v="Pos1052"/>
+				<p name="PageType" v="PClaim"/>
+			</a>
+			<a name="AutoField" ns="MC_Identify">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="SetPageType" ns="DCO">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="PClaim" name="StrParam"/>
+			</a>
+			<a name="SetPageStatus" ns="DCO">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="49" name="StrParam"/>
+			</a>
+			<a name="rrSet" ns="rrunner">
+				<p name="varSource" v="Yes"/>
+				<p name="varTarget" v="@P.Overlay"/>
+			</a>
+			<a name="rrSet" ns="rrunner">
+				<p name="varSource" v="Red"/>
+				<p name="varTarget" v="@P.Color"/>
+			</a>
+			<a name="SetMatchConfidence" ns="PatternMatch">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="6" name="StrParam"/>
+			</a>
+			<a name="rrSet" ns="rrunner">
+				<p name="varSource" v="100+@CHR(44)+100"/>
+				<p name="varTarget" v="@P.METRIC"/>
+			</a>
+			<a name="PatternMatch_Fingerprint" ns="PatternMatch">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="1054" name="StrParam"/>
+			</a>
+			<a name="FindFields" ns="MC_Identify">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="rrSet" ns="rrunner">
+				<p name="varSource" v="CMS 1500"/>
+				<p name="varTarget" v="@P.FormType"/>
+			</a>
+			<a name="rrSet" ns="rrunner">
+				<p name="varSource" v="1052"/>
+				<p name="varTarget" v="@P.TemplateID"/>
+			</a>
+			<a name="rrSet" ns="rrunner">
+				<p name="varSource" v="08/05"/>
+				<p name="varTarget" v="@P.FormVersion"/>
+			</a>
+			<a name="rrSet" ns="rrunner" qi="">
+				<p name="varSource" v="CMSt.tif"/>
+				<p name="varTarget" v="@P.OverlayFilename"/>
+			</a>
+		</func>
+		<func name="Function10 Set as Attachment" qi="">
+			<a name="PilotMessage_Clear" ns="rrunner">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="SetPageStatus" ns="DCO">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="74" name="StrParam"/>
+			</a>
+			<a name="SetPageType" ns="DCO">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="Attachment" name="StrParam"/>
+			</a>
+			<a ns="MC_Validation" name="SetOriginalTIF" qi="">
+				<p type="bInter"/>
+				<p type="bDebug"/>
+				<p type="strParam" v="ti1"/>
+			</a>
+			<a name="AnalyzeImage" ns="Recog_Shared">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+		</func>
+	</rule>
+</ruleset>

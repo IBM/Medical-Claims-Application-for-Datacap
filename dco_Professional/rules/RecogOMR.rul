@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ruleset name="RecogOMR" id="9" ver="2" modder="admin.1" dt="03/21/19 13:19:02.662 " qi="">
+	<rule name="Perform OMR Threshold for Check boxes " id="2">
+		<func name="Function1">
+			<a ns="net:SharedRecognitionTools.Actions" name="DetermineOMRThreshold">
+				<p name="Threshold" type="string" qi="" v="1"/>
+				<p name="Background" type="string" qi="" v="1"/>
+			</a>
+		</func>
+	</rule>
+	<rule name="Perform OMR Threshold for Signature boxes " id="3">
+		<func name="Function1">
+			<a ns="net:SharedRecognitionTools.Actions" name="DetermineOMRThreshold">
+				<p name="Threshold" type="string" qi="" v="1"/>
+				<p name="Background" type="string" qi="" v="0"/>
+			</a>
+		</func>
+	</rule>
+	<rule name="Disable Field 8 and 9 OMR for 02/12 version" id="1" qi="">
+		<func name="Function1">
+			<a ns="rrunner" name="rrCompare">
+				<p name="object1" v="@P.FormVersion"/>
+				<p name="object2" v="02/12"/>
+			</a>
+			<a ns="rrunner" name="rrSet" qi="Turn off OMR for field 8bPStatE&#xA;">
+				<p name="varSource" v="1"/>
+				<p name="varTarget" v="@P\8bPStatE.d_sr"/>
+			</a>
+			<a ns="rrunner" name="rrSet">
+				<p name="varSource" v="@EMPTY"/>
+				<p name="varTarget" v="@P\8bPStatE"/>
+			</a>
+			<a ns="rrunner" name="rrSet" qi="Turn off OMR for field 8aPStatM&#xA;">
+				<p name="varSource" v="1"/>
+				<p name="varTarget" v="@P\8aPStatM.d_sr"/>
+			</a>
+			<a ns="rrunner" name="rrSet">
+				<p name="varSource" v="@EMPTY"/>
+				<p name="varTarget" v="@P\8aPStatM"/>
+			</a>
+			<a ns="rrunner" name="rrSet" qi="Turn off OMR for field 9bOInSex&#xA;">
+				<p name="varSource" v="1"/>
+				<p name="varTarget" v="@P\9bOInSex.d_sr"/>
+			</a>
+			<a ns="rrunner" name="rrSet">
+				<p name="varSource" v="@EMPTY"/>
+				<p name="varTarget" v="@P\9bOInSex"/>
+			</a>
+		</func>
+	</rule>
+</ruleset>

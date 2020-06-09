@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ruleset name="IOverlay" id="24" ver="1">
+	<rule name="Rule1" id="1">
+		<func name="Function1">
+			<a name="SkipChildren" ns="rrunner" qi="">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="rrCompare" ns="rrunner">
+				<p name="object1" v="@P.Overlay"/>
+				<p name="object2" v="Yes"/>
+			</a>
+			<a name="SetDitheringBackground" ns="IOverlay" qi="">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="true" name="StrParam"/>
+			</a>
+			<a name="SetHaloBackground" ns="IOverlay">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="false" name="StrParam"/>
+			</a>
+			<a name="SetBackgroundImage" ns="IOverlay">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="@PROCESSDIR+\+UB04t.tif" name="StrParam"/>
+			</a>
+			<a name="Overlay" ns="IOverlay">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="rrSet" ns="rrunner">
+				<p name="varSource" v="No"/>
+				<p name="varTarget" v="@P.Overlay"/>
+			</a>
+		</func>
+	</rule>
+</ruleset>

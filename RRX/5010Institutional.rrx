@@ -1,0 +1,3088 @@
+﻿<?xml version='1.0' ?>
+<rrx namespace="5010Institutional" v="9.1.5.24">
+<i ref="rrunner"/>
+<i ref="5010Common"/>
+<![CDATA[
+'*****************************************************************
+
+Version = "8.0.01"
+'   Updated 03/25/2010 -PHofle
+'   - Initial Creation
+'
+Version = "8.0.02"
+'   Updated 04/09/2010 -PHofle
+'   - loop 2300 HI sections enhanced (needs POA fields for diagnosis added)
+'
+Version = "8.0.03"
+'   Updated 04/15/2010 -PHofle
+'   - Loop 2300 HI: Procedure Code loops added
+'   - Loop 2310A,B updated 
+'   
+Version = "8.0.04"
+'   Updated 04/16/2010 -PHofle
+'   - Loop 2310C, 2310D, 2310E & 2310F updated
+'   - Checked 2320 SBR segment
+'
+Version = "8.0.05"
+'   Updated 04/19/2010 -PHofle
+'   - Modified loop 2330A & 2330B
+'   - Modified loop 2400 
+'
+Version = "8.0.06"
+'   Updated 04/19/2010 -PHofle
+'   - Fixed syntax issues 
+'
+Version = "8.0.07"
+'   Updated 04/22/2010 -PHofle
+'   - Edifects debugging
+'   - Loop 2010BB Options added for default Payer Info
+'   - Loop 2300 PatientReason default Added
+'   - Loop 2310A ExportSecondaryID option Added
+'
+Version = "8.0.08"
+'   Updated 04/26/2010 -PHofle
+'   - [2310A] CreateOutpatient=True/False option added for 2310A, will create for outpatient and inpatient claims.
+'   - Improved defauting for outpatient claims Reason for Visit codes
+'   - REF-F8 defaults to using doc id : required when CLM05-3 is '7'
+'
+Version = "8.0.09"
+'   Updated 04/30/2010 -PHofle
+'   - Added segment AMT*D in loop 2320 
+'   - Fixed issue with variable name preventing loop 2330B DTP*573 from exporting. 
+'
+Version = "8.0.10"
+'   Updated 09/02/2010 -PHofle
+'   - Applied CAS payment amount loop 2320.
+'
+Version = "8.0.11"
+'   Updated 11/16/2010 -PHofle
+'   - Moved 'global' variable declarations to the C_5010EDI class
+'   - Renamed RRX functions to be unique for this library
+'
+Version = "8.0.12"
+'   Updated 11/17/2010 -PHofle
+'   - Compliance Tested for addenda version: 005010X223A1
+'
+Version = "8.0.13"
+'   Updated 11/19/2010 -PHofle
+'   - Compliance and Log updates
+'
+Version = "8.0.14"
+'   Updated 11/23/2010 -PHofle
+'   - Compliance updates
+'
+Version = "8.0.1.15"
+' Updated 01/07/2011 PHofle
+' * Removed file extension name (extn) from <i ref="namespace.extn"> tags, just uses namespace for use
+'   with TM8.01 locale RRS. Now looks like <i ref="namespace">.
+'
+Version = "8.0.1.16"
+' Updated 12/15/2011 PHofle
+' * Fixed issue with principle procedure HI segment returning only '~' tilde character.
+' * Removed CL101 restriction to outpatient only
+' * Changed output of segment SBR04 from 'Always' to 'Situational'; will export only
+'   when SBR03 of same loop 2320 is empty.
+' * Updated to 005010X223A2 Errata
+'
+Version = "8.0.1.17"
+' Updated 03/01/2012 PHofle
+' * Remove condition to force export of Discharge date (DTP 096) if claim is Inpatient BillType
+'
+Version = "8.0.1.18"
+' Updated 08/04/2012 PHofle
+' * Fixed issue with CTP03 (NDC Unit price) exporting '0' when segment is listed as 'Not Used'
+'   in the 5010 implementation guide.
+' * HCPCS/ICD-9 test disabled for determining Code set for Principle and Other procedure code
+'   qualifier values as HCPCS no longer applies.
+' * Updated loop 2300 HI 'Other diagnosis' to fill first Segment with maximum of 12 Other
+'   diagnosis codes before begining second HI segment. 
+'
+Version = "8.0.1.19"
+' Updated 11/07/2012 PHofle
+' * Added ICD-10 diagnosis code support. Current default is to use ICD-9 code base with option
+'   to switch DEFAULT code base using ini file entry: [2300] ICDInd=9 or 0
+'
+Version = "8.0.1.20"
+' Updated 12/06/2012 PHofle
+' * Fixed export of principle procedure code value in loop 2300 HI
+'
+Version = "8.0.1.21"
+' Updated 03/19/2013 PHofle
+' * Addressed inclusion of POA values in loop 2300. Wk# 33925
+'
+Version = "8.1.0.22"
+' Updated 01/07/2014 PHofle
+' Fixed output of loop 2010BC, function "X12_5010_2010BC" content corrected to export content not length of value.
+' Workitem 72380
+'
+'Version = "8.1.0.23"
+' Updated 02/04/2014 PHofle
+' * Enabled ini configurable REF D9 in loop 2300.
+' * Workitem 74573
+
+Version = "9.1.5.24"
+' Updated 11/07/2018 183815
+' Help is updated to state the actions are deprecated.
+
+
+'***************************************************************** 
+Call WriteLog("5010Institutional.rrx v." & Version)
+'*****************************************************************
+'
+]]><f name="Institutional_5010" access="public">
+  <h>
+     <b>*** This Action Is Deprecated ***</b><br/>
+     This action has been deprecated and is scheduled to be removed in a future release.
+     It is recommended that you no longer use this action.
+     There is no replacement for this action.
+     <br/><br/>
+  </h>
+  <g>
+    <![CDATA[
+  Institutional_5010 = Create5010837(CurrentObj)
+  ]]>
+  </g>
+</f>
+  <f name="X12_5010_2000A" access="private" qi="">
+  <ap></ap>
+  <lvl></lvl>
+  <ret></ret>
+  <h><![CDATA[]]><e></e></h>
+  <![CDATA[
+  Dim sLoop2010AARecords
+  Dim sLoop2010ABRecords
+  Dim sLoop2000BRecords
+  Dim PRV(3), sPRV
+  Dim HL(4),sHL
+	
+    On Error Resume Next
+
+    Call o5010.BLogStartLoop("< Loop 2000A >")
+
+    o5010.HLCount = o5010.HLCount + 1
+		
+    HL(0) = "HL"
+    
+    ' Hierarchical ID Number 
+    HL(1) = o5010.HLCount 
+		
+    ' Hierarchical Parent Number
+    ' Loop 2000A : No Parent Number
+    HL(2) = ""
+		
+    ' Hierarchical Level Code
+    ' 20 - Information Source
+    HL(3) = "20"
+		
+    ' Hierarchical Child Code
+    ' 1 - Additional child HL data Segment  0 - No child HL data Segments 
+    HL(4) = "1"
+
+    ' Loop 2000A Position 001 
+    sHL = o5010.Assemble(HL)
+    sHL = o5010.CountSegment(sHL)
+		
+    ' Set Hierarchical Parent Value for Child Code
+    o5010.HL2000A = HL(1)					
+			
+    sLoop2010AARecords = X12_5010_2010AA
+    sLoop2010ABRecords = X12_5010_2010AB
+    sLoop2000BRecords = X12_5010_2000B
+        
+    'Billing/Pay-to Provider Specialty Information
+    If UCase(o5010.GetValue("81accql"))="B3" then
+			
+      PRV(0)="PRV"
+      
+      'Provider Code
+      PRV(1) = "BI"
+                        
+      'Reference Identification Qualifier
+      ' ZZ - Health Care Provider Taxonomy code list indicator
+      PRV(2) = "PXC"
+
+      'Reference Identification (Provider Taxonomy Code)
+   	  PRV(3) = o5010.GetValue("81acccd")
+		  If Len(Trim(PRV(3))) = 0 Then PRV(3) = "0"
+                 
+      'Loop 2000A Positon 003 - Billing Provider
+      sPRV = o5010.Assemble(PRV)
+      If len(trim(PRV(3)))=0 Then sPRV = ""	
+
+      sPRV = o5010.CountSegment(sPRV)        
+			       
+    End if 		
+							
+    X12_5010_2000A = sHL & sPRV & sLoop2010AARecords & sLoop2010ABRecords & sLoop2000BRecords
+		
+    Call o5010.BLogEndLoop("< End 2000A >")
+    Call o5010.LogError("End of Function X12_5010_2000A")
+					
+]]></f><f name="X12_5010_2010AA" access="private" qi="">
+  <ap></ap><lvl></lvl><ret></ret><h>
+    <![CDATA[]]><e></e>
+  </h><![CDATA[
+	Dim NM1(9), sNM1
+	Dim N3_Seg
+	Dim N4_Seg
+	Dim REF_G2, REF_1C, REF_EI
+	Dim PER(6), sPER, PER_B
+	Dim Loop2010ABRecords
+
+	On Error Resume Next
+
+    REF_EI=""
+    REF_G2=""
+    REF_1C=""
+
+    X12_5010_2010AA=""
+
+    Call o5010.BLogStartLoop("< Loop 2010AA >")
+
+    NM1(0) = "NM1"
+
+		' Entity Identifier Code
+		NM1(1) = "85"	' 85 - Billing Provider
+
+		' Entity Type Qualifier
+		NM1(2) = "2"		' 2 - Non-Person Entity
+
+    'If field 1 is empty and field 2 is not empty then use field 2 data - otherwise default the data on this required loop
+    If len(o5010.GetValue("1provnam"))>0 or len(o5010.GetValue("2paytnm"))=0 then
+        
+		    ' Provider Organization Name
+	        NM1(3) = o5010.GetValue("1provnam")
+		    
+	        '-- Billing Provider Address 
+	        N3_Seg = o5010.Build_N3("1provadd","")
+				
+	        '-- Provider City
+	        N4_Seg = o5010.Build_N4("1provcit","1provsta","1provzip")	    
+		
+		Else
+			' Provider Organization Name
+		    NM1(3) = o5010.GetValue("2paytnm")
+			
+		    '-- Billing Provider Address 
+		    N3_Seg = o5010.Build_N3("2paytadd","")
+				
+		    '-- Provider City
+		    N4_Seg = o5010.Build_N4("2paytcty","2paytst","2paytzip")
+		
+		End if
+		
+		' Name First
+		NM1(4) = ""
+
+		' Name Middle
+		NM1(5) = ""
+
+		' Name Prefix
+		NM1(6) = ""
+
+		' Name Suffix
+		NM1(7) = ""
+
+    ' ID Code Qualifier
+    ' XX - HCFA NPI
+		NM1(8) = "XX"
+        
+		' Identification Code Qualifier
+		NM1(9) = o5010.GetValue("56npi")
+		
+    If len(NM1(9))=0 then NM1(8)=""  
+    
+    ' 2010AA Position 015 - Billing Provider Name and ID
+		sNM1 = o5010.CountSegment(o5010.Assemble(NM1))
+		    
+    'REF for TaxID
+		REF_EI = o5010.Build_REF("EI","5fedtxnm","")
+		    
+  								
+    PER(0) = "PER"              
+                  
+		' Contact Function Code		IC - Information Contact
+		PER(1) = "IC"
+
+		' Billing Provider Contact Name
+    PER(2) = o5010.GetValue("1provnam")
+				
+		'-- Communication Number Qualifier
+		PER(3) = "TE"
+
+		'-- Communication Number
+		' Provider Telephone Number
+		PER(4) = o5010.NumericOnly(o5010.GetValue("1provphn"))
+		
+		If Len(Trim(PER(4))) = 0 Then 
+		    '-- Communication Number Qualifier
+		    PER(3) = "FX"
+		    
+		    '-- Communication Number
+		    ' Provider Faxsimile Number
+		    PER(4) = o5010.NumericOnly(o5010.GetValue("1provfax"))
+			If len(PER(4))=0 then PER(4)=o5010.GetProfileString("Defaults","PER04","")    
+			If len(PER(4))<10 then 
+			    PER(2)=""
+			    PER(4)=""
+			End if
+			
+		Else
+		    '-- Communication Number Qualifier
+		    PER(5) = "FX"
+		    
+		    '-- Communication Number
+		    ' Provider Faxsimile Number
+		    PER(6) = o5010.NumericOnly(o5010.GetValue("1provfax"))
+			If len(PER(6))=0 then 
+			    PER(6)=""
+			    PER(5)=""
+			End if 
+			
+		End if	
+			
+		' Table 2 Position 040 - Billing Provider Telephone Number
+		sPER = o5010.Assemble(PER)
+		If PER(2) = "" And PER(4) = o5010.GetProfileString("Defaults","PER04","") Then sPER = ""
+		If PER(2) = "" And PER(4) = "" Then sPER = ""
+		sPER = o5010.CountSegment(sPER)
+		
+    'This PER is for a future OPTION - Default Disabled
+    Erase PER
+    Per(0) = "PER"
+    
+		'   IC - Information Contact
+		PER(1) = "IC"
+
+		' Operator ID Entry. Customer OPTIONAL
+		PER(2) = "" 'o5010.GetProfileString("Defaults","OPID","")
+			
+		' Communication Number Qualifier
+		PER(3) = "TE"
+
+		' Communication Number
+		'   Provider Telephone Number
+		PER(4) = "0"	
+
+		' Table 2 Position 040 - Billing Provider Telephone Number
+		PER_B = o5010.Assemble(PER)
+		If PER(2) = "" Then PER_B = ""
+		PER_B = o5010.CountSegment(PER_B)
+		
+		X12_5010_2010AA = sNM1 & N3_Seg & N4_Seg & REF_EI & REF_G2 & sPER & PER_B
+    
+    Call o5010.BLogEndLoop("< End 2010AA >")		    
+    
+]]>
+</f><f name="X12_5010_2010AB" access="private" qi="">
+  <ap></ap><lvl></lvl><ret></ret><h>
+    <![CDATA[]]><e></e>
+  </h>
+  <![CDATA[
+	Dim NM1(9), sNM1
+	Dim N3_Seg
+	Dim N4_Seg
+	Dim REF_1D, REF_EI
+
+	On Error Resume Next
+
+   REF_EI=""
+   REF_1D=""
+        
+   X12_5010_2010AB=""
+        
+	Call o5010.BLogStartLoop("< Loop 2010AB >" )
+	
+  'NOTE: This loop is only required if name/address is different from 2010AA
+  
+	  If len(o5010.GetValue("1provnam"))=0 And Len(o5010.GetValue("2paytadd"))>0 then 
+	     Call o5010.BuildLog("Field 2 data was used for required loop 2010AA, loop 2010AB will not be exported")
+		   Exit Function
+	  End if
+		
+    NM1(0) = "NM1"
+    
+		' Entity Identifier Code
+		NM1(1) = "87"	' 85 - Pay To Provider
+
+		'Entity Type Qualifier
+		NM1(2) = "2"		' 2 - Non-Person Entity
+   
+    ' 2010AA Position 015 - Billing Provider Name and ID
+		sNM1 = o5010.CountSegment(o5010.Assemble(NM1))
+		
+    '-- Billing Provider Address 
+		N3_Seg = o5010.Build_N3("2paytadd","")
+				
+		'-- Provider City
+		N4_Seg = o5010.Build_N4("2paytcty","2paytst","2paytzip")
+						
+		X12_5010_2010AB = sNM1 & N3_Seg & N4_Seg
+
+    Call o5010.BLogEndLoop("< End 2010AB >" )
+		Call o5010.LogError("End X12_5010_2010AB")
+		
+]]>
+</f><f name="X12_5010_2000B" access="private" qi=""><ap></ap><lvl></lvl><ret></ret><h><![CDATA[]]><e></e></h><![CDATA[
+	Dim sLoop2010BARecords 
+	Dim	sLoop2010BBRecords 
+	Dim sLoop2010BDRecords 
+	Dim	sLoop2000CRecords 	
+	Dim sLoop2300Records 
+	Dim HL(4), sHL
+	Dim SBR(9),sSBR
+	
+	On Error Resume Next
+
+  Call o5010.BLogStartLoop("< Loop 2000B >" )
+
+	' Increment HL 
+	o5010.HLCount = o5010.HLCount + 1
+
+  HL(0) = "HL"
+
+	' Hierarchical ID Number
+	HL(1) = o5010.HLCount
+	
+	' Hierarchical Parent ID	
+	HL(2) = o5010.HL2000A
+	
+	' Hierarchical Level Code
+	'   22 - Subscriber	
+	HL(3) = "22"
+		
+	' Hierarchical Child Code
+	
+	'HL(4) = right("00" & o5010.TruncateValue("59aprel", 2),2)
+	Dim relA, relB, relC
+	
+	relA = o5010.GetValue("59aprel") 
+	relB = o5010.GetValue("59bprel")
+	relC = o5010.GetValue("59cprel") 
+	  
+  o5010.PatientSubscriber = False  
+	o5010.Subscriber = ""
+  
+  If cbool(o5010.GetProfileString("2000B","SubscriberIsPatient","False"))=True then
+    o5010.Subscriber = "0"
+    o5010.PatientSubscriber = True
+    Call o5010.BuildLog(Space(10) & "Subscriber Is ALWAYS the Patient is ENABLED.")
+  End if
+	
+	'UB04 uses '18' for Subscriber is the Patient code		
+	If o5010.Subscriber = "" And Len(Trim(relA))>0 And Len(o5010.GetValue("58ainsnm"))>0 And Len(o5010.GetValue("60acshi"))>0 Then 
+		If InStr(Trim(relA),"18")=0 then
+			o5010.Subscriber = "1"
+		Else
+			o5010.Subscriber = "0"
+      o5010.PatientSubscriber = True
+		End if
+	End if
+   	
+	If o5010.Subscriber = "" AND Len(Trim(relB))>0 And Len(o5010.GetValue("58binsnm"))>0 And Len(o5010.GetValue("60bcshi"))>0 Then 
+		If InStr(Trim(relB),"18")=0 Then
+			o5010.Subscriber = "1"
+		Else
+			o5010.Subscriber = "0"
+      o5010.PatientSubscriber = True
+		End if
+	End if
+
+	If o5010.Subscriber = "" and Len(Trim(relC))>0 And Len(o5010.GetValue("58cinsnm"))>0 And Len(o5010.GetValue("60ccshi"))>0 Then 
+		If InStr(Trim(relC),"18")=0 then	
+			o5010.Subscriber = "1"
+		Else
+			o5010.Subscriber = "0"
+      o5010.PatientSubscriber = True
+		End if 
+	End if
+	
+	'Default to patient is subscriber
+	If o5010.Subscriber = "" Then o5010.Subscriber = "0"
+
+	If o5010.PatientSubscriber = False then	
+		Call o5010.BuildLog(Space(10) & "Subscriber Is Not the Patient")
+		o5010.HL2000B = HL(1)
+	Else
+		Call o5010.BuildLog(Space(10) & "Subscriber Is the Patient")
+	End If
+	
+	HL(4) = o5010.Subscriber
+	
+	' 2000B Position 001 Subscriber Hierarchical Level
+	sHL = o5010.Assemble(HL)
+	sHL = o5010.CountSegment(sHL)
+	      
+  SBR(0) = "SBR"
+  
+  'DETERMINE PRIMARY PAYER FOR EDI
+  o5010.PrimaryPayer="a"  'default
+	
+  'LOGIC for determining Payor:
+	'Default to last line, unless:
+  ' Any (Box 50abc) line:
+	' 1) Use line (if selected) has 'use line' keyword (RegEx pattern string from ini).
+  ' 2) Use prior line (if selected) has 'use prior line' keyword (RegEx pattern string from ini). 
+  
+  Dim nX     
+	Dim aCheck(2)	
+	Dim nUsePayorLine
+	Dim sULpattern
+  Dim sUPpattern
+  
+	Dim s2000B_RegExUL
+	Set s2000B_RegExUL = CreateObject("VBScript.RegExp")
+  
+  'USE LINE REGEX
+	' Example of pattern in INI for string 'Medicaid': "MED[iIl1T]CA[iIl1T]D"
+  sULpattern=Trim(o5010.GetProfileString("2000B","UseCurrentPayer",""))
+	s2000B_RegExUL.Pattern = sULpattern
+	s2000B_RegExUL.IgnoreCase = TRUE
+	s2000B_RegExUL.Global = TRUE
+				
+  Dim s2000B_RegExUP
+	Set s2000B_RegExUP = CreateObject("VBScript.RegExp")
+  
+  'USE PRIOR LINE REGEX 
+  sUPpattern=Trim(o5010.GetProfileString("2000B","UsePreviousPayer",""))
+	s2000B_RegExUP.Pattern = sUPpattern
+	s2000B_RegExUP.IgnoreCase = TRUE
+	s2000B_RegExUP.Global = TRUE      
+ 
+	nUsePayorLine=0
+
+	For nX = 97 to 99
+		aCheck(nX-97)=0
+		sVal = o5010.GetValue("50"&chrw(nX)&"payer")
+    
+		If len(sVal)>0 then
+			aCheck(nX-97)=1
+      If len(sULpattern)>0 then
+			   If s2000B_RegExUL.Test(sVal)=True then aCheck(nX-97)=2
+      End if
+      If len(sUPpattern)>0 then
+         If s2000B_RegExUP.Test(sVal)=True then aCheck(nX-97)=-1
+      End if
+		End if
+    
+	  If aCheck(nX-97)>=nUsePayorLine then 
+			nUsePayorLine=aCheck(nX-97)
+			o5010.PrimaryPayer = Chrw(nX)
+		End if
+    
+	Next 'nX
+
+  Set s2000B_RegExUL=Nothing
+  Set s2000B_RegExUP=Nothing
+  
+  ' Payer Responsibility Sequence Number Code
+	Select Case o5010.PrimaryPayer
+			Case "a"
+				SBR(1) = "P" 	'   P - Primary
+			Case "b"
+				SBR(1) = "S" 	'   S - Secondary'
+ 			Case "c"
+				SBR(1) = "T" 	'   S - Secondary'
+	End Select
+  	 
+	' Individual Relationship Code
+	If o5010.Subscriber = "0" Then
+		SBR(2) = "18"			' Self
+	Else
+		SBR(2) = "" 				'Must be NULL no blanks
+	End If
+	
+	' Reference Identification
+	SBR(3) = o5010.GetValue("62" & o5010.PrimaryPayer & "igpnm")
+		
+	' Group Name
+	If SBR(3) = "" Then
+		SBR(4) = o5010.GetValue("61" & o5010.PrimaryPayer & "grpnm")		
+	Else
+		SBR(4) = ""
+	End If
+	
+	' Insurance Type Code
+	SBR(5) = ""
+	
+	' Coordination of Benefits Code
+	SBR(6) = ""
+	
+	' Yes/No Condition of Response Code
+	SBR(7) = ""
+	
+	' Employment Status Code
+	SBR(8) = ""
+	
+	' Claim Filing Indicator Code
+	Select Case o5010.PrimaryPayer
+		Case "c"
+			SBR(9) = "MA"
+		Case Else
+			SBR(9) = "ZZ"
+	End Select		
+	
+	' 2000B Position 005 - Subscriber Information
+	sSBR = o5010.CountSegment(o5010.Assemble(SBR))
+		
+	sLoop2010BARecords = X12_5010_2010BA()
+	sLoop2010BBRecords = X12_5010_2010BB()
+				
+	If o5010.Subscriber = "1" Then				'Subscriber is not the Patient
+		sLoop2000CRecords = X12_5010_2000C()	
+	Else
+		sLoop2000CRecords = ""
+	End If
+	
+	sLoop2300Records = X12_5010_2300()
+	
+	X12_5010_2000B = sHL & sSBR & sLoop2010BARecords & sLoop2010BBRecords & sLoop2000CRecords & sLoop2300Records
+	
+    Call o5010.BLogEndLoop("< End 2000B >" )
+  	Call o5010.LogError("End of Function X12_5010_2000B")
+		
+]]></f><f name="X12_5010_2010BA" access="private" qi="">
+  <ap></ap><lvl></lvl><ret></ret><h>
+    <![CDATA[]]><e></e>
+  </h><![CDATA[
+	Dim NM1(9), sNM1
+	Dim N3_Seg
+	Dim N4_Seg
+	Dim REF_23
+	Dim DMG(3), sDMG
+	Dim EType
+	Dim sChr
+
+	On Error Resume Next
+
+    N3_Seg=""
+	  N4_Seg=""
+	  REF_23=""
+	  sDMG=""
+
+    Call o5010.BLogStartLoop("< Loop 2010BA (SUBSCRIBER) >" )
+
+    NM1(0) = "NM1"
+
+		' Entity Identifier Code
+		'   IL - Insured or Subscriber
+		NM1(1) = "IL"
+
+'		sChr = "a"
+'		If o5010.SequenceNum = "2" Then sChr = "b" '" & sChr & "
+    sChr=o5010.PrimaryPayer
+
+		' Entity Type Qualifier
+		'   1 - Person    2 - Non-Person Entity
+		EType = Right("00" & o5010.TruncateValue("59" & sChr & "prel", 2),2)
+		
+		If EType="07" Or EType="08" Or EType="15" Then
+			' Entity Type Qualifier
+			NM1(2) = "2"  		'2 - Non-Person Entity
+		
+			' Subscriber Organization Name
+			NM1(3) = o5010.GetValue("58" & sChr & "insnm")
+			If NM1(3) = "" Then NM1(3) = o5010.GetProfileString("Defaults","NM103","")
+	
+			' Name First
+			NM1(4) = ""
+
+			' Name Middle
+			NM1(5) = ""
+
+		Else
+			' Entity Type Qualifier
+			NM1(2) = "1"  		'1 - Person 
+		
+			If o5010.Subscriber = 0 Then 
+				  ' Name Last
+				  NM1(3) = o5010.GetValue("8plname")    
+				  If NM1(3) = "" Then NM1(3) = o5010.GetProfileString("Defaults","NM103","")
+  	
+				  ' Name First
+				  NM1(4) = o5010.TruncateValue("8pfname", 9)
+				  If NM1(4) = "" Then NM1(4) = o5010.GetProfileString("Defaults","NM104","")
+  	
+				  ' Name Middle
+				  NM1(5) = o5010.TruncateValue("8pminit", 1)
+        
+			Else	
+				  ' Name Last
+				  NM1(3) = o5010.GetValue("58" & sChr & "lname")
+				  If NM1(3) = "" Then NM1(3) = o5010.GetValue("58" & sChr & "insnm")
+				  If NM1(3) = "" Then NM1(3) = o5010.GetProfileString("Defaults","NM103","")
+  	
+				  ' Name First
+				  NM1(4) = o5010.GetValue("58" & sChr & "fname")
+				  If NM1(4) = "" Then NM1(4) = o5010.GetValue("58" & sChr & "insnm")
+				  If NM1(4) = "" Then NM1(4) = o5010.GetProfileString("Defaults","NM104","")
+  	
+				  ' Name Middle
+				  NM1(5) = o5010.GetValue("58" & sChr & "minit")
+			End If
+	
+		 End If
+			
+		' Name Prefix
+		NM1(6) = ""
+
+		' Name Suffix
+		NM1(7) = ""
+
+		' Identification Code Qualifier
+		'   MI - Member Identification Number
+		NM1(8) = "MI"
+
+		' Subscriber Primary Identifier
+		NM1(9) = o5010.GetValue("8ptnmid")
+		If Len(Trim(NM1(9)))<2 Then NM1(9) = o5010.GetValue("60" & sChr & "cshi")
+		If Len(Trim(NM1(9)))<2 Then NM1(9) = o5010.GetProfileString("Defaults","NM109","")
+
+		' 2010BA Position 015 - Subscriber Name and ID
+		sNM1 = o5010.CountSegment(o5010.Assemble(NM1))
+              
+		If o5010.Subscriber = 0 Then  
+          'Subscriber is the patient
+		         
+		      'Subscriber Address 
+			    N3_Seg = o5010.Build_N3("9paddstr","")
+			    
+          'Subscriber City, State, Zip (REQUIRED WHEN PATIENT IS THE SUBSCRIBER: ERRATA A2)
+		      N4_Seg = o5010.Build_N4("9paddcty","9paddsta","9paddzip")		
+    
+          DMG(0) = "DMG"
+        
+			    ' Date/Time Period Format Qualifier
+			    DMG(1) = "D8"   'CCYYMMDD
+    			
+			    ' Subscriber Birth Date
+			    DMG(2) = o5010.GetDateD8("10pbdate")
+			    If Len(Trim(DMG(2))) = 0 Then DMG(2) = o5010.GetProfileString("Defaults","DMG02","")
+    			
+			    ' Patient Gender Code
+			    '   F - Female   M - Male   U - Unknown
+			    DMG(3) = Ucase(o5010.TruncateValue("11psex", 1))
+			    If DMG(3) = "B" Then DMG(3) = "F"
+			    If DMG(3) = "N" Then DMG(3) = "M"
+			    If InStr("FMU",Ucase(DMG(3)))< 1 Or Len(Trim(DMG(3))) = 0 Then DMG(3) = "U" 
+
+			    ' 2010BA Subscriber Demographic Information
+			    sDMG = o5010.CountSegment(o5010.Assemble(DMG))
+			    		    					
+		End If 
+		
+    X12_5010_2010BA = sNM1 & N3_Seg & N4_Seg & sDMG & REF_23
+    
+    Call o5010.BLogEndLoop("< End 2010BA >")	
+		Call o5010.LogError("End of Function X12_5010_2010BA")
+	
+]]>
+</f><f name="X12_5010_2010BB" access="private" qi=""><ap></ap><lvl></lvl><ret></ret><h>
+    <![CDATA[]]><e></e>
+  </h><![CDATA[
+	Dim NM1(9), sNM1
+	Dim REF_ID
+	Dim Seg_N3, Seg_N4
+  Dim sAddress
+	Dim sCity
+  Dim sState
+  Dim sZip
+    
+	bDefault = False	
+		
+	On Error Resume Next
+	
+	  Call o5010.BLogStartLoop("< Loop 2010BB (PAYER)>" )
+	
+    NM1(0) = "NM1"
+  
+		' Entity Identifier Code
+		'   PR - Payer
+		NM1(1) = "PR"
+
+		' Entity Type Qualifier
+		NM1(2) = "2"  		'2 - Non-Person Entity
+		
+		' Payer Organization Name
+'		If o5010.SequenceNum = "1" Then
+'			NM1(3) = o5010.GetValue("50apayer")
+'		Else
+'			NM1(3) = o5010.GetValue("50bpayer")
+'		End If
+    NM1(3) = o5010.GetValue("50" & o5010.PrimaryPayer & "payer")
+
+		If Len(Trim(NM1(3))) = 0 Then 
+		    NM1(3) = Trim(o5010.GetProfileString("2010BB_BC","PrimaryPayerName",""))
+    End if
+        
+		' Name First
+		NM1(4) = ""
+
+		' Name Middle
+		NM1(5) = ""
+		
+		' Name Prefix
+		NM1(6) = ""
+
+		' Name Suffix
+		NM1(7) = ""
+
+		' Identification Code Qualifier
+		'   PI - Payer Identification Number    XV - HCFA NPI
+		NM1(8) = "PI"
+
+		' Payer Primary Identifier
+		NM1(9) = Trim(o5010.GetProfileString("2010BB_BC","PrimaryPayerIDNumber","")) 
+				
+		If len(trim(NM1(9))) = 0 Then 
+'			If o5010.SequenceNum = "1" Then
+'				NM1(9) = o5010.GetValue("51aprvno")
+'			Else
+'				NM1(9) = o5010.GetValue("51bprvno")
+'			End If
+      NM1(9) = o5010.GetValue("51" & o5010.PrimaryPayer & "prvno")
+		End If	
+
+		If Len(Trim(NM1(9))) = 0 Or bDefault = True Then NM1(9) = Trim(o5010.GetProfileString("2010BB_BC","PrimaryPayerIDNumber","")) 
+    'Set PayerID based on JobID
+    If cBool(o5010.GetProfileString("Header","CheckJobID","FALSE"))=True then
+      SBR(3) = o5010.ValueByJobID("PayerIDNumber")
+    End if
+    
+    'Check Fixed Value Setting
+    If Len(Trim(o5010.GetProfileString("2010BB_BC","PrimaryPayerIDNumber","")))>0 Then NM1(9) = Trim(o5010.GetProfileString("2010BB_BC","PrimaryPayerIDNumber",""))
+				
+		' 2010BB Position 015 - Payer Name and ID
+		sNM1 = o5010.CountSegment(o5010.Assemble(NM1))
+						
+    sAddress=Trim(o5010.GetProfileString("2010BB_BC","PrimaryPayerAddress",""))    
+    sCity=Trim(o5010.GetProfileString("2010BB_BC","PrimaryPayerCity",""))
+    sState=Trim(o5010.GetProfileString("2010BB_BC","PrimaryPayerState",""))
+    sZip=Trim(o5010.GetProfileString("2010BB_BC","PrimaryPayerZip",""))    
+
+    Seg_N3=""
+    Seg_N4=""
+
+  	' Payer Address
+    If len(sCity)>0 or len(sState)>0 or len(sZip)>0 or len(sAddress)>0 then
+      If Len(sZip)>0 then sZip="@" & sZip
+      If Len(sState)>0 then sState="@" & sState
+      If Len(sCity)>0 then sCity="@" & sCity
+      If Len(sAddress)>0 then sAddress="@" & sAddress
+      
+      Seg_N3 = o5010.Build_N3(sAddress,"")   
+      Seg_N4 = o5010.Build_N4(sCity,sState,sZip)            
+    End if
+    
+		If len(Trim(NM1))>0 then
+    		' Reference ID Qualifier
+	       	'  2U-Payer Identification Number  EI-Employers ID Number   FY-Claim Office Number    NF-NAIC Code    
+		    REF_ID = ""'o5010.Build_REF("2U","51aprvno","")
+		End If
+		
+		X12_5010_2010BB = sNM1 & Seg_N3 & Seg_N4 & REF_ID
+		
+    Call o5010.BLogEndLoop("< End 2010BB >")	
+		Call o5010.LogError("End of Function X12_5010_2010BB")
+		
+]]>
+</f><f name="X12_5010_2000C" access="private" qi=""><ap></ap><lvl></lvl><ret></ret><h><![CDATA[]]><e></e></h><![CDATA[
+	Dim sLoop2010CARecords 
+	Dim HL(4), sHL
+	Dim PAT(1), sPAT
+		
+	On Error Resume Next
+
+  Call o5010.BLogStartLoop("< Loop 2000C >")
+
+	' Increment HL 
+	o5010.HLCount = o5010.HLCount + 1
+	
+  HL(0) = "HL"
+  
+	' Hierarchical ID Number
+	HL(1) = o5010.HLCount
+	
+	' Hierarchical Parent ID	
+	HL(2) = o5010.HL2000B
+	
+	' Hierarchical Level Code
+	'   23 - Dependant	
+	HL(3) = "23"
+		
+	' Hierarchical Child Code
+	HL(4) = "0"  'No Child HL
+		
+	' 2000C Position 001 Subscriber Hierarchical Level
+	sHL = o5010.CountSegment(o5010.Assemble(HL))
+	
+	' Individual Relationship Code
+	Dim sChr
+'	sChr = "a"
+'	If o5010.SequenceNum = "2" Then sChr = "b" 
+	sChr = o5010.PrimaryPayer	
+    
+  PAT(0) = "PAT"  
+    
+	PAT(1) = o5010.GetValue("59" & sChr & "prel")
+	PAT(1) = Replace(PAT(1),"18","")
+	If Len(PAT(1))=1 then PAT(1)="0" & PAT(1)
+	If NOT o5010.dRelCodeDict.Exists(PAT(1)) then 
+	    Call o5010.BuildLog("Unknown code:" & PAT(1) & " found. Defaulting to '21'")
+		  PAT(1)="21"
+	End if
+	
+	' Postion 007 - Patient Information
+	sPAT = o5010.Assemble(PAT) 
+	
+	If Len(Trim(PAT(1)))=0 Then sPAT=""
+	sPAT = o5010.CountSegment(sPAT)
+		
+	sLoop2010CARecords = X12_5010_2000CA()
+	
+	X12_5010_2000C = sHL & sPAT & sLoop2010CARecords 
+	
+  Call o5010.BLogEndLoop("< End 2000C >")
+  Call o5010.LogError("End of Function X12_5010_2000C")
+			
+]]></f><f name="X12_5010_2000CA" access="private" qi=""><ap></ap><lvl></lvl><ret></ret><h><![CDATA[]]><e></e></h><![CDATA[
+	Dim NM1(9), sNM1
+	Dim N3_Seg
+	Dim N4_Seg
+	Dim DMG(9), sDMG
+
+	On Error Resume Next
+
+    Call o5010.BLogStartLoop("< Loop 2010CA (PATIENT)>" )
+
+    NM1(0) = "NM1"
+
+		' Entity Identifier Code
+		'   QC - Patient
+		NM1(1) = "QC"
+
+		' Entity Type Qualifier
+		'   1 - Person Entity
+		NM1(2) = "1"
+
+		' Name Last
+		NM1(3) = o5010.GetValue("8plname") '- patient
+		If Len(Trim(NM1(3))) = 0 Then NM1(3) = o5010.GetProfileString("Defaults","NM103","")
+
+		' Name First
+		NM1(4) = o5010.GetValue("8pfname") '- patient
+		If Len(Trim(NM1(4))) = 0 Then NM1(4) = o5010.GetProfileString("Defaults","NM104","")
+
+		' Name Middle
+		NM1(5) = o5010.GetValue("8pminit") '- patient
+
+		' Name Prefix
+		NM1(6) = ""
+
+		' Name Suffix
+		NM1(7) = ""
+		
+		' 2010CA Position 015 - Billing Provider Name and ID
+		sNM1 = o5010.CountSegment(o5010.Assemble(NM1))
+			     
+	  'Subscriber Address 
+		N3_Seg = o5010.Build_N3("9paddstr","")
+		
+		'Subscriber City
+		N4_Seg = o5010.Build_N4("9paddcty","9paddsta","9paddzip")
+		
+    DMG(0) = "DMG"
+    
+		' Date/Time Period Format Qualifier
+		DMG(1) = "D8"   'CCYYMMDD
+			
+		' Subscriber Birth Date
+		DMG(2) = o5010.GetDateD8("10pbdate")
+		If Len(Trim(DMG(2))) = 0 Then DMG(2) = o5010.GetProfileString("Defaults","DMG02","")
+			
+		' Patient Gender Code
+		'   F - Female   M - Male   U - Unknown
+		DMG(3) = Ucase(o5010.TruncateValue("11psex", 1))
+		If DMG(3) = "B" Then DMG(3) = "F"
+		If DMG(3) = "N" Then DMG(3) = "M"
+		If InStr("FMU",Ucase(DMG(3)))< 1 Or Len(Trim(DMG(3))) = 0 Then DMG(3) = "U" 
+
+		' 2010BA Subscriber Demographic Information
+		sDMG = o5010.CountSegment(o5010.Assemble(DMG))
+			  
+		X12_5010_2000CA = sNM1 & N3_Seg & N4_Seg & sDMG 
+		
+    Call o5010.BLogEndLoop("< End 2010CA >")	
+		Call o5010.LogError("End of Function X12_5010_2000CA")
+				
+]]></f><f name="X12_5010_2300" access="private" qi=""><ap></ap><lvl></lvl><ret></ret><h><![CDATA[]]><e></e></h><![CDATA[
+    Dim sLoop2300Records
+    Dim sLoop2310Records
+    Dim sLoop2320Records
+    Dim sLoop2400Records
+    Dim CLM(20), sCLM
+    Dim CLM05(3)
+    Dim DTP_A, DTP_B, DTP_AA
+    Dim DTP(3)
+    Dim CL1(4)
+    Dim PWK(7)
+    Dim AMT_F5, AMT_B, AMT_C
+    Dim AMT(3)
+    Dim REF_F8, REF_D9, REF_G1, REF_EA
+    Dim K3(3),K301,sK3
+    Dim NTE(2)
+    Dim iCtr, Ltr, Fcharge, j, FRcode
+    Dim HI_BK, HI_BJ, HI_PR, HI_DN, HI_DR, HI_BR, HI_B2, HI_BQ
+    Dim HI_A, HI_B, HI_BB, HI_C, HI_CC, HI_D, HI_E, HI_F, HI_G
+    Dim HI11, HI(15)
+    Dim QTY(4)
+    Dim nPatientPaid, nEstAmtDue, nPatResp
+    Dim TOB
+    Dim AllQTY
+    Dim sICDInd
+
+    On Error Resume Next
+    
+    Call o5010.BLogStartLoop("< Loop 2300 >")
+    
+    CLM(0) = "CLM"
+		
+    CLM(1) = o5010.TruncateValue("3apctlnm", 38)
+		
+    If Trim(CLM(1))="" Then CLM(1) = o5010.TruncateValue("3ptctlnm", 38)
+    Call o5010.BuildLog("CLM(1): " & CLM(1))
+    If Len(Trim(CLM(1))) = 0 Then CLM(1) = "NO DATA"
+		
+		' Monetary Amount - Total Claim Charges
+		'    001 Rev Code: field 47
+		CLM(2) = CCur("0.00")
+		
+		' Claim Filing Indicator Code
+		CLM(3) = ""
+
+		' Non-Institutional Claim Type Code
+		CLM(4) = ""
+
+		' Health Care Service Location Information - Type of Bill
+		
+		TOB = o5010.GetValue("4typbill") 
+		
+		If len(TOB)=4 then
+       If left(TOB,1)="0" then TOB = Right(TOB,3)
+    End if
+		
+			' Facility Code Value
+			CLM05(1) = Left(TOB & "00",2)
+			If CLM05(1) = "00" Then Call o5010.BuildLog("          Bill type defaulted to 00")
+			
+			' Facility Code Qualifier
+			CLM05(2) = o5010.sCES & "A" & o5010.sCES   ' Uniform Billing Claim Form Bill Type 
+
+			' Claim Frequency Type Code
+			CLM05(3) = Right("0" & TOB,1)
+			If CLM05(3) = "0" Then 
+				Call o5010.BuildLog("    Frequency Code Defaulted to 1")
+				CLM05(3) = "1"
+			End If
+								
+		CLM(5)= CLM05(1) & CLM05(2) & CLM05(3)
+			
+		' Yes/No Condition or Response Code - Provider signature on file
+		CLM(6) = ""
+
+		' Provider Accept Assignment Code
+		'   A - Assigned 
+    '   B - Assignment on Clinical Lab Services Only
+    '   C - Not Assigned
+		CLM(7) = o5010.GetProfileString("Defaults","CLM07","")
+
+    Dim tChr
+'		tChr = "a"
+'		If o5010.SequenceNum = "2" Then tChr = "b"
+    tChr = o5010.PrimaryPayer
+
+    ' Assignment of Benefits Indicator
+		'   Y - Benefits assigned to the provider
+    '   N - Benefits are not assigned to the provider
+    '   W - Not Applicable    
+		CLM(8) = Ucase(o5010.TruncateValue("53" & tChr & "asgbn", 1))
+		If CLM(8) <> "N" And CLM(8) <> "Y" Then 
+			CLM(8) = o5010.GetProfileString("Defaults","CLM08","")
+			Call o5010.BuildLog("          CLM(8) Defaulted to Y")
+		End If
+		
+		' Release of Information Code
+		'    I - Informed Consent 
+    '    Y - Permitted
+		CLM(9) = o5010.TruncateValue("52" & tChr & "rlinf", 1)
+		If CLM(9) <> "l" And CLM(1) <> "N" And CLM(9) <> "I" And CLM(9) <> "Y" Then 
+			CLM(9) = o5010.GetProfileString("Defaults","CLM09","")
+			Call o5010.BuildLog("          CLM(9) Defaulted to " & o5010.GetProfileString("Defaults","CLM09",""))
+		End If
+					
+		' Patient Signature Source Code
+		CLM(10) = ""
+
+		' Related Causes Information
+		CLM(11) = ""
+
+		' Special Program Code
+		CLM(12) = ""
+
+		' Yes/No Condition or Reponse Code
+		CLM13 = ""
+
+		' Level of Service Code
+		CLM(14) = ""
+
+		' Yes/No Condition or Response Code
+		CLM(15) = ""
+
+		' Provider Agreement Code
+		CLM(16) = ""
+
+		' Claim Status Code
+		CLM(17) = ""
+
+		' Yes/No Condition Or Response Code
+		CLM(18) = ""
+
+		' Claim Submission Reason Code
+		CLM(19) = ""
+
+		' Delay Reason Code
+		CLM(20) = ""
+
+    DTP(0) = "DTP"
+
+		'Discharge Hour - Required on all inpatient Claims
+    ' 096 Discharge
+		DTP(1) = "096"     
+		
+		' Date Time Period Format Qualifier
+		' TM - Time in HHMM format
+		DTP(2) = "TM"
+		
+		'Discharge Hour
+		DTP(3) = Right("00" & o5010.TruncateValue("16dhr",2) & "00",4)
+		
+		If Not o5010.CheckTime(DTP(3)) Then DTP(3) = "9900"
+		
+		' 2300 Position 135.A - Discharge Hour
+		DTP_AA = o5010.Assemble(DTP)
+    'If (DTP(3) = "9900" Or o5010.TruncateValue("16dhr",2) = "") and NOT (o5010.InPatient=True) Then DTP_AA = ""
+    'Remove condition to force export if claim is Inpatient BillType 3.6.2012
+		If (DTP(3) = "9900" Or o5010.TruncateValue("16dhr",2) = "") Then DTP_AA = ""
+		DTP_AA = o5010.CountSegment(DTP_AA)
+		
+    Erase DTP
+    DTP(0)="DTP"
+    
+		' Date/Time Qualifier
+    ' 434  - Statement
+		DTP(1) = "434"     
+
+		' Date Time Period Format Qualifier
+		'    RD8 - Format YYYYMMDD-YYYYMMDD
+		DTP(2) = "RD8"
+
+		' Statement Covers Period
+		Dim DTstrFrom
+		Dim DTstrTo
+		DTstrFrom = o5010.GetDateD8("6scpfrom")
+		If Len(DTstrFrom) < 8 Then DTstrFrom  =  o5010.GetDateD8("12admdte")
+		If Len(DTstrFrom) < 8 Then DTstrFrom  =  o5010.GetProfileString("Defaults","OccDT","")
+		DTstrTo = o5010.GetDateD8("6scpthru") 
+		If Len(DTstrTo) < 8 Then DTstrTo = DTstrFrom
+		
+		DTP(3) = DTstrFrom & "-" & DTstrTo
+
+		' 2300 Position 135.A - Statement Covers Period
+		DTP_A = o5010.CountSegment(o5010.Assemble(DTP))
+		    
+    'Admission Date and Hour not used if claim is not INPATIENT    
+    If o5010.InPatient=True Then 
+    
+        Erase DTP
+        DTP(0) = "DTP"
+           
+		    ' Date/Time Qualifier
+		    DTP(1) = "435" 		' 435  - Admission
+
+		    ' Date Time Period Qualifier
+		    '    DT - Format CCYYMMDDHHMM
+		    DTP(2) = "DT"
+
+		    ' Admission Date & Admission Hour
+		    Dim DTstrAD
+		    DTstrAD = o5010.GetDateD8("12admdte")
+		    If Len(DTstrAD) < 8 Then DTstrAD = o5010.GetDateD8("6scpfrom")
+		    If Len(DTstrAD) < 8 Then DTstrAD = o5010.GetProfileString("Defaults","OccDT","")
+    		
+		    Dim tADMHR
+		    tADMHR = o5010.TruncateValue("13admhr",2)
+		    If Not IsNumeric(tADMHR) Then tADMHR = "00"
+		    If CInt(tADMHR) > 24 Then tADMHR = "00"
+		    DTP(3) = DTstrAD & Right("00" & tADMHR & "00",4)
+    		
+		    ' 2300 Position 135.B - Admission Date
+		    DTP_B = o5010.Assemble(DTP)
+		    If DTP(3) = "0000" Then DTP_B = ""
+		    DTP_B = o5010.CountSegment(DTP_B)
+    Else
+        DTP_B=""  'BILL TYPE NOT INPATIENT
+		End if
+    
+		' 2300 Position 135A-B
+		sDTP = DTP_AA & DTP_A & DTP_B
+		
+    CL1(0) = "CL1"
+   
+		' Admission Type Code
+		CL1(1) = o5010.TruncateValue("14admtyp", 1)
+		
+		If Len(Trim(CL1(1))) = 0 Then
+			CL1(1) = "9"
+		End If
+
+		' Admission Source Code
+		CL1(2) = o5010.TruncateValue("15admsrc", 1)
+
+		If Len(Trim(CL1(2))) = 0 Then
+			CL1(2) = "9"
+		End If
+
+		' Patient Status Code MUST USE
+		CL1(3) = Trim(o5010.TruncateValue("17stat", 2))
+		If Len(Trim(CL1(3))) = 0 Then
+			CL1(3) = Trim(o5010.GetProfileString("2300","DischargeStatus","01"))
+		End If
+   
+		' Nursing Home Residential Status Code
+		CL1(4) = ""
+
+		' 2300 Position 140 - Claim Code
+		sCL1 = o5010.Assemble(CL1)
+		If Len(CL1(1) + CL1(2) + CL1(3) + CL1(4)) = 0 Then sCL1 = ""
+		If CL1(1)="9" and CL1(2)="9" and CL1(3)="00" then sCL1 = ""
+		sCL1 = o5010.CountSegment(sCL1)
+		
+    PWK(0) = "PWK"
+    
+		' Supplemental Information 
+		' Report Type Code 
+		' 77 : Support Data for verification
+		' AS : Admission Summary
+		' B2 : Prescription
+		' B3 : Physician Order
+		' B4 : Referral Form
+		' CT : Certification
+		' DA : Dental Models
+		' DG : Diagnostic Report
+		' DS : Discharge Summary
+		' EB : Explanation of Benefits (COB)
+		' MT : Models
+		' MN : Nursing Notes
+		' OB : Operative Note
+		' OZ : Support Data for Claim
+		' PN : Physicial Therapy Notes
+		' PO : Prosthethics or Orthotic Certification
+		' PZ : Physicail Therapy Certification
+		' RB : Radiology Films
+		' RR : Radiology Reports
+		' RT : Report of Tests and Analysis Report
+		PWK(1) = "OZ" 
+		
+		' Report Transmission Code 
+		' AA : Available on Request at Provider site
+		' BM : By Mail
+		' EL : Electronically Only
+		' EM : E-Mail
+		' FX : By Fax 
+		PWK(2) = "EL" 
+		
+		' Report Copies Needed 
+		PWK(3) = ""  'NOT USED
+		
+		' Entity Identifier Code
+		PWK(4) = ""  'NOT USED
+		
+		' Identification Code Qualifier
+		' Required if PWK(2) = "BM","EL","EM" or "FX"
+		' AC : Attachment Control Number
+		PWK(5) = "AC" 
+		
+		' Identification Code
+		' AlphaNum 2-80 chars
+		' Required if PWK(2) = "BM","EL","EM" or "FX"
+		PWK(6) = Trim(Right(Space(9) & Replace(o5010.Doc.Variable("DD"),".",""), 9))
+
+		' Description
+		PWK(7) = "" 'Not Used o5010.GetValue("attachments")
+		
+		sPWK = o5010.Assemble(PWK)
+		If PWK(7) = "" Then sPWK = ""
+		sPWK = o5010.CountSegment(sPWK)
+							
+		' Reference ID Number
+    REF_D9 = Trim(o5010.GetProfileString("2300","REFD9",""))
+    Call o5010.FindValue(REF_D9)  
+    REF_D9 = o5010.Build_REF("D9","",REF_D9)      
+          
+		' Reference Number Qualifier
+		REF_F8 = o5010.Doc.Variable("dvDCN")
+    
+    ' REQUIRED when CLM05-3 is '7' (replacement of prior claim) CLM05(3)=7,8,X or Y
+    If len(trim(REF_F8))=0 and CLM05(3)="7" then 
+       REF_F8=replace(o5010.Doc.ID,".","")
+    End if
+    
+    REF_F8 = o5010.Build_REF("F8","",REF_F8)
+		
+		' Reference Number Qualifier
+		REF_G1 = o5010.Build_REF("G1","",o5010.GetValue("63" & tChr & "tacd"))
+			
+		'Reference Number Qualifier
+	  REF_EA = o5010.Build_REF("EA","3bmdrcnm","")
+
+    sK3=""
+			
+    NTE(0) = "NTE"  
+      
+		' Note Reference Code
+		NTE(1) = "ADD"  'Additional information
+		
+		' Description
+        NTE(2) = NTE(2) & o5010.GetValue("80remrk") & space(1)
+        NTE(2) = NTE(2) & o5010.GetValue("80aremrk") & space(1)
+        NTE(2) = NTE(2) & o5010.GetValue("80bremrk") & space(1)
+        NTE(2) = NTE(2) & o5010.GetValue("80cremrk") & space(1)
+        NTE(2) = NTE(2) & o5010.GetValue("80dremrk") & space(1)
+        NTE(2) = NTE(2) & o5010.GetValue("84remark")
+        
+        NTE(2) = Replace(NTE(2),"|",Space(1))
+        NTE(2) = Left(Trim(NTE(2)) & space(80),80)
+        NTE(2) = Trim(NTE(2))
+        		
+		' 2300 Position 190 - Remarks
+		sNTE = o5010.Assemble(NTE)
+		If NTE(2) = "" Then sNTE = ""
+		sNTE = o5010.CountSegment(sNTE)		
+					
+		sLoop2310Records = X12_5010_2310() 
+
+			'Init Total Charges Counter		
+		  o5010.TotalCharges = CLng(0)	
+		  o5010.TotalNonCoveredCharges = CLng(0)
+		
+		   o5010.PriorPayments = CLng(o5010.NumericOnly(o5010.GetValue("54aprpay")))
+		   o5010.PriorPayments = o5010.PriorPayments + CLng(o5010.NumericOnly(o5010.GetValue("54bprpay")))
+		   o5010.PriorPayments = o5010.PriorPayments + CLng(o5010.NumericOnly(o5010.GetValue("54cprpay")))
+		
+	     nEstAmtDue = CLng(o5010.NumericOnly(o5010.GetValue("55aetamt")))
+		   nEstAmtDue = nEstAmtDue + CLng(o5010.NumericOnly(o5010.GetValue("55betamt")))
+		   nEstAmtDue = nEstAmtDue + CLng(o5010.NumericOnly(o5010.GetValue("55cetamt")))
+		  
+	   nPatientPaid = CLng(o5010.NumericOnly(o5010.GetValue("54dprpay")))
+	       nPatResp = CLng(o5010.NumericOnly(o5010.GetValue("55detamt")))
+
+        'Flag for RevCode interpretation in loop 2400, determines HI Admit diagnosis code qualifier
+        o5010.PatientReason=FALSE
+        '***************************************
+		    '**  LOOP 2320 MOVED TO FUNCTION END  **
+		    '***************************************
+		    'sLoop2320Records = X12_5010_2320_Recs
+		    '***************************************
+				
+		    sLoop2400Records = X12_5010_2400()
+
+		'o5010.SingleClaimExport = False 	
+	  If o5010.Doc.NumOfChildren > 1 Then 
+			
+			nPage = 0
+			While nPage < (o5010.Doc.NumOfChildren-1)
+											
+				nPage = nPage + 1							
+							
+				Set o5010.Page = o5010.Doc.GetChild(nPage)
+											
+				Call o5010.BuildLog(vbCrLf & "-- Page " & (nPage + 1) & " of " & o5010.Doc.NumOfChildren) 
+				Call o5010.BuildLog("New Page: " & o5010.Page.ImageName)
+								
+				If nPage > 0 Then
+											
+					nPatientPaid = nPatientPaid + CLng(o5010.NumericOnly(o5010.GetValue("54dprpay")))	
+					nEstAmtDue = nEstAmtDue + CLng(o5010.NumericOnly(o5010.GetValue("55" & tChr & "etamt")))
+					nPatResp = nPatResp + CLng(o5010.NumericOnly(o5010.GetValue("55detamt")))
+
+					o5010.PriorPayments = o5010.PriorPayments + CLng(o5010.NumericOnly(o5010.GetValue("54aprpay")))
+
+					sLoop2400Records = sLoop2400Records & X12_5010_2400()
+				End If	
+					
+				'Stats Page Counter - Single Claim Export
+				o5010.nPages = o5010.nPages + 1
+					
+			Wend	
+						
+			Set o5010.Page = o5010.Doc.GetChild(0)
+									
+		End If		
+
+		'Monetary Amount - Total Claim Charges
+		CLM(2) = o5010.TotalCharges
+		If IsNumeric(CLM(2)) Then CLM(2) = Clng(CLM(2))
+		CLM(2) = o5010.ImplyDecimal(CLM(2))
+		If CLM(2) = "" Then CLM(2) = 0
+
+		' 2300 Position 130 - Claim Information
+		sCLM = o5010.CountSegment(o5010.Assemble(CLM))
+
+    Erase AMT
+    AMT(0) = "AMT"
+
+  	' Amount Qualifier Code
+    '    F3 - Patient Estimated Amount Due
+    AMT(1) = "F3"
+
+    ' Monetary Amount - Patient Responsibility Amount 
+    AMT(2) = o5010.ImplyDecimal(nPatResp)
+	
+    ' 2300 Position 175.B - Patient Responsibilty Amount Due
+    AMT_F3 = o5010.Assemble(AMT)
+    If AMT(2)="0.00" Or AMT(2) = "0" Or AMT(2) = "" Then AMT_F3 = ""
+    AMT_F3 = o5010.CountSegment(AMT_F3)
+
+    Erase AMT
+    AMT(0) = "AMT"
+
+    ' Amount Qualifier Code
+    'F5 - Patient Amount Paid
+    AMT(1) = "F5"
+
+    ' Monetary Amount 
+    AMT(2) = o5010.ImplyDecimal(nPatientPaid)
+
+    ' 2300 Position 175.A - Payor Estimated Amount Due
+    AMT_F5 = o5010.Assemble(AMT)
+    If AMT(2)="0.00" Or AMT(2)="" Or AMT(2)="0" Or AMT(2)=0 Then AMT_F5=""
+    AMT_F5 = o5010.CountSegment(AMT_F5)
+		
+    ' 2300 Position 175A-C
+    sAMT = AMT_C5 & AMT_F3 & AMT_F5		
+
+    '------------------------------------------------------------------------------
+    ' ICD CODE TYPE
+    
+    'ICD Indicator    
+    sICDInd = Trim(o5010.NumericOnly(o5010.GetValue("66dxverq")))
+    
+    If len(sICDInd)=0 then 
+      sICDInd = Trim(o5010.GetProfileString("2300","ICDInd","9"))
+    End if
+    
+    Select Case sICDInd
+      Case "9"
+        'ICD-9 Codes
+          sPrincDiagCode = "BK"
+          sAdmitDiagCode = "BJ"
+          sPatietReasnCd = "PR"
+          sCModification = "BN" 
+          sOtherDiagCode = "BF"
+          sPrincProcCode = "BR"
+          sOtherProcCode = "BQ"
+      Case "0","10"
+        'ICD-10 Codes
+          sPrincDiagCode = "ABK"
+          sAdmitDiagCode = "ABJ"
+          sPatietReasnCd = "APR"
+          sCModification = "ABN" 
+          sOtherDiagCode = "ABF"
+          sPrincProcCode = "BBR"
+          sOtherProcCode = "BBQ"
+    End Select
+
+    '------------------------------------------------------------------------------
+    ' PRINCIPLE DIAGNOSIS
+   	' Health Care Code Information
+    
+    Call o5010.BuildLog("<principle diagnosis>")
+    
+    HI(0) = "HI"
+
+    HI(1) = Ucase(o5010.RemoveSpaces(o5010.GetValue("67prdgcd")))
+    HI(1) = Ucase(o5010.AppendPOA(HI(1),"67POA"))
+    
+    Ltr = Array("a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q")
+    For y = 1 to 17
+	    If Len(HI(1))=0 then 
+            HI(1) = Ucase(o5010.RemoveSpaces(o5010.GetValue("67" & Ltr(y) & "othdg")))
+            HI(1) = Ucase(o5010.AppendPOA(HI(1),"67" & Ltr(y) & "POA"))
+        Else
+            Exit For
+        End if
+    Next 'y	
+
+    If Len(HI(1))= 0 Then 
+        HI(1) = o5010.GetProfileString("Defaults","HI_BK","")
+        Call o5010.BuildLog("          HI(1) Defaulted to " & HI(1))
+    End If	
+
+    Dim AdmProcTmp
+    AdmProcTmp = HI(1)	
+    
+    'Writelog("Primary Diagnosis code:'" & AdmProcTmp & "'")
+    
+    '  BK - Principle Diagnosis ICD-9-CM
+    ' ABK - Principle Diagnosis ICD-10-CM
+    HI(1) = sPrincDiagCode & o5010.sCES & HI(1)
+	    
+    HI_BK = o5010.Assemble(HI)
+    HI_BK = o5010.CountSegment(HI_BK)
+    
+    '-------------------------------------------------------------------------------
+    ' ADMITTING DIAGNOSIS  
+    
+    Call o5010.BuildLog("<admitting diagnosis>")
+    
+    Erase HI
+    HI(0)="HI"
+    
+    ' Health Care Code Information [sAdmitDiagCode]
+    '  BJ - Admitting Diagnosis ICD-9-CM
+    ' ABJ - Admitting Diagnosis ICD-10-CM
+    
+	  HI(1) = Ucase(o5010.RemoveSpaces(o5010.GetValue("69amdgcd")))
+	
+    'If Inpatient Claim then this is a required segment 
+    If o5010.InPatient=True and Len(HI(1))<2 then
+        HI(1)=AdmProcTmp
+    End if
+    
+    If Len(HI(1))>0 and o5010.InPatient=True Then
+        HI(1) = sAdmitDiagCode & o5010.sCES & HI(1)
+	    
+        HI_BJ = o5010.Assemble(HI)
+        HI_BJ = o5010.CountSegment(HI_BJ)
+    End if    
+    
+    '--------------------------------------------------------------------------------
+    ' REASON FOR VISIT
+    
+    Call o5010.BuildLog("<reason for visit>")
+    
+    Erase HI
+    HI(0)="HI"
+    
+    'Code List Qualifier [sPatietReasnCd]
+    '  PR - Patient Reason for Visit ICD-9-CM
+    ' APR - Patient Reason for Visit ICD-10-CM
+    
+    nCount=1
+    
+    Call o5010.BuildLog("          HI REASON For Visit")
+    
+    sVal = Trim(Ucase(o5010.RemoveSpaces(o5010.GetValue("70arfvcd"))))
+    If len(sVal)>0 then 
+      HI(nCount) = sPatietReasnCd & o5010.sCES & sVal
+      nCount = nCount + 1
+    End if
+    
+    sVal = Trim(Ucase(o5010.RemoveSpaces(o5010.GetValue("70brfvcd"))))
+    If len(sVal)>0 then 
+      HI(nCount) = sPatietReasnCd & o5010.sCES & sVal
+      nCount = nCount + 1
+    End if
+    
+    sVal = Trim(Ucase(o5010.RemoveSpaces(o5010.GetValue("70crfvcd"))))
+    If len(sVal)>0 then 
+      HI(nCount) = sPatietReasnCd & o5010.sCES & sVal
+      nCount = nCount + 1
+    End if
+    
+    'If OutPatient Claim then this is a required segment 
+    If nCount=1 and o5010.OutPatient=True then
+                
+      'Use Admit DX 1st default
+      sDX = Trim(Ucase(o5010.RemoveSpaces(o5010.GetValue("69amdgcd"))))
+      If len(sDX)>0 then
+         HI(nCount) = sPatietReasnCd & o5010.sCES & Trim(sDX)
+         nCount = nCount + 1
+      End if
+
+     Call o5010.BuildLog("          ncount " & ncount)
+     Call o5010.BuildLog("          AdmProcTmp " & AdmProcTmp)
+
+      'Use Any other DX 2nd default
+      If nCount=1 and len(AdmProcTmp)>0 then
+         HI(nCount) = sPatietReasnCd & o5010.sCES & Trim(AdmProcTmp)
+         nCount = nCount + 1
+      End if
+            
+      'Use INI value 3rd default
+      If nCount=1 then
+         HI(nCount) = sPatietReasnCd & o5010.sCES & Trim(o5010.GetProfileString("2300","PatientReason",""))
+         nCount = nCount + 1
+      End if
+      
+    End if
+    
+    If nCount>1 Then
+      HI_PR = o5010.Assemble(HI)
+      HI_PR = o5010.CountSegment(HI_PR)
+    End if 
+    
+    '--------------------------------------------------------------------------------    
+    ' EXTERNAL CAUSE OF INJURY
+    
+    Call o5010.BuildLog("<external cause of injury>")
+    
+    Erase HI
+    HI(0)="HI"
+     
+    'Code List Qualifier [sCModification]
+    '  BN - Clinical Modification ICD-9-CM
+    ' ABN - Clinical Modification  ICD-10-CM
+
+    nCount=1
+    
+    sVal = Ucase(o5010.RemoveSpaces(o5010.GetValue("72aecicd")))
+    If len(sVal)>0 then 
+      sVal=o5010.AppendPOA(sVal,"72aPOA")
+      HI(nCount) = sCModification & o5010.sCES & sVal
+      nCount = nCount + 1
+    End if
+    
+    sVal = Ucase(o5010.RemoveSpaces(o5010.GetValue("72becicd")))
+    If len(sVal)>0 then 
+      sVal=o5010.AppendPOA(sVal,"72bPOA")
+      HI(nCount) = sCModification & o5010.sCES & sVal
+      nCount = nCount + 1
+    End if
+    
+    sVal = Ucase(o5010.RemoveSpaces(o5010.GetValue("72cecicd")))
+    If len(sVal)>0 then 
+      sVal=o5010.AppendPOA(sVal,"72cPOA")
+      HI(nCount) = sCModification & o5010.sCES & sVal
+      nCount = nCount + 1
+    End if   
+    
+    If nCount>1 Then
+      HI_BN = o5010.Assemble(HI)
+      HI_BN = o5010.CountSegment(HI_BN)
+    End if 
+    
+    '--------------------------------------------------------------------------------   
+    ' DIAGNOSIS RELATED GROUP
+        
+    Call o5010.BuildLog("<diagnosis related group>")    
+        
+    Erase HI
+    HI(0) = "HI"
+	
+    HI(1) = o5010.GetValue("71ppscd")
+    
+    If Len(HI(1)) > 0 Then 
+    HI(1) = "DR" & o5010.sCES & HI(1)
+        HI_DR = o5010.Assemble(HI)
+    End if
+
+    HI_DR = o5010.CountSegment(HI_DR)	
+				
+    '--------------------------------------------------------------------------------   
+    ' OTHER DIAGNOSIS INFORMATION
+ 
+    Call o5010.BuildLog("<other diagnosis information>")
+ 
+	' Define Diagnostic field array			
+	  Dim HIDiag
+    Dim HIDiagPOA
+    Dim Count
+    Dim Index
+    Dim Value
+    
+    HIDiag = Array("67aothdg","67bothdg","67cothdg","67dothdg","67eothdg","67fothdg","67gothdg","67hothdg","67iothdg","67jothdg","67kothdg","67lothdg","67mothdg","67nothdg","67oothdg","67pothdg","67qothdg")
+ HIDiagPOA = Array("67aPOA","67bPOA","67cPOA","67dPOA","67ePOA","67fPOA","67gPOA","67hPOA","67iPOA","67jPOA","67kPOA","67lPOA","67mPOA","67nPOA","67oPOA","67pPOA","67qPOA")
+	
+    Count=1
+    Index=0
+    
+    Erase HI
+    
+    HI(0) = "HI"
+		   
+    While Count<=12 and Index<17
+       Value=Trim(Ucase(o5010.RemoveSpaces(o5010.GetValue(HIDiag(Index)))))
+       Value=Trim(Ucase(o5010.AppendPOA(Value,HIDiagPOA(Index))))
+       'Writelog("Field '" & HIDiag(Index) & "' has value '" & Value & "'")
+       If Len(Value)>0 and Value<> AdmProcTmp Then
+          HI(Count)= sOtherDiagCode & o5010.sCES & Value
+          Writelog("HI(" & Count & ")=" & HI(Count))
+          Count=Count+1
+       End if
+       Index=Index+1
+    Wend
+    
+    HI_B = o5010.Assemble(HI)
+    If Replace(HI_B,o5010.sCES,"")="HI~" or Instr(HI_B,o5010.SegSep)<=0 or Count=1 then HI_B=""
+    HI_B=o5010.CountSegment(HI_B)
+    
+    If Count>12 then
+    
+      Erase HI
+      HI(0)="HI"
+      Count=1
+      While Index<17
+       Value=Trim(Ucase(o5010.RemoveSpaces(o5010.GetValue(HIDiag(Index)))))
+       'Writelog("Field '" & HIDiag(Index) & "' has value '" & Value & "'")
+       If Len(Value)>0 and Value<> AdmProcTmp Then
+          HI(Count)= sOtherDiagCode & o5010.sCES & Value
+          Writelog("HI(" & Count & ")=" & HI(Count))
+          Count=Count+1
+       End if
+       Index=Index+1
+      Wend
+
+      HI_B2 = o5010.Assemble(HI)
+      If Replace(HI_B2,o5010.sCES,"")="HI~" or Instr(HI_B2,o5010.SegSep)<=0 or Count=1 then HI_B2=""
+      HI_B2=o5010.CountSegment(HI_B2)
+
+    End if
+			
+    '--------------------------------------------------------------------------------   
+    ' PRINCIPLE PROCEDURE INFORMATION
+
+    Call o5010.BuildLog("<principle procedure>")
+    
+		PPCode = Ucase(o5010.RemoveSpaces(o5010.GetValue("74prprcd")))
+    
+    HI_BR = "HI" & o5010.SegSep & sPrincProcCode & o5010.sCES & PPCode
+    
+    If Len(PPCode)> 0 Then 
+        Dim ppDT
+        ppDT = o5010.GetDateD8("74prprdt")
+        'use admission date
+        If Len(Trim(ppDT)) < 8 Then ppDT = o5010.GetDateD8("12admdte")
+        'use statement covers date
+        If Len(Trim(ppDT)) < 8 Then ppDT = o5010.GetDateD8("6scpfrom")
+        If Len(Trim(ppDT)) < 8 Then ppDT = o5010.GetProfileString("Defaults","OccDT","")
+        HI_BR = HI_BR & o5010.sCES & "D8" & o5010.sCES & ppDT & o5010.SegTerm 
+    Else
+        HI_BR = ""
+    End If		
+		    
+    HI_BR = o5010.CountSegment(HI_BR)
+    
+    '--------------------------------------------------------------------------------   
+    ' OTHER PROCEDURE INFORMATION
+                    	
+    Call o5010.BuildLog("<other procedure>")                  
+                      
+    ' Define procedure fields 			
+    Dim HIProc
+    Dim ProcDt
+    Dim ProcCd
+    
+		HIProc = Array("HI","74aoprcd","74boprcd","74coprcd","74doprcd","74eoprcd")
+		ProcDt = Array("74aoprdt","74boprdt","74coprdt","74doprdt","74eoprdt")
+	
+		' 2300 position 231 - Other procedure Information - Fields 80a-e and 81a-e	
+    HI_BQ = Ucase(o5010.RepeatDateSegment(HIProc,o5010.SegSep & sOtherProcCode & o5010.sCES, ProcDt, HI_BQ, o5010.GetDateD8("6scpfrom")))
+    
+		HI_BQ = o5010.CountSegment(HI_BQ)
+		
+    '--------------------------------------------------------------------------------   
+		' OCCURANCE SPAN INFORMATION
+    
+    Call o5010.BuildLog("<occurance span information>")
+    
+    Erase HI
+    HI(0) = "HI"  
+    
+		' Health Care Code Information
+		' BI - Occurrence Span Field 36a
+		Dim DTfrom
+		Dim DTTo
+		DTfrom = o5010.GetDateD8("35aospfr")
+		If Len(DTfrom)< 8 Then DTfrom = o5010.GetProfileString("Defaults","OccDT","")
+		DTto = Left(o5010.GetDateD8("35aospth") & DTfrom,8)
+		
+		HI(1) = o5010.SegSep & "BI" & o5010.sCES & o5010.RemoveSpaces(o5010.GetValue("35aospcd")) & o5010.sCES & "RD8" & o5010.sCES & DTfrom & "-" & DTTo
+		If Len(Trim(o5010.RemoveSpaces(o5010.GetValue("35aospcd")))) = 0 Then HI(1) = ""
+			
+		' Health Care Code Information
+		'    BI - Occurrence Span Field 36b
+		DTfrom = o5010.GetDateD8("35bospfr")
+		If Len(DTfrom)< 8 Then DTfrom = o5010.GetProfileString("Defaults","OccDT","")
+		DTto = Left(o5010.GetDateD8("35bospth") & DTfrom,8)
+		
+		HI(2) = o5010.SegSep & "BI" & o5010.sCES & o5010.RemoveSpaces(o5010.GetValue("35bospcd")) & o5010.sCES & "RD8" & o5010.sCES & DTfrom & "-" & DTTo
+		If Len(Trim(o5010.RemoveSpaces(o5010.GetValue("35bospcd")))) = 0 Then HI(2) = ""
+		
+		
+		' Health Care Code Information
+		' BI - Occurrence Span Field 36a
+		DTfrom = o5010.GetDateD8("36aospfr")
+		If Len(DTfrom)< 8 Then DTfrom = o5010.GetProfileString("Defaults","OccDT","")
+		DTto = Left(o5010.GetDateD8("36aospth") & DTfrom,8)
+		
+		HI(3) = o5010.SegSep & "BI" & o5010.sCES & o5010.RemoveSpaces(o5010.GetValue("36aospcd")) & o5010.sCES & "RD8" & o5010.sCES & DTfrom & "-" & DTTo
+		If Len(Trim(o5010.RemoveSpaces(o5010.GetValue("36aospcd")))) = 0 Then HI(3) = ""
+			
+		' Health Care Code Information
+		'    BI - Occurrence Span Field 36b
+		DTfrom = o5010.GetDateD8("36bospfr")
+		If Len(DTfrom)< 8 Then DTfrom = o5010.GetProfileString("Defaults","OccDT","")
+		DTto = Left(o5010.GetDateD8("36bospth") & DTfrom,8)
+		
+		HI(4) = o5010.SegSep & "BI" & o5010.sCES & o5010.RemoveSpaces(o5010.GetValue("36bospcd")) & o5010.sCES & "RD8" & o5010.sCES & DTfrom & "-" & DTTo
+		If Len(Trim(o5010.RemoveSpaces(o5010.GetValue("36bospcd")))) = 0 Then HI(4) = ""
+		
+		' Table 2 Position 225.C - Health Care Information Codes
+		If Len(HI(1) + HI(2) + HI(3) + HI(4)) > 0 Then
+			HI_CC = "HI" & HI(1) & HI(2) & HI(3) & HI(4) & o5010.SegTerm
+		Else
+			HI_CC = ""
+		End If	
+		
+		HI_CC = o5010.CountSegment(HI_CC)
+
+  '--------------------------------------------------------------------------------   
+	' OCCURANCE CODE INFORMATION
+    
+  Call o5010.BuildLog("<occurance code information>")  
+    
+	' Define Occurrence field arrays			
+	Dim HIOcur
+	Dim OcurDt
+		HIOcur = Array("HI","31aocrcd","31bocrcd","32aocrcd","32bocrcd","33aocrcd","33bocrcd","34aocrcd","34bocrcd")
+		OcurDt = Array("31aocrdt","31bocrdt","32aocrdt","32bocrdt","33aocrdt","33bocrdt","34aocrdt","34bocrdt")
+
+		' 2300 position 231.D - Other Occurrence Information - Fields 32a-35b 
+		HI_D = o5010.RepeatDateSegment(HIOcur, o5010.SegSep & "BH" & o5010.sCES,OcurDt,HI_D,o5010.GetProfileString("Defaults","OccDT",""))
+		HI_D = o5010.CountSegment(HI_D)
+		
+  '--------------------------------------------------------------------------------   
+	' VALUE CODE INFORMATION
+     
+  Call o5010.BuildLog("<value code information>")   
+     
+	' Define Value Code Field Arrays
+	Dim HIVal
+	Dim ValAmt
+		HIVal = Array("HI","39avlcd","39bvlcd","39cvlcd","39dvlcd","40avlcd","40bvlcd","40cvlcd","40dvlcd","41avlcd","41bvlcd","41cvlcd","41dvlcd")
+		ValAmt = Array("39avlamt","39bvlamt","39cvlamt","39dvlamt","40avlamt","40bvlamt","40cvlamt","40dvlamt","41avlamt","41bvlamt","41cvlamt","41dvlamt")
+
+		' 2300 position 231.E - Value Code Information - Fields 39a-41d 
+		HI_E = o5010.RepeatAmountSegment(HIVal,o5010.SegSep & "BE" & o5010.sCES ,ValAmt,HI_E)
+		HI_E = o5010.CountSegment(HI_E)
+		
+  '--------------------------------------------------------------------------------   
+	' CONDITION CODE INFORMATION
+       
+  Call o5010.BuildLog("<condition code information>")     
+       
+	' Define Condition Code Field array			
+			Dim HICond
+		HICond = Array("HI","18concd","19concd","20concd","21concd","22concd","23concd","24concd","25concd","26concd","27concd","28concd")
+	
+		' 2300 position 231.F - Condition Information - Fields 24-30 
+		HI_F = o5010.RepeatSegment(HICond, o5010.SegSep & "BG" & o5010.sCES,HI_F)	
+		HI_F = o5010.CountSegment(HI_F)
+		
+		' 2300 position 231.G - Treatment Information
+		HI_G = ""
+		HI_G = o5010.CountSegment(HI_G)
+		
+		sHI = HI_BK & HI_BJ & HI_PR & HI_BN & HI_DR & HI_B & HI_B2 & HI_BR & HI_BQ & HI_BB & HI_C & HI_CC & HI_D & HI_E & HI_F & HI_G
+
+		'Concatinate Loop 2300 Segments
+		sLoop2300Records = sCLM & sDTP & sCL1 & sPWK & sAMT & REF_F8 & REF_D9 & REF_G1 & REF_EA & sK3 & sNTE & sHI & sQTY
+		
+		sLoop2320Records = X12_5010_2320_Recs()
+
+		X12_5010_2300 =  sLoop2300Records & sLoop2310Records & sLoop2320Records & sLoop2400Records
+		
+    Call o5010.BLogEndLoop("< End 2300 >")
+		Call o5010.LogError("End of Function X12_5010_2300")
+
+]]></f><f name="X12_5010_2310" access="private" qi=""><ap></ap><lvl></lvl><ret></ret><h><![CDATA[]]><e></e></h><![CDATA[
+	Dim sLoop2310A
+	Dim sLoop2310B
+	Dim sLoop2310CDF
+	Dim sLoop2310E
+	Dim TOB	
+		
+	On Error Resume Next
+				
+	sLoop2310A=""
+	sLoop2310B=""
+	sLoop2310CDF=""
+	sLoop2310E=""
+								
+    'Attending Physician 
+    'NOTE: Required only on Inpatient Claims :  
+    If o5010.InPatient=True or cBool(Trim(o5010.GetProfileString("2310A","CreateOutpatient","False")))=True Then
+      sLoop2310A = X12_5010_2310A()
+   	End If
+     	 
+    ' Operating Provider Name
+    sLoop2310B = X12_5010_2310B() 
+     	 
+		' Other Operating, Provider or Referring Physicians
+	  sLoop2310CDF = X12_5010_2310CDF()
+       							
+		' Service Facility Name
+		sLoop2310E = ""'X12_5010_2310E()
+		
+		X12_5010_2310 = sLoop2310A & sLoop2310B & sLoop2310CDF & sLoop2310E
+		
+		Call o5010.LogError("End of Function X12_5010_2310")
+
+]]></f><f name="X12_5010_2310A" access="private" qi=""><ap></ap><lvl></lvl><ret></ret><h><![CDATA[]]><e></e></h><![CDATA[
+	Dim NM1(9), sNM1
+	Dim PRV(3), sPRV
+	Dim REF_1G
+  Dim s76apqual
+  
+	  REF_1G=""
+    sPRV=""
+    
+    X12_5010_2310A=""
+
+    ' Required on Inpatient Claims - Attending Physician Name 
+    ' ie: If o5010.InPatient=True Then...
+    
+	  On Error Resume Next
+
+    Call o5010.BLogStartLoop("< Loop 2310A > ")
+    
+    NM1(0) = "NM1"
+    
+    ' Entity Identifier Code
+	  NM1(1) = "71"
+
+		' Entity Type Qualifier
+		'   1 - Person
+		NM1(2) = "1"
+
+		' Physician Last Name
+		NM1(3) = o5010.GetValue("76aplnm")
+
+		' Physician First Name
+		NM1(4) = o5010.GetValue("76apfnm")
+	
+		' Physician Middle Name
+		NM1(5) = ""
+		
+		' Name Prefix
+		NM1(6) = ""
+
+		' Name Suffix
+		NM1(7) = ""
+
+    NM1(8)="XX"
+
+    NM1(9)=o5010.GetValue("76apnpi")
+                   
+    If Len(Trim(NM1(3))) = 0 And (Len(Trim(NM1(4))) = 0 And NM1(2) = "1") And Len(Trim(NM1(9))) = 0 Then 
+			sNM1 = ""
+		Else
+			If Len(Trim(NM1(3))) = 0 Then NM1(3) = o5010.GetProfileString("Defaults","NM103","")
+			If Len(Trim(NM1(4))) = 0 And NM1(2) = "1" Then NM1(4) = o5010.GetProfileString("Defaults","NM104","")
+			If Len(Trim(NM1(9))) < 2 Then NM1(9) = o5010.GetProfileString("Defaults","NM109","")
+		
+			' 2310A-D Position 250 - Physician Name
+			sNM1 = o5010.Assemble(NM1)
+		End If
+		
+		Call o5010.LogError("Function X12_5010_2310A - NM1")
+		
+		If Len(NM1(3)) = 0 Then 
+			X12_5010_2310A = ""
+		    Exit Function
+		Else
+		    sNM1 = o5010.CountSegment(sNM1)		    
+		End if
+				
+    s76apqual = UCase(o5010.GetValue("76apqual"))    
+        
+    Select Case s76apqual
+    
+		     Case "ZZ" 
+	               
+            PRV(0) = "PRV"     
+                 
+            'Provider Code
+            PRV(1) = "AT"
+
+            'Reference Identification Qualifier
+            ' ZZ - Health Care Provider Taxonomy code list indicator
+            PRV(2) = "PXC"
+
+            'Reference Identification (Provider Taxonomy Code)
+   		      PRV(3) = o5010.GetValue("76apid")
+		        If Len(Trim(PRV(3))) = 0 Then PRV(3) = "0"
+                 
+            'Loop 2000A Positon 003 - Billing Provider
+            sPRV = o5010.Assemble(PRV)
+            If len(trim(PRV(3)))=0 Then sPRV = ""	
+
+            sPRV = o5010.CountSegment(sPRV)   
+			        
+	    	 Case "0B","1G","G2","LU"
+	          
+            If cBool(Trim(o5010.GetProfileString("2310A","ExportSecondaryID","")))=True then
+               REF_1G = o5010.Build_REF(s76apqual,"",o5010.GetValue("76apid"))         											
+		        End if
+            
+          Case Else
+          
+            Call o5010.BuildLog("Attending Physician Secondary ID Qualifier '" & s76apqual & "' is not a valid code value.")
+            
+    End Select
+   
+    X12_5010_2310A = sNM1 & sPRV & REF_1G	
+	
+    Call o5010.BLogEndLoop("< End 2310A >")	               
+    Call o5010.LogError("End of Function X12_5010_2310A")
+				
+]]></f><f name="X12_5010_2310B" access="private" qi=""><ap></ap><lvl></lvl><ret></ret><h><![CDATA[]]><e></e></h><![CDATA[
+	Dim NM1(9), sNM1
+	Dim PRV(3), sPRV
+	Dim REF_1G
+	Dim s77opqual
+  
+    s77opqual = ""
+	REF_1G=""
+
+    X12_5010_2310B=""
+    
+    'Required on Inpatient Claims - Attending Physician Name 
+ 
+	On Error Resume Next
+
+    Call o5010.BLogStartLoop("< Loop 2310B >" )
+
+    NM1(0) = "NM1"
+
+    ' Entity Identifier Code
+    NM1(1) = "72"
+
+    ' Entity Type Qualifier
+    NM1(2) = "1"
+
+    'Physician Last Name
+    NM1(3) = o5010.GetValue("77oplnm")
+		
+    ' Physician First Name
+    NM1(4) = o5010.GetValue("77opfnm")
+			
+    ' Physician Middle Name
+    NM1(5) = ""
+		
+    ' Name Prefix
+    NM1(6) = ""
+
+    ' Name Suffix
+    NM1(7) = ""
+
+    NM1(8)="XX"
+  
+    NM1(9)=o5010.GetValue("77opnpi")          
+                  		
+    If Len(Trim(NM1(3))) = 0 And (Len(Trim(NM1(4))) = 0 And NM1(2) = "1") Then 
+        sNM1 = ""
+    Else
+        If Len(Trim(NM1(3))) = 0 Then NM1(3) = o5010.GetProfileString("Defaults","NM103","")
+        If Len(Trim(NM1(4))) = 0 And NM1(2) = "1" Then NM1(4) = o5010.GetProfileString("Defaults","NM104","")
+        If Len(Trim(NM1(9))) < 2 Then NM1(9) = o5010.GetProfileString("Defaults","NM109","")
+		
+        ' 2310A-D Position 250 - Physician Name
+        sNM1 = o5010.Assemble(NM1)
+    End If
+		
+    Call o5010.LogError("Function X12_5010_2310A - NM1")
+
+    If Len(NM1(3)) = 0 Then 
+	    X12_5010_2310B = ""
+        Exit Function
+    Else
+        sNM1 = o5010.CountSegment(sNM1)		    
+    End if
+                
+    s77opqual = UCase(o5010.GetValue("77opqual"))    
+    
+    Select Case s77opqual
+        Case "0B","1G","G2","LU"
+            REF_1G = o5010.Build_REF(s77opqual,"",o5010.GetValue("76apid"))         											
+		Case Else
+            Call o5010.BuildLog("Operating Physician Secondary ID Qualifier '" & s77opqual & "' is not valid code value.")        
+    End Select              
+		        							
+	X12_5010_2310B = sNM1 & REF_1G	
+										
+    Call o5010.BLogEndLoop("< End 2310B >")	                
+    Call o5010.LogError("End of Function X12_5010_2310B")
+				
+]]></f><f name="X12_5010_2310CDF" access="private" qi=""><ap></ap><lvl></lvl><ret></ret><h><![CDATA[]]><e></e></h><![CDATA[
+    Dim NM1(9), sNM1_78, sNM1_79
+    Dim REF_78, REF_79
+    
+    X12_5010_2310CDF=""
+
+    sNM1_78 = ""
+    sNM1_79 = ""
+    REF_78 = ""
+    REF_79 = ""
+	
+    On Error Resume Next
+
+    Call o5010.BLogStartLoop("< Loop 2310CDF >")
+
+    'NOTE: This function checks the values in the Field 78 & 79 Physician Qualifier codes and builds 
+    '      a loop 2310C, 2310D or 2310F segment depending on the found value.
+
+    ' Valid Physician Type Qualifier Codes for Fields 78 & 79 as of 4.16.2010
+    ' DN - Referring Provider
+    ' ZZ - Other Operating Physician
+    ' 82 - Rendering Provider
+
+    sQualifier78 = o5010.GetValue("78otql1")
+    sQualifier79 = o5010.GetValue("79otql1")
+    
+   
+    
+    If len(sQualifier78)>=2 then
+
+        NM1(0) = "NM1"
+
+        ' Entity Identifier Code
+        NM1(1) = sQualifier78
+
+        ' Entity Type Qualifier
+        '   1 - Person
+        NM1(2) = "1"
+
+        ' Physician Last Name
+        NM1(3) = o5010.GetValue("78otlnm")
+          
+        ' Physician First Name
+        NM1(4) = o5010.GetValue("78otfnm")
+    		
+        ' Physician Middle Name
+        NM1(5) = ""
+
+        ' Name Prefix
+        NM1(6) = ""
+
+        ' Name Suffix
+        NM1(7) = ""
+
+        NM1(8)="XX"
+    	
+        NM1(9)=o5010.GetValue("78otnpi")
+    	
+        If (Len(Trim(NM1(3)))=0) And (Len(Trim(NM1(4)))= 0) And Len(Trim(replace(NM1(9),"0",""))) = 0 Then 
+            sNM1_78 = ""
+        Else
+            If Len(Trim(NM1(3))) = 0 Then NM1(3) = o5010.GetProfileString("Defaults","NM103","")
+            If Len(Trim(NM1(4))) = 0 And NM1(2) = "1" Then NM1(4) = o5010.GetProfileString("Defaults","NM104","")
+            If Len(Trim(NM1(9))) < 2 Then NM1(9) = o5010.GetProfileString("Defaults","NM109","")
+    		
+             Select Case sQualifier78
+              Case "DN","ZZ","82"
+                'Valid Qualifier found
+              Case Else
+                NM1(1)="82"
+                Call o5010.Buildlog("Qualifier in field 78 Defaulted to RENDERING code 82")
+              End Select
+        
+            ' 2310A-D Position 250 - Physician Name
+            sNM1_78 = o5010.Assemble(NM1)
+            sNM1_78 = o5010.CountSegment(sNM1_78)
+        End If
+
+        s78otql2 = UCase(o5010.GetValue("78otql2"))    
+    
+        Select Case s78otql2  
+    	    Case "0B","1G","G2","LU" 
+                REF_78 = o5010.Build_REF(s78otql2,"",o5010.GetValue("78otid"))         											
+    		Case Else
+                Call o5010.BuildLog("Other Operating Physician Secondary ID Qualifier field 78 '" & s78otql2 & "' is not valid code value.")
+        End Select      
+        
+    End if    
+				
+    'Reset the array    
+    Erase NM1    
+        
+	  If len(sQualifier79)>=2 then
+
+        NM1(0) = "NM1"
+
+		    ' Entity Identifier Code
+		    NM1(1) = sQualifier79
+
+		    ' Entity Type Qualifier
+		    '   1 - Person
+		    NM1(2) = "1"
+
+		    ' Physician Last Name
+		    NM1(3) = o5010.GetValue("79otlnm")
+          
+		    ' Physician First Name
+		    NM1(4) = o5010.GetValue("79otfnm")
+    		
+		    ' Physician Middle Name
+		    NM1(5) = ""
+
+		    ' Name Prefix
+		    NM1(6) = ""
+
+		    ' Name Suffix
+		    NM1(7) = ""
+
+        NM1(8)="XX"
+    	
+        NM1(9)=o5010.GetValue("79otnpi")
+    	
+        If (Len(Trim(NM1(3)))=0) And (Len(Trim(NM1(4)))= 0) And Len(Trim(replace(NM1(9),"0",""))) = 0 Then 
+			    sNM1_79 = ""
+		    Else
+			    If Len(Trim(NM1(3))) = 0 Then NM1(3) = o5010.GetProfileString("Defaults","NM103","")
+			    If Len(Trim(NM1(4))) = 0 And NM1(2) = "1" Then NM1(4) = o5010.GetProfileString("Defaults","NM104","")
+			    If Len(Trim(NM1(9))) < 2 Then NM1(9) = o5010.GetProfileString("Defaults","NM109","")
+    		
+          Select Case sQualifier79
+            Case "DN","ZZ","82"
+              'Valid Qualifier found
+            Case Else
+              NM1(1)="82"
+              Call o5010.Buildlog("Qualifier in field 79 Defaulted to RENDERING code 82")
+          End Select
+        
+			    ' 2310A-D Position 250 - Physician Name
+			    sNM1_79 = o5010.Assemble(NM1)
+          sNM1_79 = o5010.CountSegment(sNM1_79)
+		    End If
+    				
+        s79otql2 = UCase(o5010.GetValue("79otql2"))    
+            
+        Select Case s79otql2 
+    			        
+	    	     Case "0B","1G","G2","LU"
+    	          
+                'NOTE: LU not valid for Loop 2310F
+                
+                REF_79 = o5010.Build_REF(s79otql2,"",o5010.GetValue("79otid"))         											
+    		
+             Case Else
+              
+                Call o5010.BuildLog("Other Operating Physician Secondary ID Qualifier field 79 '" & s79otql2 & "' is not valid code value.")
+                
+        End Select      
+        
+    End if 
+    	            
+		X12_5010_2310CDF = sNM1_78 & REF_78 & sNM1_79 & REF_79
+												
+    Call o5010.BLogEndLoop("< End 2310CDF > ")                    
+		Call o5010.LogError("End of Function X12_5010_2310CDF")
+				
+]]></f><f name="X12_5010_2310E" access="private" qi=""><ap></ap><lvl></lvl><ret></ret><h><![CDATA[]]><e></e></h><![CDATA[
+	Dim NM1(9), sNM1
+	Dim N3_Seg
+	Dim N4_Seg
+
+  X12_5010_2310E=""
+ 
+	On Error Resume Next
+
+    Call o5010.BLogStartLoop("< Loop 2310E >" )
+
+    NM1(0) = "NM1"
+
+		' Entity Identifier Code
+		NM1(1) = "77"
+
+		' Entity Type Qualifier
+		'   1 - Person
+		NM1(2) = "2"
+
+		' Physician Last Name
+		NM1(3) = o5010.GetValue("1provnam")
+
+		' Physician First Name
+		NM1(4) = ""
+		
+		' Physician Middle Name
+		NM1(5) = "" 
+
+		' Name Prefix
+		NM1(6) = ""
+
+		' Name Suffix
+		NM1(7) = ""
+
+    ' Identification Code Qualifier
+    NM1(8) = "XX"
+
+		' Service Facility (Billing Provider) NPI
+		NM1(9) = o5010.GetValue("56npi")
+								
+		If Len(Trim(NM1(3))) = 0 And (Len(Trim(NM1(4))) = 0 And NM1(2) = "1") And Len(Trim(NM1(9))) = 0 Then 
+			sNM1 = ""
+		Else
+			If Len(Trim(NM1(3))) = 0 Then NM1(3) = o5010.GetProfileString("Defaults","NM103","")
+			If Len(Trim(NM1(4))) = 0 And NM1(2) = "1" Then NM1(4) = o5010.GetProfileString("Defaults","NM104","")
+			If Len(Trim(NM1(9))) < 2 Then
+			    NM1(8) = ""
+			    NM1(9) = "" 
+		    End if
+		    
+			' 2310A-D Position 250 - Physician Name
+			sNM1 = o5010.Assemble(NM1)
+		End If
+		
+				
+		If Len(NM1(3)) = 0 Then 
+			X12_5010_2310E = ""
+		Else
+		
+			sNM1 = o5010.CountSegment(sNM1)
+						
+			'Service Facility Address
+			N3_Seg = o5010.Build_N3("1provadd","")
+			
+			'Service Facility City/State/Zip code
+			N4_Seg = o5010.Build_N4("1provcit","1provsta","1provzip")
+						
+			X12_5010_2310E = sNM1 & N3_Seg & N4_Seg
+			 
+		End If		
+										
+    Call o5010.BLogEndLoop("< End 2310E > ")                
+		Call o5010.LogError("End of Function X12_5010_2310E")
+				
+]]></f>
+  <f name="X12_5010_2320_Recs" access="private" qi=""><ap></ap><lvl></lvl><ret></ret><h>
+      <![CDATA[]]><e></e>
+    </h><![CDATA[
+    	Dim nX
+	
+	'Additional Payer Information (non-primary)
+	'Loop through lines A,B & C, ignore sPayorLine value
+	
+	X12_5010_2320_Recs = ""
+	
+	For nX = 97 to 99
+		If Not(chrw(nX) = o5010.PrimaryPayer) then
+			X12_5010_2320_Recs = X12_5010_2320_Recs & X12_5010_2320(chrw(nX))
+		End if	
+	Next 'nX
+    
+    ]]>
+  </f>
+  <f name="X12_5010_2320" access="private" qi=""><p name="sLine"/><ap></ap><lvl></lvl><ret></ret><h><![CDATA[]]><e></e></h><![CDATA[
+	Dim Fcharge, FRcode, j, Ltr
+	Dim sPatientRelationship
+	Dim SBR(9) , sSBR 		
+	Dim CAS(3), sCAS
+	Dim AMT(4), AMT_C4, AMT_B6, AMT_A8, sAMT
+	Dim C4,B6,A8
+	Dim OI(6), sOI
+	Dim sMIA
+	Dim sMOA
+	Dim sLoop2330Records
+	Dim vChr
+			
+	On Error Resume Next
+						
+    X12_5010_2320=""	
+        
+    If (Len(o5010.GetValue("51" & sLine & "prvno"))=0 and Len(o5010.GetValue("60" & sLine & "cshi"))=0) Then   
+        Exit Function
+    End if
+     	
+	Call o5010.BLogStartLoop("< Loop 2320 line '" & sLine & "'>")	
+      
+    SBR(0) = "SBR"
+  
+    ' Supplementary Payer Responsibility Sequence Code
+    '  P - Primary    S - Secondary   T - Tertiary
+						
+    Select Case ucase(sLine)
+        Case "A"
+            SBR(1) = "P" 	'   P - Primary
+        Case "B"
+            SBR(1) = "S" 	'   S - Secondary
+        Case "C"
+        SBR(1) = "T" 	'   T - Tertiary
+    End Select  
+ 				
+    ' Patient Relationship to Insured
+    'Field 59a-c
+    SBR(2) = o5010.GetValue("59" & sLine & "prel")
+     
+    'Check if SELF code 
+    'If SBR(2)="18" then
+    '  Call o5010.BuildLog("Relationship code is '18' (Self). Exiting loop.")
+    '  Call o5010.BLogEndLoop("< End 2320 > ")
+    '  Call o5010.LogError("End of Function X12_5010_2320")
+    '  Exit Function
+    'End if
+     
+    If NOT o5010.dRelCodeDict.Exists(SBR(2)) then 
+        Call o5010.BuildLog("Unknown code:" & SBR(2) & " found. Defaulting to '21'")
+        SBR(2)="21"
+    End if
+      
+			o5010.BuildLog("Relationship Code " & SBR(2) & ":" & o5010.dRelCodeDict.Item(SBR(2)))
+												
+			' Supplementary Payer Group or Number
+			SBR(3) = o5010.TruncateValue("62" & sLine & "igpnm", 17)  'Field 62b-c
+	
+			' Supplementary Payer Group Name
+      SBR(4)=""
+      If SBR(3)="" Then SBR(4) = o5010.TruncateValue("61" & sLine & "grpnm", 14)	'Field 61b-c
+	    
+			' Insurance Type Code
+			SBR(5) = ""
+	
+			' Coordination of Benefits Code
+			SBR(6) = ""
+	
+			' Yes/No Condition or Response Code
+			SBR(7) = ""
+	
+			' Employment Status Code
+			SBR(8) = ""
+				
+			' Claim Filing Indicator Code
+			SBR(9) = "ZZ"	
+      
+      Dim s2320_RegEx
+			Set s2320_RegEx = CreateObject("VBScript.RegExp")
+	
+			s2320_RegEx.Pattern= "MED[iIl1T]CARE" 
+			s2320_RegEx.IgnoreCase = TRUE
+			s2320_RegEx.Global = TRUE
+				
+			If s2320_RegEx.Test(SBR04)=True or s2320_RegEx.Test(o5010.GetValue("50" & sLine & "payer"))=True Then SBR09 = "MA" 
+			Set s2320_RegEx=nothing
+      				
+			' 2320 Position 290 - Additional Payer Information
+			sSBR = o5010.CountSegment(o5010.Assemble(SBR))
+			
+			' 2320 Position 295 - Claim level Adjustment
+			'CAS is performed after the AMT segments as it uses some of the AMT element value's    	
+        
+      Erase AMT
+      sAMT=""
+      AMT(0) = "AMT"  
+        
+			' Amount Qualifier Code
+			AMT(1) = "D"   'Prior Payments
+	
+			' Monetary Amount - Total Allowed Amount
+			AMT(2) = o5010.GetValue("54" & sLine & "prpay")
+
+			If IsNumeric(AMT(2)) Then AMT(2) = Clng(AMT(2))   'Field 54b-c
+			AMT(2) = o5010.ImplyDecimal(AMT(2))
+			A8 = AMT(2)
+			
+			' Credit/Debit Flag Code
+			AMT(3) = ""
+	
+			' 2320 Position 300 - Payer Amount Paid
+			sAMT = o5010.Assemble(AMT)
+			'If AMT(2) = "0.00" Or AMT(2) = "0" Then sAMT = ""
+			AMT_D = o5010.CountSegment(sAMT)  
+        
+        
+      Erase AMT
+      sAMT=""
+      AMT(0) = "AMT"  
+        
+			' Amount Qualifier Code
+			AMT(1) = "A8"   'Non Covered Amount
+	
+			' Monetary Amount - Total Allowed Amount
+			AMT(2) = o5010.TotalNonCoveredCharges
+
+			If IsNumeric(AMT(2)) Then AMT(2) = Clng(AMT(2))   'Field 54b-c
+			AMT(2) = o5010.ImplyDecimal(AMT(2))
+			A8 = AMT(2)
+			
+			' Credit/Debit Flag Code
+			AMT(3) = ""
+	
+			' 2320 Position 300 - Payer Amount Paid
+			sAMT = o5010.Assemble(AMT)
+			If AMT(2) = "0.00" Or AMT(2) = "0" Then sAMT = ""
+			AMT_A8 = o5010.CountSegment(sAMT)
+						            
+    CAS(0) = "CAS"      
+            
+    'CAS - Claim level adjustment
+    ' CO - Contractual Obligations
+    CAS(1) = "CO" 			
+						
+	' A2 -		
+    CAS(2) = "45"		
+			
+	'Monetary Amount
+	CAS(3) = o5010.TotalCharges - o5010.PriorPayments - o5010.TotalNonCoveredCharges	
+	If IsNumeric(CAS(3)) Then CAS(3) = Clng(CAS(3))
+	CAS(3) = o5010.ImplyDecimal(CAS(3))
+			
+	sCAS = o5010.Assemble(CAS)
+  	If CAS(3) = "0.00" Or CAS(3) = "0" Or CLng(CAS(3)) <= CLng(0) Then sCAS = ""
+	sCAS = o5010.CountSegment(sCAS)
+									
+    sLoop2330Records = X12_5010_2330(sLine)
+			
+    If Len(Trim(sLoop2330Records)) > 0 And InStr(sLoop2330Records,"NM1") > 0 Then 
+						
+	    ' Table 2 Position 310 - Supplementary Payer Name
+        OI(0) = "OI"
+        'Benefits Assignment Certification Indicator
+        ' N - No
+        ' W - Not Applicable (Also use when patient refuses to assign benefits)
+        ' Y - Yes
+        OI(3) = UCase(o5010.TruncateValue("53" & sLine & "asgnbn",1))
+        
+        If InStr("NWY",OI(3))< 1 or len(OI(3))=0 then
+          OI(3) = Ucase(o5010.GetProfileString("2320","OI03" ,""))
+        End if
+        'Release of Information Code
+        OI(6) = o5010.GetProfileString("2320","OI06" ,"")
+        
+		sOI = o5010.CountSegment(o5010.Assemble(OI))
+			
+		sLoop2330Records = sOI & sLoop2330Records
+				
+	End if
+      
+    X12_5010_2320 = sSBR & sCAS & AMT_D & AMT_A8 & sLoop2330Records
+		   
+    Call o5010.BLogEndLoop("< End 2320 > ")
+    Call o5010.LogError("End of Function X12_5010_2320")
+		
+]]></f>
+  <f name="X12_5010_2330" access="private" qi=""><p name="sLine"/>
+  <ap></ap><lvl></lvl><ret></ret><h><![CDATA[]]><e></e></h><![CDATA[
+	Dim sLoop2330A
+	Dim sLoop2330B
+	Dim sNM1, NM1(9)
+	Dim sDTP, DTP(3)
+	Dim REF_F8, REF_G1
+	Dim vChr
+				
+	On Error Resume Next			
+	
+	Call o5010.BLogStartLoop("< Loop 2330A : line '" & sLine & "' >" )
+	
+	'Loop 2330A Begins - Other Subscriber Name
+	
+    NM1(0) = "NM1"
+  
+		' Entity Identifier Code
+		NM1(1) = "IL"  'Insured or Subscriber
+
+		' Entity Type Qualifier
+		NM1(2) = "1"   ' 1 - Person
+
+		'Last Name		
+		NM1(3) = Trim(o5010.TruncateValue("58" & sLine & "lname",35)) ' Field 58b-c
+		If NM1(3) = "" Then NM1(3) = Trim(o5010.TruncateValue("58" & sLine & "insnm",35))
+		If Len(Trim(NM1(3))) = 0 Then NM1(3) = o5010.GetProfileString("Defaults","NM103","")
+		
+		'Name First
+		NM1(4) = Trim(o5010.TruncateValue("58" & sLine & "fname",25)) ' Field 58b-c
+		If NM1(4) = "" Then NM1(4) = Trim(o5010.TruncateValue("58" & sLine & "insnm",25))
+		If Len(Trim(NM1(4))) = 0 Then NM1(4) = o5010.GetProfileString("Defaults","NM104","")
+		
+		' Name Middle
+		NM1(5) = Trim(o5010.TruncateValue("58" & sLine & "minit",25)) ' Field 58b-c
+
+		' Name Prefix
+		NM1(6) = ""
+
+		' Name Suffix
+		NM1(7) = ""
+
+		' Identification Code Qualifier
+		NM1(8) = "MI"
+
+		' Identification Code
+		NM1(9) = o5010.GetValue("60" & sLine & "cshi") ' Field 60b-c
+		If Len(Trim(NM1(9)))	< 2 Then NM1(9) = o5010.GetProfileString("Defaults","NM109","")
+				
+		' 2330A Position 325 -  Other Subscriber Name
+		sNM1 = o5010.Assemble(NM1)
+		
+		If (NM1(3) = o5010.GetProfileString("Defaults","NM103","")) And (NM1(4) = o5010.GetProfileString("Defaults","NM104","")) And (NM1(9) = o5010.GetProfileString("Defaults","NM109","")) Then 
+		'	NM1 = ""
+		End If	
+		
+		sNM1 = o5010.CountSegment(sNM1)
+    
+		'Subscriber City/State/Zip code
+    N4_SegA=""
+    If cBool(o5010.GetProfileString("2330A","UsePatientAddress","FALSE"))=TRUE Or o5010.PatientSubscriber=True Then
+      N4_SegA = o5010.Build_N4("9paddcty","9paddsta","9paddzip")
+    Else
+      If len(o5010.GetProfileString("2330A","SubscriberCity",""))>0 or len(o5010.GetProfileString("2330A","SubscriberState",""))>0 or len(o5010.GetProfileString("2330A","SubscriberZip",""))>0 then
+        N4_SegA =o5010.Build_N4("@" & o5010.GetProfileString("2330A","SubscriberCity",""),"@" & o5010.GetProfileString("2330A","SubscriberState",""),"@" & o5010.GetProfileString("2330A","SubscriberZip",""))    
+      End if
+    End if
+
+		sLoop2330A = sNM1 & N4_SegA
+    
+    Call o5010.BLogEndLoop("< End 2330A > ")
+				
+	'Loop 2330B - Other Payer Name
+	
+	  Call o5010.BLogStartLoop("< Loop 2330B >")
+	  
+    Erase NM1
+    sNM1 = ""
+    NM1(0) = "NM1"
+  
+		' Entity Identifier Code
+		NM1(1) = "PR"
+
+		' Entity Type Qualifier
+		NM1(2) = "2"  ' 2 - Nonperson Entity
+
+		' Last Name or Organization Name
+		NM1(3) = o5010.GetValue("50" & sLine & "payer")  ' Field 50b-c
+		If Len(Trim(NM1(3))) = 0 Then NM1(3) = o5010.GetProfileString("Defaults","NM103","")
+		
+		' First Name
+		NM1(4) = ""
+
+		'Middle Initial
+		NM1(5) = ""
+
+		' Name Prefix
+		NM1(6) = ""
+
+		' Name Suffix
+		NM1(7) = ""
+
+		' Identification Code Qualifier
+		'    PI - Payer Identifier   XV - HCFA NPI
+		
+		NM1(8) = "PI"
+		'NM1(8) = ""
+		
+		' Identification Code
+		NM1(9) = o5010.GetValue("51" & sLine & "prvno")	'Field 51a,51b,51c
+    If Len(Trim(NM1(9)))	< 2 Then NM1(9) = o5010.GetProfileString("2330B","PayerIDNumber","")
+		If Len(Trim(NM1(9)))	< 2 Then NM1(9) = sPayerIDNumber
+		
+		' 2330B Position 325 -  Other Payer name
+		sNM1 = o5010.Assemble(NM1)
+	 	
+		If (NM1(3) = o5010.GetProfileString("Defaults","NM103","")) And (NM1(4) = o5010.GetProfileString("Defaults","NM104","")) And (NM1(9) = o5010.GetProfileString("Defaults","NM109","")) Then 
+		'	sNM1 = ""
+		End If
+    
+		sNM1 = o5010.CountSegment(sNM1)
+				
+		'Service Facility City/State/Zip code
+    N4_SegB=""
+    If len(o5010.GetProfileString("2330B","PayerCity",""))>0 or len(o5010.GetProfileString("2330B","PayerState",""))>0 or len(o5010.GetProfileString("2330B","PayerZip",""))>0 then
+  		N4_SegB = o5010.Build_N4("@" & o5010.GetProfileString("2330B","PayerCity",""),"@" & o5010.GetProfileString("2330B","PayerState",""),"@" & o5010.GetProfileString("2330B","PayerZip",""))    
+    End if
+    
+		'Claim Adjudication Date
+    DTP(0) = "DTP"
+    
+		' Date/Time Qualifier
+		DTP(1) = "573"
+
+		' Date Time Period Format Qualifier
+		DTP(2) = "D8"
+
+		' Date of Service
+		DTP(3) = o5010.GetDateD8("6scpthru")
+
+		' 2400 Position 455 - Outpatient Service Date
+		sDTP = o5010.Assemble(DTP)
+		If DTP(3) = "" Then sDTP = ""
+		sDTP = o5010.CountSegment(sDTP)
+		
+		'Reference Number Qualifier
+		If len(o5010.GetValue("64" & sLine & "dcnm"))>0 then	    
+		    REF_F8 = o5010.Build_REF("F8","64" & sLine & "dcnm","")
+		Else
+		    REF_F8 = o5010.Build_REF("F8","37a","")
+		End if
+			
+		'Reference Number Qualifier
+		REF_G1 = o5010.Build_REF("G1","63" & sLine & "tacd","")
+		
+		sLoop2330B = sNM1 & N4_SegB & sDTP & REF_F8 & REF_G1
+			
+		X12_5010_2330 = sLoop2330A & sLoop2330B
+		
+    Call o5010.BLogEndLoop("< End 2330B > ")
+		Call o5010.LogError("End of Function X12_5010_2330")
+
+]]></f><f name="X12_5010_2400" access="private" qi=""><ap></ap><lvl></lvl><ret></ret><h><![CDATA[]]><e></e></h><![CDATA[
+	Dim sLoop2400ServiceLines
+	Dim j
+	Dim Ltr
+	Dim sSVLine
+	Dim revTest
+	Dim bRev001
+	Dim RevCode, HCPCS, SDate, SUnits, TotalCharges, NonCovered, SModifier, LocU, Desc, BillType
+	Dim NDC, NDCType, NDCQty
+	Dim oDetails
+	Dim oLineItem
+	Dim nChildren
+	Dim bLineItems
+	Dim oRevFld
+	
+	On Error Resume Next	
+	
+    Call o5010.BLogStartLoop("< Loop 2400 >")
+	    
+	    bLineItems=False
+	    bUB04=True
+	
+	    sFormType = o5010.Page.ID
+	    If sFormType = "UB92" then bUB04=False
+	    
+        Ltr = Array("a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z")
+		
+		    BillType = Trim(o5010.TruncateValue("4typbill", 4))
+		
+		    If len(BillType)=4 then
+            If left(BillType,1)="0" then BillType = Right(BillType,3)
+        End if
+        
+        Set oRevFld = o5010.Page.FindChild("42arevcd")
+        If oRevFld is nothing then bLineItems=True
+        
+		If bLineItems=False then
+			
+		    For j = 0 To 25
+			    revTest = o5010.GetValue("42" & Ltr(j) & "revcd")
+			    bRev001 = False
+			    If revTest = "1" Or revTest = "01" Or revTest = "001" Or revTest = "0001" Then bRev001 = True 
+    			
+	            If (IsNumeric(revTest) Or Not(o5010.GetValue("44" & Ltr(j) & "hcpcs") = "")) And Not bRev001 Then
+		       	    o5010.LineNumber = o5010.LineNumber + 1
+		       	    
+		       	    RevCode      = o5010.GetValue("42" & Ltr(j) & "revcd")
+		       	    HCPCS        = o5010.GetValue("44" & Ltr(j) & "hcpcs")
+		       	    SDate        = o5010.FormatDateD8(o5010.GetValue("45" & Ltr(j) & "srvdt"))
+		       	    SUnits       = o5010.GetValue("46" & Ltr(j) & "srvun")
+		       	    TotalCharges = o5010.GetValue("47" & Ltr(j) & "ttchg")
+		       	    NonCovered   = o5010.GetValue("48" & Ltr(j) & "ncchg")
+		       	    SModifier    = o5010.GetValue("44" & Ltr(j) & "Mod")
+    		       	LocU         = o5010.GetValue("49" & Ltr(j))				                    
+    		       	Desc         = o5010.GetValue("43" & Ltr(j) & "dscrt")
+    		       	NDC          = o5010.GetValue("43" & Ltr(j) & "ndc")
+                NDCType      = o5010.GetValue("43" & Ltr(j) & "ndctype")
+                NDCQty       = o5010.GetValue("43" & Ltr(j) & "ndcqty")
+    		       	            		       				                    
+				    sSVLine = X12_5010_2400_LINES(o5010.LineNumber, RevCode, HCPCS, SDate, SUnits, TotalCharges, NonCovered, SModifier, LocU, Desc, BillType, NDC, NDCType, NDCQty)
+				    sLoop2400ServiceLines = sLoop2400ServiceLines & sSVLine
+    		    End If
+		    Next 'j
+		
+		Else
+		    
+		    Set oDetails = o5010.Page.FindChild("DETAILS")
+		
+		    If Not(oDetails is nothing) then
+		        
+		        nChildren = oDetails.NumOfChildren
+		        For j = 1 to nChildren
+		            
+		            Set oLineItem = oDetails.GetChild(j-1)
+		            If Not(oLineItem) is Nothing then
+		                If oLineItem.Type = "LINEITEM" then
+               
+                    SDate        = o5010.FormatDateD8(o5010.GetChildValue(oLineItem,"ServiceDate"))
+                    RevCode      = o5010.GetChildValue(oLineItem,"RevCode")	                    
+		            	  HCPCS        = o5010.GetChildValue(oLineItem,"HCPCS")
+		            	  SUnits       = o5010.GetChildValue(oLineItem,"Units")
+				            TotalCharges = o5010.GetChildValue(oLineItem,"Charges")
+				            NonCovered   = o5010.GetChildValue(oLineItem,"NonCovered")
+				            SModifier    = o5010.GetChildValue(oLineItem,"Modifiers")
+				            LocU         = o5010.GetChildValue(oLineItem,"LocalUse")
+				            Desc         = o5010.GetChildValue(oLineItem,"Description")
+                    NDC          = o5010.GetChildValue(oLineItem,"NDC")
+			         		  NDCType      = o5010.GetChildValue(oLineItem,"NDCType")
+			          		NDCQty       = o5010.GetChildValue(oLineItem,"NDCQty")
+			          		  
+                            bRev001 = False
+			                If RevCode = "1" Or RevCode = "01" Or RevCode = "001" Or RevCode = "0001" Then bRev001 = True  
+			                           
+			                If (IsNumeric(RevCode) Or Not(HCPCS="")) And Not bRev001 Then           
+		                        o5010.LineNumber = o5010.LineNumber + 1
+		                    
+		                        sSVLine = X12_5010_2400_LINES(o5010.LineNumber, RevCode, HCPCS, SDate, SUnits, TotalCharges, NonCovered, SModifier, LocU, Desc, BillType, NDC, NDCType, NDCQty)
+				                sLoop2400ServiceLines = sLoop2400ServiceLines & sSVLine
+				            End if
+				            
+		                End if 'oLineItem.Type
+		            End if 'Not oLineitem is nothing
+		        Next 'j
+		    End if 'Not oDetails is nothing
+	    End if
+		
+		X12_5010_2400 = sLoop2400ServiceLines
+		
+    Call o5010.BLogEndLoop("< End 2400 > ")
+		Call o5010.LogError("End of Function X12_5010_2400")
+
+]]></f><f name="X12_5010_2400_LINES" access="private" qi="">
+  <p name="LineNum"/><p name="RevCode"/><p name="HCPCS"/><p name="SDate"/><p name="SUnits"/><p name="TotalCharges"/><p name="NonCovered"/><p name="SModifier"/>
+  <p name="LocU"/><p name="Desc"/><p name="BillType"/><p name="NDC"/><p name="NDCType"/><p name="NDCQty"/>
+  <ap></ap><lvl></lvl><ret></ret><h><![CDATA[]]><e></e></h><![CDATA[
+  Dim LX(1), sLX
+	Dim sSV2, SV2(10)
+	Dim TempSV2_2
+	Dim sDTP, in_DTP, out_DTP, DTP(3)
+	Dim rCount, rString
+	Dim sLoop2410
+	
+	On Error Resume Next
+	 
+    Call o5010.BLogStartLoop("< Start ServiceLine > ")
+   
+    LX(0) = "LX"
+		
+		LX(1) = LineNum
+
+		' Table 2 Position 385 - Assigned Number
+		sLX = o5010.CountSegment(o5010.Assemble(LX))
+
+    SV2(0) = "SV2"
+
+		' Product/Service ID
+		SV2(1) = RevCode
+		
+		'Remove leading zeros
+		rString=""
+
+		For rCount = 1 to Len(SV2(1))
+				If Mid(SV2(1),rCount,1)<>"0" then
+					rString = rString & Mid(SV2(1),rCount,1)
+				End if
+		Next 'rCount
+
+		If rString = "" then SV2(1) = o5010.GetProfileString("Defaults","SV201","")
+		If SV2(1) = "0000" Then SV2(1) = o5010.GetProfileString("Defaults","SV201","")
+		
+		SV2(1) = Right("0000" & SV2(1), 4)
+
+    'Remove Space Characters from SModifier value
+    SModifier = Replace(SModifier,Space(1),"")
+
+		' Product/Service ID Qualifier
+		TempSV2_2 = ucase(HCPCS & SModifier)
+	
+			Select Case Len(TempSV2_2) 'Extracts Modifiers from HCPCS field and inserts subelements
+				Case 5
+					SV2(2) = "HC" & o5010.sCES & TempSV2_2
+				Case 7
+					SV2(2) = "HC" & o5010.sCES & Left(TempSV2_2,5) & o5010.sCES & Right(TempSV2_2,2)
+				Case 9
+					SV2(2) = "HC" & o5010.sCES & Left(TempSV2_2,5) & o5010.sCES & Mid(TempSV2_2,6,2) & o5010.sCES & Right(TempSV2_2,2)
+				Case 11
+					SV2(2) = "HC" & o5010.sCES & Left(TempSV2_2,5) & o5010.sCES & Mid(TempSV2_2,6,2) & o5010.sCES & Mid(TempSV2_2,8,2) & o5010.sCES & Right(TempSV2_2,2)
+				Case 13
+					SV2(2) = "HC" & o5010.sCES & Left(TempSV2_2,5) & o5010.sCES & Mid(TempSV2_2,6,2) & o5010.sCES & Mid(TempSV2_2,8,2) & o5010.sCES & Mid(TempSV2_2,10,2) & o5010.sCES & Right(TempSV2_2,2)	
+				Case Else
+					SV2(2) = "" 'Invalid length - depopulated value 
+			End Select
+	
+		If IsNumeric(RevCode) Then 
+			'Check for RATE value in HCPCS colume, Rev code 100 to 219
+			If (CLng(RevCode) > CLng(99) And CLng(RevCode) < CLng(220)) Then SV2(2) = ""
+			If (Clng(RevCode)>Clng(449) And Clng(RevCode)<CLng(460)) or Clng(RevCode)=CLng(516) or Clng(RevCode)=CLng(529) then
+			    'Use Code ZZ instead of BJ in HI loop for Admit Diagnosis
+			    o5010.PatientReason=TRUE
+			end if
+		End If
+			
+		Call o5010.LogError("Function X12_5010_2400_LINES Pre SV2(3)")	
+			
+		' Monetary Amount
+		SV2(3) = o5010.NumericOnly(TotalCharges)
+		If SV2(3) = "" Then SV2(3) = 0
+		o5010.TotalCharges = o5010.TotalCharges + CLng(SV2(3))
+		SV2(3) = o5010.ImplyDecimal(SV2(3))
+
+		Call o5010.LogError("Function X12_5010_2400_LINES Pre SV2(4)")
+	
+		' Unit or Basis for Measuremant Code
+		SV2(4) = "UN"
+
+		Call o5010.LogError("Function X12_5010_2400_LINES Pre SV2(5)")
+
+		' Quantity
+		SV2(5) = SUnits
+		SV2(5) = o5010.NumericOnly(SV2(5))
+		If SV2(5) = "" Then SV2(5) = 1
+		
+		Call o5010.LogError("Function X12_5010_2400_LINES Pre SV2(6)")
+		
+		' Accomodations Rate
+		SV2(6) = ""
+'		If IsNumeric(RevCode) Then 
+'			'Check for RATE value in HCPCS colume, Rev code 100 to 219
+'			If (CInt(RevCode) > CInt(99) And CInt(RevCode) < CInt(220)) Or SV2(2) = "" Then 
+'				SV2(6) = Replace(HCPCS,"O","0")
+'				SV2(6) = o5010.NumericOnly(SV2(6))
+'				SV2(6) = o5010.ImplyDecimal(SV2(6))
+'				If SV2(6) = "0.00" Or SV2(6) = "0" Then SV2(6) = ""
+'				If (CInt(RevCode)>CInt(99) And CInt(RevCode)<CInt(210)) Then 
+'					SV2(4) = "DA"
+'				End If
+'			End If
+'		End If
+		
+		Call o5010.LogError("Function X12_5010_2400_LINES Pre SV2(7)")
+
+		' Non-Covered Charges
+		SV2(7) = o5010.NumericOnly(NonCovered)
+		If SV2(7) = "" Then SV2(7) = 0
+			o5010.TotalNonCoveredCharges	= o5010.TotalNonCoveredCharges + CLng(SV2(7))
+		SV2(7) = o5010.ImplyDecimal(SV2(7))
+		If IsNumeric(SV2(7)) Then
+			If CCur(SV2(7)) = 0 Then SV2(7) = ""
+		End If
+
+		' 2400 Position 375 - Institutional Service
+		sSV2 = o5010.Assemble(SV2)
+		'If SV2(1)="001" Then SV2=""
+		sSV2 = o5010.CountSegment(sSV2)
+				
+		Call o5010.LogError("Function X12_5010_2400_LINES Pre DTP")      
+
+		TOB = Left(BillType & "00",2)
+
+    'Date Segment Init
+    sDTP=""
+        
+    DTP(0) = "DTP"
+
+    ' Date/Time Qualifier
+		DTP(1) = "472"
+
+		'Construct Do outpatient date stuff
+		' Date Time Period Format Qualifier
+		DTP(2) = "D8"
+		
+		' Date of Service
+		DTP(3) = SDate
+			
+		' 2400 Position 455 - Outpatient Service Date
+		in_DTP = o5010.Assemble(DTP)
+		If DTP(3) = "" Then in_DTP = ""
+						
+		If (SV2(1)="0001" Or SV2(1) = "001" Or SV2(1) = "01" Or SV2(1) = "1") Then in_DTP=""
+	
+    Erase DTP
+    DTP(0) = "DTP"
+  
+    ' Date/Time Qualifier
+		DTP(1) = "472"
+  
+    	'Construct Inpatient date logic - default	
+		' Date Time Period Format Qualifier
+		DTP(2) = "RD8"
+
+		' Date of Service
+		' Statement Covers Period
+'		Dim DTstrFrom
+'		Dim DTstrTo
+'		DTstrFrom = Trim(o5010.GetDateD8("6scpfrom"))
+'		If Len(DTstrFrom) < 8 Then DTstrFrom  =  o5010.GetDateD8("17admdte")
+'		If Len(DTstrFrom) < 8 Then DTstrFrom  =  o5010.GetProfileString("Defaults","OccDT","")
+'		DTstrTo = o5010.GetDateD8("6scpthru") 
+'		If Len(DTstrTo) < 8 Then DTstrTo = DTstrFrom
+		
+'		DTP(3) = DTstrFrom & "-" & DTstrTo
+		'DTP(3) = o5010.GetDateD8("6scpfrom") & "-" & o5010.GetDateD8("6scpthru")
+		
+    DTP(3) = SDate & "-" & SDate
+
+		' 2400 Position 455 - Inpatient Service Date
+		out_DTP = o5010.Assemble(DTP)
+		If Trim(DTP(3)) = "-" Then out_DTP = ""
+		If (SV2(1)="0001" Or SV2(1) = "001" Or SV2(1) = "01" Or SV2(1) = "1") Then out_DTP=""
+					
+        If TOB = "13" Or TOB = "14" Or CBool(o5010.GetProfileString("X12N", "SuppressSVdateSpan","False")) = True or out_DTP="" Then
+            sDTP = o5010.CountSegment(in_DTP)
+        Else
+            sDTP = o5010.CountSegment(out_DTP)
+        End if
+				
+		sLoop2410 = X12_5010_2410(NDC,NDCType,NDCQty)		
+		X12_5010_2400_LINES = sLX & sSV2 & sDTP & sLoop2410
+		
+    Call o5010.BLogEndLoop("< End ServiceLine > ")
+		Call o5010.LogError("End of Function X12_5010_2400_LINES")
+				
+]]></f><f name="X12_5010_2410" access="private" qi=""><p name="NDC"/><p name="NDCType"/><p name="NDCQty"/>
+<ap></ap><lvl></lvl><ret></ret><h><![CDATA[]]><e></e></h><![CDATA[
+	Dim sLIN, LIN(5)
+	Dim sCTP, CTP(5)
+	
+  On Error Resume Next
+	
+	X12_5010_2410=""
+
+  Call o5010.BLogStartLoop("< Loop 2410 >")
+
+	sLIN =""
+	sCTP =""
+
+	If Len(TRIM(NDC))=11 then
+
+    LIN(0)="LIN"
+		LIN(1)=""
+		LIN(2)="N4"
+		LIN(3)=cstr(NDC)
+		LIN(4)=""
+		LIN(5)=""
+
+		sLIN=o5010.CountSegment(o5010.Assemble(LIN))
+
+		If len(trim(NDCType))>0 and len(trim(NDCQty))>0 then
+
+      CTP(0) = "CTP"
+			CTP(1)=""
+			CTP(2)=""
+
+			'Unit Price - NOT USED
+			CTP(3)=""
+
+			'Quantity
+			CTP(4)=NDCQty
+
+			'Composite Unit of Measure (ALLOWED VALUES: F2,GR,ML,UN)
+			CTP(5)=NDCType	
+			sCTP=o5010.CountSegment(o5010.Assemble(CTP))
+
+		End if
+
+	End if
+
+	X12_5010_2410 = sLIN & sCTP
+		
+  Call o5010.BLogEndLoop("< End 2410 >")  
+	Call o5010.LogError("End of Function X12_5010_2410")	
+		
+]]></f></rrx>

@@ -1,0 +1,37 @@
+<ruleset name="CheckCounts" id="16" ver="1">
+	<rule name="Rule1" id="1">
+		<func name="Function1">
+			<a name="ChkDCOStatus" ns="DCO">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="141" name="StrParam"/>
+			</a>
+			<a name="SkipChildren" ns="rrunner">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+		</func>
+		<func name="Function2">
+			<a name="CheckDocCount" ns="rrunner">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+		</func>
+		<func name="Function3">
+			<a name="Task_NumberOfSplits" ns="rrunner">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="1" name="nNumOfSplits"/>
+			</a>
+			<a name="Task_RaiseCondition" ns="rrunner">
+				<p type="bInter"/>
+				<p type="bDebug"/>
+				<p type="strParam" v="0,1"/>
+			</a>
+			<a name="SkipChildren" ns="rrunner">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+		</func>
+	</rule>
+</ruleset>

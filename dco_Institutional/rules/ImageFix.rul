@@ -1,0 +1,16 @@
+<ruleset name="ImageFix" id="28" ver="1">
+	<rule name="ImageFix" id="1">
+		<func name="ImageFix: Other Function 1">
+			<a name="LoadSettings" ns="ImageFix">
+				<p type="bInter"/>
+				<p type="bDebug"/>
+				<p type="strParam" v="@APPPATH(imagefix)"/>
+			</a>
+			<a name="ImageEnhance" ns="ImageFix">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v=".tio" name="StrParam"/>
+			</a>
+		</func>
+	</rule>
+</ruleset>

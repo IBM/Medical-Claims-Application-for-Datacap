@@ -1,0 +1,32 @@
+<ruleset name="PrepDataBlack" id="8" ver="1">
+	<rule name="Check Color" id="1">
+		<func name="Function1">
+			<a name="rrCompare" ns="rrunner">
+				<p name="object1" v="@P.Color"/>
+				<p name="object2" v="Black"/>
+			</a>
+			<a name="SetOriginalTIF" ns="MC_Validation">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="TI1" name="StrParam"/>
+			</a>
+		</func>
+		<func name="Function2">
+			<a name="rrCompare" ns="rrunner">
+				<p name="object1" v="@P.Color"/>
+				<p name="object2" v="Black"/>
+			</a>
+			<a name="SetOriginalTIF" ns="MC_Validation">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="TI2" name="StrParam"/>
+			</a>
+		</func>
+		<func name="Function3">
+			<a name="SkipChildren" ns="rrunner">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+		</func>
+	</rule>
+</ruleset>

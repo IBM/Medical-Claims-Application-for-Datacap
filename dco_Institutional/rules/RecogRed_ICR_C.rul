@@ -1,0 +1,56 @@
+<ruleset name="RecogRed_ICR_C" id="13" ver="1">
+	<rule name="Rule Check Doc Status" id="1">
+		<func name="Function1">
+			<a name="ChkDCOStatus" ns="DCO">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="128,142,143,145" name="StrParam"/>
+			</a>
+			<a name="SkipChildren" ns="rrunner">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+		</func>
+	</rule>
+	<rule name="Rule Check Page Status, Perform ICR/c" id="2">
+		<func name="Function1">
+			<a name="ChkDCOStatus" ns="DCO">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="0,48,66,73,79" name="StrParam"/>
+			</a>
+			<a name="SkipChildren" ns="rrunner">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+		</func>
+		<func name="Function2">
+			<a name="SetFingerprintRecogPriority" ns="Recog_Shared">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="True" name="StrParam"/>
+			</a>
+			<a name="RecognizePageICR_C" ns="ICR_C">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="SetAdjustFieldToChars" ns="Recog_Shared">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="true" name="StrParam"/>
+			</a>
+			<a name="SnapCCOtoDCO" ns="Recog_Shared">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+		</func>
+	</rule>
+	<rule name="Rule Copy Total Charges Field" id="3">
+		<func name="Function1">
+			<a name="rrCopy" ns="rrunner">
+				<p name="varSource" v="@D\47zttchg"/>
+				<p name="varTarget" v="@D\23TotChgs"/>
+			</a>
+		</func>
+	</rule>
+</ruleset>

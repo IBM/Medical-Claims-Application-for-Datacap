@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ruleset name="ID_PageFix" id="23" ver="1">
+	<rule name="Rule Check Doc Status" id="1">
+		<func name="Function1">
+			<a name="ChkDCOStatus" ns="DCO">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="128,142,143,145" name="StrParam"/>
+			</a>
+			<a name="SkipChildren" ns="rrunner">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+		</func>
+	</rule>
+	<rule name="Rule Enhance Images and Find Fields" id="2" qi="">
+		<func name="Function Update Claim Color if not an expected value" qi="">
+			<a ns="rrunner" name="rrCompareNot">
+				<p name="object1" v="@P.Color"/>
+				<p name="object2" v="Red"/>
+			</a>
+			<a ns="rrunner" name="rrCompareNot">
+				<p name="object1" v="@P.Color"/>
+				<p name="object2" v="Black"/>
+			</a>
+			<a ns="rrunner" name="rrCompareNot" qi="">
+				<p name="object1" v="@P.Color"/>
+				<p name="object2" v=""/>
+			</a>
+			<a name="rrSet" ns="rrunner">
+				<p name="varSource" v="@B.Color"/>
+				<p name="varTarget" v="@P.Color"/>
+			</a>
+			<a name="GoToNextFunction" ns="rrunner" qi=""/>
+		</func>
+		<func name="Function Update Claim Color if Blank" qi="">
+			<a name="SkipChildren" ns="rrunner" qi="">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="rrCompare" ns="rrunner">
+				<p name="object1" v="@P.Color"/>
+				<p name="object2" v=""/>
+			</a>
+			<a name="rrSet" ns="rrunner">
+				<p name="varSource" v="@B.Color"/>
+				<p name="varTarget" v="@P.Color"/>
+			</a>
+			<a name="GoToNextFunction" ns="rrunner" qi=""/>
+		</func>
+		<func name="Function RED Claim -Find Fields" qi="">
+			<a name="ChkDCOStatus" ns="DCO">
+				<p type="bInter"/>
+				<p type="bDebug"/>
+				<p type="strParam" v="55"/>
+			</a>
+			<a name="rrCompare" ns="rrunner" qi="">
+				<p name="object1" v="@P.Color"/>
+				<p name="object2" v="Red"/>
+			</a>
+			<a name="LoadSettings" ns="ImageFix" qi="">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="@APPPATH(imagefix)" name="sFilePath"/>
+			</a>
+			<a name="ImageEnhance" ns="ImageFix" qi="">
+				<p type="bInter"/>
+				<p type="bDebug"/>
+				<p type="strParam" v="ti1"/>
+			</a>
+			<a name="AnalyzeImage" ns="Recog_Shared">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="SetFormType" ns="MC_Identify">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="2" name="StrParam"/>
+			</a>
+      <a name="ReadPageSetup" ns="MC_Identify">
+        <p name="DCOSetupPath" v="@APPPATH(setupdco)"/>
+        <p name="FPPosition" v="Pos1055"/>
+        <p name="PageType" v="IClaim"/>
+      </a>
+			<a name="FindFields" ns="MC_Identify">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="rrSet" ns="rrunner">
+				<p name="varSource" v="Yes"/>
+				<p name="varTarget" v="@P.Overlay"/>
+			</a>
+		</func>
+		<func name="Function BLACK Claim - Find Fields">
+			<a name="ChkDCOStatus" ns="DCO">
+				<p type="bInter"/>
+				<p type="bDebug"/>
+				<p type="strParam" v="55"/>
+			</a>
+			<a name="rrCompare" ns="rrunner">
+				<p name="object1" v="@P.Color"/>
+				<p name="object2" v="Black"/>
+			</a>
+			<a name="LoadSettings" ns="ImageFix" qi="">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="@APPPATH(imagefixblack)" name="sFilePath"/>
+			</a>
+			<a name="ImageEnhance" ns="ImageFix" qi="">
+				<p type="bInter"/>
+				<p type="bDebug"/>
+				<p type="strParam" v="ti1"/>
+			</a>
+			<a name="AnalyzeImage" ns="Recog_Shared">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="SetFormType" ns="MC_Identify">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="2" name="StrParam"/>
+			</a>
+      <a name="ReadPageSetup" ns="MC_Identify">
+        <p name="DCOSetupPath" v="@APPPATH(setupdco)"/>
+        <p name="FPPosition" v="Pos1055"/>
+        <p name="PageType" v="IClaim"/>
+      </a>
+			<a name="FindFields" ns="MC_Identify">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="rrSet" ns="rrunner">
+				<p name="varSource" v="Yes"/>
+				<p name="varTarget" v="@P.Overlay"/>
+			</a>
+		</func>
+		<func name="Function3">
+			<a name="ChkDCOStatus" ns="DCO">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="55" name="StrParam"/>
+			</a>
+			<a name="rrSet" ns="rrunner">
+				<p name="varSource" v="1055"/>
+				<p name="varTarget" v="@P.TemplateID"/>
+			</a>
+			<a name="CreateFields" ns="DCO" qi="">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="LoadZones" ns="Zones">
+				<p type="bInter"/>
+				<p type="bDebug"/>
+				<p type="strParam" v="1055"/>
+			</a>
+		</func>
+	</rule>
+</ruleset>

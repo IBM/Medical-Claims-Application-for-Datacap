@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ruleset name="IOverlay" id="24" ver="1">
+	<rule name="Rule1" id="1">
+		<func name="Function0" qi="">
+			<a name="rrCompare" ns="rrunner">
+				<p name="object1" v="@P.Overlay"/>
+				<p name="object2" v="Yes"/>
+			</a>
+			<a name="rrCompare" ns="rrunner">
+				<p name="object1" v="02/12"/>
+				<p name="object2" v="@P.FormVersion"/>
+			</a>
+			<a name="SetBackgroundImage" ns="IOverlay" qi="">
+				<p type="bInter"/>
+				<p type="bDebug"/>
+				<p type="strParam" v="@PROCESSDIR+\+1500_0212t.tif"/>
+			</a>
+			<a name="SetDitheringBackground" ns="IOverlay">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="true" name="StrParam"/>
+			</a>
+			<a name="SetHaloBackground" ns="IOverlay">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="true" name="StrParam"/>
+			</a>
+			<a name="Overlay" ns="IOverlay">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="rrSet" ns="rrunner">
+				<p name="varSource" v="No"/>
+				<p name="varTarget" v="@P.Overlay"/>
+			</a>
+			<a name="SkipChildren" ns="rrunner">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+		</func>
+		<func name="Function1">
+			<a name="rrCompare" ns="rrunner">
+				<p name="object1" v="@P.Overlay"/>
+				<p name="object2" v="Yes"/>
+			</a>
+			<a name="rrCompare" ns="rrunner">
+				<p name="object1" v="@P.FormType"/>
+				<p name="object2" v="CMS 1500"/>
+			</a>
+			<a name="SetBackgroundImage" ns="IOverlay" qi="">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="@PROCESSDIR+\+CMSt.tif" name="StrParam"/>
+			</a>
+			<a name="SetDitheringBackground" ns="IOverlay">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="true" name="StrParam"/>
+			</a>
+			<a name="SetHaloBackground" ns="IOverlay">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="true" name="StrParam"/>
+			</a>
+			<a name="Overlay" ns="IOverlay">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="rrSet" ns="rrunner">
+				<p name="varSource" v="No"/>
+				<p name="varTarget" v="@P.Overlay"/>
+			</a>
+			<a name="SkipChildren" ns="rrunner">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+		</func>
+		<func name="Function2">
+			<a name="SkipChildren" ns="rrunner">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+		</func>
+	</rule>
+</ruleset>

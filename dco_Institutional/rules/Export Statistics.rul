@@ -1,0 +1,397 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ruleset name="Export Statistics" id="Export Statistics" ver="23" modder="admin.1" qi="Write statistics to Engine DB tables after verify&#xA;" dt="10/08/15 15:07:46.603 ">
+	<rule name="Batch" id="1" dcomap.open="B" qi="">
+		<func name="SkipOnAbort">
+			<a name="IsBatchAborted" ns="Statistics">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="SkipChildren" ns="rrunner">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+		</func>
+		<func name="SkipNotEnabled">
+			<a ns="rrunner" name="rrCompareNotCase">
+				<p name="object1" v="@APPVAR(SaveReportStatistics)"/>
+				<p name="object2" v="True"/>
+				<p name="caseSensitive" v="False"/>
+			</a>
+			<a name="SkipChildren" ns="rrunner" qi="">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+		</func>
+		<func name="SkipOnReRun" qi="">
+			<a ns="rrunner" name="rrCompareCase">
+				<p name="object1" v="@B.StatsExported"/>
+				<p name="object2" v="1"/>
+				<p name="caseSensitive" v="False"/>
+			</a>
+			<a name="SkipChildren" ns="rrunner.dll" qi="">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+		</func>
+		<func name="Init" qi="">
+			<a name="CompareFieldsText" ns="Statistics.rrx" qi="compare OCR values with current values (after verify)&#xA;">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" name="strParam"/>
+			</a>
+			<a name="ExportCloseConnection" ns="ExportDB.dll">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a ns="ExportDB" name="ExportOpenConnection" qi="">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="@APPVAR(*/tmengine:cs)" name="strParam"/>
+			</a>
+			<a name="GoToNextFunction" ns="rrunner.dll"/>
+		</func>
+		<func name="UpdateTotalStats" qi="All counters and other totals, update here&#xA;">
+			<a name="AddToDBTotals" ns="Statistics.rrx" qi="">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" name="strParam"/>
+			</a>
+			<a ns="rrunner" name="rrSet" qi="" disabled="y">
+				<p name="varSource" v="1"/>
+				<p name="varTarget" v="@B.TotalStatsUpdated"/>
+			</a>
+			<a name="GoToNextFunction" ns="rrunner.dll"/>
+		</func>
+		<func name="SetScanSrc" qi="">
+			<a ns="rrunner" name="rrCompare">
+				<p name="object1" v=""/>
+				<p name="object2" v="@B.ScanSrcChannel"/>
+			</a>
+			<a ns="rrunner" name="rrSet" qi="">
+				<p name="varSource" v="@JOBID"/>
+				<p name="varTarget" v="@B.ScanSrcChannel"/>
+			</a>
+			<a name="GoToNextFunction" ns="rrunner.dll"/>
+		</func>
+		<func name="ExportBatchStats" qi="&#xA;    ADD rb_Source [nvarchar (50)],&#xA;		rb_SizeKB [int]&#xA;		rb_CheckRecognitionCount [int],&#xA;		rb_FieldAccuracyPct [int],&#xA;		rb_FieldAccuracyWeight [int],&#xA;		rb_ClassifyAccuracyPct [int],&#xA;		rb_ClassifyAccuracyWeight [int];">
+			<a name="SetTableName" ns="ExportDB" qi="">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="reportBatch" name="strParam"/>
+			</a>
+			<a ns="ExportDB" name="ExportSmartParamToColumn" qi="">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="@B.ScanSrcChannel,rb_Source" name="strParam"/>
+			</a>
+			<a ns="ExportDB" name="ExportSmartParamToColumn" qi="Check processing counter&#xA;">
+				<p type="bInter"/>
+				<p type="bDebug"/>
+				<p type="strParam" v="@B.CheckRecognitionCount,rb_Feature1Count,2"/>
+			</a>
+			<a ns="ExportDB" name="ExportSmartParamToColumn">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="@B.ClassifyAccuracyPct,rb_ClassifyAccuracyPct,2" name="strParam"/>
+			</a>
+			<a ns="ExportDB" name="ExportSmartParamToColumn" qi="">
+				<p type="bInter"/>
+				<p type="bDebug"/>
+				<p type="strParam" v="@PILOT(PAGESINBATCH),rb_ClassifyAccuracyWeight,2"/>
+			</a>
+			<a ns="ExportDB" name="ExportSmartParamToColumn" qi="">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="@B.FieldAccuracyPct,rb_FieldAccuracyPct,2" name="strParam"/>
+			</a>
+			<a ns="ExportDB" name="ExportSmartParamToColumn">
+				<p type="bInter"/>
+				<p type="bDebug"/>
+				<p type="strParam" v="@B.FieldRecognitionCount,rb_FieldAccuracyWeight,2"/>
+			</a>
+			<a ns="ExportDB" name="ExportSmartParamToColumn" qi="">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="@B.SizeKB,rb_SizeKB" name="strParam"/>
+			</a>
+			<a name="ExportSmartParamToColumn" ns="ExportDB">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="@BATCHID,rb_batch" name="strParam"/>
+			</a>
+			<a name="ExportSmartParamToColumn" ns="ExportDB">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="@B.TYPE,rb_batchtype" name="strParam"/>
+			</a>
+			<a name="ExportSmartParamToColumn" ns="ExportDB">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="@JOBID,rb_job" name="strParam"/>
+			</a>
+			<a name="ExportSmartParamToColumn" ns="ExportDB" qi="">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v=",rb_time,4" name="strParam"/>
+			</a>
+			<a name="AddRecord" ns="ExportDB" qi="">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a ns="rrunner" name="rrSet">
+				<p name="varSource" v="1"/>
+				<p name="varTarget" v="@B.BatchStatsExported"/>
+			</a>
+		</func>
+	</rule>
+	<rule name="Document" id="5" dcomap.open="D">
+		<func name="ExportDocumentStats" disabled="y">
+			<a ns="rrunner" name="rrSet">
+				<p name="varSource" v="@ID"/>
+				<p name="varTarget" v="@D.ID"/>
+			</a>
+			<a name="SetTableName" ns="ExportDB">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="reportDocument" name="strParam"/>
+			</a>
+			<a name="ExportSmartParamToColumn" ns="ExportDB">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="@BATCHID,rd_batch" name="strParam"/>
+			</a>
+			<a name="ExportSmartParamToColumn" ns="ExportDB">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="@B.TYPE,rd_batchtype" name="strParam"/>
+			</a>
+			<a name="ExportSmartParamToColumn" ns="ExportDB">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="@JOBID,rd_job" name="strParam"/>
+			</a>
+			<a name="ExportSmartParamToColumn" ns="ExportDB">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="@ID,rd_document" name="strParam"/>
+			</a>
+			<a name="ExportSmartParamToColumn" ns="ExportDB">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="@D.TYPE,rd_documenttype" name="strParam"/>
+			</a>
+			<a name="ExportSmartParamToColumn" ns="ExportDB">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="@D.STATUS,rd_status" name="strParam"/>
+			</a>
+			<a name="ExportSmartParamToColumn" ns="ExportDB">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="@D.PreVerify Status,rd_statuspreverify" name="strParam"/>
+			</a>
+			<a name="ExportSmartParamToColumn" ns="ExportDB">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="@DATE(MM/DD/YYYY)+ +@TIME(),rd_time" name="strParam"/>
+			</a>
+			<a name="AddRecord" ns="ExportDB">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+		</func>
+	</rule>
+	<rule name="Page" id="2" dcomap.open="P">
+		<func name="ExportpageStats" disabled="y">
+			<a ns="rrunner" name="rrSet">
+				<p name="varSource" v="@ID"/>
+				<p name="varTarget" v="@P.ID"/>
+			</a>
+			<a name="SetTableName" ns="ExportDB" qi="">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="reportPage" name="strParam"/>
+			</a>
+			<a name="ExportSmartParamToColumn" ns="ExportDB">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="@BATCHID,rp_batch" name="strParam"/>
+			</a>
+			<a name="ExportSmartParamToColumn" ns="ExportDB">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="@B.TYPE,rp_batchtype" name="strParam"/>
+			</a>
+			<a name="ExportSmartParamToColumn" ns="ExportDB">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="@JOBID,rp_job" name="strParam"/>
+			</a>
+			<a name="ExportSmartParamToColumn" ns="ExportDB">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="@D.ID,rp_document" name="strParam"/>
+			</a>
+			<a name="ExportSmartParamToColumn" ns="ExportDB">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="@D.TYPE,rp_documenttype" name="strParam"/>
+			</a>
+			<a name="ExportSmartParamToColumn" ns="ExportDB">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="@ID,rp_page" name="strParam"/>
+			</a>
+			<a name="ExportSmartParamToColumn" ns="ExportDB">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="@P.TYPE,rp_pagetype" name="strParam"/>
+			</a>
+			<a name="ExportSmartParamToColumn" ns="ExportDB">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="@P.FingerprintMatched,rp_fpfound" name="strParam"/>
+			</a>
+			<a name="ExportSmartParamToColumn" ns="ExportDB">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="@P.Fingerprint Created,rp_fpcreated" name="strParam"/>
+			</a>
+			<a name="ExportSmartParamToColumn" ns="ExportDB">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="@P.Verify Operator,rp_verifyoperator" name="strParam"/>
+			</a>
+			<a name="ExportSmartParamToColumn" ns="ExportDB">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="@P.Verify Station,rp_verifystation" name="strParam"/>
+			</a>
+			<a name="ExportSmartParamToColumn" ns="ExportDB">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="@P.Verify Time,rp_verifytime" name="strParam"/>
+			</a>
+			<a name="ExportSmartParamToColumn" ns="ExportDB">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="@P.PostVerify Status,rp_statuspostverify" name="strParam"/>
+			</a>
+			<a name="ExportSmartParamToColumn" ns="ExportDB">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="@P.PreVerify Status,rp_statuspreverify" name="strParam"/>
+			</a>
+			<a name="ExportSmartParamToColumn" ns="ExportDB">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="@P.STATUS,rp_status" name="strParam"/>
+			</a>
+			<a name="ExportSmartParamToColumn" ns="ExportDB">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="@P.comments,rp_comments" name="strParam"/>
+			</a>
+			<a name="ExportSmartParamToColumn" ns="ExportDB">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="@DATE(MM/DD/YYYY)+ +@TIME(),rp_time" name="strParam"/>
+			</a>
+			<a name="AddRecord" ns="ExportDB">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+		</func>
+	</rule>
+	<rule name="Field" id="3" qi="" dcomap.open="F">
+		<func name="ExportFieldStats" disabled="y">
+			<a name="SetTableName" ns="ExportDB">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="reportField" name="strParam"/>
+			</a>
+			<a name="ExportSmartParamToColumn" ns="ExportDB">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="@BATCHID,rf_batch" name="strParam"/>
+			</a>
+			<a name="ExportSmartParamToColumn" ns="ExportDB">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="@B.TYPE,rf_batchtype" name="strParam"/>
+			</a>
+			<a name="ExportSmartParamToColumn" ns="ExportDB">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="@JOBID,rf_job" name="strParam"/>
+			</a>
+			<a name="ExportSmartParamToColumn" ns="ExportDB">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="@D.ID,rf_document" name="strParam"/>
+			</a>
+			<a name="ExportSmartParamToColumn" ns="ExportDB">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="@D.TYPE,rf_documenttype" name="strParam"/>
+			</a>
+			<a name="ExportSmartParamToColumn" ns="ExportDB">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="@P.ID,rf_page" name="strParam"/>
+			</a>
+			<a name="ExportSmartParamToColumn" ns="ExportDB">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="@P.TYPE,rf_pagetype" name="strParam"/>
+			</a>
+			<a name="ExportSmartParamToColumn" ns="ExportDB">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="@F.TYPE,rf_fieldtype" name="strParam"/>
+			</a>
+			<a name="ExportSmartParamToColumn" ns="ExportDB">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="@F.STATUS,rf_status" name="strParam"/>
+			</a>
+			<a name="ExportSmartParamToColumn" ns="ExportDB">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="@F.PreVerify Status,rf_statuspreverify" name="strParam"/>
+			</a>
+			<a name="ExportSmartParamToColumn" ns="ExportDB">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="@F.Verify Characters Changed,rf_charschanged,2" name="strParam"/>
+			</a>
+			<a name="ExportSmartParamToColumn" ns="ExportDB">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="@F.RecognizedChars,rf_recognizedchars,2" name="strParam"/>
+			</a>
+			<a name="ExportSmartParamToColumn" ns="ExportDB">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="@F.RecognizedCharsLc,rf_recognizedcharslc,2" name="strParam"/>
+			</a>
+			<a name="ExportSmartParamToColumn" ns="ExportDB" qi="">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="@DATE(MM/DD/YYYY)+ +@TIME(),rf_time" name="strParam"/>
+			</a>
+			<a name="AddRecord" ns="ExportDB">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+		</func>
+	</rule>
+	<rule name="Close Connection" id="4" dcomap.close="B" qi="">
+		<func name="Function1" qi="">
+			<a name="ExportCloseConnection" ns="ExportDB.dll">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+		</func>
+	</rule>
+</ruleset>

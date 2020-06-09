@@ -1,0 +1,13 @@
+<?xml-stylesheet type="text/xsl" href="..\..\ProgramSet\set.xsl"?>
+<S>
+  <P tip="General Batch Processing Settings" title="Batch Processing" n="BatchProcessing">
+    <V n="Page1" label="Web Program" tip="Specifies ASPX module that handles the task in Datacap Web" type="text" disabled="true">uplbfcl.aspx</V>
+    <V n="CreateDir" label="Create Batch Directory" tip="Specifies to assume batch creation mode and create batch directory" type="checkbox">0</V>
+    <V n="TaskDCOFile" label="Output DCO File" tip="Specifies name for the output dco file for the task" type="text">taskname.xml</V>
+    <V n="Hold" label="Allow Hold" tip="Allows placing batches on hold to continue later" type="checkbox">1</V>
+  </P>
+  <P tip="Settings for upload process" title="Upload" n="UpSet">
+    <V n="Delay" label="Upload Pause" tip="Delay between uploading images or groups of images for UI refresh purpose" type="text">300</V>
+    <V n="MaxUploadSizeKb" label="Max Upload Size" tip="Combine images into groups of max size for upload speed-up" type="text">0</V>
+  </P>
+</S>

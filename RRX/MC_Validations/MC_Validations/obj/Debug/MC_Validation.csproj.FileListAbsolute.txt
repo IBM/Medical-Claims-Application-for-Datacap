@@ -1,0 +1,10 @@
+C:\Users\ShubhamJoshi\Desktop\GITHUB\Mediclaim_20-5\Medical-Claims\RRX\MC_Validations\MC_Validations\obj\Debug\MC_Validation.csprojResolveAssemblyReference.cache
+C:\Users\ShubhamJoshi\Desktop\GITHUB\Mediclaim_20-5\Medical-Claims\RRX\MC_Validations\MC_Validations\obj\Debug\Interop.dcrroLib.dll
+C:\Users\ShubhamJoshi\Desktop\GITHUB\Mediclaim_20-5\Medical-Claims\RRX\MC_Validations\MC_Validations\obj\Debug\MC_Validation.csproj.ResolveComReference.cache
+C:\Users\ShubhamJoshi\Desktop\GITHUB\Mediclaim_20-5\Medical-Claims\RRX\MC_Validations\MC_Validations\obj\Debug\MC_Validation.Properties.Resources.resources
+C:\Users\ShubhamJoshi\Desktop\GITHUB\Mediclaim_20-5\Medical-Claims\RRX\MC_Validations\MC_Validations\obj\Debug\MC_Validation.csproj.GenerateResource.Cache
+C:\Users\ShubhamJoshi\Desktop\GITHUB\Mediclaim_20-5\Medical-Claims\RRX\MC_Validations\MC_Validations\bin\Debug\MC_Validation.dll
+C:\Users\ShubhamJoshi\Desktop\GITHUB\Mediclaim_20-5\Medical-Claims\RRX\MC_Validations\MC_Validations\bin\Debug\MC_Validation.pdb
+C:\Users\ShubhamJoshi\Desktop\GITHUB\Mediclaim_20-5\Medical-Claims\RRX\MC_Validations\MC_Validations\bin\Debug\iRRX.dll
+C:\Users\ShubhamJoshi\Desktop\GITHUB\Mediclaim_20-5\Medical-Claims\RRX\MC_Validations\MC_Validations\obj\Debug\MC_Validation.dll
+C:\Users\ShubhamJoshi\Desktop\GITHUB\Mediclaim_20-5\Medical-Claims\RRX\MC_Validations\MC_Validations\obj\Debug\MC_Validation.pdb

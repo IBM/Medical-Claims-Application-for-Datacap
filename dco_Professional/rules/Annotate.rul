@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ruleset name="Annotate" id="27" ver="1">
+	<rule name="Rule1 Check  Document Status" id="1">
+		<func name="Function1">
+			<a name="ChkDCOStatus" ns="DCO">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="128,145" name="StrParam"/>
+			</a>
+			<a name="SkipChildren" ns="rrunner">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+		</func>
+	</rule>
+	<rule name="Rule2 Annotate Claim" id="2">
+		<func name="Function1">
+			<a name="SkipChildren" ns="rrunner">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="ChkDCOStatus" ns="DCO">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="77" name="StrParam"/>
+			</a>
+			<a name="SkipChildren" ns="rrunner">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+		</func>
+		<func name="Function2">
+			<a name="SetFontSize" ns="Imprint">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="12" name="StrParam"/>
+			</a>
+			<a name="SetOpaque" ns="Imprint">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="0" name="StrParam"/>
+			</a>
+			<a name="SetAdjustedWidth" ns="Imprint">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="100" name="StrParam"/>
+			</a>
+			<a name="AnnotateImage" ns="Imprint">
+				<p name="displayText" v="@D.dcDCN"/>
+				<p name="xCoordinate" v="25"/>
+				<p name="yCoordinate" v="10"/>
+			</a>
+			<a name="AnnotateImage" ns="Imprint">
+				<p name="displayText" v="@BATCHID"/>
+				<p name="xCoordinate" v="600"/>
+				<p name="yCoordinate" v="10"/>
+			</a>
+			<a name="AnnotateImage" ns="Imprint">
+				<p name="displayText" v="@B\RecDate"/>
+				<p name="xCoordinate" v="300"/>
+				<p name="yCoordinate" v="10"/>
+			</a>
+		</func>
+	</rule>
+	<rule name="Rule3 Annotate Attachment" id="3">
+		<func name="Function1">
+			<a name="SetFontSize" ns="Imprint">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="12" name="StrParam"/>
+			</a>
+			<a name="SetOpaque" ns="Imprint">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="0" name="StrParam"/>
+			</a>
+			<a name="SetAdjustedWidth" ns="Imprint">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="100" name="StrParam"/>
+			</a>
+			<a name="AnnotateImage" ns="Imprint">
+				<p name="displayText" v="@D.dcDCN"/>
+				<p name="xCoordinate" v="25"/>
+				<p name="yCoordinate" v="10"/>
+			</a>
+			<a name="AnnotateImage" ns="Imprint" qi="">
+				<p name="displayText" v="@BATCHID"/>
+				<p name="xCoordinate" v="600"/>
+				<p name="yCoordinate" v="10"/>
+			</a>
+			<a name="AnnotateImage" ns="Imprint">
+				<p name="displayText" v="@B\RecDate"/>
+				<p name="xCoordinate" v="300"/>
+				<p name="yCoordinate" v="10"/>
+			</a>
+		</func>
+	</rule>
+</ruleset>

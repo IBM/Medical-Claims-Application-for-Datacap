@@ -1,0 +1,332 @@
+<?xml version='1.0' ?>
+<rrx namespace="MC_Identify"><i ref="rrunner"/>
+<g>
+  <![CDATA[
+'************************************************************************
+
+'------------------------------------------------------------------------
+Writelog("MC_Identify dll_AssemblyVersion")
+'********************************************************************
+
+On Error Resume Next
+
+Dim g_oAutoField
+
+Function Initialize_Autofield()
+  
+  On Error Resume Next
+
+  Initialize_Autofield=FALSE
+
+  Set g_oAutoField = CreateObject("Datacap.HCCSAutofield.1")
+
+  If IsAlive(g_oAutoField) then 
+    Writelog("Autofld.dll initialized")
+    g_oAutoField.Dclogx = DCLogX
+  Else
+    Writelog("Autofld.dll not created. Exiting.")
+    Exit Function
+  End if
+  
+  If err.number<>0 then 
+    writelog("error setting autofield dclogx. " & err.number & ":" & err.description)
+  Else
+    Initialize_Autofield=TRUE
+  End if
+
+End Function
+
+Call Initialize_Autofield()
+
+]]></g>
+  
+<af name="AutoField" access="public" bInter="bInter" bDebug="bDebug">
+ <g>
+   <![CDATA[
+ 'Identifies red HCFA-1500 or red UB04 forms.  The action must be placed after a rule's SetMaxTolerantDistance,
+ '  SetFormType, ReadDCOSetup, and SetWritePosFile actions
+        
+  Dim sDataFileName
+  Dim bDCORead
+  
+  On Error Resume Next
+
+  AutoField= False
+    
+  If (CurrentObj.ObjectType<>2) Then 
+    Writelog("AutoField: object is not a page.")
+    Exit Function	'must be a page
+  End if
+  
+  Writelog("Autofield Analyzing '" & currentObj.Imagename & "'")
+  
+  If Not IsAlive(g_oAutoField) then
+    If Initialize_Autofield=False then Exit Function
+  End if
+  
+  AutoField = g_oAutoField.Analyze(CurrentObj.ImageName) 
+  Writelog("Analyze returned:" & AutoField) 
+  
+  If Err.Number<>0 then
+    Writelog("Failed to Analyze Image.")
+    Err.Clear
+    Exit Function
+  End if
+   
+  sDataFileName=Replace(LCase(CurrentObj.Variable("IMAGEFILE")), ".tif", ".xml")
+   
+  Writelog("Setting DATAFILE to '" & sDataFileName & "'")
+  CurrentObj.Variable("DATAFILE")=sDataFileName
+	
+  Writelog("Reading DATAFILE...")
+  bDCORead=CurrentObj.Read(CurrentObj.Variable("DATAFILE"))
+      
+  Writelog("Read DATAFILE returned:" & bDCORead)
+       
+]]></g>
+</af>
+
+<af name="FindFields" access="public" bInter="bInter" bDebug="bDebug">
+<g>
+  <![CDATA[
+	On Error Resume next
+  
+  Dim bRead
+  Dim sDatafile
+  Dim bModifiedFields
+  
+  FindFields = False
+	
+  If (CurrentObj.ObjectType<>2) Then 
+    Writelog("AutoField: Calling DCO must be a page. Exiting.")
+    Exit Function	'must be a page
+  End if
+  
+  If Not IsAlive(g_oAutoField) then
+    If Initialize_Autofield=False then Exit Function
+  End if
+  
+  Writelog("FindFields Analyzing file: '" & CurrentObj.Imagename & "'")
+	FindFields = g_oAutoField.FindFields(CurrentObj.ImageName) 
+  Writelog("FindFields returns '" & FindFields & "'")
+  
+  If Err.Number<>0 then
+    Writelog("FindFields Err.")
+    Err.Clear
+    Exit Function
+  End if
+	
+  CurrentObj.Variable("DATAFILE")=Replace(LCase(CurrentObj.Variable("IMAGEFILE")), ".tif", ".xml")
+	CurrentObj.Read(CurrentObj.Variable("DATAFILE"))
+  
+]]></g>
+</af>
+
+<af name="SetMaxTolerantDistance" access="public" bInter="bInter" bDebug="bDebug" strParam="StrParam">
+<g>
+  <![CDATA[
+  On Error Resume Next
+  
+	  SetMaxTolerantDistance = False
+  
+	  If Not IsNumeric(StrParam) Then 
+      Writelog("The parameter:" & StrParam & " - is invalid. Expected integer 1 - 100.")
+		  Exit Function
+    End If 
+ 
+		nDistance = CInt(StrParam)
+    
+		If (nDistance<0 And nDistance>100) Then 
+			Writelog("The parameter:" & StrParam & " - is invalid. Expected integer 1 - 100.")
+			Exit Function
+		End If
+
+    If Not IsAlive(g_oAutoField) then 
+      Writelog("Autofld object is not available. Exiting.")
+      Exit Function
+    End if
+
+    g_oAutoField.MaxDistance = nDistance
+      
+    If Err.Number<>0 then
+      Writelog("Failed to SetMaxTolerantDistance.")
+      Err.Clear
+      Exit Function
+    End if  
+      
+    SetMaxTolerantDistance = True
+    
+]]></g></af>
+
+<af name="SetFormType" access="public" bInter="bInter" bDebug="bDebug" strParam="StrParam">
+<g>
+  <![CDATA[
+  On Error Resume Next
+
+  SetFormType = False
+
+  If Not IsAlive(g_oAutoField) then
+    If Initialize_Autofield=False then Exit Function
+  End if
+
+	SetFormType = True
+  
+  StrParam=Trim(StrParam)
+  Select Case UCase(StrParam)
+    Case "0","HCFA"
+      g_oAutoField.FormType = 0
+      Writelog("Selected FormType HCFA 1500 05/08")
+    Case "1","UB","UB92"
+      g_oAutoField.FormType = 1
+      Writelog("Selected FormType UB92")
+    Case "2","UB04"
+      g_oAutoField.FormType = 2
+      Writelog("Selected FormType UB04")
+    Case "3"
+      g_oAutoField.FormType = 3
+      Writelog("Selected FormType CMS 1500 02/12")
+    Case Else
+      Writelog("Invalid parameter '" & StrParam & "'.")
+      SetFormType=False
+  End Select
+  
+  If Err.Number<>0 then
+    Writelog("Failed to SetFormType.")
+    Err.Clear
+  End if 
+  
+  
+]]></g>
+</af>
+
+<af name="ReadDCOSetup" access="public" bInter="bInter" bDebug="bDebug" strParam="StrParam">
+<g>
+  <![CDATA[
+	Dim aStrParam, strDCOSetup, strPos
+	Dim sSmartParam
+
+  On Error Resume Next
+  
+  ReadDCOSetup = False
+  
+  If Not IsAlive(g_oAutoField) then
+    Call Initialize_Autofield()
+  End if
+  
+  If Not IsAlive(g_oAutoField) then
+    Writelog("No Autofield Object available. Exiting.")
+    Exit Function
+  Else
+    Writelog("Autofield Object available.")
+  End if
+  
+	aStrParam = Split(StrParam & ", ", ",")
+	
+	strDCOSetup = Trim(aStrParam(0))
+	strPos = Trim(aStrParam(1))
+
+  'Added support for Smart Parameters(1)
+  sSmartParam=MetaWord(strDCOSetup)
+  If sSmartParam<>"" Then 
+    strDCOSetup=sSmartParam  
+  Else
+    Writelog("No result from Smart Parameter(1) parsing. Using original parameter '" & strDCOSetup & "'") 
+  End if
+
+   'Check for valid path from parameter
+  If IsAlive(FileMgr) Then
+  
+    If Not FileMgr.FileExists(strDCOSetup) then
+      Writelog("File not found:'" & strDCOSetup & "'")
+      Exit Function
+    Else
+      Writelog("File '" & strDCOSetup & "' exists.")
+    End if
+  
+  End if 
+
+  'Added support for Smart Parameters(2)
+  sSmartParam=MetaWord(strPos)
+  If sSmartParam<>"" Then 
+    strPos=sSmartParam  
+  Else
+    Writelog("No result from Smart Parameter(1) parsing. Using original parameter '" & strPos & "'") 
+  End if
+
+	g_oAutoField.ReadDCOSetup strDCOSetup, strPos
+
+  If Err.Number<>0 then
+      Writelog("Failed to ReadDCOSetup.")
+      Err.Clear
+      Exit Function
+  End if 
+
+	ReadDCOSetup = True
+]]></g>
+</af>
+
+ <f name="ReadPageSetup" access="public">
+   <p name="DCOSetupPath"/>
+   <p name="FPPosition"/>
+   <p name="PageType"/>
+    <g>
+      <![CDATA[
+	
+	Dim sSmartParam
+
+  On Error Resume Next
+  
+  ReadPageSetup = False
+  
+  If Not IsAlive(g_oAutoField) then
+    call Initialize_Autofield()
+  End if
+  
+  If Not IsAlive(g_oAutoField) then
+    Writelog("No Autofield Object available. Exiting.")
+    Exit Function
+  Else
+    Writelog("Autofield Object available.")
+  End if	
+
+  sSmartParam=MetaWord(DCOSetupPath)
+  If sSmartParam<>"" Then 
+    DCOSetupPath=sSmartParam  
+  Else
+    Writelog("No result from Smart Parameter(1) parsing. Using original parameter '" & DCOSetupPath & "'") 
+  End if
+
+   'Check for valid path from parameter
+  If IsAlive(FileMgr) Then
+  
+    If Not FileMgr.FileExists(DCOSetupPath) then
+      Writelog("File not found:'" & DCOSetupPath & "'")
+      Exit Function
+    Else
+      Writelog("File '" & DCOSetupPath & "' exists.")
+    End if
+  
+  End if 
+
+  sSmartParam=MetaWord(FPPosition)
+  If sSmartParam<>"" Then 
+    FPPosition=sSmartParam  
+  Else
+    Writelog("No result from Smart Parameter(2) parsing. Using original parameter '" & FPPosition & "'") 
+  End if
+  
+  sSmartParam=MetaWord(PageType)
+  If sSmartParam<>"" Then 
+    PageType=sSmartParam  
+  Else
+    Writelog("No result from Smart Parameter(3) parsing. Using original parameter '" & PageType & "'") 
+  End if
+  
+  g_oAutoField.ReadPageSetup DCOSetupPath, FPPosition, PageType
+
+	ReadPageSetup = True
+  
+]]>
+    </g>
+  </f>
+</rrx>

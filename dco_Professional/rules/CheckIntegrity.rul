@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ruleset name="CheckIntegrity" id="16" ver="1">
+	<rule name="Rule Batch Level Checks IN" id="1">
+		<func name="Function Test for rollback status">
+			<a name="ChkDCOStatus" ns="DCO">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="141" name="StrParam"/>
+			</a>
+		</func>
+		<func name="Function Prof Red update ED &amp; EP values from batch fields" qi="">
+			<a name="rrCompareNot" ns="rrunner">
+				<p name="object1" v="@JOBID"/>
+				<p name="object2" v="PROF Vscan Red"/>
+			</a>
+			<a name="rrSet" ns="rrunner">
+				<p name="varSource" v="@B\Expected_Documents"/>
+				<p name="varTarget" v="@B.ED"/>
+			</a>
+			<a name="rrSet" ns="rrunner" qi="">
+				<p name="varSource" v="@B\Expected_Pages"/>
+				<p name="varTarget" v="@B.EP"/>
+			</a>
+			<a name="GoToNextFunction" ns="rrunner" qi=""/>
+		</func>
+		<func name="Function Prof Black update ED &amp; EP values from batch fields" qi="">
+			<a name="rrCompareNot" ns="rrunner" qi="">
+				<p name="object1" v="@JOBID"/>
+				<p name="object2" v="PROF Vscan Black"/>
+			</a>
+			<a name="rrSet" ns="rrunner">
+				<p name="varSource" v="@B\Expected_Documents"/>
+				<p name="varTarget" v="@B.ED"/>
+			</a>
+			<a name="rrSet" ns="rrunner" qi="">
+				<p name="varSource" v="@B\Expected_Pages"/>
+				<p name="varTarget" v="@B.EP"/>
+			</a>
+			<a name="GoToNextFunction" ns="rrunner" qi=""/>
+		</func>
+		<func name="Function Integrity Check" qi="">
+			<a name="SkipChildren" ns="rrunner" qi="" disabled="y">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a ns="rrunner" name="rrSet">
+				<p name="varSource" v="NO"/>
+				<p name="varTarget" v="@B.IntegrityFailed"/>
+			</a>
+			<a name="ChkIntegrity" ns="DCO">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="CheckDocCount" ns="rrunner">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+		</func>
+		<func name="Function 2 Integrity Check">
+			<a ns="rrunner" name="rrSet" qi="">
+				<p name="varSource" v="YES"/>
+				<p name="varTarget" v="@B.IntegrityFailed"/>
+			</a>
+		</func>
+	</rule>
+	<rule name="Rule Check Page for 08/05 Form - Route to Fixup" id="2" qi="">
+		<func name="Function1" qi="">
+			<a name="SkipChildren" ns="rrunner" qi="">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a ns="rrunner" name="rrCompare">
+				<p name="object1" v="08/05"/>
+				<p name="object2" v="@P.FormVersion"/>
+			</a>
+			<a ns="DCO" name="SetDCOStatus" qi="">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="1" name="StrParam"/>
+			</a>
+			<a ns="rrunner" name="rrSet" qi="">
+				<p name="varSource" v="YES"/>
+				<p name="varTarget" v="@B.IntegrityFailed"/>
+			</a>
+		</func>
+	</rule>
+	<rule name="Rule Batch Level Checks OUT " id="3" qi="">
+		<func name="Function1">
+			<a ns="rrunner" name="rrCompare" qi="">
+				<p name="object1" v="YES"/>
+				<p name="object2" v="@B.IntegrityFailed"/>
+			</a>
+		</func>
+		<func name="Function2">
+			<a name="Task_NumberOfSplits" ns="rrunner">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="1" name="nNumOfSplits"/>
+			</a>
+			<a name="Task_RaiseCondition" ns="rrunner">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="0,0" name="strParam"/>
+			</a>
+		</func>
+	</rule>
+</ruleset>

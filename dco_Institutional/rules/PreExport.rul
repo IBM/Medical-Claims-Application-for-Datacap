@@ -1,0 +1,154 @@
+<ruleset name="PreExport" id="4" ver="3" >
+	<rule name="PreExport Document Rule" id="1" qi="">
+		<func name="Function1">
+			<a name="rrSet" ns="rrunner">
+				<p name="varSource" v="@ID"/>
+				<p name="varTarget" v="@D.dcDCN"/>
+			</a>
+			<a name="ChkDCOStatus" ns="DCO">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="128,145" name="StrParam"/>
+			</a>
+			<a name="SkipChildren" ns="rrunner">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+		</func>
+		<func name="Function2">
+			<a name="ChkDCOStatus" ns="DCO">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="1" name="StrParam"/>
+			</a>
+			<a name="rrSet" ns="rrunner">
+				<p name="varSource" v="0"/>
+				<p name="varTarget" v="@D.STATUS"/>
+			</a>
+		</func>
+	</rule>
+	<rule name="PreExport Page Rule" id="2" qi="">
+		<func name="Function Skip Children" qi="No need to process fields&#xA;">
+			<a name="SkipChildren" ns="rrunner">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="GoToNextFunction" ns="rrunner"/>
+		</func>
+		<func name="Check for FAILED Status (Can not override OVERRIDE, RESCAN, DELETE or REVIEW)" qi="">
+			<a name="ChkDCOStatus" ns="DCO">
+				<p type="bInter"/>
+				<p type="bDebug"/>
+				<p type="strParam" v="1"/>
+			</a>
+			<a name="rrCompareNot" ns="rrunner">
+				<p name="object1" v="@D.STATUS"/>
+				<p name="object2" v="1"/>
+			</a>
+			<a name="rrCompareNot" ns="rrunner">
+				<p name="object1" v="@D.STATUS"/>
+				<p name="object2" v="142"/>
+			</a>
+			<a name="rrCompareNot" ns="rrunner">
+				<p name="object1" v="@D.STATUS"/>
+				<p name="object2" v="145"/>
+			</a>
+			<a name="rrCompareNot" ns="rrunner">
+				<p name="object1" v="@D.STATUS"/>
+				<p name="object2" v="129"/>
+			</a>
+			<a name="rrCompareNot" ns="rrunner">
+				<p name="object1" v="@D.STATUS"/>
+				<p name="object2" v="128"/>
+			</a>
+			<a name="rrSet" ns="rrunner" qi="">
+				<p name="varSource" v="1"/>
+				<p name="varTarget" v="@D.STATUS"/>
+			</a>
+		</func>
+		<func name="Function Check for OVERRIDE Status (Can not override RESCAN, DELETE or REVIEW)" qi="">
+			<a name="ChkDCOStatus" ns="DCO">
+				<p type="bInter"/>
+				<p type="bDebug"/>
+				<p type="strParam" v="73"/>
+			</a>
+			<a name="rrCompareNot" ns="rrunner">
+				<p name="object1" v="@D.STATUS"/>
+				<p name="object2" v="142"/>
+			</a>
+			<a name="rrCompareNot" ns="rrunner">
+				<p name="object1" v="@D.STATUS"/>
+				<p name="object2" v="145"/>
+			</a>
+			<a name="rrCompareNot" ns="rrunner">
+				<p name="object1" v="@D.STATUS"/>
+				<p name="object2" v="129"/>
+			</a>
+			<a name="rrCompareNot" ns="rrunner">
+				<p name="object1" v="@D.STATUS"/>
+				<p name="object2" v="128"/>
+			</a>
+			<a name="rrSet" ns="rrunner">
+				<p name="varSource" v="142"/>
+				<p name="varTarget" v="@D.STATUS"/>
+			</a>
+		</func>
+		<func name="Function Check for REVIEW Status (Can not override RESCAN or DELETE)">
+			<a name="ChkDCOStatus" ns="DCO">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="79" name="StrParam"/>
+			</a>
+			<a name="rrCompareNot" ns="rrunner">
+				<p name="object1" v="@D.STATUS"/>
+				<p name="object2" v="145"/>
+			</a>
+			<a name="rrCompareNot" ns="rrunner">
+				<p name="object1" v="@D.STATUS"/>
+				<p name="object2" v="129"/>
+			</a>
+			<a name="rrCompareNot" ns="rrunner">
+				<p name="object1" v="@D.STATUS"/>
+				<p name="object2" v="128"/>
+			</a>
+			<a name="rrSet" ns="rrunner">
+				<p name="varSource" v="145"/>
+				<p name="varTarget" v="@D.STATUS"/>
+			</a>
+		</func>
+		<func name="Function Check for RESCAN Status (Can not override DELETE)">
+			<a name="ChkDCOStatus" ns="DCO">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="70" name="StrParam"/>
+			</a>
+			<a name="rrCompareNot" ns="rrunner">
+				<p name="object1" v="@D.STATUS"/>
+				<p name="object2" v="129"/>
+			</a>
+			<a name="rrCompareNot" ns="rrunner">
+				<p name="object1" v="@D.STATUS"/>
+				<p name="object2" v="128"/>
+			</a>
+			<a name="rrSet" ns="rrunner">
+				<p name="varSource" v="129"/>
+				<p name="varTarget" v="@D.STATUS"/>
+			</a>
+		</func>
+		<func name="Function Check for DELETE Status">
+			<a name="ChkDCOStatus" ns="DCO">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="74,75,77" name="StrParam"/>
+			</a>
+			<a name="rrCompareNot" ns="rrunner">
+				<p name="object1" v="@D.STATUS"/>
+				<p name="object2" v="128"/>
+			</a>
+			<a name="rrSet" ns="rrunner">
+				<p name="varSource" v="128"/>
+				<p name="varTarget" v="@D.STATUS"/>
+			</a>
+		</func>
+	</rule>
+</ruleset>

@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ruleset name="Page_IDBlack" id="6" ver="1">
+	<rule name="Rule1 Check Batch Status / Imagefix settings" id="2">
+		<func name="Function1">
+			<a name="rrSet" ns="rrunner">
+				<p name="varSource" v="Black"/>
+				<p name="varTarget" v="@B.Color"/>
+			</a>
+			<a name="ChkDCOStatus" ns="DCO">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="141" name="StrParam"/>
+			</a>
+			<a name="SkipChildren" ns="rrunner">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+		</func>
+		<func name="Function2">
+			<a name="PilotMessage_Clear" ns="rrunner">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="SetFingerprintDir" ns="autodoc">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="@APPPATH(fingerprint)" name="StrParam"/>
+			</a>
+			<a name="SetFormType" ns="MC_Identify">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="2" name="StrParam"/>
+			</a>
+			<a name="SetMaxTolerantDistance" ns="MC_Identify">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="80" name="StrParam"/>
+			</a>
+			<a name="ReadPageSetup" ns="MC_Identify">
+				<p name="DCOSetupPath" v="@APPPATH(setupdco)"/>
+				<p name="FPPosition" v="Pos1055"/>
+				<p name="PageType" v="IClaim"/>
+			</a>
+		</func>
+	</rule>
+	<rule name="Rule Identify, Enhance Images &amp; Find Fields - Black" id="3" qi="">
+		<func name="Function1">
+			<a name="LoadSettings" ns="ImageFix" qi="">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="@APPPATH(imagefix)" name="sFilePath"/>
+			</a>
+			<a name="ImageEnhance" ns="ImageFix" qi="">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="ti0" name="StrParam"/>
+			</a>
+			<a name="LoadSettings" ns="ImageFix" qi="">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="@APPPATH(imagefixblack)" name="sFilePath"/>
+			</a>
+			<a name="AnalyzeImage" ns="Recog_Shared" qi="">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="ChkDCOStatus" ns="DCO">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="0,48" name="StrParam"/>
+			</a>
+		</func>
+		<func name="Function2">
+			<a name="PilotMessage_Clear" ns="rrunner">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="ChkLastDCOType" ns="DCO">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="EndClaim" name="StrParam"/>
+			</a>
+			<a name="SetDCOType" ns="DCO">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="Attachment" name="StrParam"/>
+			</a>
+			<a name="SetDCOStatus" ns="DCO">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="74" name="StrParam"/>
+			</a>
+		</func>
+		<func name="Function3">
+			<a name="PilotMessage_Clear" ns="rrunner">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="rrCompare" ns="rrunner">
+				<p name="object1" v="@B.Multi"/>
+				<p name="object2" v="Yes"/>
+			</a>
+			<a name="ChkLastDCOType" ns="DCO">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="Attachment" name="StrParam"/>
+			</a>
+			<a name="SetDCOType" ns="DCO">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="Attachment" name="StrParam"/>
+			</a>
+			<a name="SetDCOStatus" ns="DCO">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="74" name="StrParam"/>
+			</a>
+		</func>
+		<func name="Function 4 Find by Fingerprint">
+			<a name="PilotMessage_Clear" ns="rrunner">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="SetFilter_HostName" ns="autodoc">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="UB04 Black" name="StrParam"/>
+			</a>
+			<a name="SetProblemValue" ns="autodoc">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="0.5" name="StrParam"/>
+			</a>
+			<a name="SetSearchArea" ns="autodoc">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="0.5" name="StrParam"/>
+			</a>
+			<a name="FindFingerprint" ns="autodoc">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="false" name="StrParam"/>
+			</a>
+			<a name="SetPageType" ns="DCO" qi="">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="IClaim" name="StrParam"/>
+			</a>
+			<a name="GoToNextFunction" ns="rrunner" qi=""/>
+		</func>
+		<func name="Function Set multi page ">
+			<a name="PilotMessage_Clear" ns="rrunner">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="rrCompare" ns="rrunner">
+				<p name="object1" v="@B.Multi"/>
+				<p name="object2" v="Yes"/>
+			</a>
+			<a name="SetPageType" ns="DCO" qi="">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="IClaim" name="StrParam"/>
+			</a>
+			<a name="rrSet" ns="rrunner" qi="">
+				<p name="varSource" v="Yes"/>
+				<p name="varTarget" v="@P.Overlay"/>
+			</a>
+			<a name="GoToNextFunction" ns="rrunner"/>
+		</func>
+		<func name="Function6" qi="">
+			<a name="PilotMessage_Clear" ns="rrunner">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="ChkDCOType" ns="DCO">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="IClaim" name="StrParam"/>
+			</a>
+			<a name="ImageEnhance" ns="ImageFix">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="ti1" name="StrParam"/>
+			</a>
+			<a name="AutoField" ns="MC_Identify" qi="">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="rrSet" ns="rrunner">
+				<p name="varSource" v="Black"/>
+				<p name="varTarget" v="@P.Color"/>
+			</a>
+			<a name="rrSet" ns="rrunner" qi="">
+				<p name="varSource" v="1055"/>
+				<p name="varTarget" v="@P.TemplateID"/>
+			</a>
+			<a name="rrSet" ns="rrunner">
+				<p name="varSource" v="Yes"/>
+				<p name="varTarget" v="@P.Overlay"/>
+			</a>
+			<a name="rrSet" ns="rrunner">
+				<p name="varSource" v="@EMPTY"/>
+				<p name="varTarget" v="@P.Image_Offset"/>
+			</a>
+			<a name="SetPageStatus" ns="DCO">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="49" name="StrParam"/>
+			</a>
+		</func>
+		<func name="Function7" qi="">
+			<a name="ChkDCOType" ns="DCO" qi="">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="IClaim" name="StrParam"/>
+			</a>
+			<a name="ImageEnhance" ns="ImageFix">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="ti1" name="StrParam"/>
+			</a>
+			<a name="CreateFields" ns="DCO">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="ReadZones" ns="Zones">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="rrSet" ns="rrunner">
+				<p name="varSource" v="Yes"/>
+				<p name="varTarget" v="@P.Overlay"/>
+			</a>
+			<a name="rrSet" ns="rrunner">
+				<p name="varSource" v="Black"/>
+				<p name="varTarget" v="@P.Color"/>
+			</a>
+			<a name="SetPageStatus" ns="DCO">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="49" name="StrParam"/>
+			</a>
+		</func>
+		<func name="Function8">
+			<a name="PilotMessage_Clear" ns="rrunner">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="SetPageStatus" ns="DCO">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="74" name="StrParam"/>
+			</a>
+			<a name="SetPageType" ns="DCO" qi="">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="Attachment" name="StrParam"/>
+			</a>
+			<a ns="MC_Validation" name="SetOriginalTIF">
+				<p type="bInter"/>
+				<p type="bDebug"/>
+				<p type="strParam" v="ti0"/>
+			</a>
+			<a name="AnalyzeImage" ns="Recog_Shared" qi="">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+		</func>
+	</rule>
+</ruleset>

@@ -1,0 +1,106 @@
+<ruleset name="Export" id="7" ver="2" modder="admin.1" dt="09/10/10.78  09:43:36.78 " src_ver="1">
+	<rule name="Rule1" id="4">
+		<func name="Function1">
+			<a name="SetExportPath" ns="Export">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="@APPPATH(export)" name="strParam"/>
+			</a>
+			<a name="SetFileName" ns="Export">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="P_+@BatchID" name="StrParam"/>
+			</a>
+			<a name="SetExtensionName" ns="Export">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="txt" name="StrParam"/>
+			</a>
+		</func>
+	</rule>
+	<rule name="Rule2" id="3">
+		<func name="Function1 Document Level">
+			<a name="BPilot" ns="Export">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="BatchID" name="StrParam"/>
+			</a>
+			<a name="SetElementSeparator" ns="Export">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="|" name="StrParam"/>
+			</a>
+			<a name="DCOProperty" ns="Export">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="ID" name="StrParam"/>
+			</a>
+		</func>
+	</rule>
+	<rule name="Rule3" id="2" qi="">
+		<func name="Function1 Page Level">
+			<a name="ExportSmartParameter" ns="Export">
+				<p type="bInter"/>
+				<p type="bDebug"/>
+				<p type="strParam" v="@P.IMAGEFILE"/>
+			</a>
+			<a name="DCOProperty" ns="Export">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="TYPE" name="StrParam"/>
+			</a>
+			<a name="Text" ns="Export">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="PROF" name="StrParam"/>
+			</a>
+			<a name="ExportSmartParameter" ns="Export">
+				<p type="bInter"/>
+				<p type="bDebug"/>
+				<p type="strParam" v="@P\1aInsrID"/>
+			</a>
+			<a name="ExportSmartParameter" ns="Export">
+				<p type="bInter"/>
+				<p type="bDebug"/>
+				<p type="strParam" v="@P\3Pat_DOB"/>
+			</a>
+			<a name="ExportSmartParameter" ns="Export">
+				<p type="bInter"/>
+				<p type="bDebug"/>
+				<p type="strParam" v="@P\3aPatSex"/>
+			</a>
+			<a name="ExportSmartParameter" ns="Export">
+				<p type="bInter"/>
+				<p type="bDebug"/>
+				<p type="strParam" v="@P\2PaLName"/>
+			</a>
+			<a name="ExportSmartParameter" ns="Export">
+				<p type="bInter"/>
+				<p type="bDebug"/>
+				<p type="strParam" v="@P\2PaFName"/>
+			</a>
+			<a name="ExportSmartParameter" ns="Export" qi="">
+				<p type="bInter"/>
+				<p type="bDebug"/>
+				<p type="strParam" v="@P\28TotChg"/>
+			</a>
+			<a name="SetElementSeparator" ns="Export">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="False" name="StrParam"/>
+			</a>
+			<a name="NewLine" ns="Export">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+		</func>
+	</rule>
+	<rule name="Rule4" id="1">
+		<func name="Function1">
+			<a name="CloseExportFile" ns="Export">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+		</func>
+	</rule>
+</ruleset>

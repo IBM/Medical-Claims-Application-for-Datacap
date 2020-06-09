@@ -1,0 +1,4798 @@
+<?xml version='1.0' ?>
+<rrx namespace="MC_Validation">
+<i ref="rrunner"/><g>
+  <![CDATA[
+'******************************************************************************************
+' MC_Validation.rra - Validation Medical Claims Actions 
+'-----------------------------------------------------------------------
+
+'-----------------------------------------------------------------------------------------
+Writelog("MC_Validation dll_AssemblyVersion")
+'*****************************************************************************************
+
+Dim oValidation
+Dim oParse
+Dim g_dictCredentials
+
+  
+'Initialize Global Validation objects
+]]></g>
+  
+<s name="InitMC_ValidationsObjects" access="private">
+<g>
+  <![CDATA[
+	On Error Resume Next
+	
+    Set oValidation = CreateObject("Datacap.Validations")
+
+    If NOT IsAlive(oValidation) then
+        writelog("Datacap.Validations object NOT created!")
+        bAbort = True 
+        nTaskStatus = RetAbort
+    Else
+        writelog("Created Datacap.Validations object.")
+    End if
+
+    Set oParse=CreateObject("Datacap.FldParse")
+
+    If NOT IsAlive(oParse) then
+        writelog("Datacap.FldParse object NOT created!")
+        bAbort = True 
+        nTaskStatus = RetAbort
+    Else
+        writelog("Created Datacap.FldParse object.")
+    End if
+
+	Err.Clear
+]]></g></s>
+  
+<g>
+  <![CDATA[
+Call InitMC_ValidationsObjects()
+
+Dim bFlagAll ' true if wish set all ChargesHCFA field to invalid instead set invalid just one wrong field
+bFlagAll = True ' managed by function SetChangeChargeFieldsSimultaneously
+
+Dim bFill_ToDate ' set true if wish to populate invalid DateTo from DateFrom
+bFill_ToDate = False
+
+Set g_dictCredentials = CreateObject("Scripting.Dictionary")
+Call InitMC_Credentialdict()
+
+]]></g>
+  <s name="InitMC_Credentialdict" access="private">
+    <g>
+      <![CDATA[
+	On Error Resume Next
+
+  writelog("Initializing Credential Dictionary")
+  
+  g_dictCredentials.Add "MD","MD"  
+  g_dictCredentials.Add "M.D","M.D"
+  g_dictCredentials.Add "M D","M D"
+  g_dictCredentials.Add "DR","DR"
+  g_dictCredentials.Add "DBA","DBA"
+  g_dictCredentials.Add "PT","PT"
+  g_dictCredentials.Add "DC","DC"
+  g_dictCredentials.Add "D C","D C"
+  g_dictCredentials.Add "ARNP","ARNP"
+  g_dictCredentials.Add "DO","DO"
+  g_dictCredentials.Add "D O","D O"
+  g_dictCredentials.Add "OD","OD"
+  g_dictCredentials.Add "PHD","PHD"
+  g_dictCredentials.Add "LMHC","LMHC"
+  g_dictCredentials.Add "PAC","PAC"
+  g_dictCredentials.Add "PA","PA"
+  g_dictCredentials.Add "OT","OT"
+  g_dictCredentials.Add "LCSW","LCSW"
+  g_dictCredentials.Add "CRNA","CRNA"
+  g_dictCredentials.Add "DPM","DPM"
+  g_dictCredentials.Add "LAC","LAC"
+  g_dictCredentials.Add "MSW","MSW"
+  g_dictCredentials.Add "NP","NP"
+  g_dictCredentials.Add "ND","ND"
+  g_dictCredentials.Add "FNP","FNP"
+  g_dictCredentials.Add "LMFT","LMFT"
+  g_dictCredentials.Add "CCCSLP","CCCSLP"
+  g_dictCredentials.Add "DMD","DMD"
+  g_dictCredentials.Add "MT","MT"
+  g_dictCredentials.Add "LMT","LMT"
+  g_dictCredentials.Add "DDS","DDS"
+  g_dictCredentials.Add "LPC","LPC"
+  g_dictCredentials.Add "RD","RD"
+  g_dictCredentials.Add "LSW","LSW"
+  g_dictCredentials.Add "CNM","CNM"
+  g_dictCredentials.Add "PAC","PAC"
+  g_dictCredentials.Add "LMP","LMP"
+  g_dictCredentials.Add "DPT","DPT"
+  g_dictCredentials.Add "PSYD","PSYD"
+  g_dictCredentials.Add "MS","MS"
+  g_dictCredentials.Add "ANP","ANP"
+  g_dictCredentials.Add "MPT","MPT"
+  g_dictCredentials.Add "MA","MA"
+  g_dictCredentials.Add "CCCA","CCCA"
+  g_dictCredentials.Add "RC","RC"
+  g_dictCredentials.Add "RNFA","RNFA"
+  g_dictCredentials.Add "MSA","MSA"
+  g_dictCredentials.Add "LICSW","LICSW"
+
+	Err.Clear
+]]>
+    </g>
+  </s>  
+<f name="FilteringChar" access="private"><p name="sStr"/><p name="chFilter"/>
+<g><![CDATA[
+        while(instr(sStr,chFilter) > 0)
+          n = instr(sStr,chFilter)
+          str1 = Mid(sStr,1,n-1)
+          str2 = ""
+          if n <> len(sStr) Then
+             str2 = Mid(sStr,n+1,len(sStr))
+          end if
+          sStr = str1 & str2
+        wend
+	FilteringChar = sStr
+]]></g></f>
+  
+<f name="RSAccess" access="private"><p name="strSQL"/><p name="bEOF"/><p name="nFieldIndex"/><p name="strFieldContents"/>
+<g>
+  <![CDATA[
+' Error message string
+' Record set object Counter
+' Field Object from Recordset Fields Collection
+
+	Dim sError		
+	Dim oRecSet		
+	Dim i			
+	Dim Fld			
+
+    sError = ""
+
+    On Error Resume Next
+
+	If IsEmpty(oConn) Or Not IsObject(oConn) Then
+		arRSData=GetDataArray(strSQL)
+		RSAccess=False
+		If (IsEmpty(arRSData)) Then
+			  bEOF=True
+			  WriteLog("RSAccess - no records returned")
+			  Exit Function
+		End If
+		If IsArray(arRSData) Then
+			nRecords=UBound(arRSData)
+			If nRecords>=0 Then
+				bEOF=False
+				nFields=Ubound(arRSData, 2)
+				If nFields<nFieldIndex Then
+					WriteLog("RSAccess's field index out of bounds!")
+				Else
+					strFieldContents=arRSData(0, nFieldIndex)
+					WriteLog("RSAccess's result is '" & strFieldContents & "'")
+					RSAccess=True
+				End If
+			Else
+				  WriteLog("RSAccess - no records returned")
+				  bEOF=True
+			End If
+		Else
+		  WriteLog("RSAccess - no records returned")
+		  bEOF=True
+		End If			
+		Exit Function
+	End If
+	
+	RSAccess = False	'Default return value = false.
+	strFieldContents=""	'Initialize return string content.
+
+	WriteLog("      Opening Recordset")	
+	WriteLog("SQL=" & strSQL)		
+		
+	'Re-Check if connection is closed
+	If oConn.state = 0 Then								
+		writelog("Database not open.")	
+		Exit Function			
+	End If 	
+
+  'Setup recordset object and execute SQL command.
+  Const adOpenStatic = 3   
+  Const adUseClient = 3
+  Const adLockOptimistic = 3 
+  Const adLockBatchOptimistic = 4 
+  
+  Set oRecSet = CreateObject("ADODB.RecordSet")
+  oRecSet.CursorLocation = adUseClient
+  
+  oRecSet.Open strSQL, oConn, adOpenStatic, adLockBatchOptimistic
+  
+  Set oRecSet.ActiveConnection = Nothing
+		
+	If(oConn.Errors.Count > 0) Then
+
+		'Multiple error condition message loop.
+		For i = 0 To oConn.Errors.Count-1
+			sError = sError & "Error! Number: " & oConn.Errors.item(i).Number 
+            sError = sError & "; Description: " & oConn.Errors.Item(i).Description & vbCrLf
+		Next
+		
+		If Len(sError) > 0 Then	
+			Writelog(sError)	
+			Exit Function		
+		End If
+	End if
+
+    'Check if recordset is closed
+	If oRecSet.state =0 Then						
+		writelog("Unable to open recordset.")	
+		Exit Function		
+	End If 
+
+    'Check if recordset returned any records
+	If oRecSet.eof Or oRecset.bof Then	
+		bEof=True			 
+		Writelog("No records returned.") 
+		Exit Function			
+	End If
+
+    'If the index argument is not numeric --> exit.
+	If Not IsNumeric(nFieldIndex) Then	 
+		WriteLog("nFieldIndex is not Numeric. Exiting Function.")
+		Exit Function
+	End If
+
+	RSAccess = True	
+
+	WriteLog("(Zero based) nFieldIndex: " & nFieldIndex & ", (One based) oRs Count: " & oRecSet.Fields.Count)
+
+	If (nFieldIndex < oRecSet.Fields.Count) Then
+		oRecSet.MoveFirst
+		Set Fld = oRecSet.Fields(nFieldIndex)
+		
+		If Not Fld.actualsize > 0 Then
+			Fld.value = Space(1)
+		Else
+			strFieldcontents = Fld.Value
+		End If
+		
+		WriteLog("Value is: '" & Fld.Value & "' ")
+		
+	End If
+
+	If IsAlive(oRecSet) then oRecSet.Close()
+	Set oRecSet = Nothing             
+	
+]]></g></f>
+  
+<f name="LookUp" access="private"><p name="strValue"/><p name="strTable"/><p name="strField"/>
+<g><![CDATA[
+	Dim strSQL
+	Dim nLength
+	Dim nRes
+	Dim bEOF
+	Dim bRecordExists
+	Dim strLookupRes
+	Dim nFieldIndex
+	Dim strLookupResult
+    
+	bEOF = False                    
+	bRecordExists = False
+	strLookupResult = ""        
+	nFieldIndex = 0
+    
+	LookUp = True
+
+	strValue = Trim(strValue)
+	nLength = Len(strValue)
+       
+	If (nLength = 0) Then
+		LookUp = False
+		WriteLog("Field Value has 0 length!")
+	Else
+		strSQL = "SELECT * FROM " & strTable & " WHERE " & strField & " = '" & strValue & "'" 
+		LookUp = RSAccess (strSQL, bEOF, nFieldIndex, strLookupResult) 
+	End If
+    
+]]></g></f>
+  
+  
+<s name="SetFieldStatus" access="private"><p name="strFieldName"/><p name="iFieldStatus"/>
+<g>
+  <![CDATA[
+  ' Set field "and strFieldName and " status to " and CStr(iFieldStatus)
+  ' function now works when CurrentObj is placed on PAGE level
+
+    If(CurrentObj.ObjectType = DCO_PAGE) Then
+        Set oChild = CurrentObj.FindChild(strFieldName)
+        if(Not oChild is Nothing) Then
+           oChild.Variable("STATUS") = iFieldStatus
+        else
+           WriteLog("Sub SetFieldStatus: can't find out field with name " & strFieldName)
+        end if
+    Elseif(CurrentObj.ObjectType = DCO_FIELD) Then
+        Set oChild = CurrentObj.Parent.FindChild(strFieldName)
+        if(Not oChild is Nothing) Then
+           oChild.Variable("STATUS") = iFieldStatus
+        else
+           WriteLog("Sub SetFieldStatus: can't find out field with name " & strFieldName)
+        end if
+
+        CurrentObj.Variable("STATUS") = iFieldStatus
+    Else        
+        WriteLog("function now works when " & CurrentObj.ID & ". is on PAGE or FIELD level")
+    End if
+    
+]]></g></s>
+  
+<s name="lSetFieldValueAndConfidence" access="private"><p name="strFieldName"/><p name="strFieldValue"/><p name="strConfidence"/>	
+<g>
+  <![CDATA[
+  ' function lSetFieldValueAndConfidence now works when CurrentObj is placed on PAGE level
+  ' added RTrim for eliminate uninformative right side spaces	
+	
+    If(CurrentObj.ObjectType = DCO_PAGE) Then
+
+	    If( CurrentObj.FindChild(strFieldName) is Nothing ) Then
+	        WriteLog( "lSetFieldValueAndConfidence : Unable to find out field with name " & strFieldName)
+	        Exit Sub
+	    End If
+
+        CurrentObj.FindChild(strFieldName).Text = Rtrim(strFieldValue) 
+        CurrentObj.FindChild(strFieldName).ConfidenceString = strConfidence
+
+    Elseif(CurrentObj.ObjectType = DCO_FIELD) Then
+
+        'if action is placed on the same field as need
+        If ( CurrentObj.ID = strFieldName ) Then
+            CurrentObj.text = RTrim(strFieldValue)
+            CurrentObj.ConfidenceString = strConfidence
+        Else
+	   
+            If(CurrentObj.parent is Nothing) Then
+		       WriteLog( "lSetFieldValueAndConfidence : Unable to get parent Object ")
+		       Exit sub
+	        End if
+
+    	    If(CurrentObj.parent.FindChild(strFieldName) is Nothing) Then
+	    	    WriteLog( "lSetFieldValueAndConfidence : Unable to find out field with name " & strFieldName)
+		        Exit Sub
+	        End If
+            
+            CurrentObj.parent.FindChild(strFieldName).text = RTrim(strFieldValue)
+            CurrentObj.parent.FindChild(strFieldName).ConfidenceString = strConfidence 
+        End if
+    
+    Else
+        WriteLog("Error in Sub lSetFieldValueAndConfidence.  '" & CurrentObj.ObjectType & "' must be a PAGE or FIELD Object.")
+    end if
+
+]]></g></s>
+  
+<f name="lGetFieldValue" access="private"><p name="strFieldName"/>
+<g>
+  <![CDATA[
+  ' Set field " and strFieldName and " status to " and CStr(iFieldStatus)
+  ' function  lGetFieldValue now works when CurrentObj is placed on PAGE level
+
+    if(CurrentObj.ObjectType = DCO_PAGE) Then 
+	if(currentObj.FindChild(strFieldName) is Nothing ) Then
+	    WriteLog( "lGetFieldValue: Unable to find out field with name " & strFieldName)
+	    lGetFieldValue =""
+	    exit function
+	end if
+        lGetFieldValue = CurrentObj.FindChild(strFieldName).text
+    elseif(CurrentObj.ObjectType = DCO_FIELD) Then 
+        'if action is placed on the same field as need
+        if ( CurrentObj.ID = strFieldName ) Then 
+            lGetFieldValue = CurrentObj.text
+        else 
+	    if(CurrentObj.parent is Nothing) Then
+		WriteLog( "lGetFieldValue: Unable to get parent object of field with name " & CurrentObj.ID)
+	    	lGetFieldValue =""
+		exit function
+	    end if
+	    if(CurrentObj.parent.FindChild(strFieldName) is Nothing ) Then
+	        WriteLog( "lGetFieldValue: Unable to find out field with name " & strFieldName)
+		lGetFieldValue =""
+		exit function
+	    end if
+            lGetFieldValue = CurrentObj.parent.FindChild(strFieldName).text
+        end if
+    else 
+        WriteLog("Error. function lGetFieldValue now works when " & CurrentObj.ObjectType &_
+                 ". is on PAGE or FIELD level")
+	lGetFieldValue =""
+    end if
+
+    lGetFieldValue = Replace(lGetFieldValue,VbLf,"|")
+    ' to prevent stubborn recog.rra
+    lGetFieldValue = Replace(lGetFieldValue,VbCr,"|")
+
+]]></g></f>
+  
+<f name="ReadConfidence" access="private"><p name="strFieldName"/>
+<g>
+  <![CDATA[
+  ' Dim Index
+  ' Index=oDvf.GetFieldIndex(strFieldName)
+  ' ReadConfidence = oDvf.ConfidenceString(Index)
+
+   if(strFieldName = "" ) Then
+	writelog ("unable to read confidence from field with empty name")
+        ReadConfidence= ""
+	exit function
+   end if       
+    if(CurrentObj.ObjectType = DCO_PAGE) Then
+	if( Not CurrentObj.FindChild(strFieldName) is Nothing) Then
+	        ReadConfidence = CurrentObj.FindChild(strFieldName).ConfidenceString
+	else
+		writelog("Unable to find child with name " & strFieldName)
+		ReadConfidence =""
+		exit function
+	end if
+    elseif(CurrentObj.ObjectType = DCO_FIELD) Then
+        'if action is placed on the same field as need
+        if ( CurrentObj.ID = strFieldName ) Then
+            ReadConfidence = CurrentObj.ConfidenceString
+        else
+            ReadConfidence = CurrentObj.parent.FindChild(strFieldName).ConfidenceString
+        end if
+    else
+       WriteLog("Error. function ReadConfidence now works when " & CurrentObj.ObjectType &_
+                ". is on PAGE or FIELD level")
+       ReadConfidence =""
+    end if
+]]></g></f>
+  
+<f name="Phone" access="private"><p name="strState"/><p name="strPhone"/>
+<g><![CDATA[
+   Dim bArea
+   Dim strTmpPhone
+   Dim intTmpArea	
+   Dim strTmpIsArea
+   Dim strTmpState
+   Dim strTmpNState
+   Dim strTmp
+   Dim nResFieldVal	
+   Dim intTmpNState
+   Dim intTmpCState
+   Dim strTmpArea
+   Dim strLookupResult
+   Dim nFieldIndex
+   Dim bEOF
+   Dim bRecordExists
+   
+   Phone = True
+   
+   If Len(Trim(strPhone))=0 Then
+		Writelog(Space(7) & "Field Empty, Skipping...")
+		Exit Function
+   End If   
+      
+   strLookupResult = ""        
+   nFieldIndex = 0
+   bEOF = False
+   bRecordExists = False
+   bArea = True
+   strTmpPhone = strPhone
+   strTmpPhone = Trim(strTmpPhone)
+
+   If (Len (strTmpPhone) = 7) Then
+       bArea = False	
+   Else
+       If IsNumeric (Left(strTmpPhone, 3)) Then
+           intTmpArea = CLng(Left(strTmpPhone, 3))
+       Else
+           bArea = False        
+       End If        
+   End If
+
+   strTmpState = Trim(strState)	
+   strTmp = "SELECT * FROM StateZip WHERE PO_Abbreviation='" & strTmpState & "'"
+
+   bRecordExists = RSAccess (strTmp, bEOF, 0, strLookupResult)
+
+	If bRecordExists And Not bEOF And IsNumeric(strLookupResult) Then
+		intTmpNState = CLng(strLookupResult)
+	 	
+		If (bArea) Then
+			strTmp = "SELECT * FROM AreaPhone WHERE Tel_AreaCodes='" & CStr(intTmpArea) & "'" 
+			bRecordExists = RSAccess (strTmp, bEOF, 0, strLookupResult)
+
+			If bRecordExists And Not bEOF Then 
+				intTmpCState = CLng(strLookupResult)
+				If (intTmpCState = intTmpNState) Then 
+				Else 
+					Phone = False
+				End If
+			Else 
+				Phone = False
+			End If
+		Else
+			strTmpNState = CStr(intTmpNState) 
+			strTmp = "SELECT * FROM AreaPhone WHERE NState=" & strTmpNState
+			bRecordExists = RSAccess (strTmp, bEOF, 1, strLookupResult)
+			If bRecordExists And Not bEOF Then
+				strTmpIsArea = CStr(strLookupResult)
+				If (strTmpIsArea = "") Then
+				Else 
+					Phone = False
+				End If
+			Else 
+				Phone = False
+			End If
+      
+		End If
+	Else 
+		Phone = False
+	End If
+]]></g></f>
+  
+<f name="ZipCode" access="private"><p name="strState"/><p name="strZipCode"/>
+<g><![CDATA[
+	Dim intTmpCZip1
+	Dim intTmpCZip2
+	Dim nResFieldVal
+	Dim intTmpZip
+	Dim strSQL
+	Dim strTmpCZip
+	Dim strZip
+	Dim bEOF
+	Dim bRecordExists
+	Dim nFieldIndex
+	Dim iPos
+	Dim sPOBox
+	
+	ZipCode = True
+           
+	strZipCode=Trim(strZipCode)
+'        strZipCode = CurrentObj.text
+	iPos=Len(StrZipCode)
+
+	If iPos<>5 Then
+		If iPos=0 Then
+			WriteLog(Space(7) & "Field Empty, Skipping...")
+			Exit Function	
+		elseif  iPos<>9 Then
+			ZipCode = False
+			Exit Function
+		Else
+			sPOBox=Right(strZipCode,4)
+			strZipCode=Left(strZipCode,5)
+		End If
+	End If
+	
+	If Not IsNumeric(sPOBox) Or InStr(Ucase(sPOBox),"E")<>0 _
+		Or InStr(Ucase(sPOBox),"D")<>0 Then
+		ZipCode = False
+		Exit Function
+	End If
+					
+	If Not IsNumeric(strZipCode) Then
+		ZipCode = False
+		Exit Function
+	End If
+      
+	If Len(strZipCode)=0 Then
+		WriteLog("      Empty. See required fields")
+		Exit Function
+	End If
+
+	If InStr(Ucase(strZipCode),"E")<>0 Then
+		ZipCode = False
+		Exit Function
+	End If
+  	
+	If InStr(Ucase(strZipCode),"D")<>0 Then
+		ZipCode = False
+		Exit Function
+	End If
+
+    bEOF = False
+    bRecordExists = False
+          
+    strState = Trim(strState)
+        
+    strSQL = "SELECT * FROM StateZip WHERE PO_Abbreviation='" & strState & "'"
+
+    bRecordExists = RSAccess (strSQL, bEOF, 3, strZip)
+
+        
+  	If bRecordExists And Not bEOF Then
+		strTmpCZip = CStr(strZip)
+		strTmpCZip = Trim(strTmpCZip)
+		If IsNumeric (Left(strZipCode, 3)) Then
+			intTmpZip = CLng(Left(strZipCode, 3))
+		Else   
+			intTmpZip = 0  
+		End If   
+              
+		strTmpCZip = Replace(strTmpCZip,"-","")
+
+		If Not IsNumeric (strTmpCZip) Then 
+			WriteLog("Return Value is non numeric: '" & strTmpZip & "' ")
+			ZipCode = False
+			Exit Function
+		End If	 
+
+		intTmpCZip1 = CLng(Left(strTmpCZip, 3))
+		intTmpCZip2 = CLng(Right(strTmpCZip, 3))
+       
+		If ((intTmpZip >= intTmpCZip1) And (intTmpZip <= intTmpCZip2)) Then
+			ZipCode = True
+			Exit Function
+		Else
+			ZipCode = False
+		End If
+	Else
+		ZipCode = False
+	End If 
+
+]]></g></f>
+  
+<f name="StateAbbr" access="private"><p name="strState"/>
+<g><![CDATA[
+    Dim strSQL
+    Dim bEOF
+	
+
+    bEOF = False
+    bRecordExists = False
+          
+    strState = UCase(Trim(strState))
+        
+    strSQL = "SELECT * FROM StateZip WHERE PO_Abbreviation='" & strState & "'"
+
+    bRecordExists = RSAccess (strSQL, bEOF, 2, strZip)
+
+    If bRecordExists And Not bEOF Then
+	StateAbbr = True
+	Writelog("State Abbreviation "& strStata &"has been found in database")
+	
+    Else
+	StateAbbr = False
+    End If
+
+]]></g></f>
+  
+<s name="mc_ParseAddress" access="private"><p name="ParseObjType"/><p name="ParseField"/><p name="sName"/><p name="sAddr1"/><p name="sAddr2"/><p name="sCity"/><p name="sState"/><p name="sZip"/><p name="sPhone"/><p name="sID"/>
+<g>
+  <![CDATA[
+  Dim oFld_Parsed
+  Dim FieldNameValue
+  Dim FieldNameConfidence
+  Dim oSourceFld
+  Dim nCount
+  Dim oChild
+  Dim bNewLine
+  Dim Ln,Tn,Rn,Bn
+  Dim L0,T0,R0,B0
+  Dim cObj
+  Dim cValue
+  Dim nRESET
+
+    On Error Resume Next
+
+    Set oSourceFld = DCONav("@P\" & ParseField)
+
+    If oSourceFld is Nothing then 
+        Writelog("Could not find source field '" & ParseField & "'")
+        Exit Sub
+    End if
+
+'Check lineation of source field value, add vbLF character before characters that 
+    'preceeding char is 80% higher in position and no vbLF is present.
+
+    FieldValue = oSourceFld.Text
+    FieldValue = Replace(FieldValue,VbLf,"|")
+    FieldValue = Replace(FieldValue,VbCr,"|")
+    FieldValue = Replace(FieldValue,"||","|")
+
+    Writelog("Before:" & FieldValue)
+
+    nCount = oSourceFld.NumOfChildren()
+	  nCount = nCount-1
+    nRESET = 999999999
+    
+    L0=nRESET
+    T0=nRESET
+    R0=nRESET
+    B0=nRESET  
+    
+    bNewLine=False
+    
+  	For i=nCount To 0 step -1
+		  Set oChild=oSourceFld.GetChild(i)
+      If Not oChild Is Nothing Then	
+        If oChild.ObjectType = 4 then 
+  
+          cValue = oChild.CharValue(0)
+          bRes = oChild.GetPosition(Ln,Tn,Rn,Bn)
+          
+          'Writelog("Checking Character " & cValue & " (" & chr(cValue) & ") Pos:" & Ln & "," & Tn & "," & Rn & "," & Bn)
+          
+          If cLng(cValue)<>10 and cLng(cValue)<>13 then
+            If B0 = nRESET then
+              L0=Ln
+              T0=Tn
+              R0=Rn
+              B0=Bn
+              'Writelog("First RESET")
+            ElseIf Bn<oT Then
+              bNewLine=True
+              Writelog("Bn<oT")
+            ElseIf Bn<(T0+((B0-T0)*.20)) Then
+              bNewLine=True
+              'Writelog(Bn & "<" & (T0+((B0-T0)*.20)))
+            End if
+          Else
+            L0=nRESET
+            T0=nRESET
+            R0=nRESET
+            B0=nRESET  
+            'Writelog("CrLf RESET")
+          End if
+          
+          If bNewLine=True then
+            Set cObj = oSourceFld.AddChild(4,"",i+1)	
+	  			  nChar = cObj.AddValue(CLng(ASC(vbCr)), CLng(9))
+		  	    bRes = cObj.SetPosition(Clng(0) ,Clng(0) ,Clng(0) ,Clng(0))
+            Writelog("Adding vbCr to position " & i+1)
+            bNewLine=False
+            L0=nRESET
+            T0=nRESET
+            R0=nRESET
+            B0=nRESET  
+          End if
+          
+        End if 'ObjectType 4
+      End if 'Is Nothing
+    Next 'i
+    
+    Set oChild = Nothing
+
+    FieldValue = oSourceFld.Text
+    FieldConf  = oSourceFld.ConfidenceString
+
+    'Parsing Object needs Pipe char to parse instead of VBLf & VBCr
+    FieldValue = Replace(FieldValue,VbLf,"|")
+    FieldValue = Replace(FieldValue,VbCr,"|")
+    FieldValue = Replace(FieldValue,"||","|")
+
+    If Len(trim(FieldValue))=0 Then
+        writelog("Field '" & ParseField & "' is Empty.")
+        Exit Sub
+    End if
+	
+    WriteLog("Field:'"& ParseField & "'")
+    Writelog("       Value:'" & FieldValue & "'")
+    Writelog("  Confidence:'" & FieldConf & "'")
+
+    Select Case ParseObjType
+
+      Case "HCField33Object"
+        Set oFld_Parsed = oParse.GetHCField33Object(FieldValue,FieldConf)  
+
+      Case "HCField32Object" 
+        Set oFld_Parsed = oParse.GetHCField32Object(FieldValue,FieldConf)
+           
+      Case "UBField1Object"
+        Set oFld_Parsed = oParse.GetUBField1Object(FieldValue,FieldConf)
+           
+      Case "UBField13Object"
+        Set oFld_Parsed = oParse.GetUBField13Object(FieldValue,FieldConf)
+      
+      Case "UBField38Object"
+        Set oFld_Parsed = oParse.GetUBField38Object(FieldValue,FieldConf)
+   
+      Case "UBField66Object"
+        Set oFld_Parsed = oParse.GetUBField66Object(FieldValue,FieldConf)
+   
+      Case Else
+        WriteLog("Unknown ParseObject Type '" & ParseObjType & "'.   *VALIDATION ABORTED*")
+        bAbort=True
+        Exit Sub
+
+    End Select
+			
+	If (oFld_Parsed is Nothing) Then
+		Writelog("Did not create FieldParse Object.")
+		Exit Sub
+	End If
+
+    'Name Property
+	If (Trim(sName) <> "") Then
+		Set oChild = DCONav("@P\" & sName)
+		If (oChild is Nothing) Then
+			Writelog("Did not find Name Field '" & sName & "'")
+		Else
+			oValue = oFld_Parsed.Name
+			oConf =  oFld_Parsed.NameConf
+			
+			oChild.Text=""
+			oChild.Variable("Position")="0,0,0,0"			
+					
+			nStart = Instr(oSourceFld.Text,oValue)
+			Writelog("Parse.Name:'" & oValue & "'")
+			If nStart>0 Then
+				Call RRCopyChars(oSourceFld, oChild, nStart, Len(oValue))
+				Call RRCopyPos(oSourceFld, oChild, nStart, Len(oValue))
+            		Call RRCopyImage(oSourceFld, oChild)
+			End if
+			Writelog(oChild.ID & " value is '" & oChild.Text & "' position'" & ochild.variable("Position") & "'")
+		End If
+		Set oChild = Nothing
+	End If
+
+    'Street Address Line 1 Property
+	If (Trim(sAddr1) <> "") Then
+		Set oChild  = DCONav("@P\" & sAddr1)
+		If (oChild is Nothing) Then
+			Writelog("Did not find Address1 Field '" & sAddr1 & "'")
+		Else
+			oValue = oFld_Parsed.Add1
+			oConf =  oFld_Parsed.Add1Conf
+			
+			oChild.Text=""
+			oChild.Variable("Position")="0,0,0,0"			
+				
+			nStart = Instr(oSourceFld.Text,oValue)
+			Writelog("Parse.Add1:'" & oValue & "'")
+			If nStart>0 Then
+				Call RRCopyChars(oSourceFld, oChild, nStart, Len(oValue))
+				Call RRCopyPos(oSourceFld, oChild, nStart, Len(oValue))
+            		Call RRCopyImage(oSourceFld, oChild)
+			end if
+			Writelog(oChild.ID & " value is '" & oChild.Text & "' position'" & ochild.variable("Position") & "'")
+	    End If
+		Set oChild = Nothing
+	End If
+
+    'Street Address Line 2 Property
+	If(Trim(sAddr2) <> "") Then
+		Set oChild = DCONav("@P\" & sAddr2)
+		If (oChild is Nothing) Then
+			Writelog("Did not find Address2 Field '" & sAddr2 & "'")
+		Else
+			oValue = oFld_Parsed.Add2
+			oConf =  oFld_Parsed.Add2Conf
+			
+			oChild.Text=""
+			oChild.Variable("Position")="0,0,0,0"			
+				
+			nStart = Instr(oSourceFld.Text,oValue)
+			Writelog("Parse.Add2:'" & oValue & "'")
+			If nStart>0 Then
+				Call RRCopyChars(oSourceFld, oChild, nStart, Len(oValue))
+				Call RRCopyPos(oSourceFld, oChild, nStart, Len(oValue))
+            		Call RRCopyImage(oSourceFld, oChild)
+			End if
+			Writelog(oChild.ID & " value is '" & oChild.Text & "' position'" & ochild.variable("Position") & "'")
+		End If
+		Set oChild = Nothing
+	End If
+
+    'City Property
+	If(Trim(sCity) <> "") Then
+		Set oChild = DCONav("@P\" & sCity)
+		If (oChild is Nothing) Then
+			Writelog("Did not find City Field '" & sCity & "'")
+		Else
+			oValue = oFld_Parsed.City
+			oConf =  oFld_Parsed.CityConf
+		
+			oChild.Text=""
+			oChild.Variable("Position")="0,0,0,0"			
+				
+			nStart = Instr(oSourceFld.Text,oValue)
+			Writelog("Parse.City:'" & oValue & "'")
+			If nStart>0 Then
+				Call RRCopyChars(oSourceFld, oChild, nStart, Len(oValue))
+				Call RRCopyPos(oSourceFld, oChild, nStart, Len(oValue))
+            		Call RRCopyImage(oSourceFld, oChild)
+			End if
+			Writelog(oChild.ID & " value is '" & oChild.Text & "' position'" & ochild.variable("Position") & "'")
+		End If
+		Set oChild = Nothing
+	End If
+
+    'State Property
+	If(Trim(sState) <> "") Then
+		Set oChild = DCONav("@P\" & sState)
+		If (oChild is Nothing) Then
+			Writelog("Did not find State field '" & sState & "'")
+		Else
+			oValue = oFld_Parsed.State
+			oConf =  oFld_Parsed.StateConf
+			
+			oChild.Text=""
+			oChild.Variable("Position")="0,0,0,0"			
+				
+			nStart = InstrRev(oSourceFld.Text,oValue)
+			Writelog("Parse.State:'" & oValue & "'")
+			If nStart>0 Then
+				Call RRCopyChars(oSourceFld, oChild, nStart, Len(oValue))
+				Call RRCopyPos(oSourceFld, oChild, nStart, Len(oValue))
+            		Call RRCopyImage(oSourceFld, oChild)
+			End if
+			Writelog(oChild.ID & " value is '" & oChild.Text & "' position'" & ochild.variable("Position") & "'")
+		End If
+		Set oChild = Nothing
+	End If
+
+    'Zip Code Property
+	If(Trim(sZip) <> "") Then
+		Set oChild = DCONav("@P\" & sZip)
+		If (oChild is Nothing) Then
+			Writelog("Did not find Zip field '" & sZip & "'")
+		Else
+			oValue = oFld_Parsed.Zip
+			oConf =  oFld_Parsed.ZipConf
+		
+			oChild.Text=""
+			oChild.Variable("Position")="0,0,0,0"			
+				
+			nStart = Instr(oSourceFld.Text,oValue)
+			Writelog("Parse.Zip:'" & oValue & "'")
+			If nStart>0 Then
+				Call RRCopyChars(oSourceFld, oChild, nStart, Len(oValue))
+				Call RRCopyPos(oSourceFld, oChild, nStart, Len(oValue))
+            		Call RRCopyImage(oSourceFld, oChild)
+			End if
+			Writelog(oChild.ID & " value is '" & oChild.Text & "' position'" & ochild.variable("Position") & "'")
+		End If
+		Set oChild = Nothing
+	End If
+   
+    'Phone Number Property
+	If(Trim(sPhone) <> "") Then
+		Set oChild = DCONav("@P\" & sPhone)
+		If (oChild is Nothing) Then
+			Writelog("Did not find phone field '" & sPhone & "'")
+		Else		
+			oValue = oFld_Parsed.Phone
+			oConf =  oFld_Parsed.PhoneConf 
+			
+			oChild.Text=""
+			oChild.Variable("Position")="0,0,0,0"			
+					
+			nStart = Instr(oSourceFld.Text,oValue)
+			Writelog("Parse.Phone:'" & oValue & "'")
+			If nStart>0 Then
+				Call RRCopyChars(oSourceFld, oChild, nStart, Len(oValue))
+				Call RRCopyPos(oSourceFld, oChild, nStart, Len(oValue))
+            		Call RRCopyImage(oSourceFld, oChild)
+			end if
+			Writelog(oChild.ID & " value set to '" & oChild.Text & "' position'" & ochild.variable("Position") & "'")
+		End If
+		Set oChild = Nothing
+	End If
+	
+    'NPI/PIN ID Property
+	If(Trim(sID) <> "") Then
+		Set oChild = DCONav("@P\" & sID)
+		If (oChild is Nothing) Then
+			Writelog("Did not find phone field '" & sID & "'")
+		Else		
+			oValue = oFld_Parsed.Npi
+			oConf =  oFld_Parsed.NpiConf 
+			
+			oChild.Text=""
+			oChild.Variable("Position")="0,0,0,0"			
+			
+			nStart = Instr(oSourceFld.Text,oValue)
+			Writelog("Parse.Npi:'" & oValue & "'")
+			If nStart>0 Then
+				Call RRCopyChars(oSourceFld, oChild, nStart, Len(oValue))
+				Call RRCopyPos(oSourceFld, oChild, nStart, Len(oValue))
+                		Call RRCopyImage(oSourceFld, oChild)
+			End if
+			Writelog(oChild.ID & " value set to '" & oChild.Text & "' position'" & ochild.variable("Position") & "'")
+		End If
+		Set oChild = Nothing
+	End If
+
+	Set oFld_Parsed = Nothing
+
+	WriteLog(vbcrLf & "------------ Address Parsing Complete ------------")
+	
+]]></g></s>
+  
+<f name="ValAddress" access="private"><p name="sFNameFld"/><p name="sLNameFld"/><p name="sStreet1Fld"/><p name="sStreet2Fld"/><p name="sCityFld"/><p name="sStateFld"/><p name="sZipCodeFld"/><p name="sPhoneFld"/>
+<g><![CDATA[
+	Dim sFName
+	Dim sLName
+	Dim sCity
+	Dim sStreet1
+	Dim sStreet2
+	Dim sState
+	Dim sZipCode
+	Dim sPhone
+	
+	ValAddress=True
+	
+	If sFNameFld<>"" Then
+		sFName = lGetFieldValue(sFNameFld)
+		WriteLog("First Name Field: " & sFNameFld & "   Value: " & sFName)
+		If Len(Trim(sFName))=0 Then
+			WriteLog("      Empty - see required fields validation") 
+		elseIf oValidation.NameB (sFName) < 0 Then 
+			ValAddress = False
+			Call SetFieldStatus(sFNameFld,1)
+			WriteLog(Space(6)& "*INVALID*")
+		Else
+			Call SetFieldStatus(sFNameFld,0)
+			Call SetFieldStatus(sFNameFld,0)
+			WriteLog(Space(6)& "-valid-")
+		End If
+	Else
+		WriteLog("First Name is not set for Validaion in the INI file or calling procedure.")
+	End If
+	
+	If sLNameFld<>"" Then
+		sLName = lGetFieldValue(sLNameFld)
+		WriteLog("Last Name Field: " & sLNameFld & "   Value: " & sLName)
+		WriteLog("oValidation= "&CStr(oValidation.NameB (sLName)))
+		If Len(Trim(sLName))=0 Then
+			WriteLog("      Empty - see required fields validation")
+		elseIf oValidation.NameB (sLName) < 0 Then 
+			ValAddress = False
+			Call SetFieldStatus(sLNameFld,1)
+			WriteLog(Space(6)& "*INVALID*")
+		Else
+			Call SetFieldStatus(sLNameFld,0)
+			WriteLog(Space(6)& "-valid-")
+		End If
+	Else
+		WriteLog("Last Name is not set for Validation in the INI file or calling procedure.")
+	End If
+	
+	If sStreet1Fld<>"" Then
+		sStreet1 = lGetFieldValue(sStreet1Fld)
+		WriteLog("Street1 Field: " & sStreet1Fld & "   Value: " & sStreet1)
+		WriteLog("oValidation= "&CStr(oValidation.NoStreetB (sStreet1)))
+		If Len(Trim(sStreet1))=0 Then
+			WriteLog("      Empty - see required fields validation")
+		elseIf oValidation.NoStreetB (sStreet1) < 0 Then 
+			ValAddress = False
+			Call SetFieldStatus(sStreet1Fld,1)
+			WriteLog(Space(6)& "*INVALID*")
+		Else 
+			Call SetFieldStatus(sStreet1Fld,0)
+			WriteLog(Space(6)& "-valid-")
+		End If
+	Else
+		WriteLog("Street1 is not set for Validation in the INI file or calling procedure.")
+	End If
+	
+	If sStreet2Fld<>"" Then
+		sStreet2 = lGetFieldValue(sStreet2Fld)
+		WriteLog("Street2 Field: " & sStreet2Fld & "   Value: " & sStreet2)
+		WriteLog("oValidation= "&CStr(oValidation.NoStreetB (sStreet2)))
+		If oValidation.NoStreetB (sStreet2) < 0 Then 
+			ValAddress = False
+			Call SetFieldStatus(sStreet2Fld,1)
+			WriteLog(Space(6)& "*INVALID*")
+		Else 
+			Call SetFieldStatus(sStreet2Fld,0)
+			WriteLog(Space(6)& "-valid-")
+		End If
+	Else
+		WriteLog("Street2 is not set for Validation in the INI file or calling procedure.")
+	End If
+	
+	If sCityFld<>"" Then
+		sCity = lGetFieldValue(sCityFld)
+		WriteLog("City Field: " & sCityFld & "   Value: " & sCity)
+		WriteLog("oValidation= "&CStr(oValidation.CityB (sCity)))
+		If Len(Trim(sCity))=0 Then
+			WriteLog("      Empty - see required fields validation")
+		elseif oValidation.CityB (sCity) < 0 Then 
+			ValAddress = False
+			Call SetFieldStatus(sCityFld,1)
+			WriteLog(Space(6)& "*INVALID*")
+		Else 
+			Call SetFieldStatus(sCityFld,0)
+			WriteLog(Space(6)& "-valid-")
+		End If
+	Else
+		WriteLog("City is not set for Validation in the INI file or calling procedure.")
+	End If
+    
+	If sStateFld<>"" Then
+		sState = lGetFieldValue(sStateFld)
+		WriteLog("State Field: " & sStateFld & "   Value: " & sState)
+		If Len(Trim(sState))=0 Then
+			WriteLog("      Empty. Cannot check ZipCode or Phone")
+			Exit Function
+		elseif Len(Trim(sState))<>2 Then
+			WriteLog(Space(6)& "*INVALID*")
+			Call SetFieldStatus(sStateFld,1)
+			Call SetFieldStatus(sZipCodeFld,1)
+			ValAddress = False
+			Exit Function
+			' we dont check here phone
+                else
+                     ' probably state is valid, check it later with zip 
+		     ' or without zip with rule LookupCurrentValue()
+			Call SetFieldStatus(sStateFld,0)
+		End If
+	Else 
+		WriteLog("State is not set for Validation in the INI file or calling procedure, cannot check ZipCode and phone")
+		Exit Function
+	End If 
+
+	If sZipCodeFld<>"" Then
+		sZipCode = lGetFieldValue(sZipCodeFld)
+		WriteLog("ZipCode Field: " & sZipCodeFld & "   Value: " & sZipCode)
+                if(CurrentObj.FindChild(sStateFld).Status <> 1)Then 
+			If ZipCode(sState,sZipCode)= False Then 
+				ValAddress = False
+				Call SetFieldStatus(sZipCodeFld,1)
+'				Call SetFieldStatus(sStateFld,1)
+				WriteLog(Space(6)& "*INVALID*")
+			Else
+				Call SetFieldStatus(sZipCodeFld,0)
+'				Call SetFieldStatus(sStateFld,0)
+				WriteLog(Space(6)& "-valid-")
+			End If
+		else
+				ValAddress = False
+				Call SetFieldStatus(sZipCodeFld,1)
+
+				WriteLog(Space(6)& "*INVALID*")
+		end if			
+	Else
+		WriteLog("ZipCode is not set for Validation in the INI file or calling procedure.")
+	End If
+   
+	If sPhoneFld<>"" Then
+		sPhone = lGetFieldValue(sPhoneFld)
+		WriteLog("Phone Field: " & sPhoneFld & "   Value: " & sPhone)
+		If  Phone(sState,sPhone)= False Then 
+			ValAddress = False
+			Call SetFieldStatus(sPhoneFld,nFail)		
+		Else
+			Call SetFieldStatus(sPhoneFld,nPass)
+		End If 		  
+	Else
+		WriteLog("Phone is not set for Validation in the INI file or calling procedure.")
+	End If
+   
+
+]]></g></f>
+  
+<f name="IsAlpha_" access="private"><p name="strCHAR"/>
+<g><![CDATA[
+  ' Determine if the character passed is a letter.
+
+       If (Ascw(strCHAR)>=65 And Ascw(strCHAR)<=90) Or _
+         (Ascw(strCHAR)>=97 And Ascw(strCHAR)<=122) Then
+         IsAlpha_ = true
+       Else
+         IsAlpha_ = false
+       End If
+]]></g></f>
+  
+  
+<f name="IsAlphaV" access="private"><p name="T"/>
+<g><![CDATA[
+   Dim C
+   if(Not isNumeric(T)) then
+      C = ASCW(T)
+   else
+      C = T
+   end if
+
+   if( ( C >= 65 And C <= 90 ) Or ( C >= 48 And C <= 57 ) Or ( C >= 97 And C <= 122 )) then
+      IsAlphaV = true
+   else
+      IsAlphaV = false
+   end if
+
+]]></g></f>
+  
+<f name="IsNumberV" access="private"><p name="T"/>
+<g><![CDATA[
+   Dim C
+   if(Not isNumeric(T)) then
+      C = ASCw(T)
+   else
+      C = T
+   end if
+
+   if(C >= 48 And C <= 57) then
+      IsNumberV = true
+   else
+      IsNumberV = false
+   end if
+]]></g></f>
+  
+<f name="IsWordDelimiter" access="private"><p name="T"/>
+<g><![CDATA[
+   Dim C
+   if(Not isNumeric(T)) then
+      C = ASCw(T)
+   else
+      C = T
+   end if
+   if(C = 32 Or C = 124) then
+      IsWordDelimiter = true
+   else
+      IsWordDelimiter = false
+   end if
+]]></g></f>
+  
+<g><![CDATA[
+Class CChargeSignProber
+   Private m_oDicAssociativeMap
+      'Constraction & Destruction -----------------------------------------
+      Private Sub Class_Initialize	' Initialize event.
+         Set m_oDicAssociativeMap = CreateObject("Scripting.Dictionary")
+
+         call m_oDicAssociativeMap.Add( "47attchg","42arevcd")
+         call m_oDicAssociativeMap.Add( "47bttchg","42brevcd")
+         call m_oDicAssociativeMap.Add( "47cttchg","42crevcd")
+         call m_oDicAssociativeMap.Add( "47dttchg","42drevcd")
+         call m_oDicAssociativeMap.Add( "47ettchg","42erevcd")
+         call m_oDicAssociativeMap.Add( "47fttchg","42frevcd")
+         call m_oDicAssociativeMap.Add( "47gttchg","42grevcd")
+         call m_oDicAssociativeMap.Add( "47httchg","42hrevcd")
+         call m_oDicAssociativeMap.Add( "47jttchg","42jrevcd")
+         call m_oDicAssociativeMap.Add( "47kttchg","42krevcd")
+         call m_oDicAssociativeMap.Add( "47mttchg","42mrevcd")
+         call m_oDicAssociativeMap.Add( "47nttchg","42nrevcd")
+         call m_oDicAssociativeMap.Add( "47pttchg","42prevcd")
+         call m_oDicAssociativeMap.Add( "47qttchg","42qrevcd")
+         call m_oDicAssociativeMap.Add( "47rttchg","42rrevcd")
+         call m_oDicAssociativeMap.Add( "47sttchg","42srevcd")
+         call m_oDicAssociativeMap.Add( "47tttchg","42trevcd")
+         call m_oDicAssociativeMap.Add( "47uttchg","42urevcd")
+         call m_oDicAssociativeMap.Add( "47vttchg","42vrevcd")
+         call m_oDicAssociativeMap.Add( "47wttchg","42wrevcd")
+         call m_oDicAssociativeMap.Add( "47xttchg","42xrevcd")
+         call m_oDicAssociativeMap.Add( "47yttchg","42yrevcd")
+         call m_oDicAssociativeMap.Add( "47zttchg","42zrevcd")
+
+      End Sub
+
+    Private Sub Class_Terminate		' Terminate event.
+        m_oDicAssociativeMap.RemoveAll
+        Set m_oDicAssociativeMap = Nothing
+    End Sub
+
+    'Private methods ----------------------------------------------------
+   
+    'Public methods -----------------------------------------------------
+
+   Public Function GetSign(oField)
+      ' look for value linked field, if value equals "001" return "-",
+      ' in opposite case return "+"
+      GetSign = "+"
+      if(oField.ObjectType <> 3 ) Then
+         writelog("GetSign should be called for field object")
+         exit function
+      end if
+
+      Set oParent = oField.Parent()
+      Set oLinkedField = oParent.FindChild(m_oDicAssociativeMap.Item(oField.ID))
+      if(oLinkedField is Nothing) Then
+         writelog("unable find out linked object for " & oField.ID & " field" )
+         exit function
+      end if
+      Dim sVal
+      sVal=Trim(oLinkedField.text)
+      if (sVal="001") or (sVal="0001") or (sVal="01") or (sVal="1") Then GetSign= "-"
+       
+   End Function
+
+End Class 'CChargeSignProber
+]]></g>
+  
+<f name="Strip_Tmp_CTmp" access="private"><p name="FIELDNAME"/>
+<g><![CDATA[
+  ' Input:  FIELDNAME, Tmp
+  ' Output: Tmp, CTmp (confidence)
+  '         It removes the leading and trailing spaces and leading new line \"|\"
+  '         This function will maintain correct confidence string, unlike STRIP
+
+   Set oParsedField = CurrentObj.Parent.FindChild(FIELDNAME)
+
+   Tmp = oParsedField.Text
+   CTmp = oParsedField.ConfidenceString
+
+   nLen = Len(Tmp)
+   if(nLen = 0) Then
+      ' nothing to do
+      exit function
+   end if
+
+   C = Mid(Tmp,1,1)
+
+   while(C=" " or C= "|" )
+     Tmp = Mid(Tmp,2,nLen-1)
+     CTmp = Mid(CTmp,2,nLen-1)
+     C = Mid(Tmp,1,1)
+     nLen = Len(Tmp)
+   wend
+
+   if( nLen < 1 ) Then ' only one space is in oParsedField.Text
+      oParsedField.Text = ""
+      oParsedField.ConfidenceString = ""
+      exit function
+   end if
+
+   C = Mid(Tmp,nLen,1)
+   while(C=" " or C= "|" )
+     Tmp = Mid(Tmp,1,nLen-1)
+     CTmp = Mid(CTmp,1,nLen-1)
+     C = Mid(Tmp,nLen,1)
+     nLen = Len(Tmp)
+   wend
+
+   oParsedField.Text = Tmp
+   oParsedField.ConfidenceString = CTmp
+
+
+]]></g></f>
+  
+<f name="Numerics" access="private"><p name="Str"/>
+<g><![CDATA[
+   j=0
+   i = LEN(Str)
+   while(i>0)
+      C = Mid(Str, i, 1)
+      if (IsNumeric(C)) Then
+         j = j+1
+      end if
+      i = i-1
+   wend
+   Numerics=j
+]]></g></f>
+  
+<f name="ParsePhysID" access="private"><p name="FIELDNAME"/><p name="PhyID"/><p name="CPhyID"/><p name="PhyName"/><p name="CPhyName"/>
+<g><![CDATA[
+
+' function is inherited from UB92.fs:ParsePhysID
+' Input:  FIELDNAME
+' Output: PhyID, CPhyID, PhyName, CPhyName
+
+   Dim oParsedField
+   Strip_Tmp_CTmp(FIELDNAME)
+   Set oParsedField = CurrentObj.Parent.FindChild(FIELDNAME)
+   if(oParsedField is Nothing) Then
+      writelog("ParsePhysID: field not found " & FIELDNAME)
+      ' nothing to do
+      PhyID = ""
+      CPhyID = ""
+      PhyName = ""
+      CPhyName = ""
+      exit function
+   end if
+
+
+   Tmp = oParsedField.Text
+   CTmp = oParsedField.ConfidenceString
+   DLen=LEN(Tmp)
+
+   if(Dlen=0) Then
+      ' nothing to do
+      PhyID = ""
+      CPhyID = ""
+      PhyName = ""
+      CPhyName = ""
+      exit function
+   end if
+
+   Tindex = InSTR(Tmp, "|")
+
+   PhyID = ""
+   CPhyID = ""
+   PhyName = Tmp
+   CPhyName = CTmp
+
+   if(Tindex > 0 ) Then
+      PhyID = Mid(Tmp, 1, Tindex-1)
+      CPhyID = Mid(CTmp, 1, Tindex-1)
+      PhyName = Mid(Tmp, Tindex+1, DLen)
+      CPhyName = Mid(CTmp, Tindex+1, DLen)
+   else
+      Tindex = inStr(1,Tmp, " ")
+      Tindex1 = inStr(1,Tmp, ",")
+
+      if((Tindex>Tindex1) And (Tindex1<>0)) Then
+         Tindex = Tindex1
+      end if
+
+      if(Tindex > 0) Then
+         Word1 = Mid(Tmp, 1, Tindex-1)  ' The first word
+         CWord1 = Mid(CTmp, 1, Tindex-1)
+      else
+         exit function
+      end if
+
+      i = DLen
+      C = "~"
+      while(i>0 And C<>" " And C <> ",") 
+         C = Mid(Tmp, i, 1)
+         i = i-1
+      wend
+
+      Word2 = Mid(Tmp, i+1, DLen-i)          ' The last word
+      CWord2 = Mid(CTmp, i+1, DLen-i)
+
+' PhysID has numerics characters
+      if( Numerics(Word1) > 0 ) Then
+         PhyID = Word1
+         CPhyID = CWord1
+         PhyName = Mid(Tmp, Tindex+1, DLen-Tindex+1)
+         CPhyName = Mid(CTmp, Tindex+1, DLen-Tindex+1)
+         if(Numerics(Word2) > 0) Then
+            if Numerics(Word1) < Numerics(Word2) Then
+               PhyID = Word2
+               CPhyID = CWord2
+               PhyName = Mid(Tmp, 1, Tindex-1)
+               CPhyName = Mid(CTmp, 1, Tindex-1)
+            end if
+            exit function
+         end if
+     end if
+     if(Numerics(Word2) > 0) Then
+         PhyID = Word2
+         CPhyID = CWord2
+         PhyName = Mid(Tmp, 1, i)
+         CPhyName = Mid(CTmp, 1, i)
+     end if
+
+   end if
+
+]]></g></f>
+  
+<f name="SetText" access="private"><p name="sField"/><p name="Text"/><p name="ConfidenceString"/>	
+<g><![CDATA[
+   Set oPar = CurrentObj.Parent
+   Set oField = oPar.FindChild(sField)
+   if(Not oField Is Nothing) Then
+      oField.Text = Text
+      oField.ConfidenceString = ConfidenceString
+      oField.Status = 0
+   else
+      writelog("SetText: unable to find field '" & sField & "'")
+   end if
+]]></g></f>
+  
+<g>
+  <![CDATA[
+'Medical Claims ReadZones utilities ==========================================================
+]]></g>
+  
+<s name="mc_ZoneChildren" access="private"><p name="oObj"/><p name="PosName"/><p name="byVal oSet"/><p name="byVal Xadj"/><p name="byVal Yadj"/>
+<g><![CDATA[
+	Dim oSetupNode
+	Dim oSubRule
+	Dim oSubChar
+	Dim nChar
+	Dim sZonePos
+	Dim arZonePos
+	Dim sPrePos			
+	Dim sPrePosCX
+	Dim sPrePosCY			
+	Dim arPrePos
+	Dim iL,iT,iR,iB			
+	Dim bLocal
+   
+	On error resume Next
+
+	oSet = oSet + 4
+	nCount=oObj.NumOfChildren()-len(oObj.Text)
+	
+	For i=0 To nCount-1
+		Set oChild=oObj.GetChild(i)
+			
+    If Not oChild Is Nothing Then	
+  
+      If oChild.ObjectType < 4 then 
+				       
+				sPrePos = oChild.Variable("Position")
+				iL=0
+		    iR=0
+        iB=0
+		    iT=0				
+				nLocalXadj = 0
+				nLocalYadj = 0
+        blocal=false
+        
+        Set oSetupNode = oChild.SetupNode()
+				       
+				If Not(oSetupNode is Nothing) then 
+				
+					If oSetupNode.variable("RecogType")="4" then
+						writelog(space(oSet+2) & "OMR recogtype Field found: '" & oSetupNode.Name & "' ") 
+						
+						'Calculate Local Size
+						If sPrePos <> "" and sPrePos <> "0,0,0,0" then
+							arPrePos = split(sPrePos,",")
+							If Ubound(arPrePos)=3 then
+								'Calc Center of Pre Position Zone
+								sPrePosCX = arPrePos(0)+((arPrePos(2)-arPrePos(0))/2)
+								sPrePosCY = arPrePos(1)+((arPrePos(3)-arPrePos(1))/2)
+								nLocalXadj = 0
+								nLocalYadj = 0
+							Else
+								sPrePos = ""
+								sPrePosCX=0
+								sPrePosCY=0							
+							End if						
+						End if
+						
+						For nChar = 1 to oSetupNode.NumOfRules
+						
+							Set oSubRule = oSetupNode.GetRule(nChar-1)
+							Set oSubChar = oChild.GetChild(nChar-1)
+							
+							If Not(oSubRule is Nothing) then
+							
+								If oSubChar is Nothing then 
+									Set oSubChar = oChild.AddChild(4, "", -1)
+                                                                        bres = oSubChar.AddValue(clng(32),clng(9))
+								End if
+							
+								sZonePos = oSubRule.variable(PosName)
+								
+								If sZonePos <> "" and sZonePos <> "0,0,0,0" then
+									writelog(space(oSet+2) & "Found ZonePos: " & sZonePos)
+									arZonePos=split(sZonePos,",")
+									If UBound(arZonePos)=3 Then
+										
+										'Check for PrePosition Info
+										If sLocalW=0 and sLocalH=0 and sPrePos="" Then
+										
+											arZonePos(0)=arZonePos(0)+Xadj
+											arZonePos(1)=arZonePos(1)+Yadj
+											arZonePos(2)=arZonePos(2)+Xadj
+											arZonePos(3)=arZonePos(3)+Yadj
+										
+											bRes = oSubChar.SetPosition(clng(arZonePos(0)) ,clng(arZonePos(1)),clng(arZonePos(2)),clng(arZonePos(3)))
+								
+										Else
+											writelog("Preposition info found. Calculating local offsets.")
+											
+											'Calculate Center of Sub Zone from Setup DCO
+											sZoneCX = arZonePos(0)+((arZonePos(2)-arZonePos(0))/2)
+											sZoneCY = arZonePos(1)+((arZonePos(3)-arZonePos(1))/2)
+																	
+											'Calculate offset of first prepostion zone to first dco subzone																					
+											If nLocalXadj=0 and nLocalYadj=0 and iL=0 and iT=0 and iR=0 and iB=0 and not(sPrePos)="" Then
+												nLocalXadj = sPrePosCX - sZoneCX
+												nLocalYadj = sPrePosCY - sZoneCY
+                                                             
+                        'writelog("local offset is " & nLocalXadj & "," & nLocalYadj)       
+                               
+                        bLocal = true            
+											End if										
+																												
+											iL = arZonePos(0) + nLocalXadj
+											iT = arZonePos(1) + nLocalYadj
+											iR = arZonePos(2) + nLocalXadj
+											iB = arZonePos(3) + nLocalYadj
+										
+											bRes = oSubChar.SetPosition(clng(iL) , clng(iT), clng(iR), clng(iB))
+																		
+										End if
+
+									End if
+								Else
+									writelog(space(oSet+2) & "No OMR Child Zone Position for Fingerprint " & PosName & " found.")
+								End if
+							End If
+						Next 'nChar
+					End If
+				End If
+				Set oSetupNode = Nothing
+            
+        sZonePos = oChild.variable(PosName)
+				If sZonePos <> "" and sZonePos <> "0,0,0,0" and oChild.variable("RecogType")="4" then
+					arZonePos=split(sZonePos,",")
+					If UBound(arZonePos)=3 Then
+            If blocal=true then
+              arZonePos(0)=arZonePos(0)+nLocalXadj
+						  arZonePos(1)=arZonePos(1)+nLocalYadj
+						  arZonePos(2)=arZonePos(2)+nLocalXadj
+						  arZonePos(3)=arZonePos(3)+nLocalYadj
+            Else
+              arZonePos(0)=arZonePos(0)+Xadj
+						  arZonePos(1)=arZonePos(1)+Yadj
+						  arZonePos(2)=arZonePos(2)+Xadj
+						  arZonePos(3)=arZonePos(3)+Yadj
+						end If                  
+            oChild.Variable("Position")=CStr(Clng(arZonePos(0)) & "," & Clng(arZonePos(1)) & "," & Clng(arZonePos(2)) & "," & Clng(arZonePos(3)))
+						Writelog(space(oSet) & "Set " & oChild.ID & " from Position to " & sZonePos & " to " & oChild.Variable("Position"))
+					End if
+				End if    
+                        
+				Call mc_ZoneChildren(oChild, PosName, oSet, Xadj, Yadj)
+            
+			End if
+
+		End If
+	Next
+]]></g>
+</s>
+  
+<f name="ReadOMRSubZones" access="private"><p name="bDebug"/><p name="bInteractive"/>
+<g>
+<![CDATA[
+	Dim oSetupNode
+	Dim oSubRule
+	Dim oSubChar
+	Dim nChar
+	Dim sZonePos
+	Dim arZonePos
+	Dim i
+	Dim sName
+	Dim oPage
+	Dim Xadj
+	Dim Yadj
+				
+	ReadOMRSubZones = False
+			
+	On error resume Next
+	
+	nCount=CurrentObj.NumOfChildren()-len(CurrentObj.Text)
+	Writelog("SubZone " & CurrentObj.Id & " : " & nCount & " Children Found")
+
+	Set	oPage = CurrentObj
+	While oPage.ObjectType>2 And Not(oPage.ObjectType<=1)
+		Set oPage = oPage.Parent()
+	Wend
+
+	If CurrentObj.ObjectType = 2 then
+		Set CurrentObj = CurrentObj.FindChild("3aPatSex")
+	End if
+	
+	sName=oPage.Variable("TemplateID")	
+	sPosName = "Pos" & sName
+	Writelog("Reading Zone information for fingerprint " & sPosName)
+
+	'Find Image Offset information
+	sOffset = CurrentObj.Variable("Image_Offset") 
+	If len(sOffSet)=0 then sOffSet=oPage.Variable("Image_Offset")
+	If len(sOffSet)=0 then 
+		Set oChild = oPage.FindChild("Image_Offset")
+		If Not(oChild is Nothing) then
+			sOffset = trim(oChild.Text)
+			sOffset = replace(sOffset,";","")			
+		End if
+	End if
+
+	aOffSet = Split(sOffSet & ",0" , ",")
+
+	nXoffset = (-1*aOffSet(0))
+	nYoffset = (-1*aOffSet(1))
+
+	If Not(Isnumeric(nXoffSet)) or len(trim(nXoffSet))=0 then 
+		nXoffset = 0
+		writelog("X offset value was not numeric or empty. Setting value to Zero.")
+	end if
+
+	If Not(Isnumeric(nYoffSet)) or len(trim(nYoffSet))=0 then 
+		nYoffset = 0
+		writelog("Y offset value was not numeric or empty. Setting value to Zero.")
+	end if
+	
+	Writelog("Offsets : " & nXoffset & "," & nYoffset)
+		
+	Set oPage = Nothing
+
+			If CurrentObj.ObjectType = 3 then 
+							
+				Set oSetupNode = CurrentObj.SetupNode()
+				If Not(oSetupNode is Nothing) then 
+					If oSetupNode.variable("RecogType")="4" then
+						writelog("OMR recogtype found.") 
+						For nChar = 1 to oSetupNode.NumOfRules
+							
+							Set oSubRule = oSetupNode.GetRule(nChar-1)
+							Set oSubChar = CurrentObj.GetChild(nChar-1)
+							
+							If Not(oSubRule is Nothing) then
+								
+								Writelog("Getting Position information for OMR subrule '" & oSubRule.Name & "' ")	
+														
+								If oSubChar is Nothing then 
+									Set oSubChar = CurrentObj.AddChild(4, "", -1)
+                                                                        bres = oSubChar.AddValue(clng(32),clng(9))
+								End if
+							
+								sZonePos = oSubRule.variable(sPosName)
+								writelog("Found Zone Position: '" & sZonePos & "' ")
+								If sZonePos <> "" and sZonePos <> "0,0,0,0" then
+									arZonePos=split(sZonePos,",")
+									If UBound(arZonePos)=3 Then
+										
+										arZonePos(0)=arZonePos(0)+nXoffset
+										arZonePos(1)=arZonePos(1)+nYoffset
+										arZonePos(2)=arZonePos(2)+nXoffset
+										arZonePos(3)=arZonePos(3)+nYoffset
+										
+										bRes = oSubChar.SetPosition(clng(arZonePos(0)) ,clng(arZonePos(1)),clng(arZonePos(2)),clng(arZonePos(3)))
+										bRes = oSubChar.GetPosition(clng(arZonePos(0)) ,clng(arZonePos(1)),clng(arZonePos(2)),clng(arZonePos(3)))
+
+										writelog("Saved X Y (" & CStr(arZonePos(2)- arZonePos(0)) & "," & CStr(arZonePos(3)-arZonePos(1)) & ") " & vbcrlf)
+
+									end if
+								end if
+							End If
+						Next 'nChar
+					End If
+				End If
+				Set oSetupNode = Nothing
+				ReadOMRSubZones = True
+			Else
+				writelog("Not a Field object")
+			End if
+
+	
+]]></g>
+</f>
+<g>
+<![CDATA[
+'Unused actions
+]]>
+</g>
+<f name="CheckLocation" access="private"><p name="bInter"/><p name="bDebug"/>
+<g>
+<![CDATA[
+    Dim strPointerFieldName
+    Dim strPointerFieldConf
+    Dim sPointerValue
+    Dim CharValue
+
+    if(CurrentObj.ObjectType = DCO_FIELD) Then
+
+    WriteLog(vbCrLf &"  Checking Pointer Value and Locations..")                
+    strPointerFieldName = CurrentObj.ID
+    sPointerValue = CurrentObj.text
+    strPointerFieldConf = CurrentObj.ConfidenceString
+
+    Writelog("  Current Value: " & sPointerValue & "  Confidence Str:" & strPointerFieldConf)
+    '<Check Pointer Value and Point location, must be {1,2,3,4}>
+    
+    MsgK = "Checking Pointer #" 
+    
+    For k = 1 To Len(sPointerValue)
+            
+            CharValue = Mid(sPointerValue,k,1)
+            If IsNumeric(CharValue) Then 
+                CharValue = CInt(CharValue)
+            
+                If (CharValue >= 1) Or (CharValue <= 4) Then
+                    If Len(trim(lGetFieldValue("21_Diag" & CStr(CharValue))))=0 Then
+                          '^^^ exclude spaces
+                        Writelog(MsgK & K &":  *INVALID*  No corresponding Diagnosis code For pointer value " & CharValue & " in 21_Diag" & CStr(CharValue))
+                        Writelog("  Setting Field Status for " & sPointerFieldName & " to 1")
+                        Call Setfieldstatus(strPointerFieldName,1)
+		        CheckLocation = false
+                        HyphenEdit24e = cHyphenEdit24e_Rtn
+			exit function
+                    Else
+                        WriteLog(MsgK & K &":  Pointer Value: " & CharValue & " Valid for 21_Diag" & CharValue & " value = " & lGetFieldValue("21_Diag" & CStr(CharValue)))
+                    End If    
+                Else
+                    Writelog(MsgK & K &":  *INVALID*  Pointer value: " & CharValue)
+		    CheckLocation = false
+                    HyphenEdit24e = cHyphenEdit24e_Rtn
+		    exit function
+                End If
+
+            Else 'non numeric value
+                    WriteLog(MsgK & K &":  *INVALID*  Non Numeric Pointer value: " & CharValue)
+                    Call SetFieldStatus(strPointerFieldName,1)
+		    CheckLocation = false
+                    HyphenEdit24e = cHyphenEdit24e_Rtn
+		    exit function
+            End If
+
+    Next 'k 
+        Call SetFieldStatus(strPointerFieldName,0)
+        CheckLocation = true
+    else
+        WriteLog("Improper place of action " & CurrentObj.ObjectType & ". Must be at FIELD level")
+        Call Setfieldstatus(strPointerFieldName,0)
+        CheckLocation = false
+    end if
+
+]]></g></f>
+  
+<f name="RightTruncateGently" access="private"><p name="bInter"/><p name="bDebug"/><p name="strParam"/>
+<g><![CDATA[
+        nNumOfChildren = CurrentObj.NumOfChildren
+	If nNumOfChildren >= CLng(StrParam) Then
+		for i=0 to nNumOfChildren - strParam
+			CurrentObj.DeleteChild(nNumOfChildren - i)
+		next
+	End If
+
+	RightTruncateGently = true
+	WriteLog("RightTruncate returns " & RightTruncateGently)
+	'Call ErrorHandler("Function RightTruncate")
+
+]]></g></f>
+
+<f name="InflatePosition" access="private"><p name="bInter"/><p name="bDebug"/><p name="StrParam"/>
+<g><![CDATA[
+  ' StrParam is factor in percentage of inflating rectangle always
+
+     InflatePosition = true 
+    if Not isNumeric(StrParam) Then
+       writelog("parameter is not numeric")
+       exit function
+    end if
+
+    Dim factor
+    factor = cInt(strParam)/100
+    Dim s
+    Dim ar
+    s = CurrentObj.Variable("Position")
+    ar = split(s,",")
+    if(Not isArray(ar)) Then
+	exit function
+    end if
+    if(Ubound(ar) <> 3) Then
+	exit function
+    end if
+    x1 = cInt(ar(0))
+    y1 = cInt(ar(1))
+    x2 = cInt(ar(2))
+    y2 = cInt(ar(3))
+
+    CurrentObj.Variable("Position") = cStr(x1 - (x2-x1)*factor) & "," & cStr(y1 - (y2-y1)*factor) & "," & cStr(x2 + (x2-x1)*factor) & "," & cStr(y2 + (y2-y1)*factor)
+]]></g></f>
+  
+<f name="SyncFields" access="private"><p name="bInter"/><p name="bDeBug"/>
+<g>
+<![CDATA[
+	Dim nDcoChildren
+	Dim nRules
+	Dim oSetupNode
+	Dim xR	
+	Dim sName	
+	Dim oField	
+	Dim newDCO	
+		
+	On Error Resume Next	
+		
+	SyncFields=False
+		
+	writelog("Start Number of Children:" & CurrentObj.numofchildren())
+		
+	Set oSetupNode = CurrentObj.SetupNode()
+	
+	If oSetupNode is Nothing then
+		Writelog("No setup node returned!") 
+		Exit Function
+	End if
+
+	nRules = oSetupNode.NumOfRules
+	
+	For xR = 0 to nRules
+			Set oRule = oSetupNode.GetRule(clng(xR))
+			If Not(oRule is Nothing) then
+				sName = oRule.Name
+				
+				If Currentobj.FindChild(sName) is Nothing and oRule.ObjectType=3 then
+					Set newDCO = CurrentObj.AddChild(oRule.ObjectType,sName,-1)	
+	
+					If newDCO is nothing then exit function
+						
+					newDCO.Type = sName
+					newDCO.Status = 0
+					newDCO.Text = ""
+
+					writelog("Missing DCO '" & sName & "' added to " & Currentobj.ID)
+					
+					Set newDCO = Nothing
+					
+				End if
+			End if
+	Next 'xR
+		
+	Set oSetupNode = Nothing
+	SyncFields = True
+	
+]]></g></f>
+  
+<g><![CDATA[
+'=============== NAME PARSE UTIL ======================================================================
+
+'Main Name Parse Functionality taken from Validations.rra all existing MC_Validations action names are preserved.
+]]></g>
+  
+<f name="ParseName" access="private"><p name="bInter"/><p name="bDebug"/><p name="StrParam"/>
+<g>
+<![CDATA[
+    On Error Resume Next
+    ParseName = mc_ParseName(CurrentObj,StrParam)
+]]></g></f>
+
+<f name="UpdateCredentialList" access="public"><p name="sCredential"/><p name="AddRemove"/>       
+    <g>
+      <![CDATA[
+       Dim bAdd
+       Dim sSmartValue
+       Dim sSmartAddRemove
+       
+       UpdateCredentialList=True
+       
+       On Error Resume Next
+          
+       'Determine if Add or Remove credentials
+       sSmartAddRemove = MetaWord(AddRemove)
+       If len(trim(sSmartAddRemove))=0 then
+          sSmartAddRemove=sCredential
+       End if
+       
+       Select Case ucase(trim(sSmartAddRemove))
+          Case "OFF","REMOVE","0","FALSE","-1","NO","DELETE"
+             bAdd=False        
+          Case Else
+             bAdd=True
+       End Select
+        
+       'Check for smart parameter value
+       sSmartValue = MetaWord(sCredential)
+       If len(trim(sSmartValue))=0 then
+          sSmartValue=sCredential
+       End if
+       
+       'Make an array of the credentials
+       aCreds = Split(sSmartValue & ",",",")
+        
+       'Add or Remove from list 
+       For i = 0 to ubound(aCreds)
+          If len(Trim(aCreds(i)))>0 then
+             If g_dictCredentials.Exists(aCreds(i)) then
+   		            If bAdd=False then
+                     Writelog("Removing Credential '" & aCreds(i) & "' from credential dictionary.")
+                     Call g_dictCredentials.Remove(aCreds(i)) 
+                  Else
+                     Writelog("Credential '" & aCreds(i) & "' already exists in credential dictionary and will not be added.")
+                  End if
+             Else
+                  If bAdd=True then
+                     Writelog("Adding Credential '" & aCreds(i) & "' to credential dictionary.")
+                     Call g_dictCredentials.Add(aCreds(i),aCreds(i)) 
+                  End if
+             End if
+          End if
+       Next 'i
+            
+       'Log Current list of Credentials
+       aKeys=g_dictCredentials.Keys
+       Writelog("New list of Credentials:" & join(aKeys,","))
+                          
+       If Err.Number=0 then UpdateCredentialList=True 
+       
+       Call ErrorHandler("UpdateCredentialList") 
+              
+       
+]]>
+    </g>
+  </f>  
+<f name="mc_ParseName" access="private"><p name="DCOObj"/><p name="StrParam"/>
+<g>
+    <![CDATA[
+  ' Strparam is a comma delimited list of DCO fields "LastName,FirstName,MidName,Credential,Suffix"
+  ' Input pattern assumption is First Middle Last. 
+  ' Any Parameter value of 'TRUE' or '-1' Flags change of input pattern to Last First	
+
+	Dim arFieldList
+	Dim LastNm
+	Dim FirstNm
+	Dim MidIni
+	Dim TempNm
+	Dim g_MidIniNeeds
+	Dim g_ReverseName
+	Dim oLastNameField
+	Dim oFirstNameField
+	Dim oIniNameField
+	Dim oCredField
+	Dim oSuffixField
+	
+	g_MidIniNeeds = TRUE
+	mc_ParseName = TRUE
+	g_ReverseName = FALSE
+	
+	On Error resume next
+    
+    If DCOObj is nothing then 
+        mc_ParseName = False
+        Writelog("Source field not found.")	
+        Exit Function
+    End if
+
+	If DCOObj.Text = "" Then Exit Function
+	
+	If(StrParam = "" ) Then
+		Writelog("list of LastNameField,FirstNameField,MidNameField is empty")
+		mc_ParseName = FALSE
+		Exit function
+	End if
+	
+	Set oLastNameField=Nothing
+	Set oFirstNameField=Nothing
+	Set	oIniNameField=Nothing
+	Set oCredField=Nothing
+	Set oSuffixField=Nothing
+	
+	arFieldList = Split(StrParam & ",,,,,",",")
+
+	Set oLastNameField = DCOObj.FindChild(arFieldList(0))
+	If oLastNameField is Nothing then 
+	    Set oLastNameField = DCOObj.Parent.FindChild(arFieldList(0))
+	End if
+
+	If (oLastNameField is Nothing) and len(trim(arFieldList(0)))>0 Then
+	   writelog("unable to find out field which corresponds to last name '" & arFieldList(0) & "'")  
+	   mc_ParseName = FALSE
+	   Exit function
+    Else
+       'Clear Field
+        oLastNameField.Text = ""
+        oLastNameField.Variable("Position")="0,0,0,0"
+	End if
+
+	Set oFirstNameField = DCOObj.FindChild(arFieldList(1))
+	If oFirstNameField is Nothing then
+		Set oFirstNameField = DCOObj.Parent.FindChild(arFieldList(1))
+	End if
+
+	If (oFirstNameField is Nothing) and len(trim(arFieldList(1)))>0 Then
+		writelog("unable to find out field which corresponds to first name '" & arFieldList(1) & "'")
+		mc_ParseName = FALSE
+		Exit function
+     Else
+       'Clear Field
+        oFirstNameField.Text = ""
+        oFirstNameField.Variable("Position")="0,0,0,0"
+	End if
+
+	'Middle Name or Initial
+	If (uBound(arFieldList)>=2) Then
+		If ucase(arFieldList(2))="TRUE" or ucase(arFieldList(2))="-1" Then 
+			Writelog("Input Name Pattern expected is Last First.") 
+			g_ReverseName = True
+		Else
+			Set oIniNameField = DCOObj.FindChild(arFieldList(2))	
+			If (oIniNameField is Nothing) then
+				Set oIniNameField = DCOObj.Parent.FindChild(arFieldList(2))
+			End if
+		
+			If (oIniNameField is Nothing) and len(trim(arFieldList(2)))>0 Then
+				Writelog("unable to find out field which corresponds to Middle Name/Initial '" & arFieldList(2) & "'")
+				mc_ParseName = FALSE
+				Exit function
+            Else
+            'Clear Field
+            oIniNameField.Text = ""
+            oIniNameField.Variable("Position")="0,0,0,0"
+			End if
+		End if
+	End if
+	
+	'Credential 
+	If (uBound(arFieldList)>=3) Then
+		If ucase(arFieldList(3))="TRUE" or ucase(arFieldList(3))="-1" Then 
+			Writelog("Input Name Pattern expected is Last First.") 
+			g_ReverseName = True
+        Elseif Not(trim(ucase(arFieldList(3)))="") then
+			Set oCredField = DCOObj.FindChild(arFieldList(3))	
+			If (oCredField is Nothing) then
+				Set oCredField = DCOObj.Parent.FindChild(arFieldList(3))
+			End if
+		
+			If (oCredField is Nothing) and len(trim(arFieldList(3)))>0 Then
+				Writelog("unable to find out field which corresponds to Credential '" & arFieldList(3) & "'")
+				mc_ParseName = FALSE
+				Exit function
+             Else
+                'Clear Field
+                oCredField.Text = ""
+                oCredField.Variable("Position")="0,0,0,0"
+			End if
+		End if
+	End if
+	
+	'Suffix 
+	If (uBound(arFieldList)>=4) Then
+		If ucase(arFieldList(4))="TRUE" or ucase(arFieldList(4))="-1" Then 
+			Writelog("Input Name Pattern expected is Last First.") 
+			g_ReverseName = True
+		Elseif Not(trim(ucase(arFieldList(4)))="") then
+			Set oSuffixField = DCOObj.FindChild(arFieldList(4))	
+			If (oSuffixField is Nothing) then
+				Set oSuffixField = DCOObj.Parent.FindChild(arFieldList(4))
+			End if
+		
+			If (oSuffixField is Nothing) and len(trim(arFieldList(4)))>0 Then
+				Writelog("unable to find out field which corresponds to Suffix '" & arFieldList(4) & "'")
+				mc_ParseName = FALSE
+				Exit function
+            Else
+                'Clear Field
+                oSuffixField.Text = ""
+                oSuffixField.Variable("Position")="0,0,0,0"
+			End if
+		End if
+	End if
+	
+	'Input Reversal 
+	If (uBound(arFieldList)>=5) Then
+		If ucase(arFieldList(5))="TRUE" or ucase(arFieldList(5))="-1" Then 
+			Writelog("Input Name Pattern expected is Last First.") 
+			g_ReverseName = True
+		End if
+	End if
+	
+	'Create a temporary DCO field object to use for parsing.
+    Dim TempDCO
+	Dim oField
+    Set TempDCO = Createobject("TDCO.Batch")
+    If Not IsAlive(TempDCO) then 
+        mc_ParseName=False
+        Writelog("mc_ParseName unable to create Temp DCO")
+        Exit Function
+    End if
+	Set oField = TempDCO.AddChild(3,"",-1)
+    If Not IsAlive(oField) then 
+        mc_ParseName=False
+        Writelog("mc_ParseName unable to create Temp DCO")
+        Exit Function
+    End if
+    Call RRCopyChars(DCOObj, oField, 1, len(DCOObj.Text))
+	sSourceString = DCOObj.Text
+	
+	Writelog("Parsing value:'" & sSourceString & "'.")
+
+    'Find Compound Names
+	Dim aCredCheck
+	Dim sCredPosition
+	Dim aSufxCheck
+	Dim sSufxPosition
+  Dim aCompoundCheck
+  Dim nChildren
+	Dim nFound
+	Dim PrevChar
+	Dim NextChar
+	Dim nLen
+	Dim k, i
+  Dim sCred
+  Dim Matches
+  Dim Match
+  Dim g_mc_regEx
+    
+  Set g_mc_regEx = CreateObject("VBScript.RegExp")
+  g_mc_regEx.IgnoreCase = True
+  g_mc_regEx.Global = True
+   
+	'Find and remove abbreviations
+	aCredCheck=g_dictCredentials.Keys()
+  Writelog("Looking for credential match in value: '" & oField.Text & "'") 
+  For i = 0 to ubound(aCredCheck)
+		'Look for Credential Match
+    
+    nLen=0
+    nFound=0
+    
+    sCred=aCredCheck(i)
+    sCred=Replace(sCred,",","\,")
+    sCred=Replace(sCred,".","\.")
+    sCred="[ \,\.]" & Trim(sCred) & "[ \,\.]"    
+            
+    g_mc_regEx.Pattern = sCred       
+		Set Matches = g_mc_regEx.Execute(UCase(oField.Text) & Space(1))
+     
+    'We only need to match ONCE!
+    If Matches.Count>0 then
+			Set Match = Matches(0)
+			WriteLog("Matched Value: '" & Match.value & "' ")
+      nLen=len(Trim(Match.value))
+			nFound = Match.FirstIndex + 2 'Plus 1 for 0 vs 1 index, Plus one more for leading space, comma, period match.
+      Writelog("Found possible credentials match: '" & aCredCheck(i) & "' at position " & nFound & " within string '" & oField.Text & "'")  
+    End if
+
+		If nFound>0 Then
+			'Match Found - store character positions & Parse the value from oField
+			'Stores character positions in format '1,2|4,6|5,9...' for each Credential found.
+			Writelog("Removing credentials string '" & aCredCheck(i) & "', found at position " & nFound & " within string '" & oField.Text & "'")
+			sCredPosition = sCredPosition & cstr(nFound) & "," & cstr(nFound + nLen) & "|"
+      'Check for Sub-Fields
+      nChildren = oField.NumOfChildren-len(oField.Text)
+      For k = (nFound+nLen) to nfound step -1
+			   Call oField.DeleteChild(k-1+nChildren)
+			Next
+		End if
+	Next 'i 
+
+  'Find and remove Suffix's
+	aSufxCheck=Array("SR", "SR.", "SR,", "JR", "JR.", "JR,", "III", "II ")
+	For i = 0 to ubound(aSufxCheck)
+		'Look for Suffix Match
+		nFound = instr(ucase(oField.Text) & Space(1),aSufxCheck(i) & Space(1))
+		If nFound>1 Then
+			'Determine if matched location is part of a larger word
+			PrevChar = Mid(oField.Text,nFound-1,1)
+			If PrevChar<>Space(1) AND PrevChar<>"." Then nFound = 0			
+		End if
+		If nFound>0 Then
+			'Match Found - store character positions & Parse the value from oField
+			'Stores character positions in format '1,2|4,6|5,9...' for each Credential found.
+			nLen = len(trim(aSufxCheck(i)))
+			sSufxPosition = sSufxPosition & cstr(nFound) & "," & cstr(nFound + nLen) & "|"
+            'Check for Sub-Fields
+            nChildren = oField.NumOfChildren-len(oField.Text)
+			For k = (nFound+nLen) to nfound step -1
+				Call oField.DeleteChild(k-1+nChildren)
+			Next
+		End if
+	Next 'i 
+
+	CommaPosition=0
+	bComma1=0
+	bComma2=0
+	bComma3=0
+				
+	LastNm = "0,0"
+	FirstNm = "0,0"
+	MidIni = "0,0"	
+	
+    'READ Filtered Text		
+    sSourceString = oField.Text
+
+    'Check for compound Names
+    aCompoundCheck = Array("AL","AP","DA","DE","DI","DU","DEL","DER","DELLA","DELLE","EL","LA","LE","LO","MC","MAC","O","VAN","VON")
+    For i = 0 to ubound(aCompoundCheck)
+		'Look for Compound Name Match
+		nFound = instr(ucase(oField.Text),aCompoundCheck(i)& Space(1))
+		If nFound>1 Then
+			'Determine if matched location is part of a larger word
+			PrevChar = Mid(oField.Text,nFound-1,1)
+			If PrevChar<>Space(1) AND PrevChar<>"." Then nFound = 0			
+		End if
+		If nFound>0 Then
+			'Match Found - change trailing space character to an underscore
+			nLen = len(aCompoundCheck(i))
+			nChangeCharacter = nFound & nLen 
+            sSourceString = Left(sSourceString,nFound+nLen+1) & "_" & Right(sSourceString,Len(sSourceString)-nChangeCharacter)           
+		End if
+	Next 'i 
+
+	sSourceString = sSourceString & " "			' Add space to help with last word delimiting
+		
+	Tindex1 = Instr(sSourceString, ",")         ' locate first comma position, 0 if none
+	Tindex = Instr(sSourceString," ")           ' locate first space position, 0 if none
+
+	If (Tindex1=0 Or Tindex<Tindex1 And Tindex>0 And ((Tindex+1)<>Tindex1)) Then 	' no comma or there is a space before comma
+		CommaPosition=0
+	Else
+		Tindex=Tindex1					' set first delimiter to comma position
+		CommaPosition=1					' Comma after 1st word		
+		bComma1=1
+	End If			
+
+	If (Tindex=0) Then						
+		' can not locate delimiters-> exit & Set Output fields to Whole Name value
+		FirstNm="0,0"
+		LastNm = "1," & len(sSourceString)
+		MidIni="0,0"
+	Else			
+		'delimiters found					
+		PosWord1 =  "1," & cstr(Tindex)	' 1st word parsed
+		LenWord1 = Tindex
+					
+		Hindex = Tindex + 1							' set Hindex to the position after 1st delimiter
+		While (mid(sSourceString, Hindex, 1) = " ")	' find the first non-blank character
+			Hindex = Hindex + 1 
+		Wend
+
+		Tindex = Instr(Hindex, sSourceString, " ")		' Find the second space delimiter, 0 if none 
+		Tindex1 = Instr(Hindex, sSourceString, ".")	 	' Find the second period delimiter, 0 if none
+
+		If (Tindex1=0) Then
+			Tindex1 = Instr(Hindex, sSourceString,",")	' Find third delimiter type, 0 if none
+		End If
+	
+		If(Tindex > Tindex1) And (Tindex1 <> 0) Then ' set second delimiter to first position found
+			Tindex = Tindex1
+			CommaPosition=2						' Comma or period after 2nd word		
+			bComma2=1
+		End If
+
+		If (Tindex = 0) Then					' no second delimiter then
+			Tindex = Len(sSourceString) + 1		' remaining string is word2
+		End If
+
+		PosWord2 = cstr(Hindex) & "," & cstr(Tindex)	' 2nd word parsed	
+		LenWord2 = Tindex-Hindex		
+				
+		If (Tindex < Len(sSourceString)) Then    		' get the 3rd word
+			
+			Hindex = Tindex + 1								' set Hindex to the postion after 2nd delimter
+			While (mid(sSourceString, Hindex, 1) = " ") 	' find the first non-blank character
+				' skip over leading spaces
+				Hindex = Hindex + 1 
+			Wend
+
+			Tindex  = Instr(Hindex, sSourceString, " ")	' Find the third space delimiter, 0 if none
+			Tindex1 = Instr(Hindex, sSourceString, ",")	' Find the third comma delimiter, 0 if none
+
+			If (Tindex= 0 Or Tindex1=0) Then 
+				Tindex1 = Instr(Hindex, sSourceString,".")	' Find third delimiter type, 0 if none
+			End If
+
+			If( Tindex > Tindex1 And Tindex1 <> 0) Then	' set third delimiter to first position found			
+				Tindex = Tindex1
+				CommaPosition=3					' Comma or period after 3rd word	
+				bComma3=1
+			End If
+	
+			If (Tindex = 0) Then    				' no third delimiter then
+				Tindex = Len(sSourceString)+1		' remaining string is word3
+			End If
+				
+			PosWord3 = cstr(Hindex) & "," & cstr(Tindex)	' 3rd word parsed
+			LenWord3 = Tindex-Hindex
+		Else				
+			'No third word found --> Set third word to blank
+			PosWord3="0,0"		
+		End If
+
+		If (CommaPosition<>1) Or bComma2=1 Then		
+			' No comma delimiters were found
+			
+			CommaPosition = 0
+			'First word is First name
+			FirstNm=PosWord1
+			If (LenWord2 = 1 And LenWord3>1) Then	
+				'If word2 is 1 character and word3 is more than 1 character then
+				'word3 is last name and word2 is middle name
+				LastNm=PosWord3
+				MidIni=PosWord2	
+				CommaPosition = 1
+					
+			Elseif( LenWord3<=1 And LenWord2>1) Then
+				'If word2 is more than 1 character and word3 is 1 character or blank
+				LastNm=PosWord2
+				MidIni=PosWord3
+								
+				If bComma2=1 And lenWord3=0 Then 
+					'If there are only 2 words And comma at word 2
+					FirstNm=PosWord2
+					LastNm=PosWord1
+					CommaPosition = 1
+				End If
+					
+				If( LenWord3=1 And LenWord2>1) Then	
+					'If word2 is more than 1 character &  and word3 is one character 
+					FirstNm=PosWord2
+					LastNm=PosWord1
+					MidIni=PosWord3
+					CommaPosition = 1
+				End If
+				
+			Elseif (LenWord3=0 And LenWord2=0) Then  
+				'If only 1 word is found
+				LastNm=PosWord1
+				FirstNm=PosWord2
+				MidIni=PosWord3
+				CommaPosition = 1
+			Else		
+				'word3 is last name (all 3 words more than 1 character)
+				LastNm=PosWord3
+				MidIni=PosWord2	' word2 is middle name
+						
+                If g_ReverseName=True then
+                    LastNm=PosWord1
+				    MidIni=PosWord3	
+                    FirstNm=PosWord2
+                end if
+
+                CommaPosition = 2
+			End If		
+		Else	
+			'Comma delimiter Found 		
+			LastNm=PosWord1
+			FirstNm=PosWord2
+			MidIni=PosWord3
+					
+			If lenWord2=1 And lenWord1>1 And lenWord3>1 Then 
+				LastNm=PosWord3
+				FirstNm=PosWord1
+				MidIni=PosWord2
+				CommaPosition = 1
+			End If
+		End if		
+	End If	
+
+	'If Reverse Input pattern then switch fields if No Name 'pattern' determined.
+	If CommaPosition=0 and g_ReverseName=True then
+		TempNm=LastNm
+		LastNm=FirstNm
+		FirstNm=TempNm	
+	End if
+
+	'Copy Characters to 'Parse-to' Fields based on found positions
+	aLastNm = Split(LastNm,",")
+    If Not(oLastNameField is Nothing) then
+	    If cint(aLastNm(0))<>cint(0) and cint(aLastNm(1))<>cint(0) then
+	    	Call RRCopyChars(oField, oLastNameField, aLastNm(0), aLastNm(1)-aLastNm(0))
+            Writelog(Space(5) & "Field '" & oLastNameField.ID & "' Value:'" & oLastNameField.Text & "'")   
+	    End if
+    End if
+
+	aFirstNm = Split(FirstNm,",")
+    If Not(oFirstNameField is Nothing) then
+	    If cint(aFirstNm(0))<>cint(0) and cint(aFirstNm(1))<>cint(0) then		
+	    	Call RRCopyChars(oField, oFirstNameField, aFirstNm(0), aFirstNm(1)-aFirstNm(0))
+            Writelog(Space(5) & "Field '" & oFirstNameField.ID & "' Value:'" & oFirstNameField.Text & "'") 
+	    End if
+    End if
+
+    If(uBound(arFieldList)>=2) And Not(oIniNameField is Nothing) Then
+		aMidIni = Split(MidIni,",") 
+		If cint(aMidIni(0))<>cint(0) and cint(aMidIni(1))<>cint(0) then		
+			Call RRCopyChars(oField, oIniNameField, aMidIni(0), aMidIni(1)-aMidIni(0))
+            Writelog(Space(5) & "Field '" & oIniNameField.ID & "' Value:'" & oIniNameField.Text & "'") 
+		End if
+ 	End if
+
+	If(uBound(arFieldList)>=3) And Not(oCredField is Nothing) Then
+		aCreds=Split(sCredPosition & "|","|")
+		For n = 0 to ubound(aCreds)
+            If instr(aCreds(n),",")>0 then
+			   aCredPosition = Split(aCreds(n),",") 
+			   Call RRCopyChars(DCOObj, oCredField, aCredPosition(0), aCredPosition(1)-aCredPosition(0))
+               Writelog(Space(5) & "Field '" & oCredField.ID & "' Value:'" & oCredField.Text & "'")
+			End if
+		Next
+ 	End if
+ 
+	If(uBound(arFieldList)>=3) And Not(oSuffixField is Nothing) Then
+		aSufx=Split(sSufxPosition & "|","|")
+		For n = 0 to ubound(aSufx)
+            If instr(aSufx(n),",")>0 then
+                aSufxPosition = split(aSufx(n),",")		
+		    	Call RRCopyChars(DCOObj, oSuffixField, aSufxPosition(0), aSufxPosition(1)-aSufxPosition(0))
+                Writelog(Space(5) & "Field '" & oSuffixField.ID & "' Value:'" & oSuffixField.Text & "'")
+		    End if
+        Next		
+ 	End if
+
+	mc_ParseName = True
+	
+]]></g></f>
+  
+<g><![CDATA[
+'END NAME PARSE UTIL
+]]></g>
+
+<af name="InheritSnippets" access="public" bInter="bInter" bDebug="bDebug" strParam="StrParam">
+<g><![CDATA[
+    if trim(StrParam="") Then
+	writelog("InheritSnippets has wrong empty argument")
+        InheritSnippets = false
+	exit function
+    end if 
+    if(CurrentObj.ObjectType = DCO_FIELD) Then
+        
+        if( CurrentObj.GetPosition(lleft,ltop,lright,lbottom)) Then 
+            writelog("position of current field " & CurrentObj.ID & " is:" &_
+    		 lleft & "," & ltop & "," & lright & "," & lbottom)
+	    arParam = Split(StrParam,",")
+            for i=0 to uBound(arParam) 'loop for all inherited fields
+                lInheritedIndex = CurrentObj.parent.FindChildIndex(arParam(i))
+                if(lInheritedIndex <= 0 ) then
+                    writelog("no entry found for field " & arParam(i))
+                    exit for
+                end if 
+         
+                Set lInherited = CurrentObj.parent.GetChild(lInheritedIndex)
+                if( lInherited.SetPosition(lleft, ltop, lright, lbottom) ) Then
+                    writelog("position for " & lInherited.ID & " has been set to " &_
+        			 lleft &","& ltop & "," & lright & "," & lbottom)
+                end if
+            next 'i - loop for all inherited fields
+	else
+	    writelog("unable to find out position of current field " & CurrentObj.ID)
+	end if
+
+        InheritSnippets = true
+    Else
+        WriteLog("Unproper place of action " & CurrentObj.ObjectType & ". Must be at FIELD level")
+        InheritSnippets = false
+    End if
+ ]]></g>
+</af>
+
+<af name="ValProcedureCode" access="public" bInter="bInter" bDebug="bDebug">
+<g><![CDATA[
+	Dim sPCCode
+	Dim oPCCodeField
+	Dim sPCCodeValue
+	Dim sTableName
+	Dim sCodeName
+	Dim strCodeFieldName
+	Dim strCodeFieldValue
+		
+	On Error Resume Next
+	
+	ValProcedureCode=FALSE
+	
+	'Check for DCO field object
+    If Not (CurrentObj.ObjectType = DCO_FIELD) Then 
+        WriteLog("Action must be called from a DCO Field.")
+        Exit Function
+    End if
+
+	Writelog(vbCrLf & "-------- Starting Procedure Code Validation --------")
+  
+	'Code for UB92 Claims
+	sPCCode="79pc"
+	Set oPCCodeField=CurrentObj.parent.FindChild("79pc")
+	
+	If IsAlive(oPCCodeField) Then
+		sPCCodeValue = trim(oPCCodeField.text)
+		writelog("PCCode='" & sPCCodeValue & "'")
+		Select Case sPCCodeValue
+			Case "5"
+				sTableName="Procedures"
+				sCodeName="ProcCode"
+			Case "9"
+				sTableName="Diagnosis"
+				sCodeName="DiagCode"
+			Case Else
+				WriteLog("PC Code value is unknown and *INVALID*. Unable to check procedure code.")
+				oPCCodeField.Status=nFail
+                Set oPCCodeField = Nothing
+				Exit Function
+		End Select
+	Else
+		'This is default for UB92 and the only Setting for HCFA
+		sTableName="Procedures" 
+		sCodeName="ProcCode"
+	End If	
+	
+	strCodeFieldName = CurrentObj.ID
+	strCodeFieldValue=Trim(CurrentObj.text)
+	WriteLog(strCode & " = " & strCodeFieldName &"    Value = " &strCodeFieldValue)
+		
+	If Len(Trim(strCodeFieldValue))=0 Then
+		WriteLog(Space(6) & "Empty - see required fields validation")
+        ValProcedureCode=TRUE
+		
+	Elseif Not LookUp(strCodeFieldValue, sTableName, sCodeName) Then
+		WriteLog(Space(6)& "*INVALID*")        
+	Else
+		WriteLog(Space(6)& "VALID")
+        ValProcedureCode=TRUE
+	End If			
+		
+	WriteLog("-------- End Procedure Code Validation --------")
+  ]]></g>
+</af>
+
+<af name="ValRequiredGroup" access="public" bInter="bInter" bDebug="bDebug" strParam="StrParam">
+<g><![CDATA[
+    On Error Resume Next
+
+    ValRequiredGroup = TRUE
+
+    If Not(CurrentObj.ObjectType = DCO_FIELD) Then
+        WriteLog("Action must be called from a DCO Field.")
+        ValRequiredGroup = False
+        Exit Function
+    End if
+
+	WriteLog("" & vbCrLf & "-------- Starting Required Group Validation --------")
+
+  Dim sRequiredGroup
+  Dim sFieldName
+  Dim sFieldValue
+  Dim sTestValue
+  Dim iNumFields
+  Dim bIsFull
+  Dim bErrorFound
+  Dim k,L
+
+    bIsFull=True            
+
+        sFieldName=Split(StrParam,",")
+        iNumFields=UBound(sFieldName)
+
+        sRequiredGroup = sFieldName(0)
+        WriteLog("Required Group = '" & sRequiredGroup & "'")
+
+        WriteLog("Found " & iNumFields & " Fields to check (" & StrParam & ").")
+
+        sFieldValue = Trim(lGetFieldValue(sFieldName(0))) 
+
+        'Remove Zero's and Decimal chars (tests for '0' and '0.00')
+        sFieldValue = Replace(sFieldValue,"0","")
+        sFieldValue = Replace(sFieldValue,".","")
+
+        'Fieldvalue is empty or zero
+        If Trim(sFieldValue)="" Then 
+            bIsFull=False           
+        End If
+
+        For k=0 To iNumFields
+            sFieldValue=Trim(lGetFieldValue(sFieldName(k)))
+            sTestValue = sFieldValue
+
+            'Remove Zero's and Decimal chars (tests for '0' and '0.00')
+            sTestValue = Replace(sTestValue,"0","")
+            sTestValue = Replace(sTestValue,".","")
+
+            If (Trim(sTestValue="") And bIsFull=True) Or (Not(Trim(sTestValue)="") And bIsFull=False) Then
+
+               WriteLog("Field '" & sFieldName(k) & "' = Blank - Group field verificaton failed")
+               ValRequiredGroup = False
+               
+            Else
+               If Not Trim(sTestValue)="" Then
+                   WriteLog("Field '" & sFieldName(k) & "' = '" & sFieldValue & "'.")
+               Else    
+                   WriteLog("Field '" & sFieldName(k) & "' is Empty.")
+               End If
+            End If
+        Next 'k
+
+        If ValRequiredGroup = False Then
+            For k=0 To iNumFields
+    		    Call SetFieldStatus(sFieldName(k),1)
+            Next 
+        Else
+            WriteLog("      Group " & CurrentObj.ID & " -Valid-")
+        End If
+ 
+	    WriteLog("-------- End Required Groups Validation Function --------")
+ 
+ ]]></g>
+</af>
+
+  <af name="CommonValAddress" access="public" bInter="bInter" bDebug="bDebug" strParam="strString" >
+    <g>
+      <![CDATA[
+	
+  Dim arParam
+  Dim sDescription
+  Dim sFNameField
+  Dim sLNameField
+  Dim sStreet1Field
+  Dim sStreet2Field
+  Dim sCityField
+  Dim sStateField
+  Dim sZipCodeField
+  Dim sPhoneField 
+
+    On Error Resume Next	
+
+    CommonValAddress = True
+
+    If Not(CurrentObj.ObjectType = DCO_PAGE) Then
+        WriteLog("Action must be called from a DCO Page. Exiting")
+        CommonValAddress = False
+        Exit Function
+    End if
+        
+    arParam = Split(strString,",") 
+    sDescription  = arParam(0)
+    sFNameField   = arParam(1)
+    sLNameField   = arParam(2)
+    sStreet1Field = arParam(3)
+    sStreet2Field = arParam(4)
+    sCityField    = arParam(5)
+    sStateField   = arParam(6)
+    sZipCodeField = arParam(7) 
+    sPhoneField   = arParam(8) 
+	
+	    WriteLog(Space(0) & vbCrLf & "-------- Starting "& sDescription &" Address Validation --------")
+
+        writelog(sDescription & " address validation has parameters:")
+        writelog("First name " & sFNameField & ": " & CurrentObj.FindChild(sFNameField).text)
+        writelog("Last name " & sLNameField & ": " & CurrentObj.FindChild( sLNameField).text)
+        writelog("Street1 " & sStreet1Field & ": " & CurrentObj.FindChild(sStreet1Field).text)
+        writelog("Street2 " & sStreet2Field & ": " & CurrentObj.FindChild(sStreet2Field).text)
+        writelog("City " & sCityField & ": " & CurrentObj.FindChild(sCityField).text)
+        writelog("State " & sStateField & ": " & CurrentObj.FindChild(sStateField).text)
+        writelog("ZipCode " & sZipCodeField & ": " & CurrentObj.FindChild(sZipCodeField).text)
+        writelog("Phone " & sPhoneField & ": " & CurrentObj.FindChild(sPhoneField).text) 
+
+	    ValInsuredAddressHCFA=ValAddress(sFNameField,sLNameField,sStreet1Field,sStreet2Field,sCityField,sStateField,sZipCodeField,sPhoneField)
+								 
+	    WriteLog("-------- End "& sDescription &" Address Validation --------")	
+       
+  ]]>
+    </g>
+  </af>
+
+  <af name="CommonParseAddress" access="public" bInter="bInter" bDebug="bDebug" strParam="StrParam">
+    <g>
+      <![CDATA[
+	       
+    On Error Resume Next   
+       
+        CommonParseAddress = False   
+       
+    	If Not (CurrentObj.ObjectType = DCO_PAGE) Then 
+        	WriteLog("Action must be called from a DCO Page.")
+  	    	Exit Function	
+	    End if
+        
+        Select Case StrParam
+			Case "HCField32Object"
+				Call mc_ParseAddress("HCField32Object","32FacAdd","32FacNam","32F1Addr","32F2Addr","32FacCit","32FacSta","32FacZip","","")
+
+			Case "HCField33Object"	
+				Call mc_ParseAddress("HCField33Object","33DocAdd","33PhBNam","33Ph1Add","33Ph2Add","33PhCity","33PhStat","33PhyZip","33PhyPhn","")
+
+			Case "UBField13Object"
+				Call mc_ParseAddress("UBField13Object","13paddr","","13paddr1", "13paddr2","13padcit","13padsta","13padzip","","")
+         
+			Case "UBField1Object"
+				Call mc_ParseAddress("UBField1Object","1fcynmad","1provnam","1provadd","","1provcit","1provsta","1provzip","1provphn","")
+
+      Case "UBField2Object"
+				Call mc_ParseAddress("UBField1Object","2payto","2paytnm","2paytadd","","2paytcty","2paytst","2paytzip","","")
+
+			Case "UBField38Object"
+				Call mc_ParseAddress("UBField38Object","38inmadb","38name","38add1","38add2","38city","38state","38zip","","")
+
+			Case Else
+				Writelog("Invalid Action Parameter. Expected Values are: 'HCField32Object','HCField33Object','UBField1Object','UBField13Object','UBField38Object'.")
+				Exit function
+         End Select
+
+        CommonParseAddress = True
+ ]]>
+    </g>
+  </af>
+
+  <af name="ConvertHyphen" access="public" bInter="bInter" bDebug="bDebug">
+    <g>
+      <![CDATA[
+    Dim sPointerValue
+    Dim strPointerFieldConf
+    Dim NewPointerStr
+    Dim NewPointerConf
+    Dim From
+    Dim Thru
+    Dim CharValue
+    Dim bSetLC
+    
+    On Error Resume Next
+
+    If Not(CurrentObj.ObjectType = DCO_FIELD) Then
+        WriteLog("Action must be called from a DCO Field.")
+        ConvertHyphen = False
+        Exit Function
+    End if        
+
+    bSetLC=False
+
+        sPointerValue = CurrentObj.Text
+        strPointerFieldConf = CurrentObj.ConfidenceString
+        
+        Writelog("Hyphen conversion is ON. Current Value: " & sPointerValue & " Confidence String:" & strPointerFieldConf)
+  
+        NewPointerStr = ""
+        NewPointerConf = ""
+
+        If len(Trim(sPointerValue))=0 then
+            Writelog("Field is Empty.")
+            ConvertHyphen = TRUE
+            Exit Function
+        End if
+
+        For k = 1 To Len(sPointerValue)
+            CharValue = Mid(sPointerValue,k,1)
+
+            Select Case Charvalue
+                Case "-" 'Hyphen Found
+                    WriteLog("  Hyphen Found at position: " & k)
+                    If (k > 1) Then
+                      If(Len(sPointerValue) >= (k + 1)) Then
+			                  'hyphen is not a last char
+                        From = Mid(sPointerValue,k-1,1)
+                        Thru = Mid(sPointerValue,k+1,1)
+                        If(IsNumeric(From) And IsNumeric(Thru)) Then
+                          If (From <> Thru) And (1 <= From And From <= 4) And (1<= Thru And Thru <= 4) Then Stepval = Clng(From) + Clng(Thru)
+         
+                            Select Case Stepval
+                              Case 4
+                                Writelog("  Hyphen Found. Value 1-3 or 3-1, value 2 added.")
+                                NewPointerStr = NewPointerStr & "2"
+                                NewPointerConf = NewPointerConf & "9"
+                              Case 5
+                                Writelog("  Hyphen Found. Value 1-4 or 4-1, values 2 and 3 added.")
+                                NewPointerStr = NewPointerStr & "23"
+                                NewPointerConf = NewPointerConf & "99"
+                              Case 6
+                                Writelog("  Hyphen Found. Value 2-4 or 4-2, value 3 added.")
+                                NewPointerStr = NewPointerStr & "3"
+                                NewPointerConf = NewPointerConf & "9"
+                              Case Else
+                                Writelog("  Hyphen Found. 1 Step conversion, removing Hyphen.") 
+                                Stepval = 0    
+                            End Select 'Case Stepval
+			                    else
+ 				                    Writelog("A Hyphen was found between Non-Numeric characters. Hyphen ingored.")
+			                  End if
+			                else
+			                  Writelog("  Hyphen Found in the last position: removing Hyphen.") 
+			              end if
+		              Else
+			              Writelog("  Hyphen Found in the first position: removing Hyphen.") 			
+                  End If
+                Case Else 
+                  'Valid Character found?
+		              If(IsNumeric(CharValue)) Then
+		                If(1<=CharValue And CharValue<=4) Then
+                      NewPointerStr = NewPointerStr & CharValue
+                      NewPointerConf = NewPointerConf & Mid(strPointerFieldConf,k,1)
+		                 Else
+			                Writelog("Character is not {1,2,3,4} : Setting field to Low Confidence, Skipping character.")
+                      bSetLC=TRUE
+		                 End if
+		              Else
+		                writelog("Character is non-numeric: skipping character.")
+                    'If not a comma, period or space then set field to LC
+                    If Not(CharValue=CHRw(44) or CharValue=CHRw(46) or CharValue=Space(1)) Then bSetLC=TRUE
+		              End if
+              End Select
+        Next 'k
+                
+        CurrentObj.Text = NewPointerStr
+        CurrentObj.ConfidenceString = NewPointerConf
+        
+        If bSetLC=True Then
+          CurrentObj.ConfidenceString = String(len(CurrentObj.Text),"1")  
+        End if
+        
+        ConvertHyphen = True
+  
+   ]]>
+    </g>
+  </af>
+
+  <af name="ParseLastFirstIniNames" access="public" bInter="bInter" bDebug="bDebug" strParam="StrParam">
+    <g>
+      <![CDATA[
+	On Error Resume Next
+    
+	ParseLastFirstIniNames = mc_ParseName(CurrentObj,StrParam)
+		 ]]>
+    </g>
+  </af>
+
+  <af name="AddCenturyTo2DigitYear" access="public" bInter="bInter" bDebug="bDebug">
+    <g>
+      <![CDATA[
+	Dim InitialDateTime
+	InitialDateTime = CurrentObj.Text
+	if(Len(InitialDateTime) = 6) Then
+
+		if( IsNumeric(InitialDateTime) ) Then
+		' we will treat two digit year inside time interval 
+		'  [current - 100, current]
+
+			strDate = Mid(InitialDateTime,1,2) & "/" &_
+				         Mid(InitialDateTime,3,2) & "/" &_
+				  "19" & Mid(InitialDateTime,5,2) 
+			on Error Resume next
+			    SuggestedDate = CDate(strDate)
+			    if(Err.Number <> 0 ) Then
+			       Writelog("got error from create date from string: " &strDate)
+			       Err.Clear
+			       AddCenturyTo2DigitYear = false
+			       On Error Goto 0
+			       exit Function
+			    end if
+			on Error Goto 0
+			NowDate = Date
+'			StartIntervalDate = DateAdd("yyyy",-100,Date)
+			timeDiff = DateDiff("yyyy",SuggestedDate,NowDate)
+
+			if(timeDiff >= 100) Then
+			    strRightAdd = "20"
+			end if
+
+			if(timeDiff < 100 And timeDiff >= 0 ) Then
+			    strRightAdd = "19"
+			end if
+	
+			if( timeDiff<0 ) Then
+			   writelog("date refers to a later point in time then now")
+			end if
+			
+
+			call CurrentObj.AddChild(4,"",4)
+			call CurrentObj.AddChild(4,"",4)
+			if( strRightAdd = "20" ) then
+				call CurrentObj.GetChild(4).AddValue(50,10) '2
+				call CurrentObj.GetChild(5).AddValue(48,10) '0
+			else
+				call CurrentObj.GetChild(4).AddValue(49,10) '1
+				call CurrentObj.GetChild(5).AddValue(57,10) '9
+			end if
+		Else
+			writelog("supposed datetime has not digit character(s)")
+		AddCenturyTo2DigitYear = false
+		exit function
+		end if
+	Else
+		writelog("supposed datetime has not 6 characters")
+		AddCenturyTo2DigitYear = false
+		exit function
+	End if		
+	AddCenturyTo2DigitYear = true  
+]]>
+    </g>
+  </af>
+
+  <af name="CalculateResult" access="private" bInter="bInter" bDebug="bDebug" strParam="StrParam">
+    <g>
+      <![CDATA[
+      
+      
+	Dim nNum
+	Dim aStrParam
+	Dim Sobj    
+	Dim Nx  
+
+	CalculateResult = False
+
+	Dim oParent
+	Set oParent = CurrentObj.Parent()
+	
+	Dim bHasChildren
+	bHasChildren = CurrentObj.NumOfChildren > Len(CurrentObj.Text)  
+
+	aStrParam = Split(strparam & "'", "'")
+
+	'For Each aNode in aStrParam
+	For Nx = 1 to Ubound(aStrParam)
+		aNode = aStrParam(Nx-1) 
+		bNode = False
+		
+		If Trim(aNode) = "" Then bNode = True
+		If aStrParam(Nx-1)= CurrentObj.Type Then 
+			If(Trim(CurrentObj.Text) = "") Then 
+				aStrParam(Nx-1) = 0
+			else
+				aStrParam(Nx-1)= CurrentObj.Text
+			end if
+			bNode = True
+			WriteLog("Node is CurrentObj. New Value is " & aStrParam(Nx-1))
+		End If
+		
+		If Not(bNode) then
+			if CurrentObj.FindVariable(aStrParam(Nx-1)) >= 0 then 
+				if(Trim(CurrentObj.Variable(aStrParam(Nx-1))) = "" ) Then 
+					aStrParam(Nx-1)= 0
+				else
+					aStrParam(Nx-1)= CurrentObj.Variable(aStrParam(Nx-1))
+				end if
+				bNode = True
+				WriteLog("Node is Property Object. New Value is " & aStrParam(Nx-1))
+			End if
+		end if
+
+		If Not(bNode) And bHasChildren  Then 			
+			Set Sobj = CurrentObj.FindChild(aStrParam(Nx-1))
+			If Not(Sobj Is Nothing) Then 
+				If(Trim(Sobj.Text) = "") Then 
+					aStrParam(Nx-1)= 0
+				else
+					aStrParam(Nx-1)= Sobj.Text
+				end if
+				Set Sobj = Nothing
+				bNode = True	
+				WriteLog("Node is Child Object. New Value is " & aStrParam(Nx-1))
+			End If
+		End If
+
+		If Not(bNode) And Not(oParent Is Nothing) Then 
+			Set Sobj = CurrentObj.Parent().FindChild(aStrParam(Nx-1))
+			If Not(Sobj Is Nothing) Then 
+				If(Trim(Sobj.Text) = "") Then
+					aStrParam(Nx-1)= 0
+				else
+					aStrParam(Nx-1)= Sobj.Text
+				end if	
+				Set Sobj = Nothing
+				bNode = True
+				WriteLog("Node is Sibling Object. New Value is " & aStrParam(Nx-1))
+			End If
+		End If
+	 
+		If bNode = False Then
+			WriteLog("Node is Not Found as Sibling or Child. Value remains " & aStrParam(Nx-1))
+		Else
+			If Not IsNumeric(aStrParam(Nx-1)) And Trim(aNode)<>"" Then 
+				WriteLog("Node is not Numeric")
+				WriteLog("CalculateResult Expression: " & Join(astrparam,""))
+				CalculateResult = False 
+				Exit Function
+			End If
+		End If
+
+	Next	
+ 	
+	WriteLog("CalculateResult Expression: " & Join(astrparam,""))
+		
+	On Error Resume Next 	    
+
+	CalculateResult = Eval(Join(aStrParam, ""))
+
+	If CalculateResult = False Then 
+		DCOMessage("CalculateResult Failed Equation: " & Join(aStrParam, ""))
+	End If
+
+	WriteLog("Evaluated Result: " & CalculateResult)
+
+	If Err.Number <> 0 Then 
+		CalculateResult = False
+		WriteLog("Error in Calc. Resetting Error obj.")
+		WriteLog(Err.description)
+		Err.Clear
+	End If		
+
+]]></g>
+</af>
+  <af name="CalculateUB" access="private" bInter="bInter" bDebug="bDebug">
+    <g>
+      <![CDATA[
+      
+   'DEPRECATED 03/11/2013
+      
+   Dim nNum
+   Dim aStrParam
+   Dim Sobj    
+   Dim i
+
+   StrParam ="47attchg,47bttchg,47cttchg,47dttchg,47ettchg,47fttchg,47gttchg,47httchg,47jttchg,47kttchg,47mttchg,47nttchg,47pttchg,47qttchg,47rttchg,47sttchg,47tttchg,47uttchg,47vttchg,47wttchg,47xttchg,47yttchg,47zttchg"
+
+   Set oSignProbe = new CChargeSignProber
+
+   CalculateUB = False
+
+   Dim oParent
+   Set oParent = CurrentObj.Parent()
+
+   aStrParam = Split(strparam, ",")
+
+   strCalc = ""
+
+   for i = 0 to Ubound(aStrParam)
+
+      Set Sobj = oParent.FindChild(aStrParam(i))
+      If Not(Sobj Is Nothing) Then 
+         If(Trim(Sobj.Text) <> "") Then
+            if( i = 0 ) Then 
+               if(oSignProbe.GetSign(Sobj) = "-" ) Then strCalc = "-"
+               strCalc = strCalc & Sobj.Text
+            else
+               strCalc = strCalc & oSignProbe.GetSign(Sobj) & Sobj.Text
+            end if
+         end if
+         Set Sobj = Nothing
+      end if
+   next
+
+   strCalc = strCalc & "=0"
+ 	
+   WriteLog("CalculateUB Expression: " & strCalc)
+		
+   On Error Resume Next 	    
+
+   CalculateUB = Eval(strCalc)
+
+   If CalculateUB = False Then 
+      DCOMessage("CalculateUB Failed Equation: " & Join(aStrParam, ""))
+   End If
+
+   WriteLog("Evaluated Result: " & CalculateUB)
+
+   If Err.Number <> 0 Then 
+      CalculateUB = False
+      WriteLog("Error in CalcUB. Resetting Error obj.")
+      WriteLog(Err.description)
+      Err.Clear
+   End If		
+ ]]>
+    </g>
+  </af>
+
+  <af name="Parse58ainsnm" access="public" bInter="bInter" bDebug="bDebug">
+    <g>
+      <![CDATA[
+    On Error Resume Next
+    Dim StrParam
+
+    Parse58ainsnm = True
+    
+    StrParam = "58alname,58afname,58aminit,58aCred,58aSufx"
+        
+	Parse58ainsnm = mc_ParseName(CurrentObj,StrParam) 
+ ]]>
+    </g>
+  </af>
+
+  <af name="Parse58binsnm" access="public" bInter="bInter" bDebug="bDebug">
+    <g>
+      <![CDATA[
+    On Error Resume Next
+    Dim StrParam
+
+    Parse58binsnm = True
+    
+    StrParam = "58blname,58bfname,58bminit,58bCred,58bSufx"
+        
+	Parse58binsnm = mc_ParseName(CurrentObj,StrParam) 
+]]>
+    </g>
+  </af>
+
+  <af name="Parse58cinsnm" access="public" bInter="bInter" bDebug="bDebug">
+    <g>
+      <![CDATA[
+    On Error Resume Next
+    Dim StrParam
+
+    Parse58cinsnm = True
+    
+    StrParam = "58clname,58cfname,58cminit,58cCred,58cSufx"
+        
+	Parse58cinsnm = mc_ParseName(CurrentObj,StrParam) 
+]]>
+    </g>
+  </af>
+
+  <af name="Parse31aPhSig" access="public" bInter="bInter" bDebug="bDebug">
+    <g>
+      <![CDATA[
+    Dim StrParam
+
+    On Error Resume Next
+
+    Parse31aPhSig = True
+    
+    StrParam = "31aPhLNm,31aPhFNm,31aPhIni,31crdntl,31aPhSfx"
+        
+	Parse31aPhSig = mc_ParseName(CurrentObj,StrParam) ]]>
+    </g>
+  </af>
+
+  <af name="PopulateFieldPositionFromSetup" access="private" bInter="bInter" bDebug="bDebug" >
+    <g>
+      <![CDATA[
+	PopulateFieldPositionFromSetup=False
+	sRect = CurrentObj.SetupNode.Variable("Position")
+	arField=SplitNumber(sRect)
+	If UBound(arField)<3 Then 
+           writelog "PopulateFieldPositionFromSetup: field " & CurrentObj.ID & " is empty" 
+           Exit Function
+        end if
+	If arField(0)=0 And arField(1)=0 And arField(2)=0 And arField(3)=0 Then 
+           writelog "PopulateFieldPositionFromSetup: field " & CurrentObj.ID & " has 0,0,0,0 position" 
+           Exit Function
+        End if
+	CurrentObj.Variable("Position") = CStr( CInt( arField(0) ) ) &_
+					 "," & CStr( CInt( arField(1) ) ) &_
+		                         "," & CStr( CInt( arField(2) ) ) &_
+					 "," & CStr( CInt( arField(3) ) )
+        writelog("populated field " & CurrentObj.ID & " with position: " & CurrentObj.Variable("Position"))
+	PopulateFieldPositionFromSetup = true ]]>
+    </g>
+  </af>
+
+  <af name="PopulateFromField" access="public" bInter="bInter" bDebug="bDebug" strParam="StrParam" >
+    <g>
+      <![CDATA[
+        Set SourceObj = CurrentObj.parent.FindChild(StrParam)
+	if(Not SourceObj is Nothing) Then
+           CurrentObj.text = SourceObj.text
+           CurrentObj.ConfidenceString = SourceObj.ConfidenceString
+           writelog("populate this field with values from " & StrParam)    
+           PopulateFromField= true
+        else
+           writelog("unable to find out " & StrParam)    
+           PopulateFromField= false
+        end if ]]>
+    </g>
+  </af>
+
+  <af name="MC_ReadZones" access="public" bInter="bInter" bDebug="bDebug" >
+    <g>
+      <![CDATA[
+		
+	Dim sName	
+	Dim sPosName
+	Dim sOffSet
+	Dim aOffSet
+	Dim nXoffset
+	Dim nYoffset
+	Dim oCurPage
+
+	On Error Resume Next
+		
+	MC_ReadZones=True
+	sOffSet = ""
+
+	Set oCurPage = CurrentObj
+	
+	sOffSet=oCurPage.Variable("Image_Offset")
+	
+	While oCurPage.ObjectType<>2 AND oCurPage.ObjectType>1
+		Set oCurPage = oCurPage.Parent()
+		If len(sOffSet)=0 then sOffSet=oCurPage.Variable("Image_Offset")
+	Wend
+
+	If len(sOffSet)=0 then 
+		Set oChild = oCurPage.FindChild("Image_Offset")
+		If Not(oChild is Nothing) then
+			sOffset = trim(oChild.Text)
+			sOffset = replace(sOffset,";","")			
+		End if
+		Set oChild = Nothing
+	End if
+
+	sName=oCurPage.Variable("TemplateID")	
+	sPosName = "Pos" & sName
+	Writelog("MC_ReadZones for " & sPosName)
+
+	aOffSet = Split(sOffSet & ",0" , ",")
+
+	nXoffset = (-1*aOffSet(0))
+	nYoffset = (-1*aOffSet(1))
+
+	If Not(Isnumeric(nXoffSet)) or len(trim(nXoffSet))=0 then 
+		nXoffset = 0
+		writelog("X offset value was not numeric or empty. Setting value to Zero.")
+	end if
+
+	If Not(Isnumeric(nYoffSet)) or len(trim(nYoffSet))=0 then 
+		nYoffset = 0
+		writelog("Y offset value was not numeric or empty. Setting value to Zero.")
+	end if
+	
+	Writelog("Offsets : " & nXoffset & "," & nYoffset)
+	
+	Call mc_ZoneChildren(CurrentObj, sPosName, 0, clng(nXoffSet), clng(nYoffSet))
+
+	Set oCurPage = Nothing
+ ]]>
+    </g>
+  </af>
+
+  <af name="StripTrailingAlpha" access="public" bInter="bInter" bDebug="bDebug" >
+    <g>
+      <![CDATA[
+    StripTrailingAlpha = true
+
+    Dim strText,strConf
+    Dim strTextRes,strConfRes
+    strTextRes = ""
+    strConfRes = ""
+    Dim checkedChar
+
+    strText = CurrentObj.text
+    strConf = CurrentObj.confidenceString
+    if(strText="") Then exit function
+
+    bAlphaFound = false
+    for i=1 to Len(strText)
+    checkedChar = Mid(strText,i,1)    
+       if(IsNumeric(checkedChar) or IsAlpha_(checkedChar)) Then
+          if IsNumeric(checkedChar) Then
+             strTextRes = strTextRes & checkedChar
+             strConfRes = strConfRes & Mid(strConf,i,1)
+             bAlphaFound = true
+          elseif IsAlpha_(checkedChar) and Not bAlphaFound Then
+             strTextRes = strTextRes & checkedChar
+             strConfRes = strConfRes & Mid(strConf,i,1)
+             bAlphaFound = true   
+          end if
+       end if
+    next 'i
+
+    if(strTextRes = "" ) Then
+       CurrentObj.text = ""
+       CurrentObj.confidenceString = ""
+       exit function
+    end if
+
+'    if IsAlpha_(Mid(strTextRes,1,1)) Then
+       CurrentObj.text = Mid(strTextRes,1,5)
+       CurrentObj.confidenceString = Mid(strConfRes,1,5)
+'    else
+'       CurrentObj.text = Mid(strTextRes,1,4)
+'       CurrentObj.confidenceString = Mid(strConfRes,1,4)
+'    end if
+ ]]>
+    </g>
+  </af>
+
+  <af name="ValidateStateMil" access="private" bInter="bInter" bDebug="bDebug" >
+    <g>
+      <![CDATA[
+      
+'     <ref id="ValidateStateMil" >
+'    <ap>None.</ap>
+'    <h>
+'      Checks to see if the value in the field represented by the bound Field object is a valid two-character State abbreviation.
+'      <e>
+'        <b>ValidateStateMil()</b>
+'      </e>
+'    </h>
+'    <lvl>Field level.</lvl>
+'    <ret>
+'      <b>False</b> if the field's value does not contain two characters, or if the value is not a valid State abbreviation.  Otherwise, <b>True.</b>
+'    </ret>
+'  </ref>   
+      
+   ValidateStateMil = false
+   Dim Str
+   str = Trim(CurrentObj.text)
+   if len(str) <> 2 then 
+      writelog("State length is not 2 characters")
+      DCOMessage("State length is not 2 characters")
+      exit function
+   end if
+
+   arStateAbbr    = split("AK,AL,AR,AS,AZ,CA,CO,CT,DC,DE,FL,FM,GA,GU,HI,IA,ID,IL,IN,KS,KY,LA,MA,MD,ME,MH,MI,MN,MO,MP,MS,MT,NC,ND,NE,NH,NJ,NM,NV,NY,OH,OK,OR,PA,PW,PR,RI,SC,SD,TN,TX,UT,VA,VI,VT,WA,WI,WV,WY,AE,AA,AP",",")
+
+   for i=0 to Ubound(arStateAbbr)
+      if str = arStateAbbr(i) Then
+         ValidateStateMil = true
+         writelog("Matched state " & str)
+         exit function
+      end if
+   next
+
+   writelog("State does not match any state abbreviations")
+   DCOMessage("State does not match any state abbreviations")
+ ]]>
+    </g>
+  </af>
+
+  <af name="ValidateNPI" access="public" bInter="bInter" bDebug="bDebug">
+    <g>
+      <![CDATA[
+	Dim sum
+  Dim nDigits
+  Dim Parity
+  Dim i,j
+  Dim Digit
+  Dim sLuhnString
+	Dim sValue
+	Dim	sRootNumber
+	Dim sRootChkDgt
+	Dim sCompChkDgt
+  Dim nChar
+
+	On Error Resume Next
+	
+	ValidateNPI=False
+	
+	sValue = trim(CurrentObj.Text)
+	
+    For j = 1 to len(sValue)
+        nChar=mid(sValue,j,1)
+    	If Not(IsNumeric(nChar)) then
+	    	Writelog("NPI must be Numeric")
+	    	DCOMessage("NPI must be Numeric")
+	    	Exit Function
+	    End if
+	Next 'j
+
+	If len(sValue)<>10 then 
+		Writelog("NPI must be 10 digits in length.")
+		DCOMessage("NPI must be 10 digits in length.")
+		Exit Function
+	End if
+
+	sRootNumber = Left(sValue,9)
+	sRootChkDgt = Right(sValue,1)
+		     
+    sum = cint(24)
+    sLuhnString = "'24+"
+    nDigits = len(sRootNumber)
+    parity = nDigits mod 2
+     
+    For i = 1 to nDigits 
+		digit = cint(mid(sRootNumber,i,1))
+                  
+        If i mod 2 = parity then
+			digit = digit * 2
+        End if
+        If digit > 9 then
+			digit = digit - 9 
+        End if
+        sum = sum + digit
+		sluhnString = sLuhnString & cstr(digit) & "+"
+    Next 'i
+        
+    sCompChkDgt = right(10 - (sum mod 10),1)
+	Writelog("Calculated CheckDigit:'" & sCompChkDgt & "'")
+	
+	If cint(sCompChkDgt)=cint(sRootChkDgt) Then		
+		ValidateNPI=True
+		Writelog("Calculated CheckDigit matches Field value CheckDigit.")
+	Else
+		Writelog("Calculated CheckDigit does not match Field value CheckDigit.")
+		DCOMessage("Calculated CheckDigit does not match Field value CheckDigit.")
+	End if
+
+]]>
+    </g>
+  </af>
+  
+<s name="tli_TransformHCFA" access="private"><p name="oDETAILS"/><p name="oPage"/>
+<g><![CDATA[
+    Dim nChildren
+   	Dim j,i
+	  Dim HC_Flds
+    Dim Hc_Fld2
+    Dim bValidLI
+    Dim nIndex
+    Dim oLineitem
+    Dim sDetailText
+    Dim sDetailConf
+    Dim cIndex
+    Dim sIndex
+    
+    If oDETAILS is Nothing then 
+        Writelog("No Details Field found.")
+        Exit Sub
+    End if
+
+    Set oLineitem = Nothing   
+
+
+    'MOVE/transform DCO fields:
+	            '       0         1          2        3        4          5         6         7         8         9         10       11         12        13        14        15        16       17         18        19           20          21 
+	HC_Flds = Array("24aDtFr","24aDtTo","24bPlac","24cType","24cEMG_","24dCPT_","24dModi","24eDiag","24fChgs","24gDays","24hEPSD","24iQual","24jRefId","24iEMG_","24jCOB_","24kLocU","24Info_","24jNPI_","24NDC_","24NDCType_","24NDCQty_","24hCode")
+	HC_Fld2 = Array("DateFrom","DateThru","PlaceofService","TypeofService","EMG_C","CPT_Code","Modifiers","DiagPointer","Charges","Days_Units","EPSD","Qualifier","ReferenceId","EMG_I","COB","LocalUse","Info","NPI","NDC","NDCType","NDCQty","EPSDTcode")
+
+    'Save Text Value & Conf
+    sDetailText=oDETAILS.Text
+    sDetailConf=oDETAILS.ConfidenceString
+
+    oDETAILS.Text=""
+    oDETAILS.confidencestring=""
+    oDETAILS.AltText(1) = ""
+    oDETAILS.AltText(2) = ""
+
+	For j = 1 To 21
+		'Create LineItem Field
+        'Add..
+        If oLineitem is nothing then 
+            Set oLineitem = oDETAILS.AddChild(3,"",-1)
+            If oLineitem is Nothing then
+               Writelog("DCO is unable to add a LINEITEM sub-field.")
+               Exit sub
+            End if
+            nChildren = oDETAILS.NumOfChildren-len(oDETAILS.Text)
+            oLineitem.ID="LINEITEM"&nChildren
+            oLineitem.Type="LINEITEM"
+            oLineitem.Status=0
+            oLineitem.Variable("Position")=""
+            Call oLineitem.CreateFields()
+            'Update imagefile reference
+            If oPage.Variable("IMAGEFILE")<>oDETAILS.Variable("IMAGEFILE") then
+                oLineItem.Variable("IMAGEFILE")=oPage.Variable("IMAGEFILE")
+            End if
+            bValidLI=False
+        End if
+
+        For i = 0 to ubound(HC_Flds)
+            'Fill LineItem Field
+            Set oSubField = oPage.FindChild(HC_Flds(i)& j)  
+			If Not(oSubField is Nothing) Then
+                If len(oSubField.Text)>1 then bValidLI = True
+                If oSubField.MoveIn(oLineItem,-1) = False then
+                    Writelog("Unable to Move field " & oSubfield.ID & " to LINEITEM" & j)
+                Else
+                   oSubField.Variable("OriginalNodeID")=oSubfield.ID
+                   oSubField.TYPE=HC_Fld2(i)
+                   cIndex=oLineitem.FindChildIndex(HC_Fld2(i))
+                   If cIndex>-1 then oLineitem.DeleteChild(cIndex)
+                   oSubField.ID=HC_Fld2(i)
+                   sIndex=oLineitem.FindChildIndex(HC_Fld2(i))
+                   If sIndex<>cIndex then Call oLineitem.MoveChild(sIndex,cIndex)
+                  ' Writelog("Adding " & oSubField.id & " to " & oLineitem.id)
+                   Call tli_CombineRect(oLineitem,oSubfield) 
+                   Call tli_CombineRect(oDETAILS,oSubfield)  
+                End if
+            Else
+               'don't log missing fields 24cType, 24iEMG, 24jCOB & 24kLocU
+               If i<>3 or (i>12 and i<16) then   
+                    Writelog("Subfield " & HC_Flds(i)& j & " not found.")
+               End if               
+            End if
+            Set oSubField = Nothing
+        Next 'i
+
+        If bValidLI=False and not(oLineItem is Nothing) Then
+            If oLineitem.numofchildren>0 then
+                nIndex = oDETAILS.FindchildIndex(oLineItem.ID)
+                Set oLineitem = Nothing
+                call oDETAILS.DeleteChild(nIndex)
+            End if
+        Else
+            Set oLineitem = Nothing
+        End if
+
+	Next 'j
+    
+    'Restore Text Value & Conf
+    oDETAILS.Text=sDetailText
+    oDETAILS.ConfidenceString=sDetailConf
+
+]]></g></s>
+  
+<s name="tli_TransformUB92" access="private"><p name="oDETAILS"/><p name="oPage"/>
+<g>
+                    <![CDATA[
+    Dim nChildren
+   	Dim j, k, i
+	  Dim UB_Flds
+    Dim UB_Fld2
+    Dim bValidLI
+    Dim nIndex
+    dim sUBField
+    Dim oLineitem
+    Dim sDetailText
+    Dim sDetailConf
+    Dim cIndex
+    Dim sIndex
+    
+    If oDETAILS is Nothing then 
+        Writelog("No Details Field found.")
+        Exit Sub
+    End if
+
+    Set oLineitem = Nothing
+
+    writelog("DETAILS Children:" & oDETAILS.NumOfChildren-len(oDETAILS.Text))
+
+    'MOVE/transform DCO fields:
+	            '       0           1         2          3         4          5          6          7       8       9         10           11
+	UB_Flds = Array("42%revcd","43%dscrt","44%hcpcs","44%Mod","45%srvdt","46%srvun","47%ttchg","48%ncchg","49%","43%ndc","43%ndctype","43%ndcqty")
+	UB_Fld2 = Array("RevCode","Description","HCPCS","Modifiers","ServiceDate","Units","Charges","NonCovered","LocalUse","NDC","NDCType","NDCQty")
+    
+    'Save Text Value & Conf
+    sDetailText=oDETAILS.Text
+    sDetailConf=oDETAILS.ConfidenceString
+
+    'Clear Text Values
+    oDETAILS.Text=""
+    oDETAILS.confidencestring=""
+    oDETAILS.AltText(1) = ""
+    oDETAILS.AltText(2) = ""
+
+	For j = 1 To 26
+		'Create LineItem Field
+        'Add..
+        If oLineitem is Nothing then 
+           
+            Set oLineitem = oDETAILS.AddChild(3,"",-1)
+            If oLineitem is Nothing then
+               Writelog("DCO is unable to add a LINEITEM sub-field.")
+               Exit sub
+            End if
+            nChildren = oDETAILS.NumOfChildren-len(oDETAILS.Text)
+            oLineitem.ID="LINEITEM"&nChildren
+            oLineitem.Type="LINEITEM"
+            oLineitem.Status=0
+            oLineitem.Variable("Position")=""
+            Call oLineitem.CreateFields()
+            'Update imagefile reference
+            If oPage.Variable("IMAGEFILE")<>oDETAILS.Variable("IMAGEFILE") then
+                oLineItem.Variable("IMAGEFILE")=oPage.Variable("IMAGEFILE")
+            End if
+            bValidLI=False
+        End if
+
+        For i = 0 to ubound(UB_Flds)
+            'Fill LineItem Field
+            'Add 96 to j --> ASCII 97 is 'a' ASCII 122 is 'z'
+            k = CHRW(j+96)  
+            sUBField = UB_Flds(i)
+            sUBField = Replace(sUBField,"%",k)  
+            Set oSubField = oPage.FindChild(sUBField)  
+			      If Not(oSubField is Nothing) Then
+		        'If Rev Code data not found, don't bother creating the detail line.
+		           If Instr(sUBField,"rev") > 0 Then
+                  If len(oSubField.Text)>1 then bValidLI = True
+               End if
+
+               If oSubField.MoveIn(oLineItem,-1) = False then
+                   Writelog("Unable to Move field " & oSubfield.ID & " to LINEITEM" & j)
+               Else
+                  oSubField.Variable("OriginalNodeID")=oSubfield.ID
+                  oSubField.TYPE=UB_Fld2(i)
+                  cIndex=oLineitem.FindChildIndex(UB_Fld2(i))
+                  If cIndex>-1 then oLineItem.DeleteChild(cIndex) 
+                  oSubField.ID=UB_Fld2(i)
+                  sIndex=oLineitem.FindChildIndex(UB_Fld2(i))
+                  If sIndex<>cIndex then Call oLineitem.MoveChild(sIndex,cIndex)
+                  'Find charges line and copy snippet zone and value to 23TotChgs field.
+			            If oSubfield.ID = "RevCode" and Right(oSubfield.Text,3) = "001" Then
+				             iFound = 1
+	           				 Writelog("iFound: " & iFound)
+			            End If	
+        			
+		                If iFound = 1 Then
+			                If oSubfield.ID = "Charges" Then
+				                Writelog("oSubfield.ID: " & oSubfield.ID)
+				                Writelog("oSubfield.Text: " & oSubfield.Text)
+
+				                Set oSubField2 = oPage.FindChild("23TotChgs")
+
+				                If Not(oSubField2 is Nothing) And Len(oSubField2.Text) = 0 Then
+					                oSubField2.Text	= oSubfield.Text
+					                oSubField2.ConfidenceString = oSubfield.ConfidenceString
+
+					                Writelog("CurrentObj.ObjectType: " & CurrentObj.ObjectType)
+					                'Call InheritSnippetFrom(bInter, bDebug, oSubfield.ID)
+
+					                If(oSubfield.GetPosition(lleft,ltop,lright,lbottom)) Then
+						                writelog("position of From field " & oSubfield.ID & " is:" &_
+						                lleft & "," & ltop & "," & lright & "," & lbottom)
+
+				                                If( oSubField2.SetPosition(lleft, ltop, lright, lbottom) ) Then
+							                writelog("position for " & oSubField2.ID & " has been set to " &_
+							                lleft &","& ltop & "," & lright & "," & lbottom)
+						                End If
+					                End If
+
+					                Writelog("oSubField2.Text: " & oSubField2.Text)
+				                End If
+
+				                iFound = 0
+				                Set oSubField2 = Nothing
+			                End If
+
+		                End If
+
+                   Call tli_CombineRect(oLineitem,oSubfield)   
+                   Call tli_CombineRect(oDETAILS,oSubfield)     
+                End if
+            Else
+               Writelog("No Subfield '" & sUBField & "' found.")               
+            End if
+            Set oSubField = Nothing
+        Next 'i
+       
+        If bValidLI=False and not(oLineItem is Nothing) Then
+            If oLineitem.numofchildren>0 then
+                nIndex = oDETAILS.FindchildIndex(oLineItem.ID)
+                call oDETAILS.DeleteChild(nIndex)
+                Set oLineitem = Nothing
+            End if
+        Else
+            Set oLineitem = Nothing
+        End if  
+
+	Next 'j
+
+    'Restore Text Value & Conf
+    oDETAILS.Text=sDetailText
+    oDETAILS.ConfidenceString=sDetailConf
+
+]]></g>
+</s>
+  
+<f name="tli_GetDETAILS" access="private"><p name="oPage"/>
+<g><![CDATA[
+    Dim oDETAILS
+
+    On Error Resume Next
+
+    Set tli_GetDETAILS = Nothing
+
+    'Find or Add DETAILS field   
+    Set oDETAILS = oPage.FindChild("DETAILS")
+
+    If oDETAILS is Nothing then
+        Writelog("No DETAILS Field Found. Adding DETAILS Field.")
+        Set oDETAILS = oPage.AddChild(3,"",-1)
+        If oDETAILS is Nothing then
+            Writelog("Unable to Add DETAILS field. Exiting.")
+            Exit Function
+        End if
+        oDETAILS.ID="DETAILS"
+        oDETAILS.Type="DETAILS"
+        oDETAILS.Status=0
+    End if
+
+    Set tli_GetDETAILS = oDETAILS
+    Set oDETAILS = Nothing
+
+]]></g></f>
+
+<s name="tli_CombineRect" access="private"><p name="oParentfield"/><p name="oSubfield"/>
+<g><![CDATA[
+    On error resume Next
+	
+    If oParentfield is nothing then exit sub
+    If oSubfield is nothing then exit sub
+
+    Dim arRect1
+    Dim arRect2
+	Dim arRes(3)
+
+    arRect1 = oSubfield.Variable("Position")
+    If len(trim(arRect1))=0 or arRect1="0,0,0,0," or arRect1="0,0,0,0" then Exit Sub
+    If len(oSubField.text)=0 then Exit Sub
+    arRect1 = Split(arRect1,",")
+
+	arRect2 = oParentfield.Variable("Position")
+    If len(trim(arRect2))=0 or arRect2="0,0,0,0," or arRect2="0,0,0,0" then 
+        oParentfield.Variable("Position")=oSubfield.Variable("Position")
+        Exit Sub
+    End if
+
+    arRect2 = Split(arRect2,",")
+
+	If (Not IsArray(arRect1)) Or (Not IsArray(arRect2)) Then Exit Sub
+
+	If UBound(arRect1)<3 Or UBound(arRect2)<3 Then Exit Sub
+ 
+	If cdbl(arRect1(0))<cdbl(arRect2(0)) Then arRes(0)=arRect1(0) Else arRes(0)=arRect2(0)
+
+	If cdbl(arRect1(1))<cdbl(arRect2(1)) Then arRes(1)=arRect1(1) Else arRes(1)=arRect2(1)
+
+	If cdbl(arRect1(2))>cdbl(arRect2(2)) Then arRes(2)=arRect1(2) Else arRes(2)=arRect2(2)
+
+	If cdbl(arRect1(3))>cdbl(arRect2(3)) Then arRes(3)=arRect1(3) Else arRes(3)=arRect2(3)
+
+	oParentfield.Variable("Position")= cstr(arRes(0)) & "," & cstr(arRes(1)) & "," & cstr(arRes(2)) & "," & cstr(arRes(3))
+
+    'Writelog("Setting Parent position to: " & oParentfield.Variable("Position"))
+
+]]></g>
+</s>
+
+  <af name="TransformLI" access="public" bInter="bInter" bDebug="bDebug">
+    <g>
+      <![CDATA[
+    On Error Resume Next
+   
+    Dim sType    
+    Dim oPage
+    Dim oDoc
+    Dim oDETAILS
+    Dim i
+    Dim nChildren
+
+    TransformLI=FALSE
+    Set oDETAILS =Nothing
+
+    If CurrentObj.ObjectType = 2 Then
+        Set oPage = CurrentObj
+        Set oDoc = oPage.Parent()
+             
+        Select Case UCase(oPage.Type)
+          Case "HCFA 1500","PCLAIM"
+            Set oDETAILS = tli_GetDETAILS(oPage)
+            Call tli_TransformHCFA(oDETAILS, oPage)
+            TransformLI=True 
+          Case "UB92","UB04_PAGE","ICLAIM"
+            Set oDETAILS = tli_GetDETAILS(oPage)
+            Call tli_TransformUB92(oDETAILS, oPage)
+            TransformLI=True
+          Case Else
+            Writelog("Unknown Page type '" & oPage.Type & "'")
+        End Select                       
+            
+
+    Elseif CurrentObj.ObjectType = 1 then
+        Set oDoc = CurrentObj
+        'Loop through pages in doc
+
+        nChildren = oDoc.NumOfChildren
+        For i = 1 to nChildren
+            Set oPage = oDoc.GetChild(i-1)
+            If oPage.ObjectType=2 Then
+                If oPage.Type = "HCFA 1500" then
+                
+                Select Case UCase(oPage.Type)
+                  Case "HCFA 1500","HCFA_1500","PCLAIM"
+                    If oDETAILS is Nothing Then 
+                        Set oDETAILS = tli_GetDETAILS(oPage)
+                    Else
+                        oPage.Type = Trim(oPage.Type) & Space(1) & "Trailing"
+                    End if
+                    Call tli_TransformHCFA(oDETAILS, oPage)
+                    TransformLI=True
+                    
+                  Case "UB92","UB04_PAGE","ICLAIM"
+                    If oDETAILS is Nothing Then 
+                        Set oDETAILS = tli_GetDETAILS(oPage)
+                    Else
+                        oPage.Type = Trim(oPage.Type) & Space(1) & "Trailing"
+                    end if
+                    Call tli_TransformUB92(oDETAILS, oPage)
+                    TransformLI=True
+                  
+                  End Select
+                  
+                End if
+            End if
+        Next 'i
+
+    Else    
+        Writelog("Action must be called by a Page or Document object.")
+        Exit Function
+    End if
+   
+    Set oPage = Nothing
+	Set oDETAILS = Nothing	
+
+]]>
+    </g>
+  </af>
+
+  <af name="CheckDocID" access="public" bInter="bInter" bDebug="bDebug" >
+ <g>
+      <![CDATA[
+	Dim sDocID
+	
+	CheckDocID = False
+	
+	sDocID = CurrentObj.ID
+
+	Writelog "DocID: " & sDocID
+	
+	If Len(sDocID) <= 3 Then
+		CurrentObj.ID = Pilot.BatchID & "." & Right("000" & sDocID, 2)
+	End If
+	
+	Writelog "DocID: " & CurrentObj.ID
+	
+	CheckDocID = True
+]]>
+    </g>
+  </af>
+
+  <af name="CalculateUBLineCharges" access="public" bInter="bInter" bDebug="bDebug">
+    <g>
+      <![CDATA[
+	Dim oDetail, oLitem, oField
+	Dim iTotal,iSumTotal, iFieldCharge
+	
+	CalculateUBLineCharges = False
+
+	iSumTotal = 0
+	
+	writelog("CurrentObj.ObjectType: " & CurrentObj.ObjectType)
+
+	Set oDetail = ReturnNamedComponent("DETAILS")
+	Writelog("oDetail.NumOfChildren - 1: " & oDetail.NumOfChildren - 1)
+
+	iTotal =  Trim(CurrentObj.TEXT)
+	Writelog("iTotal")
+	
+	If Not IsNumeric(iTotal) Then
+		Writelog("Invalid total charge.")
+
+		For k = 0 to oDetail.NumOfChildren - 1
+			Set oLitem = oDetail.GetChild(k)
+
+			If Not(oLitem is Nothing) Then
+				For l = 0 to oLitem.NumOfChildren - 1
+					Set oField = oLitem.GetChild(l)
+			
+					If oField.ID = "RevCode" And Right(oField.TEXT,3) = "001" Then
+						Exit For
+					ElseIf oField.ID = "Charges" Then
+						iFieldCharge = Trim(oField.TEXT)
+	
+						If Len(iFieldCharge) > 0 Then
+							oField.Status = 1
+						Else
+							oField.Status = 0
+						End If
+					End If
+				Next
+			End If
+		Next		
+
+		Set oField = Nothing
+		Set oLitem = Nothing
+		Set oDetail = Nothing
+
+		Exit Function
+	End If
+	
+
+	For i = 0 to oDetail.NumOfChildren - 1
+		Set oLitem = oDetail.GetChild(i)
+		Writelog("oLitem: " & oLitem.ID)
+
+		If Not(oLitem is Nothing) Then
+			For j = 0 to oLitem.NumOfChildren - 1
+				Set oField = oLitem.GetChild(j)
+			
+				If oField.ID = "RevCode" And Right(oField.TEXT,3) = "001" Then
+					Exit For
+				ElseIf oField.ID = "RevCode" Then
+					Writelog("oField: " & oField.ID & " :: " & oField.TEXT)
+				ElseIf oField.ID = "Charges" Then
+'					Writelog("oField: " & oField.ID & " :: " & oField.TEXT)
+
+					iFieldCharge = Trim(oField.TEXT)
+	
+'					Writelog("iFieldCharge: " & iFieldCharge)
+
+					If IsNumeric(iFieldCharge) Then 'And (iTotal - iFieldCharge) > 0 Then
+						Writelog("Field: " & oField.ID & " :: " & iFieldCharge)
+						iSumTotal = (iSumTotal + iFieldCharge)
+					End If
+				End If
+			Next
+		Else
+			Writelog("Line items not found.")
+			Set oDetail = Nothing
+
+			Exit Function
+		End If
+	Next
+
+	If (iSumTotal - iTotal) = 0 Then
+		CalculateUBLineCharges = True
+
+	End If
+	
+	For k = 0 to oDetail.NumOfChildren - 1
+		Set oLitem = oDetail.GetChild(k)
+
+		If Not(oLitem is Nothing) Then
+			For l = 0 to oLitem.NumOfChildren - 1
+				Set oField = oLitem.GetChild(l)
+			
+				If oField.ID = "RevCode" And Right(oField.TEXT,3) = "001" Then
+					Exit For
+				ElseIf oField.ID = "Charges" Then
+					iFieldCharge = Trim(oField.TEXT)
+'Writelog("SETTING STATUS")
+	
+					'If Len(iFieldCharge) > 0 And CalculateUBLineCharges = False Then
+					If CalculateUBLineCharges = False Then
+						oField.Status = 1
+					Else
+						oField.Status = 0
+					End If
+'Writelog(oField.id & " STATUS:" & oField.Status)
+				End If
+			Next
+		End If
+	Next		
+
+	Writelog("                 ------------")
+	Writelog("       iSumTotal: " & iSumTotal)
+	Writelog("          iTotal:[" & iTotal & "]")
+	
+	Set oField = Nothing
+	Set oLitem = Nothing
+	Set oDetail = Nothing
+]]>
+    </g>
+  </af>
+
+  <af name="CalculateHCFALineCharges" access="public" bInter="bInter" bDebug="bDebug">
+    <g>
+      <![CDATA[
+      
+  On Error Resume Next  
+    
+	Dim oDetail, oLitem, oField
+	Dim iTotal,iSumTotal, iFieldCharge
+	
+	CalculateHCFALineCharges = False
+
+	iSumTotal = 0
+	
+	writelog("CurrentObj.ObjectType: " & CurrentObj.ObjectType)
+
+	Set oDetail = ReturnNamedComponent("DETAILS")
+	Writelog("Found '" & oDetail.NumOfChildren - 1 & "' Lineitem lines.")
+
+	iTotal =  CurrentObj.TEXT
+	
+  'Check Value of Total Charges - fail all charges if invalid.
+	If Not IsNumeric(iTotal) Then
+		Writelog("Non numeric total charge value.")
+
+    'find and fail all 'Charges' fields
+		For k = 0 to oDetail.NumOfChildren - 1
+			Set oLitem = oDetail.GetChild(k)
+
+			If Not(oLitem is Nothing) Then
+				For l = 0 to oLitem.NumOfChildren - 1
+					Set oField = oLitem.GetChild(l)
+			
+					If oField.ID = "Charges" Then
+						iFieldCharge = Trim(oField.TEXT)
+
+						If Len(iFieldCharge) > 0 Then
+							oField.Status = 1
+						Else
+							oField.Status = 0
+							oField.ConfidenceString = 9
+						End If
+
+					End If
+				Next 'l
+			End If
+		Next 'k		
+
+		Set oField = Nothing
+		Set oLitem = Nothing
+		Set oDetail = Nothing
+
+		Exit Function
+	End If
+	
+  'Check sum of charges vs total charges
+	For i = 0 to oDetail.NumOfChildren - 1
+		Set oLitem = oDetail.GetChild(i)
+		Writelog("oLitem: " & oLitem.ID)
+
+		If Not(oLitem is Nothing) Then
+			For j = 0 to oLitem.NumOfChildren - 1
+				Set oField = oLitem.GetChild(j)
+			
+				If oField.ID = "Charges" Then
+					iFieldCharge = Trim(oField.TEXT)
+					
+					If len(iFieldCharge)=0 then iFieldCharge=0
+          If Not IsNumeric(iFieldCharge) then iFieldCharge=0
+          	
+					If IsNumeric(iFieldCharge) Then 
+						Writelog("Field: " & oField.ID & " :: " & iFieldCharge)
+						iSumTotal = (iSumTotal + iFieldCharge)
+					End If
+          
+				End If
+			Next 'j
+      
+		Else
+			Writelog("Line items not found.")
+			Set oDetail = Nothing
+
+			Exit Function
+		End If
+	Next
+
+	If (iSumTotal - iTotal) = 0 Then
+		CalculateHCFALineCharges = True
+	End If
+
+	For k = 0 to oDetail.NumOfChildren - 1
+		Set oLitem = oDetail.GetChild(k)
+
+		If Not(oLitem is Nothing) Then
+			For l = 0 to oLitem.NumOfChildren - 1
+				Set oField = oLitem.GetChild(l)
+			
+				If oField.ID = "Charges" Then
+					iFieldCharge = Trim(oField.TEXT)
+	
+'					If Len(iFieldCharge) > 0 And CalculateHCFALineCharges = False Then
+					If CalculateHCFALineCharges = False Then
+						oField.Status = 1
+					Else
+						oField.Status = 0
+						oField.ConfidenceString = 9
+						CurrentObj.ConfidenceString = 9
+					End If
+
+				End If
+			Next
+		End If
+	Next		
+
+	Writelog("                 ------------")
+	Writelog("       iSumTotal: " & iSumTotal)
+	Writelog("          iTotal:[" & iTotal & "]")
+	
+	Set oField = Nothing
+	Set oLitem = Nothing
+	Set oDetail = Nothing
+]]>
+    </g>
+  </af>
+
+
+  <af name="SetOriginalTIF" access="public" bInter="bInter" bDebug="bDebug" strParam="StrParam" >
+    <g>
+      <![CDATA[
+	Dim sWorkingImage, sNewWorkingImage, sOriginalImage
+	
+	SetOriginalTIF = False
+	
+	sWorkingImage = UCase(CurrentObj.Variable("IMAGEFILE"))
+	Writelog("sWorkingImage:" & sWorkingImage)
+
+	sOriginalImage = Replace(sWorkingImage,"TIF",StrParam)
+	Writelog("sOriginalImage:" & sOriginalImage)
+	
+	If Not FileMgr.FileExists(sOriginalImage) Then
+		Writelog("sOriginalImage does not exist.")
+		Exit Function
+	End If
+	
+	sNewWorkingImage = Replace(sOriginalImage,"TM","TMO_")
+	sNewWorkingImage = Replace(sNewWorkingImage,StrParam,"TIF")
+	Writelog("sNewWorkingImage:" & sNewWorkingImage)
+	
+	FileMgr.CopyFile sOriginalImage,sNewWorkingImage
+	
+	CurrentObj.Variable("IMAGEFILE") = sNewWorkingImage
+	
+	SetOriginalTIF = True
+
+]]>
+    </g>
+  </af>
+
+  <af name="FormatFieldLengths" access="public" bInter="bInter" bDebug="bDebug">
+    <g>
+      <![CDATA[
+	Dim i
+	Dim sOConfidence, sNConfidence, iLen
+	
+	FormatFieldLengths = False
+
+	
+	For i = 0 to CurrentObj.NumOfChildren - 1
+		Set oField = CurrentObj.GetChild(i)
+
+
+		WriteLog(">>>> Start Field.")
+
+		WriteLog("Field.ID:" & oField.ID)
+
+		sLength = Trim(oField.Variable("Length"))
+
+		If sLength = "" Then sLength = 0
+
+		WriteLog("sLength: " & sLength)
+            Value = oField.Text
+            CurCount = Len(Value)
+            nChilds = oField.Numofchildren - CurCount	
+            Tcnt = 0	
+
+            Writelog(Space(4) & "Start Value'" & Value & "'")
+
+	     'Trim the field value - remove leading and trailing spaces
+	      If oField.ObjectType=3 then 'must be a dco field obj
+		
+		     CharValue = 0
+
+		     If len(oField.Text) > 0 then CharValue = oField.Getchild(nChilds).CharValue(0)
+
+		     While clng(CharValue)= clng(32)
+			   bRes = oField.DeleteChild(nChilds)
+			   CharValue = 0  		
+			   If len(oField.Text) > 0 then CharValue = oField.Getchild(nChilds).CharValue(0)
+			   Tcnt = Tcnt + 1
+		     Wend
+
+		     If len(oField.Text) > 0 then CharValue = oField.Getchild(oField.Numofchildren-1).CharValue(0)
+		
+		     While clng(CharValue)= clng(32)
+			   bRes = oField.DeleteChild(oField.Numofchildren-1)
+			   CharValue = 0  		
+			   If len(oField.Text) > 0 then CharValue = oField.Getchild(oField.Numofchildren-1).CharValue(0)
+			   Tcnt = Tcnt + 1
+		    Wend
+
+	      End if
+
+		If oField.ID = "DETAILS" Then
+			For j = 0 to oField.NumOfChildren - 1
+				Set oSubField = oField.GetChild(j)
+			
+				WriteLog("SubField.ID:" & oSubField.ID)
+	
+				For k = 0 to oSubField.NumOfChildren - 1
+					Set oSubFields = oSubField.GetChild(k)
+			
+					WriteLog("SubFields.ID:" & oSubFields.ID)
+
+					sLengthSub = Trim(oSubFields.Variable("Length"))
+
+					If sLengthSub = "" Then
+						sLengthSub = 0
+					End If
+
+					WriteLog("DCO length of field " & oSubFields.ID & "=" & sLengthSub)
+					WriteLog("Actual length of field " & oSubFields.ID & "= "& Len(oSubFields.Text))
+
+					If Clng(sLengthSub) = 0 Then
+						WriteLog("0 length value found: " & oSubFields.ID & " Length = " & sLengthSub)
+					'ElseIf oSubFields.Variable("RecogType") = 4 Then
+					'	WriteLog("OMR field found: " & oSubFields.ID & " Skipping")
+					ElseIf Clng(Len(oSubFields.Text)) > Clng(sLengthSub) Then
+						WriteLog("Truncating field: "& oSubFields.ID)
+		
+						WriteLog("O Confidence: " & oSubFields.ConfidenceString)
+						sOConfidenceSub = oSubFields.ConfidenceString
+	
+						oSubFields.Text = Left(oSubFields.Text,sLengthSub)
+
+						sNConfidenceSub = Left(sOConfidenceSub,sLengthSub)
+
+						iLenSub = Len(sNConfidenceSub)-1
+
+						sNConfidenceSub = Mid(sNConfidenceSub,1,iLenSub) & "0"
+						WriteLog("sNConfidenceSub: " & sNConfidenceSub)
+			
+						oSubFields.ConfidenceString = sNConfidenceSub
+					End If
+
+				Next	
+			Next	
+		End If
+
+		WriteLog("DCO length of field " & oField.ID & "= " & sLength)
+		WriteLog("Actual length of field " & oField.ID & "= "& Len(oField.Text))
+'		WriteLog("oField.Variable(STATUS) = " & oField.Variable("STATUS") )
+
+
+		If oField.ID = "1InsType" or oField.ID = "3aPatSex" or oField.ID = "6PatRela" or oField.ID = "8aPStatM" or oField.ID = "8bPStatE" _
+		  or oField.ID = "10aPCREm" or oField.ID = "10bPCRAA" or oField.ID = "10cPCROA" or oField.ID = "11aInSex" or oField.ID = "11dPlOth" _
+		  or oField.ID = "20aOutLb" or oField.ID = "25bSSEIN" or oField.ID = "27AccAss" Then
+		
+			WriteLog("OMR field found: " & oField.ID & " Skipping")
+		ElseIf Clng(sLength) = 0 Then
+			WriteLog("0 length value found: " & oField.ID & " Length = " & sLength)
+		ElseIf Clng(Len(oField.Text)) > Clng(sLength) Then
+			WriteLog("Truncating field: "& oField.ID)
+
+			WriteLog("O Confidence: " & oField.ConfidenceString)
+			sOConfidence = oField.ConfidenceString
+		
+			oField.Text = Left(oField.Text,sLength)
+		
+			sNConfidence = Left(sOConfidence,sLength)
+
+			iLen = Len(sNConfidence)-1
+
+			sNConfidence = Mid(sNConfidence,1,iLen) & "0"
+			WriteLog("sNConfidence: " & sNConfidence)
+			
+			oField.ConfidenceString = sNConfidence
+		End If
+		
+		WriteLog(">>>> End Field.")
+	Next
+	
+'	WriteLog(">> End length check.")
+				
+	Set oField = Nothing
+	Set oSubField = Nothing
+	Set oSubFields = Nothing
+	
+	FormatFieldLengths = True
+
+]]>
+    </g>
+  </af>
+
+  <af name="SetConf" access="public" bInter="bInter" bDebug="bDebug" strParam="StrParam" >
+    <g>
+      <![CDATA[
+
+	Dim i, j
+	Dim sOConfidence, sNConfidence, iLen, sChar
+	
+	SetConf = False
+
+	sOConfidence = CurrentObj.ConfidenceString
+	Writelog("sOConfidence: " & sOConfidence)
+
+	iLen = Len(sOConfidence)
+	Writelog("iLen: " & iLen)
+
+	For j = 1 to iLen
+		sNConfidence = sNConfidence & StrParam
+	Next
+	
+	Writelog("sNConfidence: " & sNConfidence)
+
+	CurrentObj.ConfidenceString = sNConfidence
+	
+	SetConf = True
+
+]]>
+    </g>
+  </af>
+
+
+  <af name="FilterPID" access="public" bInter="bInter" bDebug="bDebug" strParam="StrParam" >
+    <g>
+      <![CDATA[
+
+	Dim sValue, sFilterValue, sNewValue, sConfStr, iLen
+	Dim oFld
+
+	FilterPID = False
+	
+	If CurrentObj.ObjectType<> 3 Then
+		Writelog("Not a field object. Exiting Action.")
+		Exit Function
+	End if
+
+	sValue = Trim(CurrentObj.Text)
+	Writelog("sValue: " & sValue)
+	
+	sConfStr = CurrentObj.ConfidenceString
+
+	Set oFld = ReturnNamedComponent(StrParam)
+
+	sFilterValue = Left(Trim(oFld.Text),2)
+	Writelog("sFilterValue: " & sFilterValue)
+	
+	sNewValue = Trim(Replace(sValue,sFilterValue,""))
+	Writelog("sNewValue: " & sNewValue)
+
+	iLen = Len(sNewValue)
+	
+	sConfStr = Left(sConfStr, iLen)
+	Writelog("sConfStr: " & sConfStr)
+
+	CurrentObj.Text = sNewValue
+	CurrentObj.ConfidenceString = sConfStr
+		
+	Set oFld = Nothing
+	
+	FilterPID = True
+	
+]]>
+    </g>
+  </af>
+
+  <af name="ClearErrorMsg" access="public" bInter="bInter" bDebug="bDebug">
+    <g>
+      <![CDATA[
+   ClearErrorMsg = TRUE
+   CurrentObj.Variable("ErrorMessage") = ""
+   Writelog("Current Error Message: " & CurrentObj.Variable("ErrorMessage"))
+
+]]>
+    </g>
+  </af>
+
+  <af name="AddToErrorMsg" access="public" bInter="bInter" bDebug="bDebug" strParam="StrParam">
+    <g>
+      <![CDATA[
+  Dim oPage
+  Dim iParam, arParam
+  Dim sSmartParam
+  Dim sLastParam
+  Dim nLast
+  
+  On Error Resume Next
+
+  AddToErrorMsg = FALSE
+
+    arParam = Split(StrParam, ",")
+   
+    Writelog("Dmessage: " & UBound(arParam))
+
+    nLast = Ubound(arParam)
+
+    sLastParam = ucase(arParam(nLast))
+
+    If trim(sLastParam) ="TRUE" and nLast>0 Then
+	      AddToErrorMsg = TRUE
+        ReDim Preserve arParam(nLast-1)
+    End If  
+   
+    sMsgStr = Join(arParam,",")
+   
+    If CurrentObj.ObjectType <> 3 then  
+        Writelog("This action must be on a field object.  Exiting")
+        Exit Function
+    End if
+
+    Set oPage = CurrentObj
+
+    While oPage.ObjectType > 2
+        Set oPage = oPage.Parent
+    wend
+
+    Writelog("Current Page is: " & oPage.ID)
+  
+    sSmartParam = MetaWord(sMsgStr)
+    If len(sSmartParam)="" then 
+        Writelog("Smart Parameter parsing did not return a value. Defaulting message to the Action argument.")
+        sSmartParam = sMsgStr
+    End if
+
+   oPage.Variable("ErrorMessage") = oPage.Variable("ErrorMessage") & sSmartParam & VbCr
+   Writelog("Error message currently set to: " & oPage.Variable("ErrorMessage"))
+
+]]>
+    </g>
+  </af>
+
+  <af name="AddToDetailErrorMsg" access="public" bInter="bInter" bDebug="bDebug" strParam="StrParam" >
+    <g>
+      <![CDATA[
+Dim oPage
+Dim iParam, arParam
+Dim sSmartParam
+
+   arParam = Split(StrParam,",")
+   
+   Writelog("Dmessage: " & UBound(arParam))
+
+   If UBound(arParam) = 0 Then
+	   AddToDetailErrorMsg = FALSE
+   Else
+	   AddToDetailErrorMsg = TRUE
+   End If
+   
+   If CurrentObj.ObjectType <> 3 then
+      Writelog("This action must be on a field object.  Exiting")
+      Exit Function
+   end if
+
+   Set oPage = CurrentObj
+
+   While oPage.ObjectType > 2
+      Set oPage = oPage.Parent
+   wend
+   Writelog("Current Page is: " & oPage.ID)
+
+   sSmartParam = MetaWord(arParam(0))
+   If len(sSmartParam)="" then 
+      Writelog("Smart Parameter parsing did not return a value. Defaulting message to the Action argument.")
+      sSmartParam =arParam(0)
+   End if
+  
+   oPage.Variable("ErrorMessage") = oPage.Variable("ErrorMessage") & "Lineitem " & cStr(CurrentObj.Parent.Parent.FindChildIndex(CurrentObj.Parent.ID) + 1) & "-" & sSmartParam & VbCr
+   Writelog("Error message currently set to: " & oPage.Variable("ErrorMessage"))
+
+]]>
+    </g>
+  </af>
+<f name="ParseNDC" access="public" qi="An action that detects and parses NDC data elemets from the calling field value.">
+    <p name="NDCField"/>
+    <p name="TypeField"/>
+    <p name="QuantityField"/>
+    <g>
+      <![CDATA[
+  	
+      On Error Resume Next
+
+      ParseNDC=True	
+
+      Dim regEx 
+      Dim Pattern_NDC
+      Dim Pattern_Units  
+      Dim sFieldValue
+      Dim Index
+
+      Set regEx = CreateObject("VBScript.RegExp")
+      regEx.IgnoreCase = False
+      regEx.Global = True
+
+      'N4 followed by space(s) or not then 11 digits
+      Pattern_NDC = "N4\ *[\dOIlS]{11}"
+
+      'F2,GR,ML or UN followed by 9 digits
+      Pattern_Units = "(F2|GR|ML|UN)[\dOIlS\.]{1,9}"
+	
+      'Get the Field value
+      sFieldValue = CurrentObj.Text
+
+      '---------------------------------
+      'NDC Pattern Test
+      regEx.Pattern = Pattern_NDC
+
+	Writelog("Checking for NDC Pattern in: '" & Cstr(sFieldValue) & "' ")
+
+	Set Matches = regEx.Execute(sFieldValue)
+		
+      If cstr(Matches.Count)=cstr(0) then 
+        Writelog("No NDC value matched.")
+      Else
+        For Each Match In Matches
+           WriteLog("Matched Value: '" & CStr(Match.value) & "' ")
+           
+           Index = Match.FirstIndex 'First character position of match
+
+           'Copy field value and positions to NDC field 	
+   
+           'Get DCO object using smart parameter syntax
+           Set oChild = DCONav(NDCField) 
+           If oChild Is CurrentObj then Set oChild = Nothing
+           If (oChild is Nothing) Then
+              Writelog("Did not find the NDC target Field")
+           Else
+              Index=Index+3 '+1 for zero offset in regex, +2 to skip 'N4' leading ID characters. 
+  			
+              oChild.Text=""
+              oChild.Variable("Position")="0,0,0,0"				
+
+              'These are utility calls in rrunner.rrx
+              Call RRCopyChars(CurrentObj, oChild, Index, 11)
+              Call RRCopyPos(CurrentObj, oChild, Index, 11)
+              Call RRCopyImage(CurrentObj, oChild)
+        
+              Writelog(oChild.ID & " value set to '" & oChild.Text & "' position'" & oChild.variable("Position") & "'")
+           End If
+           Set oChild = Nothing
+  	   
+           Exit For 'Only for first Match (should only be one)
+        Next 'Match
+    End if
+	'---------------------------------
+      'Units Pattern Test
+	regEx.Pattern = Pattern_Units
+
+	Writelog("Checking for Units Pattern in: '" & Cstr(sFieldValue) & "' ")
+
+	Set Matches = regEx.Execute(sFieldValue)
+		
+      If Matches.Count=0 then Writelog("No Units value matched.")
+
+      For Each Match In Matches
+         WriteLog("Matched Value: '" & CStr(Match.value) & "' ")
+	       ParseNDC = True
+         Index = Match.FirstIndex 'First character position of match
+
+	       'Copy field values and positions to Units(type) and Quantity field 	
+
+	       'Get DCO object using smart parameter syntax	
+	       Set oChild = DCONav(TypeField)
+         If oChild Is CurrentObj then Set oChild = Nothing
+         If (oChild is Nothing) Then
+	          Writelog("Did not find the Type target Field")
+         Else
+            Index=Index+1 '+1 for zero offset in regex 
+		
+            oChild.Text=""
+            oChild.Variable("Position")="0,0,0,0"				
+
+            'These are utility calls in rrunner.rrx
+            Call RRCopyChars(CurrentObj, oChild, Index, 2)
+            Call RRCopyPos(CurrentObj, oChild, Index, 2)
+            Call RRCopyImage(CurrentObj, oChild)
+      
+            Writelog(oChild.ID & " value set to '" & oChild.Text & "' position'" & oChild.variable("Position") & "'")
+         End If
+         Set oChild = Nothing
+
+         'Get DCO object using smart parameter syntax
+         Set oChild = DCONav(QuantityField)
+         If oChild Is CurrentObj then Set oChild = Nothing
+         If (oChild is Nothing) Then
+            Writelog("Did not find the Quantity target Field")
+         Else
+            Index=Index+2 '+2 to skip 2 Type ID characters. 
+		
+            oChild.Text=""
+            oChild.Variable("Position")="0,0,0,0"				
+
+            'These are utility calls in rrunner.rrx
+            Call RRCopyChars(CurrentObj, oChild, Index, len(Match.value)-2)
+            Call RRCopyPos(CurrentObj, oChild, Index, len(Match.value)-2)
+            Call RRCopyImage(CurrentObj, oChild)
+      
+            Writelog(oChild.ID & " value set to '" & oChild.Text & "' position'" & oChild.variable("Position") & "'")
+         End If
+         Set oChild = Nothing
+	    
+         Exit For
+      Next
+
+      'Cleanup
+      Set Match = Nothing
+      Set Matches = Nothing
+      Set regEx=Nothing
+      
+]]></g>
+  </f>
+  <f name="ParseConditionCodes" access="public">
+    <g>
+      <![CDATA[
+  	
+      On Error Resume Next
+
+      ParseConditionCodes=True	
+
+      Dim regEx 
+      Dim Pattern_CC
+      Dim sFieldValue
+      Dim Index
+      Dim nExpected
+      Dim nMatch
+      Dim sRemainder
+           
+      Set regEx = CreateObject("VBScript.RegExp")
+      regEx.IgnoreCase = False
+      regEx.Global = True
+
+      Pattern_CC = "A[A-I]|W[2-5]"
+	
+      'Get the Field value
+      sFieldValue = CurrentObj.Text
+      sRemainder = sFieldValue
+      
+      'Calc expected num of matches
+      nExpected = len(replace(sFieldValue,Space(1),""))/2
+      
+      Writelog("Expecting " & nExpected & " condition codes based on field length.")      
+      
+      '---------------------------------
+      'CC Pattern Test
+      regEx.Pattern = Pattern_CC
+
+    	Writelog("Checking for CC Pattern in: '" & Cstr(sFieldValue) & "' ")
+
+	    Set Matches = regEx.Execute(sFieldValue)
+		
+      nMatch=0
+    
+      If cstr(Matches.Count)=cstr(0) then 
+        Writelog("No Condition Code values matched.")
+      Else
+        For Each Match In Matches
+        
+           nMatch = nMatch + 1
+        
+           WriteLog("Matched Value: '" & CStr(Match.value) & "' ")
+           
+           Index = Match.FirstIndex 'First character position of match
+
+           'Copy field value and positions to Target field 	
+   
+           'Get DCO object using smart parameter syntax
+           Set oChild = DCONav("@P\CCode" & cstr(nMatch)) 
+           If oChild Is CurrentObj then Set oChild = Nothing
+           
+           If (oChild is Nothing) Then
+              Writelog("Did not find the Condition code target Field")
+           Else
+           
+              Index=Index+1 '+1 for zero offset in regex
+  			
+              oChild.Text=""
+              oChild.Variable("Position")="0,0,0,0"				
+
+              'These are utility calls in rrunner.rrx
+              Call RRCopyChars(CurrentObj, oChild, Index, len(Match.value))
+              Call RRCopyPos(CurrentObj, oChild, Index, len(Match.value))
+              Call RRCopyImage(CurrentObj, oChild)
+        
+              Writelog(oChild.ID & " value set to '" & oChild.Text & "' position'" & oChild.variable("Position") & "'")
+              
+              sRemainder = Replace(sRemainder,Match.value,"",1,1)
+              
+           End If
+           
+           Set oChild = Nothing
+  	          
+           
+        Next 'Match
+    End if
+	   
+    if nMatch<>nExpected then
+      sMsg = "Expected " & nExpected & " matches, only found " & nMatch & "."
+      Writelog(sMsg)
+      DCOMessage(sMsg)
+      ParseConditionCodes=False
+    end if  
+
+    if len(replace(sRemainder,Space(1),""))>0 then
+      sMsg = "Invalid value '" & sRemainder & "' found."
+      Writelog(sMsg)
+      DCOMessage(sMsg)
+      ParseConditionCodes=False
+    end if
+
+   'Cleanup
+   Set Match = Nothing
+   Set Matches = Nothing
+   Set regEx=Nothing
+      
+]]>
+    </g>
+  </f>
+  <f name="ParseEPSDT" access="public">
+    <p name="EPSDTCode"/>
+    <g>
+      <![CDATA[
+  	
+      On Error Resume Next
+
+      ParseEPSDT=True	
+
+      Dim regEx 
+      Dim Pattern_NDC
+      Dim Pattern_Units  
+      Dim sFieldValue
+      Dim Index
+
+      Set regEx = CreateObject("VBScript.RegExp")
+      regEx.IgnoreCase = False
+      regEx.Global = True
+
+      Pattern_Code = "\s?(AV|S2|ST|NU)\s?$"
+	
+      'Get the Field value
+      sFieldValue = CurrentObj.Text
+
+      '---------------------------------
+      'Reason Code Pattern Test
+      regEx.Pattern = Pattern_Code
+
+      Writelog("Checking for Reason Code Pattern in: '" & Cstr(sFieldValue) & "' ")
+
+      Set Matches = regEx.Execute(sFieldValue)
+		
+      If cstr(Matches.Count)=cstr(0) then 
+        Writelog("No matched values.")
+      Else
+        For Each Match In Matches
+           WriteLog("Matched Value: '" & CStr(Match.value) & "' ")
+           
+           Index = Match.FirstIndex 'First character position of match
+
+           'Copy field value and positions to Target field 	
+   
+           'Get DCO object using smart parameter syntax
+           Set oChild = DCONav(EPSDTCode) 
+           If oChild Is CurrentObj then Set oChild = Nothing
+           
+           If (oChild is Nothing) Then
+              Writelog("Did not find the Reason Code target Field")
+           Else
+              Index=Index+1 '+1 for zero offset
+  			
+              oChild.Text=""
+              oChild.Variable("Position")="0,0,0,0"				
+
+              'These are utility calls in rrunner.rrx
+              Call RRCopyChars(CurrentObj, oChild, Index, 11)
+              Call RRCopyPos(CurrentObj, oChild, Index, 11)
+              Call RRCopyImage(CurrentObj, oChild)
+        
+              Writelog(oChild.ID & " value set to '" & oChild.Text & "' position'" & oChild.variable("Position") & "'")
+           End If
+           
+           Set oChild = Nothing
+  	   
+           Exit For 'Only for first Match (should only be one)
+        Next 'Match
+    End if
+	
+   'Cleanup
+    Set Match = Nothing
+    Set Matches = Nothing
+    Set regEx=Nothing
+      
+    If Err.number<>0 then ParseEPSDT=False
+      
+]]>
+    </g>
+  </f>
+</rrx>

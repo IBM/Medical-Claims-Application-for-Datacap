@@ -1,0 +1,45 @@
+<ruleset name="RecogRed_OCR_S" id="12" ver="1">
+	<rule name="Rule Check Doc Status" id="1">
+		<func name="Function1">
+			<a name="ChkDCOStatus" ns="DCO">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="128,142,143,145" name="StrParam"/>
+			</a>
+			<a name="SkipChildren" ns="rrunner">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+		</func>
+	</rule>
+	<rule name="Rule Check Page Status, Perform OCR/s" id="2">
+		<func name="Function2">
+			<a name="ChkDCOStatus" ns="DCO">
+				<p type="bInter"/>
+				<p type="bDebug"/>
+				<p type="strParam" v="0,48,66,73,79"/>
+			</a>
+			<a name="SkipChildren" ns="rrunner">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+		</func>
+		<func name="Function3">
+			<a name="SetFingerprintRecogPriority" ns="Recog_Shared">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="True" name="StrParam"/>
+			</a>
+			<a name="RecognizePageOCR_S"  ns="com:Datacap.Libraries.ScansoftR.Actions"/>
+      <a name="SetAdjustFieldToChars" ns="Recog_Shared">
+        <p type="bInter"/>
+        <p type="bDebug"/>
+        <p type="strParam" v="true"/>
+      </a>
+			<a name="SnapCCOtoDCO" ns="Recog_Shared">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+		</func>
+	</rule>
+</ruleset>

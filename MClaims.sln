@@ -1,0 +1,310 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MC_Identify", "RRX\MC_Identify\MC_Identify\MC_Identify.csproj", "{BA1AE1DC-D492-4848-9682-A48DFECF1E69}"
+	GlobalSection(JazzSourceControlProviderSolutionProperties) = preSolution
+		SolutionIsControlled = True
+		SolutionBindings = <Solution Location In Database>
+	EndGlobalSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MC_Validation", "RRX\MC_Validations\MC_Validations\MC_Validation.csproj", "{79DD87DA-EC4F-4BBC-84A3-10994F5B0E34}"
+	GlobalSection(JazzSourceControlProviderSolutionProperties) = preSolution
+		SolutionIsControlled = True
+		SolutionBindings = <Solution Location In Database>
+	EndGlobalSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "App Folder", "App Folder", "{BCA7B90E-5FDA-4139-A34E-7057357ADDC7}"
+	GlobalSection(JazzSourceControlProviderSolutionProperties) = preSolution
+		SolutionIsControlled = True
+		SolutionBindings = <Solution Location In Database>
+	EndGlobalSection
+	ProjectSection(SolutionItems) = preProject
+		Black1.ini = Black1.ini
+		dco.xsl = dco.xsl
+		ImageFix.ini = ImageFix.ini
+		MClaimsAdm.mdb = MClaimsAdm.mdb
+		MClaimsEng.mdb = MClaimsEng.mdb
+		MClaimsFingerprint.mdb = MClaimsFingerprint.mdb
+		MClaimslook.mdb = MClaimslook.mdb
+		Medical Claims.app = Medical Claims.app
+		scanner.ini = scanner.ini
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Fingerprint", "Fingerprint", "{07C379B6-909C-4CA7-9535-956F3E1A25F1}"
+	GlobalSection(JazzSourceControlProviderSolutionProperties) = preSolution
+		SolutionIsControlled = True
+		SolutionBindings = <Solution Location In Database>
+	EndGlobalSection
+	ProjectSection(SolutionItems) = preProject
+		fingerprint\1052.cco = fingerprint\1052.cco
+		fingerprint\1052.tif = fingerprint\1052.tif
+		fingerprint\1054.cco = fingerprint\1054.cco
+		fingerprint\1054.tif = fingerprint\1054.tif
+		fingerprint\1055.cco = fingerprint\1055.cco
+		fingerprint\1055.tif = fingerprint\1055.tif
+		fingerprint\1056.cco = fingerprint\1056.cco
+		fingerprint\1056.tif = fingerprint\1056.tif
+		fingerprint\1059.cco = fingerprint\1059.cco
+		fingerprint\1059.tif = fingerprint\1059.tif
+		fingerprint\1060.cco = fingerprint\1060.cco
+		fingerprint\1060.tif = fingerprint\1060.tif
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{B1731DB0-1240-4EC0-BA89-69EF12BE71C3}"
+	GlobalSection(JazzSourceControlProviderSolutionProperties) = preSolution
+		SolutionIsControlled = True
+		SolutionBindings = <Solution Location In Database>
+	EndGlobalSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Separator Sheets", "Separator Sheets", "{5BC00F3C-AC39-4658-B6E5-0C5EB18ECD73}"
+	GlobalSection(JazzSourceControlProviderSolutionProperties) = preSolution
+		SolutionIsControlled = True
+		SolutionBindings = <Solution Location In Database>
+	EndGlobalSection
+	ProjectSection(SolutionItems) = preProject
+		Documentation\Separator Sheets\EndClaim.tif = Documentation\Separator Sheets\EndClaim.tif
+		Documentation\Separator Sheets\EndDoc.tif = Documentation\Separator Sheets\EndDoc.tif
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "dco_Professional", "dco_Professional", "{0B5D3E1C-6321-486F-A5E3-040F7F9C3421}"
+	GlobalSection(JazzSourceControlProviderSolutionProperties) = preSolution
+		SolutionIsControlled = True
+		SolutionBindings = <Solution Location In Database>
+	EndGlobalSection
+	ProjectSection(SolutionItems) = preProject
+		dco_Professional\1500_0212t.tif = dco_Professional\1500_0212t.tif
+		dco_Professional\5010_Prof.ini = dco_Professional\5010_Prof.ini
+		dco_Professional\CMSt.tif = dco_Professional\CMSt.tif
+		dco_Professional\ImageFixBL_P.ini = dco_Professional\ImageFixBL_P.ini
+		dco_Professional\P_837 Export.set.xml = dco_Professional\P_837 Export.set.xml
+		dco_Professional\P_DocIntegrity Web.set.xml = dco_Professional\P_DocIntegrity Web.set.xml
+		dco_Professional\P_DocIntegrity.set.xml = dco_Professional\P_DocIntegrity.set.xml
+		dco_Professional\P_DocIntegrityBL Web.set.xml = dco_Professional\P_DocIntegrityBL Web.set.xml
+		dco_Professional\P_DocIntegrityBL.set.xml = dco_Professional\P_DocIntegrityBL.set.xml
+		dco_Professional\P_Export.set.xml = dco_Professional\P_Export.set.xml
+		dco_Professional\P_fixup.ini = dco_Professional\P_fixup.ini
+		dco_Professional\P_FixupScan.set.xml = dco_Professional\P_FixupScan.set.xml
+		dco_Professional\P_IdentifyFixUp.set.xml = dco_Professional\P_IdentifyFixUp.set.xml
+		dco_Professional\P_IdentifyFixUpBL.set.xml = dco_Professional\P_IdentifyFixUpBL.set.xml
+		dco_Professional\P_iFixup.ini = dco_Professional\P_iFixup.ini
+		dco_Professional\P_ifixupRec.ini = dco_Professional\P_ifixupRec.ini
+		dco_Professional\P_iScan.ini = dco_Professional\P_iScan.ini
+		dco_Professional\P_IsScan.set.xml = dco_Professional\P_IsScan.set.xml
+		dco_Professional\P_kScan.ini = dco_Professional\P_kScan.ini
+		dco_Professional\P_OverlayImage.set.xml = dco_Professional\P_OverlayImage.set.xml
+		dco_Professional\P_PreExport.set.xml = dco_Professional\P_PreExport.set.xml
+		dco_Professional\P_PreValidate.set.xml = dco_Professional\P_PreValidate.set.xml
+		dco_Professional\P_Recog.set.xml = dco_Professional\P_Recog.set.xml
+		dco_Professional\P_RecogBL.set.xml = dco_Professional\P_RecogBL.set.xml
+		dco_Professional\P_Split.set.xml = dco_Professional\P_Split.set.xml
+		dco_Professional\P_Upload.set.xml = dco_Professional\P_Upload.set.xml
+		dco_Professional\P_Verify.set.xml = dco_Professional\P_Verify.set.xml
+		dco_Professional\P_Vscan.set.xml = dco_Professional\P_Vscan.set.xml
+		dco_Professional\P_WebVscan.set.xml = dco_Professional\P_WebVscan.set.xml
+		dco_Professional\Professional.ini = dco_Professional\Professional.ini
+		dco_Professional\Professional.xml = dco_Professional\Professional.xml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "dco_Institutional", "dco_Institutional", "{FF6B821C-38AB-4FC3-8C1B-ACDC5BB8D28C}"
+	GlobalSection(JazzSourceControlProviderSolutionProperties) = preSolution
+		SolutionIsControlled = True
+		SolutionBindings = <Solution Location In Database>
+	EndGlobalSection
+	ProjectSection(SolutionItems) = preProject
+		dco_Institutional\5010_Inst.ini = dco_Institutional\5010_Inst.ini
+		dco_Institutional\I_837Export.set.xml = dco_Institutional\I_837Export.set.xml
+		dco_Institutional\I_DocIntegrity Web.set.xml = dco_Institutional\I_DocIntegrity Web.set.xml
+		dco_Institutional\I_DocIntegrity.set.xml = dco_Institutional\I_DocIntegrity.set.xml
+		dco_Institutional\I_DocIntegrityBL Web.set.xml = dco_Institutional\I_DocIntegrityBL Web.set.xml
+		dco_Institutional\I_DocIntegrityBL.set.xml = dco_Institutional\I_DocIntegrityBL.set.xml
+		dco_Institutional\I_fixup.ini = dco_Institutional\I_fixup.ini
+		dco_Institutional\I_FixupScan.set.xml = dco_Institutional\I_FixupScan.set.xml
+		dco_Institutional\I_IdentifyFixUp.set.xml = dco_Institutional\I_IdentifyFixUp.set.xml
+		dco_Institutional\I_IdentifyFixUpBL.set.xml = dco_Institutional\I_IdentifyFixUpBL.set.xml
+		dco_Institutional\I_ifixup.ini = dco_Institutional\I_ifixup.ini
+		dco_Institutional\I_ifixupRec.ini = dco_Institutional\I_ifixupRec.ini
+		dco_Institutional\I_IsScan.set.xml = dco_Institutional\I_IsScan.set.xml
+		dco_Institutional\I_OverlayImage.set.xml = dco_Institutional\I_OverlayImage.set.xml
+		dco_Institutional\I_PreExport.set.xml = dco_Institutional\I_PreExport.set.xml
+		dco_Institutional\I_PreValidate.set.xml = dco_Institutional\I_PreValidate.set.xml
+		dco_Institutional\I_Recog.set.xml = dco_Institutional\I_Recog.set.xml
+		dco_Institutional\I_RecogBL.set.xml = dco_Institutional\I_RecogBL.set.xml
+		dco_Institutional\I_Split.set.xml = dco_Institutional\I_Split.set.xml
+		dco_Institutional\I_Upload.set.xml = dco_Institutional\I_Upload.set.xml
+		dco_Institutional\I_Verify.set.xml = dco_Institutional\I_Verify.set.xml
+		dco_Institutional\I_Vscan.set.xml = dco_Institutional\I_Vscan.set.xml
+		dco_Institutional\I_WebScan.set.xml = dco_Institutional\I_WebScan.set.xml
+		dco_Institutional\ImageFixBL_I.ini = dco_Institutional\ImageFixBL_I.ini
+		dco_Institutional\Institutional.ini = dco_Institutional\Institutional.ini
+		dco_Institutional\Institutional.xml = dco_Institutional\Institutional.xml
+		dco_Institutional\ub04t.tif = dco_Institutional\ub04t.tif
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "rules", "rules", "{EE96E734-3AE4-4C84-858C-3A6CF6268174}"
+	GlobalSection(JazzSourceControlProviderSolutionProperties) = preSolution
+		SolutionIsControlled = True
+		SolutionBindings = <Solution Location In Database>
+	EndGlobalSection
+	ProjectSection(SolutionItems) = preProject
+		dco_Institutional\rules\Annotate.rul = dco_Institutional\rules\Annotate.rul
+		dco_Institutional\rules\CheckCounts.rul = dco_Institutional\rules\CheckCounts.rul
+		dco_Institutional\rules\CheckIntegrity.rul = dco_Institutional\rules\CheckIntegrity.rul
+		dco_Institutional\rules\ChkFldConf.rul = dco_Institutional\rules\ChkFldConf.rul
+		dco_Institutional\rules\collection.xml = dco_Institutional\rules\collection.xml
+		dco_Institutional\rules\CopyFiles.rul = dco_Institutional\rules\CopyFiles.rul
+		dco_Institutional\rules\CreateDocs.rul = dco_Institutional\rules\CreateDocs.rul
+		dco_Institutional\rules\Export 837.rul = dco_Institutional\rules\Export 837.rul
+		dco_Institutional\rules\Export.rul = dco_Institutional\rules\Export.rul
+		dco_Institutional\rules\HideFields.rul = dco_Institutional\rules\HideFields.rul
+		dco_Institutional\rules\ID_PageFix.rul = dco_Institutional\rules\ID_PageFix.rul
+		dco_Institutional\rules\ImageFix.rul = dco_Institutional\rules\ImageFix.rul
+		dco_Institutional\rules\IOverlay.rul = dco_Institutional\rules\IOverlay.rul
+		dco_Institutional\rules\MakeLineItems.rul = dco_Institutional\rules\MakeLineItems.rul
+		dco_Institutional\rules\Page_IDBlack.rul = dco_Institutional\rules\Page_IDBlack.rul
+		dco_Institutional\rules\PageID.rul = dco_Institutional\rules\PageID.rul
+		dco_Institutional\rules\PicFields.rul = dco_Institutional\rules\PicFields.rul
+		dco_Institutional\rules\PreExport.rul = dco_Institutional\rules\PreExport.rul
+		dco_Institutional\rules\PrepData.rul = dco_Institutional\rules\PrepData.rul
+		dco_Institutional\rules\PrepDataBlack.rul = dco_Institutional\rules\PrepDataBlack.rul
+		dco_Institutional\rules\ReadBarCode.rul = dco_Institutional\rules\ReadBarCode.rul
+		dco_Institutional\rules\RecogBlack.rul = dco_Institutional\rules\RecogBlack.rul
+		dco_Institutional\rules\RecogRed_ICR_C.rul = dco_Institutional\rules\RecogRed_ICR_C.rul
+		dco_Institutional\rules\RecogRed_OCR_S.rul = dco_Institutional\rules\RecogRed_OCR_S.rul
+		dco_Institutional\rules\SetBatchStatus.rul = dco_Institutional\rules\SetBatchStatus.rul
+		dco_Institutional\rules\Split.rul = dco_Institutional\rules\Split.rul
+		dco_Institutional\rules\ValInstitutional.rul = dco_Institutional\rules\ValInstitutional.rul
+		dco_Institutional\rules\VScan.rul = dco_Institutional\rules\VScan.rul
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "images", "images", "{8BCAD182-AB90-4D15-B7EA-5E93375FE17F}"
+	GlobalSection(JazzSourceControlProviderSolutionProperties) = preSolution
+		SolutionIsControlled = True
+		SolutionBindings = <Solution Location In Database>
+	EndGlobalSection
+	ProjectSection(SolutionItems) = preProject
+		dco_Institutional\images\InstR_01.tif = dco_Institutional\images\InstR_01.tif
+		dco_Institutional\images\InstR_02.tif = dco_Institutional\images\InstR_02.tif
+		dco_Institutional\images\InstR_03.tif = dco_Institutional\images\InstR_03.tif
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "rules", "rules", "{139A5F8F-BBF8-45DD-8BD8-C0B8734FA013}"
+	GlobalSection(JazzSourceControlProviderSolutionProperties) = preSolution
+		SolutionIsControlled = True
+		SolutionBindings = <Solution Location In Database>
+	EndGlobalSection
+	ProjectSection(SolutionItems) = preProject
+		dco_Professional\rules\Annotate.rul = dco_Professional\rules\Annotate.rul
+		dco_Professional\rules\CheckCounts.rul = dco_Professional\rules\CheckCounts.rul
+		dco_Professional\rules\CheckIntegrity.rul = dco_Professional\rules\CheckIntegrity.rul
+		dco_Professional\rules\ChkFldConf.rul = dco_Professional\rules\ChkFldConf.rul
+		dco_Professional\rules\collection.xml = dco_Professional\rules\collection.xml
+		dco_Professional\rules\CopyFiles.rul = dco_Professional\rules\CopyFiles.rul
+		dco_Professional\rules\CreateDocs.rul = dco_Professional\rules\CreateDocs.rul
+		dco_Professional\rules\Export 837.rul = dco_Professional\rules\Export 837.rul
+		dco_Professional\rules\Export.rul = dco_Professional\rules\Export.rul
+		dco_Professional\rules\HideFields.rul = dco_Professional\rules\HideFields.rul
+		dco_Professional\rules\ID_Page.rul = dco_Professional\rules\ID_Page.rul
+		dco_Professional\rules\ID_PageBlack.rul = dco_Professional\rules\ID_PageBlack.rul
+		dco_Professional\rules\ID_PageFix.rul = dco_Professional\rules\ID_PageFix.rul
+		dco_Professional\rules\Imagefix.rul = dco_Professional\rules\Imagefix.rul
+		dco_Professional\rules\IOverlay.rul = dco_Professional\rules\IOverlay.rul
+		dco_Professional\rules\MakeLineItems.rul = dco_Professional\rules\MakeLineItems.rul
+		dco_Professional\rules\PicFields.rul = dco_Professional\rules\PicFields.rul
+		dco_Professional\rules\PreExport.rul = dco_Professional\rules\PreExport.rul
+		dco_Professional\rules\PrepData.rul = dco_Professional\rules\PrepData.rul
+		dco_Professional\rules\PrepDataBlack.rul = dco_Professional\rules\PrepDataBlack.rul
+		dco_Professional\rules\ReadBarCode.rul = dco_Professional\rules\ReadBarCode.rul
+		dco_Professional\rules\RecogBlack.rul = dco_Professional\rules\RecogBlack.rul
+		dco_Professional\rules\RecogOMR.rul = dco_Professional\rules\RecogOMR.rul
+		dco_Professional\rules\RecogRed_ICR_C.rul = dco_Professional\rules\RecogRed_ICR_C.rul
+		dco_Professional\rules\RecogRed_OCR_S.rul = dco_Professional\rules\RecogRed_OCR_S.rul
+		dco_Professional\rules\SetBatchStatus.rul = dco_Professional\rules\SetBatchStatus.rul
+		dco_Professional\rules\Split.rul = dco_Professional\rules\Split.rul
+		dco_Professional\rules\ValProfessional.rul = dco_Professional\rules\ValProfessional.rul
+		dco_Professional\rules\VScan.rul = dco_Professional\rules\VScan.rul
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "images", "images", "{D075F4C8-9352-428A-B9B4-223D10CBB554}"
+	GlobalSection(JazzSourceControlProviderSolutionProperties) = preSolution
+		SolutionIsControlled = True
+		SolutionBindings = <Solution Location In Database>
+	EndGlobalSection
+	ProjectSection(SolutionItems) = preProject
+		dco_Professional\images\ProfR_01.tif = dco_Professional\images\ProfR_01.tif
+		dco_Professional\images\ProfR_02.tif = dco_Professional\images\ProfR_02.tif
+		dco_Professional\images\ProfR_03.tif = dco_Professional\images\ProfR_03.tif
+		dco_Professional\images\ProfR_04.tif = dco_Professional\images\ProfR_04.tif
+		dco_Professional\images\ProfR_05.tif = dco_Professional\images\ProfR_05.tif
+		dco_Professional\images\ProfR_06.tif = dco_Professional\images\ProfR_06.tif
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Black", "Black", "{F1FB4069-4BEC-48B3-9DB5-7273DC82667D}"
+	GlobalSection(JazzSourceControlProviderSolutionProperties) = preSolution
+		SolutionIsControlled = True
+		SolutionBindings = <Solution Location In Database>
+	EndGlobalSection
+	ProjectSection(SolutionItems) = preProject
+		dco_Institutional\images\Black\InstB_01.tif = dco_Institutional\images\Black\InstB_01.tif
+		dco_Institutional\images\Black\InstB_02.tif = dco_Institutional\images\Black\InstB_02.tif
+		dco_Institutional\images\Black\InstB_03.tif = dco_Institutional\images\Black\InstB_03.tif
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Black", "Black", "{929165B3-50E7-40BE-BEC7-B17030B50336}"
+	GlobalSection(JazzSourceControlProviderSolutionProperties) = preSolution
+		SolutionIsControlled = True
+		SolutionBindings = <Solution Location In Database>
+	EndGlobalSection
+	ProjectSection(SolutionItems) = preProject
+		dco_Professional\images\Black\ProfB_01.tif = dco_Professional\images\Black\ProfB_01.tif
+		dco_Professional\images\Black\ProfB_02.tif = dco_Professional\images\Black\ProfB_02.tif
+		dco_Professional\images\Black\ProfB_03.tif = dco_Professional\images\Black\ProfB_03.tif
+		dco_Professional\images\Black\ProfB_04.tif = dco_Professional\images\Black\ProfB_04.tif
+		dco_Professional\images\Black\ProfB_05.tif = dco_Professional\images\Black\ProfB_05.tif
+		dco_Professional\images\Black\ProfB_06.tif = dco_Professional\images\Black\ProfB_06.tif
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "RRX", "RRX", "{0A1D6EF1-7C6D-4822-9C6E-9635B54B9FD2}"
+	GlobalSection(JazzSourceControlProviderSolutionProperties) = preSolution
+		SolutionIsControlled = True
+		SolutionBindings = <Solution Location In Database>
+	EndGlobalSection
+	ProjectSection(SolutionItems) = preProject
+		RRX\5010Common.rrx = RRX\5010Common.rrx
+		RRX\5010Institutional.rrx = RRX\5010Institutional.rrx
+		RRX\5010Professional.rrx = RRX\5010Professional.rrx
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(JazzSourceControlProviderSolutionProperties) = preSolution
+		SolutionIsControlled = True
+		SolutionBindings = <Solution Location In Database>
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BA1AE1DC-D492-4848-9682-A48DFECF1E69}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA1AE1DC-D492-4848-9682-A48DFECF1E69}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA1AE1DC-D492-4848-9682-A48DFECF1E69}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA1AE1DC-D492-4848-9682-A48DFECF1E69}.Release|Any CPU.Build.0 = Release|Any CPU
+		{79DD87DA-EC4F-4BBC-84A3-10994F5B0E34}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{79DD87DA-EC4F-4BBC-84A3-10994F5B0E34}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{79DD87DA-EC4F-4BBC-84A3-10994F5B0E34}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{79DD87DA-EC4F-4BBC-84A3-10994F5B0E34}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{79DD87DA-EC4F-4BBC-84A3-10994F5B0E34} = {0A1D6EF1-7C6D-4822-9C6E-9635B54B9FD2}
+		{BA1AE1DC-D492-4848-9682-A48DFECF1E69} = {0A1D6EF1-7C6D-4822-9C6E-9635B54B9FD2}
+		{5BC00F3C-AC39-4658-B6E5-0C5EB18ECD73} = {B1731DB0-1240-4EC0-BA89-69EF12BE71C3}
+		{139A5F8F-BBF8-45DD-8BD8-C0B8734FA013} = {0B5D3E1C-6321-486F-A5E3-040F7F9C3421}
+		{D075F4C8-9352-428A-B9B4-223D10CBB554} = {0B5D3E1C-6321-486F-A5E3-040F7F9C3421}
+		{EE96E734-3AE4-4C84-858C-3A6CF6268174} = {FF6B821C-38AB-4FC3-8C1B-ACDC5BB8D28C}
+		{8BCAD182-AB90-4D15-B7EA-5E93375FE17F} = {FF6B821C-38AB-4FC3-8C1B-ACDC5BB8D28C}
+		{F1FB4069-4BEC-48B3-9DB5-7273DC82667D} = {8BCAD182-AB90-4D15-B7EA-5E93375FE17F}
+		{929165B3-50E7-40BE-BEC7-B17030B50336} = {D075F4C8-9352-428A-B9B4-223D10CBB554}
+	EndGlobalSection
+EndGlobal

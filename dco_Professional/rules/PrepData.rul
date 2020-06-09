@@ -1,0 +1,1187 @@
+<ruleset name="PrepData" id="18" ver="2" modder="admin.2" dt="01/27/11.264  08:48:34.264 " src_ver="1">
+	<rule name="Rule1 Check Document" id="1">
+		<func name="Function1">
+			<a name="ChkDCOStatus" ns="DCO">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="128,142,143,145" name="StrParam"/>
+			</a>
+			<a name="SkipChildren" ns="rrunner">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+		</func>
+		<func name="Function2">
+			<a name="ProcessChildren" ns="rrunner">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="Obj.ObjectType=3,Obj.DeleteVariable(&quot;DataType&quot;)" name="StrParam"/>
+			</a>
+		</func>
+	</rule>
+	<rule name="Rule2 Check Page &amp; Parse Box 32 &amp; Box 33" id="2">
+		<func name="Function1">
+			<a name="ChkDCOStatus" ns="DCO">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="0,66,73,79" name="StrParam"/>
+			</a>
+			<a name="SkipChildren" ns="rrunner">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+		</func>
+		<func name="Function2">
+			<a name="PilotMessage_Clear" ns="rrunner">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="CommonParseAddress" ns="MC_Validation">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="HCField32Object" name="StrParam"/>
+			</a>
+			<a name="CommonParseAddress" ns="MC_Validation">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="HCField33Object" name="StrParam"/>
+			</a>
+		</func>
+	</rule>
+	<rule name="Rule3 Parse Box 2 Name" id="3">
+		<func name="Function1">
+			<a name="FilterFieldSelectedChars" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="!" name="StrParam"/>
+			</a>
+			<a name="FilterFieldSelectedChars" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="&amp;" name="StrParam"/>
+			</a>
+			<a name="FilterFieldSelectedChars" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="%" name="StrParam"/>
+			</a>
+			<a name="FilterFieldSelectedChars" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v=";" name="StrParam"/>
+			</a>
+			<a name="FilterFieldSelectedChars" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="." name="StrParam"/>
+			</a>
+			<a name="FilterFieldSelectedChars" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="," name="StrParam"/>
+			</a>
+			<a name="ParseLastFirstIniNames" ns="MC_Validation">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="2PaLName,2PaFName,2PaMInit,2PaCred,2PaSufx,-1" name="StrParam"/>
+			</a>
+		</func>
+	</rule>
+	<rule name="Rule4 General Character Filter" id="4">
+		<func name="Function1">
+			<a name="FilterFieldSelectedChars" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="-" name="StrParam"/>
+			</a>
+			<a name="FilterFieldSelectedChars" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="+" name="StrParam"/>
+			</a>
+			<a name="FilterFieldSelectedChars" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="%" name="StrParam"/>
+			</a>
+			<a name="FilterFieldSelectedChars" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="!" name="StrParam"/>
+			</a>
+			<a name="FilterFieldSelectedChars" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="@" name="StrParam"/>
+			</a>
+			<a name="FilterFieldSelectedChars" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="*" name="StrParam"/>
+			</a>
+			<a name="FilterFieldSelectedChars" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="," name="StrParam"/>
+			</a>
+			<a name="FilterFieldSelectedChars" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="." name="StrParam"/>
+			</a>
+		</func>
+	</rule>
+	<rule name="Rule5 Delete Punct &amp; Misc Chars" id="5">
+		<func name="Function1">
+			<a name="DeleteAllPunct" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="DeleteAllMiscChars" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+		</func>
+	</rule>
+	<rule name="Rule6 Delete Punct &amp; Spaces" id="6">
+		<func name="Function1">
+			<a name="DeleteAllPunct" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="FilterFieldSelectedChars" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v=" " name="StrParam"/>
+			</a>
+		</func>
+	</rule>
+	<rule name="Rule7 Delete Punct Spaces &amp; Hypens" id="7">
+		<func name="Function1">
+			<a name="DeleteAllPunct" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="FilterFieldSelectedChars" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v=" " name="StrParam"/>
+			</a>
+			<a name="FilterFieldSelectedChars" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="-" name="StrParam"/>
+			</a>
+		</func>
+	</rule>
+	<rule name="Rule8 Parse Box 9 Name" id="8">
+		<func name="Function1">
+			<a name="IsThisFieldEmpty" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+		</func>
+		<func name="Function2">
+			<a name="FilterFieldSelectedChars" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="%{}[]()" name="StrParam"/>
+			</a>
+			<a name="FilterFieldSelectedChars" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="!" name="StrParam"/>
+			</a>
+			<a name="FilterFieldSelectedChars" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="&amp;" name="StrParam"/>
+			</a>
+			<a name="ParseLastFirstIniNames" ns="MC_Validation">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="9OtInsLNam,9OtInsFNam,9OtInsMInit,-1" name="StrParam"/>
+			</a>
+		</func>
+	</rule>
+	<rule name="Rule9 AllowOnly Numeric" id="9" qi="">
+		<func name="Function1">
+			<a name="AllowOnlyChars" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="0123456789~" name="StrParam"/>
+			</a>
+		</func>
+	</rule>
+	<rule name="Rule11 Delete Misc System Punct" id="10">
+		<func name="Function1">
+			<a name="DeleteAllPunct" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="DeleteAllMiscChars" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="DeleteAllSysChars" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="FilterFieldSelectedChars" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v=" " name="StrParam"/>
+			</a>
+		</func>
+	</rule>
+	<rule name="Rule12 Compare Box 2 and Box 4" id="12">
+		<func name="Function1">
+			<a name="ConvertToUpperCase" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="FilterFieldSelectedChars" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="," name="StrParam"/>
+			</a>
+			<a name="FilterFieldSelectedChars" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="." name="StrParam"/>
+			</a>
+			<a name="IsFieldMatching" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="SAME" name="strParam"/>
+			</a>
+			<a name="PopulateFromField" ns="MC_Validation">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="2PatName" name="StrParam"/>
+			</a>
+			<a name="ParseLastFirstIniNames" ns="MC_Validation">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="4InsLNam,4InsFNam,4InsMini,4InsCred,4InsSufx,-1" name="StrParam"/>
+			</a>
+		</func>
+		<func name="Copy of Function2">
+			<a name="IsFieldMatching" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="SELF" name="strParam"/>
+			</a>
+			<a name="PopulateFromField" ns="MC_Validation">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="2PatName" name="StrParam"/>
+			</a>
+			<a name="ParseLastFirstIniNames" ns="MC_Validation">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="4InsLNam,4InsFNam,4InsMini,4InsCred,4InsSufx,-1" name="StrParam"/>
+			</a>
+		</func>
+		<func name="Function2">
+			<a name="IsFieldMatching" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="SAME AS PATIENT" name="strParam"/>
+			</a>
+			<a name="PopulateFromField" ns="MC_Validation">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="2PatName" name="StrParam"/>
+			</a>
+			<a name="ParseLastFirstIniNames" ns="MC_Validation">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="4InsLNam,4InsFNam,4InsMini,4InsCred,4InsSufx,-1" name="StrParam"/>
+			</a>
+		</func>
+		<func name="Function3">
+			<a name="IsFieldMatching" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="N/A" name="strParam"/>
+			</a>
+			<a name="PopulateFromField" ns="MC_Validation">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="2PatName" name="StrParam"/>
+			</a>
+			<a name="ParseLastFirstIniNames" ns="MC_Validation">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="4InsLNam,4InsFNam,4InsMini,4InsCred,4InsSufx,-1" name="StrParam"/>
+			</a>
+		</func>
+		<func name="Function4">
+			<a name="ParseLastFirstIniNames" ns="MC_Validation">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="4InsLNam,4InsFNam,4InsMini,4InsCred,4InsSufx,-1" name="StrParam"/>
+			</a>
+		</func>
+		<func name="Function5">
+			<a name="DeleteAllPunct" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="DeleteAllMiscChars" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+		</func>
+	</rule>
+	<rule name="Rule13 Compare Box 5 and Box 7 Street" id="13">
+		<func name="Function1">
+			<a name="ConvertToUpperCase" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="DeleteAllPunct" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="IsFieldMatching" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="SAME" name="strParam"/>
+			</a>
+			<a name="PopulateFromField" ns="MC_Validation">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="5PAddStr" name="StrParam"/>
+			</a>
+		</func>
+		<func name="Copy of Function2">
+			<a name="IsFieldMatching" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="SELF" name="strParam"/>
+			</a>
+			<a name="PopulateFromField" ns="MC_Validation">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="5PAddStr" name="StrParam"/>
+			</a>
+		</func>
+		<func name="Function2">
+			<a name="IsFieldMatching" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="SAME AS PATIENT" name="strParam"/>
+			</a>
+			<a name="PopulateFromField" ns="MC_Validation">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="5PAddStr" name="StrParam"/>
+			</a>
+		</func>
+		<func name="Function3">
+			<a name="IsFieldEmpty" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="7IAddStr" name="strParam"/>
+			</a>
+			<a name="rrCompare" ns="rrunner">
+				<p name="object1" v="@P\2PatName"/>
+				<p name="object2" v="@P\4InsName"/>
+			</a>
+			<a name="PopulateFromField" ns="MC_Validation">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="5PAddStr" name="StrParam"/>
+			</a>
+		</func>
+		<func name="Function4">
+			<a name="PilotMessage_Clear" ns="rrunner">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="FilterFieldSelectedChars" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="-" name="StrParam"/>
+			</a>
+			<a name="FilterFieldSelectedChars" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="+" name="StrParam"/>
+			</a>
+			<a name="FilterFieldSelectedChars" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="%" name="StrParam"/>
+			</a>
+			<a name="FilterFieldSelectedChars" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="@" name="StrParam"/>
+			</a>
+			<a name="FilterFieldSelectedChars" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="*" name="StrParam"/>
+			</a>
+			<a name="FilterFieldSelectedChars" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="!" name="StrParam"/>
+			</a>
+			<a name="FilterFieldSelectedChars" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="," name="StrParam"/>
+			</a>
+			<a name="FilterFieldSelectedChars" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="." name="StrParam"/>
+			</a>
+		</func>
+	</rule>
+	<rule name="Rule14 Compare Box 5 and 7 City" id="14">
+		<func name="Copy of Function1">
+			<a name="ConvertToUpperCase" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="DeleteAllPunct" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="FilterFieldSelectedChars" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v=" " name="StrParam"/>
+			</a>
+			<a name="IsFieldFilled" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="7IAddCty" name="strParam"/>
+			</a>
+		</func>
+		<func name="Function1">
+			<a name="IsFieldMatching" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="SAME" name="strParam"/>
+			</a>
+			<a name="PopulateFromField" ns="MC_Validation">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="5PAddCty" name="StrParam"/>
+			</a>
+		</func>
+		<func name="Copy of Function2">
+			<a name="IsFieldMatching" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="SELF" name="strParam"/>
+			</a>
+			<a name="PopulateFromField" ns="MC_Validation">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="5PAddCty" name="StrParam"/>
+			</a>
+		</func>
+		<func name="Function2">
+			<a name="IsFieldMatching" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="SAME AS PATIENT" name="strParam"/>
+			</a>
+			<a name="PopulateFromField" ns="MC_Validation">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="5PAddCty" name="StrParam"/>
+			</a>
+		</func>
+		<func name="Function3">
+			<a name="IsFieldMatching" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="N/A" name="strParam"/>
+			</a>
+		</func>
+		<func name="Function4">
+			<a name="IsFieldEmpty" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="7IAddCty" name="strParam"/>
+			</a>
+			<a name="rrCompare" ns="rrunner">
+				<p name="object1" v="@P\2PatName"/>
+				<p name="object2" v="@P\4InsName"/>
+			</a>
+			<a name="PopulateFromField" ns="MC_Validation">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="5PAddCty" name="StrParam"/>
+			</a>
+		</func>
+		<func name="Function5">
+			<a name="PilotMessage_Clear" ns="rrunner">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="DeleteAllMiscChars" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="DeleteAllPunct" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+		</func>
+	</rule>
+	<rule name="Rule15 Compare Box 5 and 7 State" id="15">
+		<func name="Function1">
+			<a name="IsFieldFilled" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="7IAddSta" name="strParam"/>
+			</a>
+			<a name="DeleteAllPunct" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="FilterFieldSelectedChars" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v=" " name="StrParam"/>
+			</a>
+		</func>
+		<func name="Function2">
+			<a name="IsFieldMatching" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="SAME" name="strParam"/>
+			</a>
+			<a name="PopulateFromField" ns="MC_Validation">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="5PAddSta" name="StrParam"/>
+			</a>
+		</func>
+		<func name="Copy of Function3">
+			<a name="IsFieldMatching" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="SAME AS PATIENT" name="strParam"/>
+			</a>
+			<a name="PopulateFromField" ns="MC_Validation">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="SELF" name="StrParam"/>
+			</a>
+		</func>
+		<func name="Function3">
+			<a name="IsFieldMatching" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="SAME AS PATIENT" name="strParam"/>
+			</a>
+			<a name="PopulateFromField" ns="MC_Validation">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="5PAddSta" name="StrParam"/>
+			</a>
+		</func>
+		<func name="Function4">
+			<a name="IsFieldMatching" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="N/A" name="strParam"/>
+			</a>
+		</func>
+		<func name="Function5">
+			<a name="IsFieldEmpty" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="7IAddSta" name="strParam"/>
+			</a>
+			<a name="rrCompare" ns="rrunner">
+				<p name="object1" v="@P\5PAddStr"/>
+				<p name="object2" v="@P\7IAddStr"/>
+			</a>
+			<a name="PopulateFromField" ns="MC_Validation">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="5PAddSta" name="StrParam"/>
+			</a>
+		</func>
+		<func name="Function6">
+			<a name="PilotMessage_Clear" ns="rrunner">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="DeleteAllMiscChars" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="DeleteAllPunct" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+		</func>
+	</rule>
+	<rule name="Rule16 Compare Box 5 and 7 Zip Code" id="16">
+		<func name="Function1">
+			<a name="IsFieldMatching" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="SAME" name="strParam"/>
+			</a>
+			<a name="PopulateFromField" ns="MC_Validation">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="5PAddZip" name="StrParam"/>
+			</a>
+		</func>
+		<func name="Function2">
+			<a name="IsFieldMatching" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="SAME AS PATIENT" name="strParam"/>
+			</a>
+			<a name="PopulateFromField" ns="MC_Validation">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="5PAddZip" name="StrParam"/>
+			</a>
+		</func>
+		<func name="Function3">
+			<a name="IsFieldMatching" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="N/A" name="strParam"/>
+			</a>
+		</func>
+		<func name="Function4">
+			<a name="IsFieldEmpty" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="7IAddZip" name="strParam"/>
+			</a>
+			<a name="rrCompare" ns="rrunner">
+				<p name="object1" v="@P\2PatName"/>
+				<p name="object2" v="@P\4InsName"/>
+			</a>
+			<a name="PopulateFromField" ns="MC_Validation">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="5PAddZip" name="StrParam"/>
+			</a>
+		</func>
+		<func name="Function5">
+			<a name="PilotMessage_Clear" ns="rrunner">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="DeleteAllMiscChars" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="DeleteAllPunct" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="FilterFieldSelectedChars" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v=" " name="StrParam"/>
+			</a>
+		</func>
+	</rule>
+	<rule name="Rule17 Prep Box 11 Policy" id="17">
+		<func name="Function1">
+			<a name="IsThisFieldEmpty" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+		</func>
+		<func name="Function2">
+			<a name="ReplaceChars" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="(),0,*" name="StrParam"/>
+			</a>
+			<a name="ReplaceChars" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="o,0,*" name="StrParam"/>
+			</a>
+			<a name="FilterFieldSelectedChars" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v=")" name="StrParam"/>
+			</a>
+			<a name="FilterFieldSelectedChars" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="(" name="StrParam"/>
+			</a>
+			<a name="DeleteAllPunct" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+		</func>
+	</rule>
+	<rule name="Rule18 Prep Diag Codes" id="18" qi="">
+		<func name="Function1">
+			<a name="IsThisFieldEmpty" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="TrimSpaces" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+		</func>
+		<func name="Function2">
+			<a name="rrCompare" ns="rrunner">
+				<p name="object1" v="08/05"/>
+				<p name="object2" v="@P.FormVersion"/>
+			</a>
+			<a name="rrSet" ns="rrunner">
+				<p name="varSource" v="5"/>
+				<p name="varTarget" v="@F.Length"/>
+			</a>
+			<a name="GoToNextFunction" ns="rrunner"/>
+		</func>
+		<func name="Function3">
+			<a name="rrCompare" ns="rrunner">
+				<p name="object1" v="02/12"/>
+				<p name="object2" v="@P.FormVersion"/>
+			</a>
+			<a name="rrSet" ns="rrunner">
+				<p name="varSource" v="7"/>
+				<p name="varTarget" v="@F.Length"/>
+			</a>
+			<a name="GoToNextFunction" ns="rrunner"/>
+		</func>
+		<func name="Function4" qi="">
+			<a name="DeleteAllPunct" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="FilterFieldSelectedChars" ns="Validations" qi="">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v=" " name="StrParam"/>
+			</a>
+		</func>
+	</rule>
+	<rule name="Rule20 Delete Alpha &amp; Spaces" id="20">
+		<func name="Function1">
+			<a name="DeleteAllPunct" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="DeleteAllAlpha" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="FilterFieldSelectedChars" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v=" " name="StrParam"/>
+			</a>
+		</func>
+	</rule>
+	<rule name="Rule21 Prep Box 30" id="21">
+		<func name="Function1">
+			<a name="IsThisFieldFilled" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="FilterFieldSelectedChars" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v=" " name="StrParam"/>
+			</a>
+			<a name="IsFieldMatching" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="CONT" name="strParam"/>
+			</a>
+			<a name="ResetField" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+		</func>
+		<func name="Function2">
+			<a name="IsThisFieldFilled" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+		</func>
+		<func name="Function3">
+			<a name="IsThisFieldEmpty" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+		</func>
+	</rule>
+	<rule name="Rule22 Parse Box 31 Signature" id="22">
+		<func name="Function1">
+			<a name="ConvertToUpperCase" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="DeleteAllPunct" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="DeleteAllNumeric" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="DeleteAllSysChars" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="ReplaceChars" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="COMPUTER GENERATED," name="StrParam"/>
+			</a>
+			<a name="ReplaceChars" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="COMP GEN," name="StrParam"/>
+			</a>
+			<a name="ReplaceChars" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="MD," name="StrParam"/>
+			</a>
+			<a name="ReplaceChars" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="DPM," name="StrParam"/>
+			</a>
+			<a name="ReplaceChars" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="OD," name="StrParam"/>
+			</a>
+			<a name="TrimSpaces" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="InheritSnippets" ns="MC_Validation">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="31aPhLNm,31aPhFNm,31aPhIni,31crdntl" name="StrParam"/>
+			</a>
+			<a name="Parse31aPhSig" ns="MC_Validation">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+		</func>
+	</rule>
+	<rule name="Rule24 Parse Box 17 Name" id="24">
+		<func name="Function1">
+			<a name="ParseLastFirstIniNames" ns="MC_Validation">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="17ReLNam,17ReFNam,17ReMIni,17ReCred,17ReSufx,-1" name="StrParam"/>
+			</a>
+		</func>
+	</rule>
+	<rule name="Rule25 Prep FormType Field" id="25">
+		<func name="Function1">
+			<a name="IsThisFieldEmpty" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="rr_Get" ns="rrunner">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="@P.FormType" name="StrParam"/>
+			</a>
+		</func>
+		<func name="Function2">
+			<a name="IsThisFieldFilled" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+		</func>
+	</rule>
+	<rule name="Rule27 Prep Date " id="27">
+		<func name="Function1">
+			<a name="IsThisFieldEmpty" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+		</func>
+		<func name="Function2">
+			<a name="DeleteAllAlpha" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="DeleteAllPunct" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="FilterFieldSelectedChars" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v=" " name="StrParam"/>
+			</a>
+			<a name="IsFieldLengthMax" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="6" name="StrParam"/>
+			</a>
+			<a name="AddCenturyTo2DigitYear" ns="MC_Validation">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+		</func>
+	</rule>
+	<rule name="Rule28 Prep Place Of Service" id="28">
+		<func name="Function1">
+			<a name="DeleteAllAlpha" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="DeleteAllSysChars" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="FilterFieldSelectedChars" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v=" " name="StrParam"/>
+			</a>
+			<a name="DeleteAllPunct" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+		</func>
+	</rule>
+	<rule name="Rule29 Prep CPT Code" id="29">
+		<func name="Function1">
+			<a name="DeleteAllSysChars" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="DeleteAllPunct" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="FilterFieldSelectedChars" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v=" " name="StrParam"/>
+			</a>
+		</func>
+	</rule>
+	<rule name="Rule30 Prep Diag Pointer" id="30">
+		<func name="Function1">
+			<a name="FilterFieldSelectedChars" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v=" " name="StrParam"/>
+			</a>
+			<a name="rrCompare" ns="rrunner" qi="">
+				<p name="object1" v="08/05"/>
+				<p name="object2" v="@P.FormVersion"/>
+			</a>
+			<a name="ConvertHyphen" ns="MC_Validation">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+		</func>
+	</rule>
+	<rule name="Rule31_DETAILS" id="31">
+		<func name="Function1">
+			<a name="CheckSubFields" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="('DateFrom') AND ('CPT_Code')" name="StrParam"/>
+			</a>
+		</func>
+	</rule>
+	<rule name="Prep Type Of Service" id="19">
+		<func name="Function1">
+			<a name="DeleteAllAlpha" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="DeleteAllSysChars" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="FilterFieldSelectedChars" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v=" " name="StrParam"/>
+			</a>
+			<a name="DeleteAllPunct" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+		</func>
+	</rule>
+	<rule name="Prep Days/Units" id="23">
+		<func name="Function1">
+			<a name="DeleteAllAlpha" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="FilterFieldSelectedChars" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v=" " name="StrParam"/>
+			</a>
+			<a name="DeleteAllSysChars" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="DeleteAllPunct" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+		</func>
+	</rule>
+	<rule name="Prep and Parse INFO field" id="11">
+		<func name="Function1 Extend Zone left and refill">
+			<a name="ZoneLEFT_ImageLeft" ns="Zones">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="SnapCCOtoDCO" ns="Recog_Shared">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="GoToNextFunction" ns="rrunner"/>
+		</func>
+		<func name="Parse INFO field">
+			<a name="ParseNDC" ns="MC_Validation">
+				<p name="NDCField" v="..\NDC"/>
+				<p name="TypeField" v="..\NDCType"/>
+				<p name="QuantityField" v="..\NDCQty"/>
+			</a>
+			<a name="ParseEPSDT" ns="MC_Validation">
+				<p name="EPSDTCode" v="..\EPSDTcode"/>
+			</a>
+		</func>
+	</rule>
+	<rule name="Rule32 AddressFilter" id="26" qi="">
+		<func name="Function1">
+			<a name="ReplaceChars" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="P 0 BOX,PO BOX" name="StrParam"/>
+			</a>
+		</func>
+	</rule>
+	<rule name="Rule Filter 17 Phys ID field" id="32">
+		<func name="Function1">
+			<a name="FilterFieldSelectedChars" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v=" " name="StrParam"/>
+			</a>
+			<a name="FilterPID" ns="MC_Validation">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="17aRfCd" name="StrParam"/>
+			</a>
+		</func>
+	</rule>
+	<rule name="Rule Prep Qualifier fields" id="33">
+		<func name="Function1">
+			<a name="FilterFieldSelectedChars" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v=" " name="StrParam"/>
+			</a>
+			<a ns="Validations" name="TruncateFromEnd" qi="">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="2" name="StrParam"/>
+			</a>
+			<a name="ConvertToUpperCase" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="ReplaceChars" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="O2,G2" name="StrParam"/>
+			</a>
+			<a name="ReplaceChars" ns="Validations" qi="">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="02,G2" name="StrParam"/>
+			</a>
+			<a name="ReplaceChars" ns="Validations" qi="">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="G5,G2" name="StrParam"/>
+			</a>
+			<a name="ReplaceChars" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="65,G2" name="StrParam"/>
+			</a>
+			<a name="ReplaceChars" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="05,G2" name="StrParam"/>
+			</a>
+			<a name="ReplaceChars" ns="Validations" qi="">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="62,G2" name="StrParam"/>
+			</a>
+			<a name="ReplaceChars" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="LA,1A" name="StrParam"/>
+			</a>
+			<a name="ReplaceChars" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="LD,1D" name="StrParam"/>
+			</a>
+			<a name="ReplaceChars" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="O8,0B" name="StrParam"/>
+			</a>
+			<a name="ReplaceChars" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="08,0B" name="StrParam"/>
+			</a>
+			<a name="ReplaceChars" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="OB,0B" name="StrParam"/>
+			</a>
+		</func>
+	</rule>
+	<rule name="Rule Adjust Box 2 Super Snippet Zone" id="34">
+		<func name="Function1">
+			<a name="MergeZones" ns="Zones">
+				<p name="SmartParameters" v="@P\5PAddTel,@P\5PAddZip,@P\2PatName"/>
+			</a>
+		</func>
+	</rule>
+	<rule name="Rule Adjust Box 4 Super Snippet Zone" id="35">
+		<func name="Function1">
+			<a name="MergeZones" ns="Zones">
+				<p name="SmartParameters" v="@P\7IAddTel,@P\7IAddZip,@P\4InsName"/>
+			</a>
+		</func>
+	</rule>
+</ruleset>

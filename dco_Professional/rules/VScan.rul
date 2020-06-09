@@ -1,0 +1,80 @@
+<ruleset name="VScan" id="1" ver="1">
+	<rule name="VScan" id="1">
+		<func name="VScan: Batch Rule 1 BLACK CLAIMS">
+			<a name="rrCompare" ns="rrunner">
+				<p name="object1" v="@JOBID"/>
+				<p name="object2" v="PROF Vscan Black"/>
+			</a>
+			<a name="SetSourceDirectory" ns="vscan">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="@APPPATH(vscanimagedir)+\+Black" name="SmartParam"/>
+			</a>
+			<a name="AddDocument" ns="vscan">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="SetMaxImageFiles" ns="vscan">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="100" name="StrParam"/>
+			</a>
+			<a name="rrSet" ns="rrunner">
+				<p name="varSource" v="6"/>
+				<p name="varTarget" v="@B.EP"/>
+			</a>
+			<a name="rrSet" ns="rrunner">
+				<p name="varSource" v="@B.EP"/>
+				<p name="varTarget" v="@B.ED"/>
+			</a>
+			<a name="rrSet" ns="rrunner">
+				<p name="varSource" v="@B.EP"/>
+				<p name="varTarget" v="@B.AD"/>
+			</a>
+			<a name="rrSet" ns="rrunner">
+				<p name="varSource" v="@B.EP"/>
+				<p name="varTarget" v="@B.AP"/>
+			</a>
+			<a name="Scan" ns="vscan">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+		</func>
+		<func name="VScan: Batch Rule 2 RED CLAIMS">
+			<a name="SetSourceDirectory" ns="vscan">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="@APPPATH(vscanimagedir)" name="SmartParam"/>
+			</a>
+			<a name="AddDocument" ns="vscan">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="SetMaxImageFiles" ns="vscan">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="100" name="StrParam"/>
+			</a>
+			<a name="rrSet" ns="rrunner" qi="">
+				<p name="varSource" v="6"/>
+				<p name="varTarget" v="@B.EP"/>
+			</a>
+			<a name="rrSet" ns="rrunner">
+				<p name="varSource" v="@B.EP"/>
+				<p name="varTarget" v="@B.ED"/>
+			</a>
+			<a name="rrSet" ns="rrunner">
+				<p name="varSource" v="@B.EP"/>
+				<p name="varTarget" v="@B.AD"/>
+			</a>
+			<a name="rrSet" ns="rrunner">
+				<p name="varSource" v="@B.EP"/>
+				<p name="varTarget" v="@B.AP"/>
+			</a>
+			<a name="Scan" ns="vscan">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+		</func>
+	</rule>
+</ruleset>

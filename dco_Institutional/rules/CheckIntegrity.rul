@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ruleset name="CheckIntegrity" id="15" ver="1">
+	<rule name="Rule1" id="1" qi="">
+		<func name="Function1">
+			<a name="SkipChildren" ns="rrunner" qi="">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="ChkDCOStatus" ns="DCO">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="141" name="StrParam"/>
+			</a>
+		</func>
+		<func name="Function2" qi="">
+			<a name="rrCompareNot" ns="rrunner">
+				<p name="object1" v="@JOBID"/>
+				<p name="object2" v="INST Vscan Red"/>
+			</a>
+			<a name="rrSet" ns="rrunner">
+				<p name="varSource" v="@B\Expected_Documents"/>
+				<p name="varTarget" v="@B.ED"/>
+			</a>
+			<a name="rrSet" ns="rrunner">
+				<p name="varSource" v="@B\Expected_Pages"/>
+				<p name="varTarget" v="@B.EP"/>
+			</a>
+			<a name="GoToNextFunction" ns="rrunner" qi=""/>
+		</func>
+		<func name="Function3" qi="">
+			<a name="rrCompareNot" ns="rrunner">
+				<p name="object1" v="@JOBID"/>
+				<p name="object2" v="INST Vscan Black"/>
+			</a>
+			<a name="rrSet" ns="rrunner" qi="">
+				<p name="varSource" v="@B\Expected_Documents"/>
+				<p name="varTarget" v="@B.ED"/>
+			</a>
+			<a name="rrSet" ns="rrunner">
+				<p name="varSource" v="@B\Expected_Pages"/>
+				<p name="varTarget" v="@B.EP"/>
+			</a>
+			<a name="GoToNextFunction" ns="rrunner" qi=""/>
+		</func>
+		<func name="Function4">
+			<a name="ChkIntegrity" ns="DCO">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="CheckDocCount" ns="rrunner">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="Task_NumberOfSplits" ns="rrunner">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="1" name="nNumOfSplits"/>
+			</a>
+			<a name="Task_RaiseCondition" ns="rrunner">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="0,0" name="strParam"/>
+			</a>
+		</func>
+	</rule>
+</ruleset>

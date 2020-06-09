@@ -1,0 +1,290 @@
+<ruleset name="PrepData" id="17" ver="1">
+	<rule name="Rule Check Doc Status" id="1">
+		<func name="Function1">
+			<a name="ChkDCOStatus" ns="DCO">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="128,141,143,145" name="StrParam"/>
+			</a>
+			<a name="SkipChildren" ns="rrunner">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+		</func>
+		<func name="Function2">
+			<a name="ProcessChildren" ns="rrunner">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="Obj.ObjectType=3,Obj.DeleteVariable(&quot;DataType&quot;)" name="StrParam"/>
+			</a>
+		</func>
+	</rule>
+	<rule name="Rule Check Page Status, Parse UB field 1" id="2">
+		<func name="Function1">
+			<a name="ChkDCOStatus" ns="DCO">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="0,66,73,79" name="StrParam"/>
+			</a>
+			<a name="SkipChildren" ns="rrunner">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+		</func>
+		<func name="Function2">
+			<a name="CommonParseAddress" ns="MC_Validation">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="UBField1Object" name="StrParam"/>
+			</a>
+			<a name="CommonParseAddress" ns="MC_Validation">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="UBField2Object" name="StrParam"/>
+			</a>
+		</func>
+	</rule>
+	<rule name="Rule Copy field 1 Zones to field 1 Super field" id="3">
+		<func name="Function1">
+			<a name="InheritSnippets" ns="MC_Validation">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="1provnam,1provadd,1provcit,1provsta,1provzip,1provphn" name="StrParam"/>
+			</a>
+		</func>
+	</rule>
+	<rule name="Rule Copy field 2 Zones to field 2 Super field" id="19" qi="">
+		<func name="Function1">
+			<a name="InheritSnippets" ns="MC_Validation" qi="">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="2paytnm,2paytadd,2paytcty,2paytst,2paytzip,2paytid"/>
+			</a>
+		</func>
+	</rule>
+	<rule name="Rule Delete Punctuation All Upper case" id="4">
+		<func name="Function1">
+			<a name="DeleteAllPunct" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="ConvertToUpperCase" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+		</func>
+	</rule>
+	<rule name="Rule Parse NDC &amp; Delete Punctuation All Upper case" id="18">
+		<func name="Function1">
+			<a name="ParseNDC" ns="MC_Validation">
+				<p name="NDCField" v="..\NDC"/>
+				<p name="TypeField" v="..\NDCType"/>
+				<p name="QuantityField" v="..\NDCQty"/>
+			</a>
+			<a name="DeleteAllPunct" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="ConvertToUpperCase" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+		</func>
+	</rule>
+	<rule name="Rule Delete Punct Delete Numeric All Upper case" id="5">
+		<func name="Function1">
+			<a name="DeleteAllPunct" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="DeleteAllNumeric" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="ConvertToUpperCase" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+		</func>
+	</rule>
+	<rule name="Rule Delete Alpha characters" id="6">
+		<func name="Function1">
+			<a name="AllowOnlyChars" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="0123456789" name="StrParam"/>
+			</a>
+		</func>
+	</rule>
+	<rule name="Rule Filter Space Chars" id="7">
+		<func name="Function1">
+			<a name="FilterFieldSelectedChars" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v=" " name="StrParam"/>
+			</a>
+		</func>
+	</rule>
+	<rule name="Rule Delete Punct System and Misc chars" id="8">
+		<func name="Function1">
+			<a name="DeleteSelectedChars" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="•" name="strParam"/>
+			</a>
+			<a name="DeleteAllPunct" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="FilterFieldSelectedChars" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v=" " name="StrParam"/>
+			</a>
+			<a name="DeleteAllSysChars" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="DeleteAllMiscChars" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+		</func>
+	</rule>
+	<rule name="Rule Allow only Numbers and Mod 2 digit year" id="9" qi="">
+		<func name="Function1">
+			<a name="AllowOnlyChars" ns="Validations" qi="">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="1234567890" name="StrParam"/>
+			</a>
+			<a name="AddCenturyTo2DigitYear" ns="MC_Validation">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+		</func>
+	</rule>
+	<rule name="Rule Parse Field 8 (Patient Name) make all upper case" id="10">
+		<func name="Function1">
+			<a name="ConvertToUpperCase" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="ParseLastFirstIniNames" ns="MC_Validation">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="8plname,8pfname,8pminit" name="StrParam"/>
+			</a>
+			<a name="InheritSnippets" ns="MC_Validation">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="8plname,8pfname,8pminit" name="StrParam"/>
+			</a>
+		</func>
+	</rule>
+	<rule name="Rule Parse Field 58a" id="15">
+		<func name="Function1">
+			<a name="Parse58ainsnm" ns="MC_Validation">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="InheritSnippets" ns="MC_Validation">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="58alname,58afname,58aminit,58aSufx,58aCred" name="StrParam"/>
+			</a>
+		</func>
+	</rule>
+	<rule name="Rule Parse Field 58b" id="16">
+		<func name="Function1">
+			<a name="Parse58binsnm" ns="MC_Validation">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="InheritSnippets" ns="MC_Validation">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="58blname,58bfname,58bminit,58bSufx,58bCred" name="StrParam"/>
+			</a>
+		</func>
+	</rule>
+	<rule name="Rule Parse Field 58c" id="17">
+		<func name="Function1">
+			<a name="Parse58cinsnm" ns="MC_Validation">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="InheritSnippets" ns="MC_Validation">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="58clname,58cfname,58cminit,58cSufx,58cCred" name="StrParam"/>
+			</a>
+		</func>
+	</rule>
+	<rule name="Rule Check for valid Lineitem Sub Fields " id="11">
+		<func name="Function1">
+			<a name="CheckSubFields" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="('RevCode') AND ('Charges')" name="StrParam"/>
+			</a>
+		</func>
+	</rule>
+	<rule name="Rule Filter Charges" id="12">
+		<func name="Function1">
+			<a name="AllowOnlyChars" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="0123456789" name="StrParam"/>
+			</a>
+		</func>
+	</rule>
+	<rule name="Rule Filter 76 Phys ID Field" id="13">
+		<func name="Function1">
+			<a name="FilterPID" ns="MC_Validation">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="76apqual" name="StrParam"/>
+			</a>
+		</func>
+	</rule>
+	<rule name="Rule Filter 67I" id="14">
+		<func name="Function1">
+			<a name="FilterFieldSelectedChars" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v=" " name="StrParam"/>
+			</a>
+			<a name="IsFieldMatching" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="9" name="strParam"/>
+			</a>
+			<a name="CopyFieldToField" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="66dxverq" name="strParam"/>
+			</a>
+			<a name="ResetField" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+		</func>
+		<func name="Function2">
+			<a name="IsFieldMatching" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="5" name="strParam"/>
+			</a>
+			<a name="CopyFieldToField" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="66dxverq" name="strParam"/>
+			</a>
+			<a name="ResetField" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+		</func>
+	</rule>
+</ruleset>

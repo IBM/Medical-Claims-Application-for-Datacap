@@ -1,0 +1,10 @@
+C:\Users\ShubhamJoshi\Desktop\GITHUB\Mediclaim_20-5\Medical-Claims\RRX\MC_Identify\MC_Identify\obj\Debug\MC_Identify.csprojResolveAssemblyReference.cache
+C:\Users\ShubhamJoshi\Desktop\GITHUB\Mediclaim_20-5\Medical-Claims\RRX\MC_Identify\MC_Identify\obj\Debug\Interop.dcrroLib.dll
+C:\Users\ShubhamJoshi\Desktop\GITHUB\Mediclaim_20-5\Medical-Claims\RRX\MC_Identify\MC_Identify\obj\Debug\MC_Identify.csproj.ResolveComReference.cache
+C:\Users\ShubhamJoshi\Desktop\GITHUB\Mediclaim_20-5\Medical-Claims\RRX\MC_Identify\MC_Identify\obj\Debug\MC_Identify.Properties.Resources.resources
+C:\Users\ShubhamJoshi\Desktop\GITHUB\Mediclaim_20-5\Medical-Claims\RRX\MC_Identify\MC_Identify\obj\Debug\MC_Identify.csproj.GenerateResource.Cache
+C:\Users\ShubhamJoshi\Desktop\GITHUB\Mediclaim_20-5\Medical-Claims\RRX\MC_Identify\MC_Identify\bin\Debug\MC_Identify.dll
+C:\Users\ShubhamJoshi\Desktop\GITHUB\Mediclaim_20-5\Medical-Claims\RRX\MC_Identify\MC_Identify\bin\Debug\MC_Identify.pdb
+C:\Users\ShubhamJoshi\Desktop\GITHUB\Mediclaim_20-5\Medical-Claims\RRX\MC_Identify\MC_Identify\bin\Debug\iRRX.dll
+C:\Users\ShubhamJoshi\Desktop\GITHUB\Mediclaim_20-5\Medical-Claims\RRX\MC_Identify\MC_Identify\obj\Debug\MC_Identify.dll
+C:\Users\ShubhamJoshi\Desktop\GITHUB\Mediclaim_20-5\Medical-Claims\RRX\MC_Identify\MC_Identify\obj\Debug\MC_Identify.pdb

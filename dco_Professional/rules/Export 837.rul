@@ -1,0 +1,20 @@
+<ruleset id="20" name="Export 837" ver="1" modder="admin.2">
+	<rule name="Create 5010" id="1">
+		<func name="Function1">
+			<a name="Load5010Settings" ns="5010Common">
+				<p name="SmartFilePath" v="@PROCESSDIR+\+5010_Prof.ini"/>
+			</a>
+      <a name="ChkDCOStatus" ns="DCO">
+        <p type="bInter" name="bInter"/>
+        <p type="bDebug" name="bDebug"/>
+        <p type="strParam" v="0,48,52,66,73,140,141,142,143,145" name="StrParam"/>
+      </a>
+			<a name="Professional_5010" ns="5010Professional"/>
+      <a name="Merge5010" ns="5010Common" qi="">
+        <p name="SmartFilePath" v="@BATCHDIR"/>
+        <p name="SmartFileName" v="P_5010+@BATCHID"/>
+        <p name="SmartFileExtn" v="837"/>
+      </a>
+		</func>
+	</rule>
+</ruleset>

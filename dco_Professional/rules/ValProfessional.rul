@@ -1,0 +1,1408 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ruleset name="ValProfessional" id="19" ver="1">
+	<rule name="Rule Open LookupDB" id="1">
+		<func name="Function1">
+			<a name="CloseConnection" ns="Lookup">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="OpenConnection" ns="Lookup">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="@APPVAR(lookupdb:cs)" name="strParam"/>
+			</a>
+		</func>
+	</rule>
+	<rule name="Rule Check Doc Status" id="2">
+		<func name="Function1">
+			<a name="ChkDCOStatus" ns="DCO">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="128,142,143,145" name="StrParam"/>
+			</a>
+			<a name="SkipChildren" ns="rrunner">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+		</func>
+		<func name="Function2">
+			<a name="rrSet" ns="rrunner" qi="">
+				<p name="varSource" v="@STATUS"/>
+				<p name="varTarget" v="@D.STATUS"/>
+			</a>
+		</func>
+	</rule>
+	<rule name="Rule Check Page Status/Validate box 4 &amp; 7" id="3">
+		<func name="Function1">
+			<a name="ChkDCOStatus" ns="DCO">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="0,66" name="StrParam"/>
+			</a>
+			<a name="rrSet" ns="rrunner">
+				<p name="varSource" v="@D.STATUS"/>
+				<p name="varTarget" v="143"/>
+			</a>
+			<a name="GoToNextFunction" ns="rrunner"/>
+		</func>
+		<func name="Function2">
+			<a name="ChkDCOStatus" ns="DCO">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="73" name="StrParam"/>
+			</a>
+			<a name="rrSet" ns="rrunner">
+				<p name="varSource" v="@D.STATUS"/>
+				<p name="varTarget" v="142"/>
+			</a>
+			<a name="SkipChildren" ns="rrunner">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+		</func>
+		<func name="Function3">
+			<a name="ChkDCOStatus" ns="DCO">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="79" name="StrParam"/>
+			</a>
+			<a name="SkipChildren" ns="rrunner">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+		</func>
+		<func name="Function4">
+			<a name="Status_Preserve_OFF" ns="rrunner">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="ClearErrorMsg" ns="MC_Validation">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="CloseConnection" ns="Lookup">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="OpenConnection" ns="Lookup">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="@APPVAR(lookupdb:cs)" name="strParam"/>
+			</a>
+			<a name="CommonValAddress" ns="MC_Validation">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="Insured,4InsFNam,4InsLNam,7IAddStr,,7IAddCty,7IAddSta,7IAddZip," name="strString"/>
+			</a>
+		</func>
+	</rule>
+	<rule name="Rule Check Two Character State Code" id="5">
+		<func name="Function1">
+			<a name="ConvertToUpperCase" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="SmartSQL" ns="Lookup">
+				<p name="sStringIn" v="Select PO_Abbreviation From StateZip Where PO_Abbreviation='+@F+';"/>
+				<p name="sPopulate" v="No"/>
+			</a>
+			<a name="SetConf" ns="MC_Validation">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="9" name="StrParam"/>
+			</a>
+		</func>
+		<func name="Function2">
+			<a name="IsThisFieldEmpty" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+		</func>
+		<func name="DetailErrorMsg">
+			<a name="PilotMessage_Set" ns="rrunner">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="Invalid State found. + @F.FieldDescription" name="StrParam"/>
+			</a>
+			<a name="AddToErrorMsg" ns="MC_Validation">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="Invalid State found. + @F.FieldDescription" name="StrParam"/>
+			</a>
+			<a name="GoToNextFunction" ns="rrunner"/>
+		</func>
+	</rule>
+	<rule name="Rule Check Zip Code" id="6">
+		<func name="Function1">
+			<a name="IsThisFieldFilled" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="IsFieldPercentNumeric" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="90" name="StrParam"/>
+			</a>
+			<a name="IsFieldLengthMin" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="5" name="StrParam"/>
+			</a>
+			<a name="IsFieldLengthMax" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="9" name="StrParam"/>
+			</a>
+		</func>
+		<func name="Function2">
+			<a name="IsThisFieldEmpty" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+		</func>
+		<func name="DetailErrorMsg">
+			<a name="PilotMessage_Set" ns="rrunner">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="Invalid Zip Code found. + @F.FieldDescription" name="StrParam"/>
+			</a>
+			<a name="AddToErrorMsg" ns="MC_Validation">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="Invalid Zip Code found. + @F.FieldDescription" name="StrParam"/>
+			</a>
+			<a name="GoToNextFunction" ns="rrunner"/>
+		</func>
+	</rule>
+	<rule name="Rule Single Date Required" id="7">
+		<func name="Function1">
+			<a name="IsFieldLengthMin" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="8" name="StrParam"/>
+			</a>
+			<a name="IsFieldLengthMax" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="8" name="StrParam"/>
+			</a>
+			<a name="IsFieldPercentNumeric" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="95" name="StrParam"/>
+			</a>
+			<a name="IsFieldDateWithinRange" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="01/01/1900,TODAY" name="StrParam"/>
+			</a>
+		</func>
+		<func name="DetailErrorMsg">
+			<a name="PilotMessage_Set" ns="rrunner">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="Invalid Date found." name="StrParam"/>
+			</a>
+			<a name="AddToErrorMsg" ns="MC_Validation">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="Invalid Date found." name="StrParam"/>
+			</a>
+			<a name="GoToNextFunction" ns="rrunner"/>
+		</func>
+	</rule>
+	<rule name="Rule Single Date NON Required" id="15">
+		<func name="Function1">
+			<a name="IsThisFieldEmpty" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+		</func>
+		<func name="Function2">
+			<a name="IsFieldLengthMin" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="8" name="StrParam"/>
+			</a>
+			<a name="IsFieldLengthMax" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="8" name="StrParam"/>
+			</a>
+			<a name="IsFieldPercentNumeric" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="95" name="StrParam"/>
+			</a>
+			<a name="IsFieldDateWithinRange" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="01/01/1900,TODAY" name="StrParam"/>
+			</a>
+		</func>
+		<func name="DetailErrorMsg">
+			<a name="PilotMessage_Set" ns="rrunner">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="Invalid Date found." name="StrParam"/>
+			</a>
+			<a name="AddToErrorMsg" ns="MC_Validation">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="Invalid Date found." name="StrParam"/>
+			</a>
+			<a name="GoToNextFunction" ns="rrunner"/>
+		</func>
+	</rule>
+	<rule name="Rule Val OMR Checked" id="8">
+		<func name="Function1">
+			<a name="IsMaxOMRChecked" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="1" name="StrParam"/>
+			</a>
+		</func>
+		<func name="DetailErrorMsg">
+			<a name="PilotMessage_Set" ns="rrunner">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="Invalid OMR found." name="StrParam"/>
+			</a>
+			<a name="AddToErrorMsg" ns="MC_Validation">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="Invalid OMR found." name="StrParam"/>
+			</a>
+		</func>
+	</rule>
+	<rule name="Rule Lookup MemberID" id="9">
+		<func name="Function1">
+			<a name="SmartSQL" ns="Lookup">
+				<p name="sStringIn" v="SELECT MemberID FROM Member WHERE MemberID='+@F+';"/>
+				<p name="sPopulate" v="No"/>
+			</a>
+			<a name="SetConf" ns="MC_Validation">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="9" name="StrParam"/>
+			</a>
+		</func>
+		<func name="DetailErrorMsg">
+			<a name="PilotMessage_Set" ns="rrunner">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="Invalid Member ID found." name="StrParam"/>
+			</a>
+			<a name="AddToErrorMsg" ns="MC_Validation">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="Invalid Member ID found." name="StrParam"/>
+			</a>
+			<a name="GoToNextFunction" ns="rrunner"/>
+		</func>
+	</rule>
+	<rule name="Rule Lookup Diag Code" id="11">
+		<func name="Function1">
+			<a name="IsThisFieldEmpty" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+		</func>
+		<func name="Function2">
+			<a name="PilotMessage_Clear" ns="rrunner">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="SmartSQL" ns="Lookup">
+				<p name="sStringIn" v="SELECT DiagCode FROM Diagnosis WHERE DiagCode='+@F+';"/>
+				<p name="sPopulate" v="No"/>
+			</a>
+			<a name="SetConf" ns="MC_Validation">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="9" name="StrParam"/>
+			</a>
+		</func>
+		<func name="Function3" qi="">
+			<a name="PilotMessage_Clear" ns="rrunner">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="rrCompare" ns="rrunner">
+				<p name="object1" v="08/05"/>
+				<p name="object2" v="@P.FormVersion"/>
+			</a>
+			<a name="IsPatternInField" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="[\w\d]\d{2,4}" name="StrParam"/>
+			</a>
+		</func>
+		<func name="Function4" qi="">
+			<a name="PilotMessage_Clear" ns="rrunner">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="rrCompare" ns="rrunner">
+				<p name="object1" v="02/12"/>
+				<p name="object2" v="@P.FormVersion"/>
+			</a>
+			<a name="IsPatternInField" ns="Validations" qi="">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="\w\d{2}[\w\d]{0,3}" name="StrParam"/>
+			</a>
+		</func>
+		<func name="DetailErrorMsg">
+			<a name="PilotMessage_Set" ns="rrunner">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="Invalid dx code found." name="StrParam"/>
+			</a>
+			<a name="AddToErrorMsg" ns="MC_Validation">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="Invalid DX code found." name="StrParam"/>
+			</a>
+			<a name="GoToNextFunction" ns="rrunner"/>
+		</func>
+	</rule>
+	<rule name="Rule Required Group Field 17" id="39">
+		<func name="Function1">
+			<a name="ValRequiredGroup" ns="MC_Validation">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="17aRfDID,17aRfCd" name="StrParam"/>
+			</a>
+		</func>
+		<func name="DetailErrorMsg">
+			<a name="PilotMessage_Set" ns="rrunner">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="Missing data in field 17a." name="StrParam"/>
+			</a>
+			<a name="AddToErrorMsg" ns="MC_Validation">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="Missing data in field 17a." name="StrParam"/>
+			</a>
+			<a name="GoToNextFunction" ns="rrunner"/>
+		</func>
+	</rule>
+	<rule name="Rule Check for Valid NPI " id="14">
+		<func name="Function1">
+			<a name="rrCompare" ns="rrunner">
+				<p name="object1" v="@P\FormType"/>
+				<p name="object2" v="HCFA 1500"/>
+			</a>
+		</func>
+		<func name="Function2">
+			<a name="IsThisFieldEmpty" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+		</func>
+		<func name="Function3">
+			<a name="rrCompare" ns="rrunner">
+				<p name="object1" v="@P\FormType"/>
+				<p name="object2" v="CMS 1500"/>
+			</a>
+			<a name="IsThisFieldFilled" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="ValidateNPI" ns="MC_Validation">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="SetConf" ns="MC_Validation">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="9" name="StrParam"/>
+			</a>
+		</func>
+		<func name="DetailErrorMsg">
+			<a name="PilotMessage_Set" ns="rrunner">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="Invalid NPI found." name="StrParam"/>
+			</a>
+			<a name="AddToErrorMsg" ns="MC_Validation">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="Invalid NPI found." name="StrParam"/>
+			</a>
+			<a name="GoToNextFunction" ns="rrunner"/>
+		</func>
+	</rule>
+	<rule name="Rule field 14 Qualifier check" id="19" qi="">
+		<func name="Function1">
+			<a name="PilotMessage_Clear" ns="rrunner" qi="">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="IsThisFieldEmpty" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+		</func>
+		<func name="Function1" qi="">
+			<a name="IsPatternInField" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="431|484" name="StrParam"/>
+			</a>
+		</func>
+		<func name="Function3">
+			<a name="PilotMessage_Set" ns="rrunner">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="Qualifier must have a value of '431' or '484'." name="StrParam"/>
+			</a>
+			<a name="AddToErrorMsg" ns="MC_Validation">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="Qualifier must have a value of '431' or '484'." name="StrParam"/>
+			</a>
+			<a name="GoToNextFunction" ns="rrunner"/>
+		</func>
+	</rule>
+	<rule name="Rule Lookup Tax ID" id="12">
+		<func name="Function1">
+			<a name="IsFieldLengthMax" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="9" name="StrParam"/>
+			</a>
+			<a name="IsFieldLengthMin" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="9" name="StrParam"/>
+			</a>
+			<a name="IsFieldPercentNumeric" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="100" name="StrParam"/>
+			</a>
+			<a name="SmartSQL" ns="Lookup">
+				<p name="sStringIn" v="SELECT TIN FROM Provider WHERE TIN='+@F+';"/>
+				<p name="sPopulate" v="No"/>
+			</a>
+			<a name="SetConf" ns="MC_Validation">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="9" name="StrParam"/>
+			</a>
+		</func>
+		<func name="DetailErrorMsg">
+			<a name="PilotMessage_Set" ns="rrunner">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="Invalid Tax ID found." name="StrParam"/>
+			</a>
+			<a name="AddToErrorMsg" ns="MC_Validation">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="Invalid Tax ID found." name="StrParam"/>
+			</a>
+			<a name="GoToNextFunction" ns="rrunner" qi=""/>
+		</func>
+	</rule>
+	<rule name="Rule Calculate Charges" id="23">
+		<func name="Function1">
+			<a name="CalculateHCFALineCharges" ns="MC_Validation">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+		</func>
+		<func name="DetailErrorMsg">
+			<a name="PilotMessage_Set" ns="rrunner">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="Invalid Charges found." name="StrParam"/>
+			</a>
+			<a name="AddToDetailErrorMsg" ns="MC_Validation">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="Invalid Charges found." name="StrParam"/>
+			</a>
+			<a name="GoToNextFunction" ns="rrunner"/>
+		</func>
+	</rule>
+	<rule name="Rule Check Date From" id="24">
+		<func name="Function1">
+			<a name="PilotMessage_Clear" ns="rrunner" qi="">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="IsThisFieldEmpty" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+		</func>
+		<func name="Function2">
+			<a name="PilotMessage_Set" ns="rrunner">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="'From' date must have 8 digits." name="StrParam"/>
+			</a>
+			<a name="IsFieldLengthMin" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="8" name="StrParam"/>
+			</a>
+			<a name="IsFieldLengthMax" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="8" name="StrParam"/>
+			</a>
+			<a name="PilotMessage_Clear" ns="rrunner" qi="">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="PilotMessage_Set" ns="rrunner">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="Date must be before+@DATE+." name="StrParam"/>
+			</a>
+			<a name="IsFieldDateWithinRange" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="01/01/1900,TODAY" name="StrParam"/>
+			</a>
+			<a name="PilotMessage_Clear" ns="rrunner" qi="">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+		</func>
+		<func name="DetailErrorMsg">
+			<a name="AddToDetailErrorMsg" ns="MC_Validation" qi="">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="Invalid Date From found." name="StrParam"/>
+			</a>
+			<a name="GoToNextFunction" ns="rrunner"/>
+		</func>
+	</rule>
+	<rule name="Rule Check Val Date Thru" id="25">
+		<func name="Function1">
+			<a name="PilotMessage_Clear" ns="rrunner" qi="">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="IsThisFieldEmpty" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+		</func>
+		<func name="Function2" qi="">
+			<a name="PilotMessage_Set" ns="rrunner" qi="">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="'From' date must have 8 digits." name="StrParam"/>
+			</a>
+			<a name="IsFieldLengthMax" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="8" name="StrParam"/>
+			</a>
+			<a name="IsFieldLengthMin" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="8" name="StrParam"/>
+			</a>
+			<a name="PilotMessage_Clear" ns="rrunner" qi="">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="PilotMessage_Set" ns="rrunner">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="Date must be same as or after FROM date value of +..\DateFrom+." name="StrParam"/>
+			</a>
+			<a name="IsFieldDateEqualOrAfter" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="DateFrom" name="StrParam"/>
+			</a>
+			<a name="PilotMessage_Clear" ns="rrunner" qi="">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+		</func>
+	</rule>
+	<rule name="Rule Check Place Of Service Code" id="26">
+		<func name="Function1">
+			<a name="IsFieldEmpty" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="PlaceofService" name="strParam"/>
+			</a>
+		</func>
+		<func name="Function2">
+			<a name="PilotMessage_Clear" ns="rrunner">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="SmartSQL" ns="Lookup">
+				<p name="sStringIn" v="SELECT POS FROM POS WHERE POS='+@F+';"/>
+				<p name="sPopulate" v="No"/>
+			</a>
+			<a name="SetConf" ns="MC_Validation">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="9" name="StrParam"/>
+			</a>
+		</func>
+		<func name="DetailErrorMsg">
+			<a name="PilotMessage_Set" ns="rrunner">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="Invalid POS code found." name="StrParam"/>
+			</a>
+			<a name="AddToDetailErrorMsg" ns="MC_Validation">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="Invalid POS code found." name="StrParam"/>
+			</a>
+			<a name="GoToNextFunction" ns="rrunner"/>
+		</func>
+	</rule>
+	<rule name="Rule Check Procedure Code" id="27">
+		<func name="Function1">
+			<a name="ValProcedureCode" ns="MC_Validation">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="SetConf" ns="MC_Validation">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="9" name="StrParam"/>
+			</a>
+		</func>
+		<func name="DetailErrorMsg">
+			<a name="PilotMessage_Set" ns="rrunner">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="Invalid CPT code found." name="StrParam"/>
+			</a>
+			<a name="AddToDetailErrorMsg" ns="MC_Validation">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="Invalid CPT code found." name="StrParam"/>
+			</a>
+			<a name="GoToNextFunction" ns="rrunner"/>
+		</func>
+	</rule>
+	<rule name="Rule Val Modifiers" id="28">
+		<func name="Function1">
+			<a name="IsFieldEmpty" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="Modifiers" name="strParam"/>
+			</a>
+		</func>
+		<func name="Function2">
+			<a name="PilotMessage_Clear" ns="rrunner">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="IsFieldLengthMin" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="2" name="StrParam"/>
+			</a>
+			<a name="IsFieldLengthMax" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="2" name="StrParam"/>
+			</a>
+		</func>
+		<func name="Function3">
+			<a name="IsFieldLengthMin" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="4" name="StrParam"/>
+			</a>
+			<a name="IsFieldLengthMax" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="4" name="StrParam"/>
+			</a>
+		</func>
+		<func name="Function4">
+			<a name="IsFieldLengthMin" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="6" name="StrParam"/>
+			</a>
+			<a name="IsFieldLengthMax" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="6" name="StrParam"/>
+			</a>
+		</func>
+		<func name="Function5">
+			<a name="IsFieldLengthMin" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="8" name="StrParam"/>
+			</a>
+			<a name="IsFieldLengthMax" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="8" name="StrParam"/>
+			</a>
+		</func>
+		<func name="DetailErrorMsg">
+			<a name="PilotMessage_Set" ns="rrunner">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="Invalid Modifier code found." name="StrParam"/>
+			</a>
+			<a name="AddToDetailErrorMsg" ns="MC_Validation">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="Invalid Modifier code found." name="StrParam"/>
+			</a>
+			<a name="GoToNextFunction" ns="rrunner"/>
+		</func>
+	</rule>
+	<rule name="Rule Val Days Units" id="29">
+		<func name="Function1">
+			<a name="rrSet" ns="rrunner">
+				<p name="varSource" v="No"/>
+				<p name="varTarget" v="@F.Pass1"/>
+			</a>
+			<a name="IsFieldLengthMax" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="2" name="StrParam"/>
+			</a>
+			<a name="rrSet" ns="rrunner">
+				<p name="varSource" v="Yes"/>
+				<p name="varTarget" v="@F.Pass1"/>
+			</a>
+			<a name="GoToNextFunction" ns="rrunner.dll"/>
+		</func>
+		<func name="Function2">
+			<a name="rrSet" ns="rrunner">
+				<p name="varSource" v="No"/>
+				<p name="varTarget" v="@F.Pass2"/>
+			</a>
+			<a name="ValRequiredGroup" ns="MC_Validation">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="DateFrom,CPT_Code,DiagPointer,Charges,Days_Units" name="StrParam"/>
+			</a>
+			<a name="rrSet" ns="rrunner">
+				<p name="varSource" v="Yes"/>
+				<p name="varTarget" v="@F.Pass2"/>
+			</a>
+			<a name="GoToNextFunction" ns="rrunner"/>
+		</func>
+		<func name="Function3">
+			<a name="rrCompare" ns="rrunner">
+				<p name="object1" v="@F.Pass1"/>
+				<p name="object2" v="Yes"/>
+			</a>
+			<a name="rrCompare" ns="rrunner">
+				<p name="object1" v="@F.Pass2"/>
+				<p name="object2" v="Yes"/>
+			</a>
+		</func>
+		<func name="DetailErrorMsg 0">
+			<a name="rrCompare" ns="rrunner">
+				<p name="object1" v="@F.Pass1"/>
+				<p name="object2" v="No"/>
+			</a>
+			<a name="rrCompare" ns="rrunner">
+				<p name="object1" v="@F.Pass2"/>
+				<p name="object2" v="No"/>
+			</a>
+			<a name="AddToDetailErrorMsg" ns="MC_Validation">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="Possible invalid days\units found.,True" name="StrParam"/>
+			</a>
+			<a name="AddToDetailErrorMsg" ns="MC_Validation">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="Missing data in Line Item." name="StrParam"/>
+			</a>
+		</func>
+		<func name="DetailErrorMsg 1">
+			<a name="rrCompare" ns="rrunner">
+				<p name="object1" v="@F.Pass1"/>
+				<p name="object2" v="No"/>
+			</a>
+			<a name="rrCompare" ns="rrunner">
+				<p name="object1" v="@F.Pass2"/>
+				<p name="object2" v="Yes"/>
+			</a>
+			<a name="PilotMessage_Set" ns="rrunner">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="Possible invalid days\units found." name="StrParam"/>
+			</a>
+			<a name="AddToDetailErrorMsg" ns="MC_Validation">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="Possible invalid days\units found." name="StrParam"/>
+			</a>
+		</func>
+		<func name="DetailErrorMsg 2">
+			<a name="rrCompare" ns="rrunner">
+				<p name="object1" v="@F.Pass1"/>
+				<p name="object2" v="Yes"/>
+			</a>
+			<a name="rrCompare" ns="rrunner">
+				<p name="object1" v="@F.Pass2"/>
+				<p name="object2" v="No"/>
+			</a>
+			<a name="PilotMessage_Set" ns="rrunner">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="Missing data in Line Item." name="StrParam"/>
+			</a>
+			<a name="AddToDetailErrorMsg" ns="MC_Validation">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="Missing data in Line Item." name="StrParam"/>
+			</a>
+		</func>
+	</rule>
+	<rule name="Rule Val Qualifier Codes  " id="38">
+		<func name="Function1">
+			<a name="IsThisFieldEmpty" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+		</func>
+		<func name="Function2">
+			<a name="PilotMessage_Clear" ns="rrunner">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="ConvertToUpperCase" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="IsPatternInField" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="1A|0B|1B|1C|1D|1G|1H|EI|G2|LU|N5|SY|X5|ZZ|XX" name="StrParam"/>
+			</a>
+			<a name="SetConf" ns="MC_Validation">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="9" name="StrParam"/>
+			</a>
+		</func>
+		<func name="DetailErrorMsg">
+			<a name="PilotMessage_Set" ns="rrunner">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="Invalid Qualifier code found." name="StrParam"/>
+			</a>
+			<a name="AddToDetailErrorMsg" ns="MC_Validation">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="Invalid Qualifier code found." name="StrParam"/>
+			</a>
+		</func>
+	</rule>
+	<rule name="Rule Check for valid Service Line NPI " id="30">
+		<func name="Function1">
+			<a name="IsThisFieldEmpty" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+		</func>
+		<func name="Function2">
+			<a name="PilotMessage_Clear" ns="rrunner">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="IsThisFieldFilled" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="ValidateNPI" ns="MC_Validation">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="SetConf" ns="MC_Validation">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="9" name="StrParam"/>
+			</a>
+		</func>
+		<func name="DetailErrorMsg">
+			<a name="PilotMessage_Set" ns="rrunner">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="Invalid NPI found." name="StrParam"/>
+			</a>
+			<a name="AddToDetailErrorMsg" ns="MC_Validation">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="Invalid NPI found." name="StrParam"/>
+			</a>
+			<a name="GoToNextFunction" ns="rrunner"/>
+		</func>
+	</rule>
+	<rule name="Rule FormType Update" id="22">
+		<func name="Function1">
+			<a name="IsFieldMatching" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="HCFA 1500" name="strParam"/>
+			</a>
+			<a name="rrSet" ns="rrunner">
+				<p name="varSource" v="HCFA 1500"/>
+				<p name="varTarget" v="@P.FormType"/>
+			</a>
+		</func>
+		<func name="Function2">
+			<a name="IsFieldMatching" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="CMS 1500" name="strParam"/>
+			</a>
+			<a name="rrSet" ns="rrunner">
+				<p name="varSource" v="CMS 1500"/>
+				<p name="varTarget" v="@P.FormType"/>
+			</a>
+		</func>
+	</rule>
+	<rule name="Rule 17a Val Qualifier  " id="4">
+		<func name="Function1">
+			<a name="IsThisFieldEmpty" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+		</func>
+		<func name="Function2">
+			<a name="PilotMessage_Clear" ns="rrunner">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="ConvertToUpperCase" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="IsPatternInField" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="1A|0B|1B|1C|1D|1G|1H|EI|G2|LU|N5|SY|X5|ZZ|XX" name="StrParam"/>
+			</a>
+			<a name="SetConf" ns="MC_Validation">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="9" name="StrParam"/>
+			</a>
+		</func>
+		<func name="DetailErrorMsg">
+			<a name="PilotMessage_Set" ns="rrunner">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="Invalid Qualifier code found." name="StrParam"/>
+			</a>
+			<a name="AddToErrorMsg" ns="MC_Validation">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="Invalid Qualifier code found." name="StrParam"/>
+			</a>
+			<a name="GoToNextFunction" ns="rrunner"/>
+		</func>
+	</rule>
+	<rule name="Rule Val Diag Numeric" id="10">
+		<func name="Function1" qi="">
+			<a name="IsThisFieldEmpty" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+		</func>
+		<func name="Function2">
+			<a name="rrCompare" ns="rrunner" qi="">
+				<p name="object1" v="08/05"/>
+				<p name="object2" v="@P.FormVersion"/>
+			</a>
+			<a name="IsFieldPercentNumeric" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="100" name="StrParam"/>
+			</a>
+			<a name="IsFieldLengthMin" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="1" name="StrParam"/>
+			</a>
+			<a name="IsFieldLengthMax" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="4" name="StrParam"/>
+			</a>
+		</func>
+		<func name="Function3">
+			<a name="rrCompare" ns="rrunner" qi="">
+				<p name="object1" v="02/12"/>
+				<p name="object2" v="@P.FormVersion"/>
+			</a>
+			<a name="IsFieldPercentAlpha" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="100" name="StrParam"/>
+			</a>
+			<a name="IsFieldLengthMin" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="1" name="StrParam"/>
+			</a>
+			<a name="IsFieldLengthMax" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="4" name="StrParam"/>
+			</a>
+		</func>
+		<func name="DetailErrorMsg">
+			<a name="PilotMessage_Set" ns="rrunner">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="Invalid Diagnosis Pointer found." name="StrParam"/>
+			</a>
+			<a name="AddToErrorMsg" ns="MC_Validation">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="Invalid Diagnosis Pointer found." name="StrParam"/>
+			</a>
+			<a name="GoToNextFunction" ns="rrunner"/>
+		</func>
+	</rule>
+	<rule name="Rule Val NDC and NDC Qty Fields" id="13" qi="">
+		<func name="Function0" qi="">
+			<a name="IsThisFieldEmpty" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+		</func>
+		<func name="Function1">
+			<a name="ReplaceChars" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="L,1" name="StrParam"/>
+			</a>
+			<a name="ReplaceChars" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="G,6" name="StrParam"/>
+			</a>
+			<a name="ReplaceChars" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="O,0" name="StrParam"/>
+			</a>
+			<a name="ReplaceChars" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="B,8" name="StrParam"/>
+			</a>
+			<a name="ReplaceChars" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="S,5" name="StrParam"/>
+			</a>
+			<a name="PIC_ValidateField" ns="Picture" qi="">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+		</func>
+	</rule>
+	<rule name="Rule ICD Indicator" id="20">
+		<func name="Function1" qi="">
+			<a name="PilotMessage_Clear" ns="rrunner" qi="">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="rrCompare" ns="rrunner">
+				<p name="object1" v="08/05"/>
+				<p name="object2" v="@P.FormVersion"/>
+			</a>
+			<a name="rrSet" ns="rrunner">
+				<p name="varSource" v="@EMPTY"/>
+				<p name="varTarget" v="@F"/>
+			</a>
+		</func>
+		<func name="Function2" qi="">
+			<a name="rrCompare" ns="rrunner">
+				<p name="object1" v="02/12"/>
+				<p name="object2" v="@P.FormVersion"/>
+			</a>
+			<a name="IsFieldLengthMax" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="1" name="StrParam"/>
+			</a>
+			<a name="IsPatternInField" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="[09]" name="StrParam"/>
+			</a>
+		</func>
+		<func name="Function3">
+			<a name="PilotMessage_Set" ns="rrunner">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="ICD Indicator must have a value of '9' or '0'." name="StrParam"/>
+			</a>
+			<a name="AddToErrorMsg" ns="MC_Validation" qi="">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="ICD Indicator must have a value of '9' or '0'." name="StrParam"/>
+			</a>
+			<a name="GoToNextFunction" ns="rrunner" qi=""/>
+		</func>
+	</rule>
+	<rule name="Rule EPSDT Indicator" id="34" qi="">
+		<func name="Function0" qi="">
+			<a name="PilotMessage_Clear" ns="rrunner" qi="">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="IsThisFieldEmpty" ns="Validations" qi="">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+		</func>
+		<func name="Function2" qi="">
+			<a name="IsFieldLengthMax" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="1" name="StrParam"/>
+			</a>
+			<a name="IsPatternInField" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="[YN]" name="StrParam"/>
+			</a>
+		</func>
+		<func name="Function3">
+			<a name="PilotMessage_Set" ns="rrunner">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="EPSDT Indicator must have a value of 'Y' or 'N'." name="StrParam"/>
+			</a>
+			<a name="AddToErrorMsg" ns="MC_Validation" qi="">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="EPSDT Indicator must have a value of 'Y' or 'N'." name="StrParam"/>
+			</a>
+			<a name="GoToNextFunction" ns="rrunner"/>
+		</func>
+	</rule>
+	<rule name="Rule EPSDT Reason Code" id="33">
+		<func name="Function0" qi="">
+			<a name="PilotMessage_Clear" ns="rrunner" qi="">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="IsThisFieldEmpty" ns="Validations" qi="">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+		</func>
+		<func name="Function2" qi="">
+			<a name="FilterFieldSelectedChars" ns="Validations" qi="">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v=" " name="StrParam"/>
+			</a>
+			<a name="ConvertToUpperCase" ns="Validations" qi="">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="IsFieldLengthMax" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="2" name="StrParam"/>
+			</a>
+			<a name="IsFieldLengthMin" ns="Validations" qi="">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="2" name="StrParam"/>
+			</a>
+			<a name="IsPatternInField" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="AV|S2|ST|NU" name="StrParam"/>
+			</a>
+		</func>
+		<func name="Function3" qi="">
+			<a name="PilotMessage_Set" ns="rrunner">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="Reason Code must have a value of 'AV', 'S2, 'ST' or 'NU'." name="StrParam"/>
+			</a>
+			<a name="AddToErrorMsg" ns="MC_Validation" qi="">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="Reason Code must have a value of 'AV', 'S2, 'ST' or 'NU'." name="StrParam"/>
+			</a>
+			<a name="GoToNextFunction" ns="rrunner" qi=""/>
+		</func>
+	</rule>
+	<rule name="Rule field 15 Qualifier check" id="21" qi="">
+		<func name="Function1">
+			<a name="PilotMessage_Clear" ns="rrunner" qi="">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="IsThisFieldEmpty" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+		</func>
+		<func name="Function3" qi="">
+			<a name="IsPatternInField" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="454|304|453|439|455|471|090|091|444" name="StrParam"/>
+			</a>
+		</func>
+		<func name="Function3">
+			<a name="PilotMessage_Set" ns="rrunner">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="Invalid Qualifier value." name="StrParam"/>
+			</a>
+			<a name="AddToErrorMsg" ns="MC_Validation">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="Invalid Qualifier value." name="StrParam"/>
+			</a>
+			<a name="GoToNextFunction" ns="rrunner" qi=""/>
+		</func>
+	</rule>
+	<rule name="Rule field 17 Qualifier check" id="31" qi="">
+		<func name="Function1">
+			<a name="PilotMessage_Clear" ns="rrunner" qi="">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+			<a name="IsThisFieldEmpty" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+		</func>
+		<func name="Function3" qi="">
+			<a name="IsPatternInField" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="DN|DK|DQ" name="StrParam"/>
+			</a>
+		</func>
+		<func name="Function3">
+			<a name="PilotMessage_Set" ns="rrunner">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="Invalid Qualifier value. Expecting DK, DN or DQ." name="StrParam"/>
+			</a>
+			<a name="AddToErrorMsg" ns="MC_Validation" qi="">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="Invalid Qualifier value. Expecting DK, DN or DQ." name="StrParam"/>
+			</a>
+			<a name="GoToNextFunction" ns="rrunner" qi=""/>
+		</func>
+	</rule>
+	<rule name="Rule10b Parse Condition Codes" id="32" qi="">
+		<func name="Function1">
+			<a name="ParseConditionCodes" ns="MC_Validation"/>
+		</func>
+	</rule>
+	<rule name="Rule Required Group Field 33" id="16">
+		<func name="Function1" qi="">
+			<a name="ValRequiredGroup" ns="MC_Validation">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="33PhBNam,33PhyNPI" name="StrParam"/>
+			</a>
+		</func>
+		<func name="DetailErrorMsg">
+			<a name="PilotMessage_Set" ns="rrunner">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="Missing NPI in field 33." name="StrParam"/>
+			</a>
+			<a name="AddToErrorMsg" ns="MC_Validation">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="Missing NPI in field 33." name="StrParam"/>
+			</a>
+		</func>
+	</rule>
+	<rule name="Rule Required Group Field 32" id="17" qi="">
+		<func name="Function1" qi="">
+			<a name="ValRequiredGroup" ns="MC_Validation">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="32FacNam,32FacNPI" name="StrParam"/>
+			</a>
+		</func>
+		<func name="DetailErrorMsg">
+			<a name="PilotMessage_Set" ns="rrunner">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="Missing NPI in field 32." name="StrParam"/>
+			</a>
+			<a name="AddToErrorMsg" ns="MC_Validation" qi="">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+				<p type="strParam" v="Missing NPI in field 32." name="StrParam"/>
+			</a>
+		</func>
+	</rule>
+	<rule name="Rule Check for PO Box Address" id="18" qi="">
+		<func name="Function1" qi="">
+			<a name="IsThisFieldEmpty" ns="Validations">
+				<p type="bInter" name="bInter"/>
+				<p type="bDebug" name="bDebug"/>
+			</a>
+		</func>
+		<func name="Function2 Check for PO Box text patterns">
+			<a name="rrSet" ns="rrunner">
+				<p name="varSource" v="NO"/>
+				<p name="varTarget" v="@F.POBoxDetect"/>
+			</a>
+			<a name="IsPatternInField" ns="Validations">
+				<p type="bInter"/>
+				<p type="bDebug"/>
+				<p type="strParam" v="[\s]?P[\.\s]?[0o][\.\s]?[B8][Oo]X\s?|\s?P[\.\s]?[0o][\.\s]?[B8][I1]N\s?|\s?L[0o]ck\s?[B8][Oo]X\s?|\s?L[0o]ck\s?[B8][i1]N\s?|\s?P[o0]st\s?[0o]ffice[\.\s]?[B8][Oo]X\s?"/>
+			</a>
+			<a name="rrSet" ns="rrunner">
+				<p name="varSource" v="YES"/>
+				<p name="varTarget" v="@F.POBoxDetect"/>
+			</a>
+			<a name="GoToNextFunction" ns="rrunner.dll" qi=""/>			
+		</func>
+		<func name="Function3">
+			<a name="rrCompare" ns="rrunner">
+				<p name="object1" v="@F.POBoxDetect"/>
+				<p name="object2" v="NO"/>
+			</a>
+		</func>
+		<func name="DetailErrorMsg">
+			<a name="PilotMessage_Set" ns="rrunner">
+				<p type="bInter"/>
+				<p type="bDebug"/>
+				<p type="strParam" v="PO Box detected in Address"/>
+			</a>
+			<a name="AddToErrorMsg" ns="MC_Validation">
+				<p type="bInter"/>
+				<p type="bDebug"/>
+				<p type="strParam" v="PO Box detected in Address"/>
+			</a>
+		</func>
+	</rule>
+</ruleset>

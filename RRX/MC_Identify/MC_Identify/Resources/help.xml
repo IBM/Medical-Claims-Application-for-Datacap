@@ -1,0 +1,137 @@
+<help>
+  <![CDATA[
+'************************************************************************
+' MC_Identify help.xml
+'-----------------------------------------------------------------------
+
+'------------------------------------------------------------------------
+]]>
+  
+<ref id="AutoField">
+  <ap>None.</ap>
+  <h>
+    This important action identifies red HCFA-1500 or red UB04 forms.<br/><br/>
+    The action must be placed after a rule's <scr>SetMaxTolerantDistance, SetFormType, ReadDCOSetup,</scr> and <scr>SetWritePosFile</scr> actions (see the example below).
+    <e>
+      <scr>SetMaxTolerantDistance(60)</scr><br/>
+      <scr>SetFormType(0)</scr><br/>
+      <scr>ReadDCOSetup(HCFA.xml,POS 1052)</scr><br/>
+      <b>AutoField()</b>      
+    </e>
+  </h>
+  <lvl>Page level.</lvl>
+  <ret>
+    <b>False</b> if the action is not applied at the Page level; otherwise, <b>True.</b>
+  </ret>
+</ref>
+
+<ref id="FindFields">
+    <ap>None.</ap>
+    <h>
+      This action sets up a Data file (.xml) for the current page,
+      and supplies the Data file with field position information.<br/><br/>
+
+      Typically, this action is part of a Medical Claims <scr>ID_PageFix</scr> rule.
+      <e>
+        <scr>SetMaxTolerantDistance(60)</scr>
+        <br/>
+        <scr>SetFormType(0)</scr>
+        <br/>
+        <scr>ReadDCOSetup(HCFA.xml, POS1052)</scr>
+        <br/>
+        <b>FindFields()</b>
+      </e>
+    </h>
+    <lvl>Page level only.</lvl>
+    <ret>
+      <b>False</b> if rule with this action is not bound to a Page object of the Document Hierarchy,
+      or if a source page represented by the Page object is unavailable. Otherwise, returns <b>True.</b>
+    </ret>
+  </ref>
+
+<ref id="SetMaxTolerantDistance">
+    <ap>
+      The Maximum Tolerant Distance - an <i>Integer</i>from 1 (Lowest Tolerance) to 100 (Highest Tolerance).
+    </ap>
+    <h>
+      This action sets the tolerance level that <b>AutoField</b> will use to match HCFA-1500 or red UB04 forms
+      (depending on the form specified using the <b>SetFormType</b>action).
+      <e>
+        <b>SetMaxTolerantDistance(60)</b>
+        <br/>
+        <scr>SetFormType(0)</scr>
+        <br/>
+        <scr>ReadDCOSetup(HCFA.xml, POS1052)</scr>
+        <br/>
+        <scr>AutoField()</scr>
+      </e>
+    </h>
+    <lvl>All.</lvl>
+    <ret>
+      <b>False</b> if the parameter is not an <i>Integer</i>between 1 and 100. Otherwise, <b>True.</b>
+    </ret>
+  </ref>
+
+<ref id="SetFormType">
+  <ap>
+    <i>String</i>value indicating the Form Type:<br/>
+    For HCFA-1500 or CMS-1500 use: "0" or "hcfa" <br/>
+    For UB-04 use: "2" or "ub04".
+  </ap>  
+  <h>
+    This action sets the Form Type value that will be used by <b>Autofield.</b>
+    <e>
+      <scr>SetMaxTolerantDistance(60)</scr><br/>
+      <b>SetFormType(0)</b><br/>
+      <scr>ReadDCOSetup(HCFA.xml, POS1052)</scr><br/>
+      <scr>SetWritePosFile(True)</scr><br/>
+      <scr>AutoField()</scr>
+    </e>
+  </h>
+  <lvl>All.</lvl>
+  <ret>
+    <b>False</b> if the parameter is invalid. Otherwise, <b>True.</b>
+  </ret>
+</ref>
+
+<ref id="ReadDCOSetup">
+    <ap>
+      A comma-separated <i>String</i> value made up a smart parameter that designates the Document Hierarchy's file
+      name, followed by a Variable Name that indicates the position of the fingerprint. Typically, the file's name
+      is the Application ID with an .xml extension; "HCFA.xml", for example, is the name of
+      the <i>HCFA</i> application's Document Hierarchy file. "Pos1052" specifies a previously assembled
+      HCFA-1500 fingerprint (in this case) with details of the form's Field IDs, locations and data types.
+      For use with the Application Service the syntax of the first parameter changes to include the
+      SmartParameter that will point to the setup dco, i.e. '@APPPATH(setupdco)' instead of 'HCFA.xml'.
+    </ap>
+    <h>
+      <e>
+        <b>ReadDCOSetup(HCFA.xml,Pos1052)</b><br/><br/>
+        or for use with the Application Manager with the @APPPATH SmartParameter to locate the setup dco:<br/><br/>
+        <b>ReadDCOSetup(@APPPATH(setupdco),Pos1052)</b><br/><br/>
+        Note that this action is used with almost every other <b>MC_Identify</b> action.
+      </e>
+    </h>
+    <lvl>All, but usually the Batch level.</lvl>
+    <ret>
+      <b>False</b> if the Document Hierarchy file is not found. Otherwise, <b>True.</b>
+    </ret>
+  </ref>
+  <ref id="ReadPageSetup">
+    <ap>
+      1) A smart parameter enabled argument that designates the Document Hierarchy's file name and path.
+      2) The fingerprint position variable name, usually "Pos" followed by the id of the fingerprint desired. 
+      3) The Page type of the page to ID. Typically "PClaim" or "IClaim".
+    </ap>
+    <h>
+      <e>
+        <b>ReadPageSetup(@APPPATH(setupdco),Pos1059,PClaim)</b><br/><br/>
+        Note that this action is used with almost every other <b>MC_Identify</b> action.
+      </e>
+    </h>
+    <lvl>All.</lvl>
+    <ret>
+      <b>False</b> if the Document Hierarchy file is not found. Otherwise, <b>True.</b>
+    </ret>
+  </ref>
+</help>

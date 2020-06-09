@@ -1,0 +1,73 @@
+<?xml-stylesheet type="text/xsl" href="..\..\ProgramSet\set.xsl"?>
+<S>
+  <P tip="General Batch Processing Settings" title="Batch Processing" n="BatchProcessing">
+    <V n="TaskDCOFile" label="Output DCO File" tip="Specifies name for the output dco file for the task" type="text">taskname.xml</V>
+    <V n="CreateDir" label="Create Batch Directory" tip="Specifies to assume batch creation mode and create batch directory" type="checkbox">0</V>
+    <V n="CreateDoc" label="Create Document" tip="Create pages within a document" type="checkbox">0</V>
+    <P tip="Settings that determine batch navigation" title="Navigation" n="Navigation">
+      <V n="DPS" label="Done Page Status(es)" tip="Cooma-separated list of Done statuses, used to determine next problem page, and when to release a batch" type="text">79,70,0,2</V>
+      <V n="IPS" label="Ignored Page Status(es)" tip="Comma-separated list of Ignored statuses, used to skip Attachment pages from processing" type="text">128,75</V>
+      <V n="DOF" label="Validation Statuses" tip="Comma-separated list of Done,Override,Fail statuses assigned after validation, according to results" type="text">0,2,1</V>
+    </P>
+  </P>
+  <P tip="Settings that enable RRS rules execution" title="Rulerunner Service" n="Rulerunner">
+    <V n="TProfile" label="Main Task Profile" tip="Main task profile to run on Submit" type="text">IdentifyFixUp         </V>
+    <V n="AltTProfile" label="Alternative Task Profile(s)" tip="Alternative task profile setting creates extra buttons for special data handling cases" type="text"></V>
+    <P tip="RRS log settings for the task" title="RRS Log Settings" n="RRSLog">
+      <V n="ServiceLog" label="Service Log" tip="Enable RRS service logging" type="text">3</V>
+      <V n="BatchLog" label="Batch Log" tip="Produce RRS log in batch folder" type="text"></V>
+      <V n="ActionLogLevel" label="Action Log Level" tip="Severity level for RRS logging from action execution" type="text"></V>
+      <V n="LogReflush" label="Flush Buffer" tip="Flushes file buffer after each write operation - degrades performance" type="checkbox">0</V>
+    </P>
+    <V n="RRSType" label="RRS Type" tip="Switch between LocalRRS and HttpWRRS execution" type="text">LocalRRS</V>
+    <V n="HttpWRRS" label="WRRS URL" tip="Specify HTTP URL path for WRRS execution" type="text">http://127.0.0.1/RRS/</V>
+  </P>
+  <P tip="Datacap Desktop-specific settings" title="Datacap Desktop" n="DcDesktop">
+    <G n="Desktop-Panels" title="Bind DCO Type to Panel" tip="Key-Value pairs to associate DCO Type to Panel class">
+      <V n="Default" label="" tip="Assocciation of DCO Type to Dll.Panel (.cs) class name" type="text">dcDTlib.rulerunner:B</V>
+    </G>
+    <P tip="Setting for Batch-level process" title="Scan/VScan/Fixup" n="ScanVScan">
+      <V n="StartPanel" label="Show Start Batch Panel" tip="Enables start batch panel with data validations" type="checkbox">0</V>
+      <V n="HoldEnabled" label="Enable Hold status" tip="When checked allow batch to be put on Hold" type="checkbox">1</V>
+      <G n="Fixup-Document-Statuses" title="Document Statuses for Fixup" tip="Key-Value pairs to associate numeric document statuses to meaningful status name">
+        <V n="OK" label="Doc Status" tip="" hotkey="D" type="text">0</V>
+        <V n="Problem" label="Doc Status" tip="" hotkey="E" type="text">1</V>
+      </G>
+      <G n="Fixup-Page-Statuses" title="Page Statuses for Fixup" tip="Key-Value pairs to associate numeric document statuses to meaningful status name">
+        <V n="OK" label="Page Status" tip="" hotkey="" type="text">0</V>
+        <V n="Problem" label="Page Status" tip="" hotkey="" type="text">1</V>
+      </G>
+      <G n="Fixup-Page-FileSuffixes" title="Suffixes of filetypes to manage" tip="Filetypes to be deleted or moved together with image file">
+        <V n="XML" label="Suffix" tip="" type="text">XML</V>
+        <V n="TIO" label="Suffix" tip="" type="text">TIO</V>
+      </G>
+      <V n="TreePageLabel" label="What to display in the tree node labels for pages" tip="PageType or Sequence" type="text">PageType</V>
+      <V n="CheckStructure" label="Enforce Batch Structure" tip="Force batch to have correct structure before advancing" type="checkbox">0</V>
+      <V n="CanDelete" label="Delete image files" tip="Delete button removes image files completely(mark deleted if unchecked)" type="checkbox">1</V>
+      <V n="ExpandAllDocs" label="Expand all documents in tree" tip="Always expand the full batch tree" type="checkbox">1</V>
+      <V n="MoveAcrossDocs" label="Allow pages to move between documents" tip="Allow moving a page across documents" type="checkbox">1</V>
+      <V n="ShowFingerprintClass" label="Display Fingerprint Class" tip="Display the Fingerprint Class dropdown control" type="checkbox">0</V>
+      <V n="BCSepValue" label="Barcode value for document separation" tip="&gt;Barcode value that marks a new document" type="text"></V>
+      <V n="ScannerSettingsFile" label="Scanner settings file for this task" tip="&gt;File path containing scanner settings to load when task starts, if any" type="text"></V>
+    </P>
+    <P tip="Page Processing Settings" title="Page Processing" n="PageProcessing">
+      <P tip="Settings that determine page navigation, field display" title="Navigation/Display" n="PageNavDisplay">
+        <V n="DFS" label="Done Field Status(es)" tip="Cooma-separated list of Done field statuses, used to determine next field in Alt+L (next problem) order, or when Problems Only checkbox is ON - to hide such fields" type="text">0</V>
+        <V n="IFS" label="Ignored Field Status(es)" tip="Comma-separated list of statuses of fields such as anchors or other fields that should never show up for indexing/verify" type="text">-1</V>
+      </P>
+      <P tip="Background field colors, as web literal colors (blue, magenta, etc.)" title="Background Field Colors" n="BackColors">
+        <V n="LC" label="Low Conf Fields" tip="Background to distinguish fields recognized with low confidence" type="text">yellow</V>
+        <V n="PC" label="Invalid Fields" tip="Background to distinguish fields that failed validation" type="text">lightpink</V>
+        <V n="DC" label="Normal Fields" tip="Background for norml fields" type="text">white</V>
+      </P>
+      <P tip="Data log properties" title="Data Log" n="DataLog">
+        <V n="Header" label="Header Format" tip="Define log header format" type="text"></V>
+        <V n="Line" label="Line Format" tip="Define line format for logging data changes made by operator" type="text"></V>
+      </P>
+      <P tip="Image overlay properties" title="Image Overlay" n="Overlay">
+        <V n="Types" label="Overlay Types" tip="Comma-separated list of page types for which to apply overlay on full image view" type="text"></V>
+        <V n="Names" label="Background Images" tip="Comma-separated list of filenames that represents drop-out background to overlay with" type="text"></V>
+      </P>
+    </P>
+  </P>
+</S>
