@@ -26,3 +26,11 @@ After you have successfully executed the build, complete the following steps:
 6. Copy "Medical Claims\RRX\5010Professional.rrx"  to "Medical Claims\dco_Professional\rules\" 
 
 dco_Institutional and dco_Professional are now ready to use.
+
+Below steps need to be followed if you are using Datacap version 9.1.8 or later:
+ 
+1. Copy 5 DLL files (DCAutoFld.dll, Dcccp.dll, Hcfa.dll, Ub04.dll, Prof0212.dll) from the 'Dependencies' folder on Github to 'dcshared' folder of your Datacap installation directory. Example: If the installation directory is C:\Datacap, then copy above 5 DLLs to 'C:\Datacap\dcshared' directory.
+ 
+2. Ensure to register the copied DCAutoFld.dll using regsvr32.
+Example: If the installation directory is C:\Datacap, then run the following command in Administrator's Command Prompt to register the DCAutoFld.dll.
+    regsvr32 C:\Datacap\dcshared\DCAutoFld.dll
