@@ -33,4 +33,5 @@ Below steps need to be followed if you are using Datacap version 9.1.8 or later:
  
 2. Ensure to register the copied DCAutoFld.dll using regsvr32.
 Example: If the installation directory is C:\Datacap, then run the following command in Administrator's Command Prompt to register the DCAutoFld.dll.
-    regsvr32 C:\Datacap\dcshared\DCAutoFld.dll
+
+      regsvr32 C:\Datacap\dcshared\DCAutoFld.dll
